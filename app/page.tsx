@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import { useState } from "react";
 import {
@@ -15,395 +14,304 @@ import {
   MonitorPlay,
   PenLine,
   PlayCircle,
+  Sparkles,
   X,
 } from "lucide-react";
-
 const subjects = {
-  Universe: {
-    title: "The Solar System",
-    text: "Watch the planets orbit the Sun and explore how our solar system works.",
-    icon: "☀",
+  Bangla: {
+    icon: "ক",
+    title: "Stories become worlds",
+    copy: "Read literature closely, hear expression, explore context, then practise in your own words.",
   },
-  Energy: {
-    title: "Energy Around Us",
-    text: "Explore how energy changes into light, heat, sound and motion.",
-    icon: "⚡",
+  English: {
+    icon: "A",
+    title: "Language you can use",
+    copy: "Build reading, writing and grammar through examples, audio and purposeful practice.",
   },
-  Motion: {
-    title: "Forces and Motion",
-    text: "See how force affects the movement of everyday objects.",
-    icon: "→",
+  Mathematics: {
+    icon: "π",
+    title: "See how the answer works",
+    copy: "Move from a visual idea to a worked example, then solve it yourself with helpful feedback.",
   },
-  Life: {
-    title: "Living Systems",
-    text: "Explore how cells and organs work together inside living things.",
-    icon: "✤",
+  Science: {
+    icon: "⚗",
+    title: "Investigate the everyday",
+    copy: "Connect textbook concepts with experiments, simulations and the world around you.",
   },
-} as const;
-
+  "Social Studies": {
+    icon: "◎",
+    title: "Connect people and places",
+    copy: "Explore history, geography and civics through stories, maps and real-life questions.",
+  },
+};
 const modes = [
   { name: "Read", icon: BookOpen },
   { name: "Watch", icon: PlayCircle },
   { name: "Explore", icon: Compass },
   { name: "Practice", icon: PenLine },
-] as const;
-
-type Subject = keyof typeof subjects;
-type Mode = (typeof modes)[number]["name"];
-
+];
 export default function Home() {
-  const [subject, setSubject] = useState<Subject>("Universe");
-  const [mode, setMode] = useState<Mode>("Explore");
+  const [subject, setSubject] = useState<keyof typeof subjects>("Science");
+  const [mode, setMode] = useState("Read");
   const [page, setPage] = useState(1);
   const [lampOn, setLampOn] = useState(true);
-  const [solarRunning, setSolarRunning] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
-
   const current = subjects[subject];
-
   return (
     <main>
       <header className="nav-wrap">
         <nav className="nav">
           <Link href="/" className="brand">
-            <img src="/bujhi-icon.png" alt="Bujhi logo" />
+            <img src="/bujhi-icon.png" alt="" />
             <span>Bujhi</span>
           </Link>
-
           <button
-            type="button"
             className="menu-button"
             aria-label="Toggle navigation"
-            onClick={() => setMenuOpen((open) => !open)}
+            onClick={() => setMenuOpen(!menuOpen)}
           >
             {menuOpen ? <X /> : <Menu />}
           </button>
-
           <div className={`nav-links ${menuOpen ? "open" : ""}`}>
             <Link className="active" href="/">
               Home
             </Link>
-
             <Link href="/about">About Us</Link>
-
-            <a href="#login">Login</a>
-
-            <a className="nav-signup" href="#join">
+            <Link href="/login">Login</Link>
+            <Link className="nav-signup" href="/register">
               Sign Up
-            </a>
+            </Link>
           </div>
         </nav>
       </header>
-
       <section className="hero">
         <div className="hero-grid">
           <div className="hero-copy">
-            <p className="eyebrow">
-              Built for the Bangladeshi curriculum
-            </p>
-
+            <p className="eyebrow">Built for the Bangladeshi curriculum</p>
             <h1>
               Less memorizing.
               <br />
               More understanding.
             </h1>
-
             <p className="lead">
               One curriculum. Multiple ways to understand it.
             </p>
-
+            <p className="intro">
+              Bujhi helps students approach every subject in the way that makes
+              sense to them—and gives teachers more ways to make each idea
+              click.
+            </p>
             <div className="hero-actions" id="join">
-              <a className="button button-light" href="#login">
-                Join as a Student
-                <ArrowRight />
-              </a>
-
-              <a className="button button-outline" href="#login">
-                Join as a Teacher
-                <ArrowRight />
-              </a>
+              <Link
+                className="button button-light"
+                href="/register?role=student"
+              >
+                Join as a Student <ArrowRight />
+              </Link>
+              <Link
+                className="button button-outline"
+                href="/register?role=teacher"
+              >
+                Join as a Teacher <ArrowRight />
+              </Link>
             </div>
           </div>
-
           <div className={`desk ${lampOn ? "lit" : ""}`}>
             <button
-              type="button"
               className="lamp"
-              aria-label={lampOn ? "Turn lamp off" : "Turn lamp on"}
-              onClick={() => setLampOn((on) => !on)}
+              onClick={() => setLampOn(!lampOn)}
+              aria-pressed={lampOn}
             >
               <LampDesk />
               <span>{lampOn ? "Lamp on" : "Lamp off"}</span>
             </button>
-
             <div className="paper paper-one" />
             <div className="paper paper-two" />
-
             <article className="notebook">
               <div className="spiral">
-                {Array.from({ length: 9 }).map((_, index) => (
-                  <i key={index} />
+                {Array.from({ length: 9 }).map((_, i) => (
+                  <i key={i} />
                 ))}
               </div>
-
               <div className="notebook-topline">
-                <span>Interactive preview</span>
-                <span className="preview-lock">
-                  Login to explore
-                </span>
+                <span>Preview · Page {page} of 2</span>
+                <span className="preview-lock">Login to explore</span>
               </div>
-
-              <h2>A peek inside Bujhi</h2>
-
+              <h2>
+                Every subject.
+                <br />
+                Multiple ways to learn.
+              </h2>
               <div className="mode-tabs">
                 {modes.map(({ name, icon: Icon }) => (
                   <button
-                    type="button"
                     key={name}
-                    className={mode === name ? "selected" : ""}
                     onClick={() => setMode(name)}
+                    className={mode === name ? "selected" : ""}
                   >
                     <Icon />
-                    <span>{name}</span>
+                    {name}
                   </button>
                 ))}
               </div>
-
               {page === 1 ? (
                 <div className="lesson-preview">
-                  <div className="lesson-copy">
+                  <div className="subject-mark">{current.icon}</div>
+                  <div>
                     <p className="subject-name">
                       {subject} · {mode}
                     </p>
-
                     <h3>{current.title}</h3>
-                    <p>{current.text}</p>
+                    <p>{current.copy}</p>
                   </div>
-
-                  {subject === "Universe" ? (
-                    <button
-                      type="button"
-                      className={`solar-system ${
-                        solarRunning ? "" : "paused"
-                      }`}
-                      aria-label={
-                        solarRunning
-                          ? "Pause solar-system rotation"
-                          : "Start solar-system rotation"
-                      }
-                      onClick={() =>
-                        setSolarRunning((running) => !running)
-                      }
-                    >
-                      <span className="fixed-sun">☀</span>
-
-                      <span className="orbit orbit-one">
-                        <span className="planet mercury" />
-                      </span>
-
-                      <span className="orbit orbit-two">
-                        <span className="planet earth" />
-                      </span>
-
-                      <span className="orbit orbit-three">
-                        <span className="planet mars" />
-                      </span>
-
-                      <span className="orbit orbit-four">
-                        <span className="planet saturn" />
-                      </span>
-
-                      <span className="rotation-label">
-                        {solarRunning
-                          ? "Tap to pause"
-                          : "Tap to rotate"}
-                      </span>
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      className="subject-visual"
-                      onClick={() => setPage(2)}
-                    >
-                      <span>{current.icon}</span>
-                      <small>Tap to explore</small>
-                    </button>
-                  )}
                 </div>
               ) : (
                 <div className="approach-preview">
-                  <p className="subject-name">
-                    One topic, four approaches
-                  </p>
-
-                  <h3>Choose what helps it click.</h3>
-
+                  <p className="subject-name">Four ways into one idea</p>
                   <div className="approach-grid">
                     {modes.map(({ name, icon: Icon }) => (
-                      <button
-                        type="button"
-                        key={name}
-                        className={mode === name ? "focus" : ""}
-                        onClick={() => setMode(name)}
-                      >
+                      <div key={name} className={mode === name ? "focus" : ""}>
                         <Icon />
                         <span>{name}</span>
-                      </button>
+                      </div>
                     ))}
                   </div>
+                  <p>
+                    Switch approaches whenever you need. Your progress stays
+                    connected to the same topic.
+                  </p>
                 </div>
               )}
-
               <div className="page-controls">
-                <button
-                  type="button"
-                  aria-label="Previous notebook page"
-                  disabled={page === 1}
-                  onClick={() => setPage(1)}
-                >
+                <button onClick={() => setPage(1)} disabled={page === 1}>
                   <ChevronLeft />
                 </button>
-
                 <span>{page} / 2</span>
-
-                <button
-                  type="button"
-                  aria-label="Next notebook page"
-                  disabled={page === 2}
-                  onClick={() => setPage(2)}
-                >
+                <button onClick={() => setPage(2)} disabled={page === 2}>
                   <ChevronRight />
                 </button>
               </div>
-
-              <p className="locked-message">
-                Preview only. Log in for the complete lesson.
-              </p>
+              <div className="subject-tabs">
+                {(Object.keys(subjects) as (keyof typeof subjects)[]).map(
+                  (name) => (
+                    <button
+                      key={name}
+                      className={subject === name ? "active" : ""}
+                      onClick={() => {
+                        setSubject(name);
+                        setPage(1);
+                      }}
+                    >
+                      {name}
+                    </button>
+                  ),
+                )}
+              </div>
             </article>
-
-            <div className="subject-tabs">
-              {(Object.keys(subjects) as Subject[]).map((name) => (
-                <button
-                  type="button"
-                  key={name}
-                  className={subject === name ? "active" : ""}
-                  onClick={() => {
-                    setSubject(name);
-                    setPage(1);
-                  }}
-                >
-                  {name}
-                </button>
-              ))}
-            </div>
           </div>
         </div>
       </section>
-
-      <section className="manifesto">
+      <div className="manifesto">
         <span>See it.</span>
         <span>Question it.</span>
         <span>Try it.</span>
         <span>Understand it.</span>
-      </section>
-
+      </div>
       <section className="offerings">
         <Offer
           type="student"
           number="01"
-          title="For curious students"
+          kicker="For curious students"
+          title="Find the explanation that finally clicks."
+          text="Move beyond one-size-fits-all lessons with clear visuals, practical examples and activities that invite you to test ideas."
           items={[
-            "Clear visual explanations",
-            "Interactive examples",
-            "Quizzes with feedback",
+            "Visual explanations",
+            "Interactive exploration",
+            "Quizzes with useful feedback",
           ]}
         />
-
         <Offer
           type="teacher"
           number="02"
-          title="For inspiring teachers"
+          kicker="For inspiring teachers"
+          title="Explain the same idea in more than one way."
+          text="Plan engaging lessons with alternate explanations, classroom activities and ready-to-use curriculum resources."
           items={[
-            "Flexible lesson plans",
-            "Classroom activities",
-            "Curriculum resources",
+            "Flexible teaching approaches",
+            "Classroom-ready activities",
+            "Curriculum-aligned resources",
           ]}
         />
       </section>
-
       <section className="story-strip">
         <div>
-          <p>Why Bujhi began</p>
-          <h2>Learning should feel like understanding.</h2>
+          <Sparkles />
+          <span>Why Bujhi began</span>
+          <h2>
+            Learning should feel like understanding—not surviving the next exam.
+          </h2>
         </div>
-
         <Link href="/about">
-          Read our story
-          <ArrowRight />
+          Read our story <ArrowRight />
         </Link>
       </section>
-
       <section className="login-note" id="login">
-        <p>Full lessons and teaching resources require login.</p>
-        <button type="button">Login coming next</button>
+        <p>
+          Lessons, quizzes and teaching resources are available after you sign
+          in.
+        </p>
+        <Link className="button button-light" href="/login">
+          Sign in to Bujhi
+        </Link>
       </section>
-
       <footer>
         <Link href="/" className="brand">
-          <img src="/bujhi-icon.png" alt="Bujhi logo" />
+          <img src="/bujhi-icon.png" alt="" />
           <span>Bujhi</span>
         </Link>
-
         <p>শুধু মুখস্থ নয়, বুঝে শিখি।</p>
         <p>© 2026 Bujhi</p>
       </footer>
     </main>
   );
 }
-
 function Offer({
   type,
   number,
+  kicker,
   title,
+  text,
   items,
 }: {
-  type: "student" | "teacher";
+  type: string;
   number: string;
+  kicker: string;
   title: string;
+  text: string;
   items: string[];
 }) {
-  const Icon =
-    type === "student" ? GraduationCap : MonitorPlay;
-
+  const Icon = type === "student" ? GraduationCap : MonitorPlay;
   return (
-    <article className="offering">
+    <article className={`offering ${type}`}>
       <div className="offering-art">
         <span>{number}</span>
         <Icon />
       </div>
-
       <div>
-        <p className="kicker">
-          {type === "student"
-            ? "Learn your way"
-            : "Teach your way"}
-        </p>
-
+        <p className="kicker">{kicker}</p>
         <h2>{title}</h2>
-
+        <p>{text}</p>
         <ul>
-          {items.map((item) => (
-            <li key={item}>
+          {items.map((x) => (
+            <li key={x}>
               <Check />
-              <span>{item}</span>
+              {x}
             </li>
           ))}
         </ul>
-
-        <a href="#login">
-          Explore as a {type}
-          <ArrowRight />
-        </a>
+        <Link href={`/register?role=${type}`}>
+          Explore as a {type} <ArrowRight />
+        </Link>
       </div>
     </article>
   );

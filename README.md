@@ -1,6 +1,16 @@
 # Bujhi
 
-Responsive Next.js website for Bujhi, designed for deployment on Vercel.
+Responsive, interactive Next.js frontend for Bujhi, designed for deployment on Vercel.
+
+## Included pages
+
+- `/` — interactive homepage
+- `/about` — Our Story
+- `/login` — study-desk sign-in experience
+- `/register` — rotatable classroom registration experience
+- `/student/dashboard` — interactive student study desk
+
+On the login demo, choose **Student**, enter any valid-looking email and a password of at least four characters, then select **Enter my study space**. The demo profile is kept only in that browser's local storage.
 
 ## Run locally
 
@@ -30,4 +40,4 @@ No environment variables are required for this front-end version.
 
 ## Important
 
-Login, account registration, lessons, quizzes, database storage, and secure owner editing are not implemented yet. The current buttons intentionally show that those features belong to the next development phase.
+This is the frontend phase. Forms and controls demonstrate the complete interface, but there is no secure authentication or database yet. Teacher dashboard, real lessons, quizzes, user management, and owner editing belong to the backend/admin phases.
