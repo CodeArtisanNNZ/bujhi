@@ -19,191 +19,294 @@ html,body{max-width:100%;overflow-x:hidden}.hero>*{min-width:0}.hero-actions a{b
    ========================================= */
 
 
-/* ---------- REAL CHANGING DRINK CUP ---------- */
+/* =========================================
+   AUTH DESK: CUP AND BOOK-SPINE FIX
+   ========================================= */
+
+
+/* ---------- CHANGEABLE CUP ---------- */
 
 .mug-spot {
-  width: 76px;
-  height: 70px;
+  position: absolute;
+  z-index: 7;
+  left: 48.5%;
+  top: 65%;
+  width: 90px;
+  height: 110px;
   padding: 0;
   border: 0;
-  border-radius: 8px 8px 18px 18px;
-  display: block;
-  left: 49%;
-  top: 66%;
-  color: #3f281f;
-  background: #efe6d8;
-  box-shadow:
-    inset 0 -8px 0 rgba(0, 0, 0, 0.08),
-    0 8px 15px rgba(50, 25, 15, 0.25);
-  transition:
-    background 0.3s ease,
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-/* Hide the old small cup icon */
-.mug-spot svg {
-  display: none;
-}
-
-/* Cup handle */
-.mug-spot::before {
-  content: "";
-  position: absolute;
-  width: 25px;
-  height: 32px;
-  right: -19px;
-  top: 15px;
-  border: 8px solid currentColor;
-  border-left: 0;
-  border-radius: 0 18px 18px 0;
-}
-
-/* Visible drink inside the cup */
-.mug-spot::after {
-  content: "";
-  position: absolute;
-  left: 8px;
-  right: 8px;
-  top: 7px;
-  height: 13px;
-  border-radius: 50%;
-  background: #8b5a36;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.25);
-}
-
-/* Drink name below the cup */
-.mug-spot span {
-  position: absolute;
-  left: 50%;
-  bottom: -28px;
-  transform: translateX(-50%);
-  padding: 4px 9px;
-  background: #fffdf5;
-  border-radius: 20px;
-  color: #660000;
-  font-size: 0.7rem;
-  white-space: nowrap;
-  box-shadow: 0 4px 12px rgba(40, 20, 10, 0.18);
-}
-
-
-/* Water cup */
-.mug-spot.drink-water {
-  background: #d8f1f7;
-  color: #39778a;
-}
-
-.mug-spot.drink-water::after {
-  background: #71c7df;
-}
-
-
-/* Coffee cup */
-.mug-spot.drink-coffee {
-  background: #6f3828;
-  color: #3d1b13;
-}
-
-.mug-spot.drink-coffee::after {
-  background: #2d130d;
-}
-
-
-/* Tea cup */
-.mug-spot.drink-tea {
-  background: #efe0bc;
-  color: #78533b;
-}
-
-.mug-spot.drink-tea::after {
-  background: #a86532;
-}
-
-
-/* Lemonade cup */
-.mug-spot.drink-lemonade {
-  background: #fff08a;
-  color: #b89300;
-}
-
-.mug-spot.drink-lemonade::after {
-  background:
-    radial-gradient(circle at 65% 40%, #fff8b8 0 3px, transparent 4px),
-    #f2cc28;
+  background: transparent;
+  color: #5c3528;
+  cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
 .mug-spot:hover {
-  transform: translateY(-5px) rotate(-2deg);
+  transform: translateY(-4px);
+}
+
+.cup {
+  position: absolute;
+  left: 4px;
+  top: 8px;
+  width: 68px;
+  height: 68px;
+  border: 3px solid currentColor;
+  border-radius: 7px 7px 20px 20px;
+  background: #f5eadb;
+  box-shadow:
+    inset 0 -8px 12px rgba(50, 25, 15, 0.12),
+    0 10px 15px rgba(50, 25, 15, 0.2);
+}
+
+/* Cup handle */
+.cup::after {
+  content: "";
+  position: absolute;
+  right: -25px;
+  top: 15px;
+  width: 25px;
+  height: 30px;
+  border: 7px solid currentColor;
+  border-left: 0;
+  border-radius: 0 17px 17px 0;
+}
+
+/* Liquid surface */
+.cup-liquid {
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  top: 5px;
+  height: 13px;
+  border-radius: 50%;
+  background: #a66a3f;
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.25);
+}
+
+.cup-name {
+  position: absolute;
+  left: 50%;
+  bottom: 5px;
+  transform: translateX(-50%);
+  padding: 4px 9px;
+  border-radius: 20px;
+  background: rgba(255, 253, 248, 0.94);
+  color: #700000;
+  font-size: 0.67rem;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 4px 10px rgba(40, 20, 10, 0.15);
 }
 
 
-/* ---------- BOOK TITLES ON BOOK SPINES ---------- */
+/* Water appearance */
+
+.drink-water {
+  color: #43869b;
+}
+
+.drink-water .cup {
+  background: #e8f7fa;
+}
+
+.drink-water .cup-liquid {
+  background: #78d0e5;
+}
+
+
+/* Coffee appearance */
+
+.drink-coffee {
+  color: #4f291d;
+}
+
+.drink-coffee .cup {
+  background: #754431;
+}
+
+.drink-coffee .cup-liquid {
+  background: #29120d;
+}
+
+
+/* Tea appearance */
+
+.drink-tea {
+  color: #7c563d;
+}
+
+.drink-tea .cup {
+  background: #f1dfbd;
+}
+
+.drink-tea .cup-liquid {
+  background: #a35d2e;
+}
+
+
+/* Lemonade appearance */
+
+.drink-lemonade {
+  color: #aa8700;
+}
+
+.drink-lemonade .cup {
+  background: #fff4a5;
+}
+
+.drink-lemonade .cup-liquid {
+  background: #f1cb22;
+}
+
+.lemon-slice {
+  position: absolute;
+  z-index: 3;
+  right: -6px;
+  top: -2px;
+  width: 19px;
+  height: 19px;
+  border: 3px solid #e7b900;
+  border-radius: 50%;
+  background:
+    linear-gradient(45deg, transparent 46%, #e7b900 47% 53%, transparent 54%),
+    #fff28a;
+}
+
+
+/* ---------- NATURAL BOOK-SPINE LABELS ---------- */
 
 .book-spots {
   position: absolute;
-  z-index: 5;
-  left: 29%;
+  z-index: 6;
+  left: 28.5%;
   top: 61%;
   width: 21%;
-  height: 155px;
+  height: 150px;
   display: block;
   transform: rotate(1deg);
 }
 
-/* Shared book-spine appearance */
 .book-spots button {
   position: absolute;
   left: 0;
   width: 100%;
-  height: 37px;
-  padding: 0 16px;
+  height: 28px;
+  padding: 0 18px;
   border: 0;
-  border-radius: 4px 9px 9px 4px;
+  border-radius: 0;
+  background: transparent !important;
+  box-shadow: none !important;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  font-size: 0.68rem;
+  color: #eadbc4;
+  font-size: 0.64rem;
   font-weight: 700;
-  letter-spacing: 0.01em;
-  box-shadow:
-    inset 8px 0 0 rgba(0, 0, 0, 0.13),
-    0 4px 8px rgba(30, 15, 8, 0.2);
+  text-shadow: 0 1px 2px rgba(30, 15, 10, 0.75);
   transition:
     transform 0.2s ease,
-    filter 0.2s ease;
+    color 0.2s ease;
 }
 
-/* Position each title directly on its book spine */
+/* Match each label to its real book spine */
+
 .book-spots button:nth-child(1) {
-  top: 4px;
-  background: #dfcfad;
-  color: #5d1616;
+  top: 3px;
+  color: #6a241c;
   transform: rotate(-1deg);
 }
 
 .book-spots button:nth-child(2) {
-  top: 47px;
-  left: 7px;
-  background: #314e3e;
-  color: white;
+  top: 44px;
+  left: 5px;
+  color: #f4eadb;
   transform: rotate(0.5deg);
 }
 
 .book-spots button:nth-child(3) {
-  top: 91px;
+  top: 88px;
   left: -2px;
-  background: #990000;
-  color: white;
+  color: #f8e8dc;
   transform: rotate(-0.5deg);
 }
 
-.book-spots button:hover {
-  filter: brightness(1.12);
-  transform: translateX(9px) !important;
+/* Subtle interaction without creating fake rectangles */
+
+.book-spots button:hover,
+.book-spots button:focus-visible {
+  color: white;
+  text-shadow:
+    0 1px 2px rgba(30, 15, 10, 0.8),
+    0 0 8px rgba(255, 245, 220, 0.9);
+  transform: translateX(5px) !important;
+  outline: none;
 }
 
+
+/* ---------- MOBILE POSITIONING ---------- */
+
+@media (max-width: 650px) {
+  .book-spots {
+    top: 354px;
+    left: 28%;
+    width: 47%;
+    height: 125px;
+    transform: none;
+  }
+
+  .book-spots button {
+    height: 22px;
+    padding: 0 6px;
+    font-size: 0.52rem;
+  }
+
+  .book-spots button:nth-child(1) {
+    top: 0;
+  }
+
+  .book-spots button:nth-child(2) {
+    top: 33px;
+    left: 2px;
+  }
+
+  .book-spots button:nth-child(3) {
+    top: 67px;
+    left: -1px;
+  }
+
+  .mug-spot {
+    top: 380px;
+    left: auto;
+    right: 8%;
+    width: 70px;
+    height: 93px;
+  }
+
+  .cup {
+    width: 51px;
+    height: 53px;
+    border-width: 2px;
+  }
+
+  .cup::after {
+    right: -19px;
+    top: 12px;
+    width: 19px;
+    height: 23px;
+    border-width: 5px;
+    border-left: 0;
+  }
+
+  .cup-liquid {
+    height: 10px;
+  }
+
+  .cup-name {
+    bottom: 3px;
+    font-size: 0.57rem;
+  }
+}
 
 /* ---------- CONTROLLED SOLAR SYSTEM ---------- */
 
