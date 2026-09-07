@@ -14,3 +14,386 @@ html,body{max-width:100%;overflow-x:hidden}.hero>*{min-width:0}.hero-actions a{b
 .classroom-page{min-height:100vh;background:#f6eee4}.classroom-header>div{display:flex;align-items:center;gap:22px}.classroom-header span{font-size:.76rem;text-transform:uppercase;letter-spacing:.12em;font-weight:700;color:var(--muted)}.classroom-intro{text-align:center;max-width:850px;margin:0 auto;padding:42px 20px 28px}.classroom-intro .eyebrow{color:var(--red)}.classroom-intro h1{font:700 clamp(2.5rem,5vw,4.8rem)/.95 "Fraunces",serif;margin:10px 0 14px}.classroom-intro>p:last-child{color:var(--muted);font-size:1.05rem}.classroom-stage{position:relative;width:min(1320px,94vw);aspect-ratio:16/10;margin:0 auto 55px;background:#e8d2bb;border:10px solid white;box-shadow:0 24px 70px #4a281a2c;overflow:hidden;transition:opacity .18s,transform .18s}.classroom-stage.turning{opacity:.25;transform:perspective(1200px) rotateY(8deg)}.classroom-stage img{width:100%;height:100%;object-fit:cover;display:block}.seat-grid{position:absolute;inset:30% 5% 8%;display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(2,1fr);gap:3%}.seat-grid button{border:2px solid transparent;background:transparent;border-radius:45% 45% 18px 18px;display:flex;align-items:center;justify-content:center;position:relative;color:white;transition:.2s}.seat-grid button:hover,.seat-grid button:focus-visible{border-color:white;background:#99000055;box-shadow:0 0 0 4px #99000055;transform:translateY(-4px)}.seat-grid button span{display:grid;place-items:center;width:29px;height:29px;border-radius:50%;background:#990000dd;font-weight:700}.seat-grid button em{position:absolute;bottom:5px;background:#211916dd;padding:5px 7px;border-radius:5px;font-size:.65rem;font-style:normal;opacity:0}.seat-grid button:hover em{opacity:1}.teacher-choice{position:absolute;left:50%;bottom:5%;transform:translateX(-50%);display:grid;grid-template-columns:1fr 1fr;gap:12px;width:min(540px,70%);padding:16px;background:#fffdf4ed;border-radius:14px;box-shadow:0 15px 50px #3e1c0f55;backdrop-filter:blur(7px)}.teacher-choice>p{grid-column:1/-1;margin:0;color:var(--red);font-weight:700;display:flex;justify-content:center;gap:8px}.teacher-choice>p svg{width:20px}.teacher-choice>button{border:1px solid var(--line);background:white;border-radius:10px;padding:13px;display:grid;grid-template-columns:48px 1fr;text-align:left;align-items:center}.teacher-choice>button:hover{border-color:var(--red);transform:translateY(-2px)}.teacher-choice strong,.teacher-choice span{grid-column:2}.teacher-choice span{font-size:.7rem;color:var(--muted)}.teacher-figure{grid-row:1/3;width:38px;height:52px;background:#a75a37;border-radius:45% 45% 8px 8px;position:relative}.teacher-figure:before{content:"";position:absolute;width:23px;height:23px;background:#a75a37;border-radius:50%;left:8px;top:-16px}.teacher-figure.female{clip-path:polygon(20% 0,80% 0,100% 100%,0 100%)}.teacher-figure.female:after{content:"";position:absolute;width:14px;height:14px;background:#2d1b15;border-radius:50%;top:-19px;left:20px}.teacher-figure.male{background:linear-gradient(#eee 0 45%,#5a392d 45%)}.turn-arrow{position:absolute;z-index:8;bottom:4%;width:50px;height:50px;border-radius:50%;border:2px solid white;background:#990000e8;color:white;display:grid;place-items:center;box-shadow:0 7px 22px #0004}.turn-arrow:hover{transform:scale(1.08)}.turn-arrow.left{left:2%}.turn-arrow.right{right:2%}.perspective-pill{position:absolute;top:3%;left:50%;transform:translateX(-50%);background:#201815df;color:white;border-radius:99px;padding:9px 15px;display:grid;grid-template-columns:auto auto;column-gap:8px;align-items:center}.perspective-pill svg{grid-row:1/3;width:20px;color:#ffb7b1}.perspective-pill span{font-weight:700;font-size:.8rem}.perspective-pill small{font-size:.62rem;color:#d9c9c0}
 @media(max-width:950px){.auth-notebook{right:3vw;width:47vw}.desk-art{object-position:42% center}.book-spots{left:27%;width:22%}.classroom-stage{width:96vw}.seat-grid{inset:27% 3% 6%;gap:1%}.classroom-intro{padding-top:32px}}
 @media(max-width:650px){.hero-copy h1{font-size:clamp(2.75rem,13vw,4rem);line-height:.94;overflow-wrap:anywhere}.hero-copy>p:not(.eyebrow){font-size:1rem}.notebook-wrap{min-height:505px;width:100%}.paper{width:91%;height:78%}.notebook{max-width:100%;padding-left:42px}.mode-row{overflow-x:auto;grid-template-columns:repeat(4,minmax(82px,1fr))}.mode-row button{font-size:.7rem;padding:10px 5px}.mode-row svg{width:15px}.lesson{height:270px}.solar{width:100%;max-width:275px;margin:auto}.orbit-3{width:195px;height:132px}.orbit-2{width:165px;height:110px}.orbit-1{width:125px;height:88px}.orbit-0{width:86px;height:60px}.touch-strip{margin:0 12px;border-radius:12px;transform:translateY(-15px)}.promise>h2{font-size:2.25rem}.about-hero h1{font-size:clamp(2.6rem,12vw,3.3rem);line-height:.98;overflow-wrap:anywhere}.about-hero>div>p:last-child{font-size:1rem}.story-layout h2,.story-gallery h2,.fellowship h2,.building h2{font-size:clamp(2rem,10vw,2.5rem)}.story-layout article>p:not(.signature){font-size:1rem;line-height:1.75}.story-layout blockquote{font-size:1.12rem;padding:20px}.gallery-frame{margin-right:9px}.auth-header,.classroom-header{height:65px;padding:0 18px}.auth-header .brand,.classroom-header .brand{font-size:1.45rem}.desk-scene{min-height:1040px}.desk-art{height:520px;object-position:25% center}.auth-notebook{top:500px;transform:none;left:16px;right:16px;width:auto;min-height:520px;padding:35px 25px 25px 48px}.lamp-spot{left:8%;top:8%}.globe-spot{left:12%;top:27%}.book-spots{left:34%;top:29%;width:38%}.mug-spot{left:65%;top:33%}.drink-menu{left:auto;right:7%;top:38%}.desk-note{left:18px;bottom:auto;top:405px;width:calc(100% - 36px)}.classroom-header>div span{display:none}.classroom-header>div{gap:0}.classroom-intro h1{font-size:2.55rem}.classroom-intro>p:last-child{font-size:.92rem}.classroom-stage{border-width:5px;width:100vw;aspect-ratio:auto;height:620px;margin-bottom:0}.classroom-stage img{object-position:center;height:100%;}.seat-grid{inset:24% 2% 10%;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(4,1fr);gap:1%}.seat-grid button span{width:25px;height:25px;font-size:.72rem}.teacher-choice{width:88%;bottom:12%;padding:10px}.teacher-choice>button{grid-template-columns:36px 1fr;padding:9px}.teacher-figure{transform:scale(.78)}.turn-arrow{bottom:3%;width:44px;height:44px}.perspective-pill{top:2%;white-space:nowrap}.classroom-intro{padding:28px 18px 22px}}
+/* =========================================
+   OBJECT AND SOLAR SYSTEM CORRECTIONS
+   ========================================= */
+
+
+/* ---------- REAL CHANGING DRINK CUP ---------- */
+
+.mug-spot {
+  width: 76px;
+  height: 70px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px 8px 18px 18px;
+  display: block;
+  left: 49%;
+  top: 66%;
+  color: #3f281f;
+  background: #efe6d8;
+  box-shadow:
+    inset 0 -8px 0 rgba(0, 0, 0, 0.08),
+    0 8px 15px rgba(50, 25, 15, 0.25);
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* Hide the old small cup icon */
+.mug-spot svg {
+  display: none;
+}
+
+/* Cup handle */
+.mug-spot::before {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 32px;
+  right: -19px;
+  top: 15px;
+  border: 8px solid currentColor;
+  border-left: 0;
+  border-radius: 0 18px 18px 0;
+}
+
+/* Visible drink inside the cup */
+.mug-spot::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  top: 7px;
+  height: 13px;
+  border-radius: 50%;
+  background: #8b5a36;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* Drink name below the cup */
+.mug-spot span {
+  position: absolute;
+  left: 50%;
+  bottom: -28px;
+  transform: translateX(-50%);
+  padding: 4px 9px;
+  background: #fffdf5;
+  border-radius: 20px;
+  color: #660000;
+  font-size: 0.7rem;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(40, 20, 10, 0.18);
+}
+
+
+/* Water cup */
+.mug-spot.drink-water {
+  background: #d8f1f7;
+  color: #39778a;
+}
+
+.mug-spot.drink-water::after {
+  background: #71c7df;
+}
+
+
+/* Coffee cup */
+.mug-spot.drink-coffee {
+  background: #6f3828;
+  color: #3d1b13;
+}
+
+.mug-spot.drink-coffee::after {
+  background: #2d130d;
+}
+
+
+/* Tea cup */
+.mug-spot.drink-tea {
+  background: #efe0bc;
+  color: #78533b;
+}
+
+.mug-spot.drink-tea::after {
+  background: #a86532;
+}
+
+
+/* Lemonade cup */
+.mug-spot.drink-lemonade {
+  background: #fff08a;
+  color: #b89300;
+}
+
+.mug-spot.drink-lemonade::after {
+  background:
+    radial-gradient(circle at 65% 40%, #fff8b8 0 3px, transparent 4px),
+    #f2cc28;
+}
+
+.mug-spot:hover {
+  transform: translateY(-5px) rotate(-2deg);
+}
+
+
+/* ---------- BOOK TITLES ON BOOK SPINES ---------- */
+
+.book-spots {
+  position: absolute;
+  z-index: 5;
+  left: 29%;
+  top: 61%;
+  width: 21%;
+  height: 155px;
+  display: block;
+  transform: rotate(1deg);
+}
+
+/* Shared book-spine appearance */
+.book-spots button {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 37px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 4px 9px 9px 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  box-shadow:
+    inset 8px 0 0 rgba(0, 0, 0, 0.13),
+    0 4px 8px rgba(30, 15, 8, 0.2);
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease;
+}
+
+/* Position each title directly on its book spine */
+.book-spots button:nth-child(1) {
+  top: 4px;
+  background: #dfcfad;
+  color: #5d1616;
+  transform: rotate(-1deg);
+}
+
+.book-spots button:nth-child(2) {
+  top: 47px;
+  left: 7px;
+  background: #314e3e;
+  color: white;
+  transform: rotate(0.5deg);
+}
+
+.book-spots button:nth-child(3) {
+  top: 91px;
+  left: -2px;
+  background: #990000;
+  color: white;
+  transform: rotate(-0.5deg);
+}
+
+.book-spots button:hover {
+  filter: brightness(1.12);
+  transform: translateX(9px) !important;
+}
+
+
+/* ---------- CONTROLLED SOLAR SYSTEM ---------- */
+
+/*
+   The solar system gets one fixed square area.
+   Every orbit shares the exact same centre.
+*/
+
+.solar {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+/* Keep the Sun exactly in the centre */
+.solar .sun {
+  position: absolute;
+  z-index: 10;
+  left: 50%;
+  top: 50%;
+  width: 58px;
+  height: 58px;
+  transform: translate(-50%, -50%);
+  border: 0;
+  border-radius: 50%;
+  background: #f5a500;
+  box-shadow:
+    0 0 18px rgba(245, 165, 0, 0.75),
+    0 0 40px rgba(245, 165, 0, 0.3);
+}
+
+/* All orbit lines use the same centre */
+.solar .orbit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  padding: 0;
+  border: 1px solid #b89b8d;
+  border-radius: 50%;
+  background: transparent;
+  transform-origin: center;
+  animation-name: controlled-orbit;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* Four clean concentric orbit lines */
+.solar .orbit-0 {
+  width: 82px;
+  height: 82px;
+  animation-duration: 4s;
+}
+
+.solar .orbit-1 {
+  width: 122px;
+  height: 122px;
+  animation-duration: 7s;
+}
+
+.solar .orbit-2 {
+  width: 162px;
+  height: 162px;
+  animation-duration: 10s;
+}
+
+.solar .orbit-3 {
+  width: 204px;
+  height: 204px;
+  animation-duration: 14s;
+}
+
+/* Each planet remains attached to its orbit line */
+.solar .orbit i {
+  position: absolute;
+  left: 50%;
+  top: -7px;
+  width: 14px;
+  height: 14px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: #8f2c1a;
+  box-shadow: 0 2px 5px rgba(30, 15, 10, 0.25);
+}
+
+.solar .orbit-1 i {
+  background: #228195;
+}
+
+.solar .orbit-2 i {
+  background: #756a5b;
+}
+
+.solar .orbit-3 i {
+  background: #bd7341;
+}
+
+/*
+   Translate always remains active.
+   Only the rotation value changes.
+*/
+@keyframes controlled-orbit {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.solar.paused .orbit {
+  animation-play-state: paused;
+}
+
+
+/* ---------- MOBILE CORRECTIONS ---------- */
+
+@media (max-width: 650px) {
+  .solar {
+    width: 205px;
+    height: 205px;
+    overflow: visible;
+  }
+
+  .solar .orbit-0 {
+    width: 72px;
+    height: 72px;
+  }
+
+  .solar .orbit-1 {
+    width: 108px;
+    height: 108px;
+  }
+
+  .solar .orbit-2 {
+    width: 145px;
+    height: 145px;
+  }
+
+  .solar .orbit-3 {
+    width: 184px;
+    height: 184px;
+  }
+
+  .solar .sun {
+    width: 52px;
+    height: 52px;
+  }
+
+  .book-spots {
+    left: 31%;
+    top: 29%;
+    width: 40%;
+    height: 132px;
+  }
+
+  .book-spots button {
+    height: 31px;
+    padding: 0 8px;
+    font-size: 0.58rem;
+  }
+
+  .book-spots button:nth-child(1) {
+    top: 0;
+  }
+
+  .book-spots button:nth-child(2) {
+    top: 37px;
+  }
+
+  .book-spots button:nth-child(3) {
+    top: 75px;
+  }
+
+  .mug-spot {
+    left: 70%;
+    top: 32%;
+    width: 57px;
+    height: 54px;
+  }
+
+  .mug-spot::before {
+    width: 20px;
+    height: 25px;
+    right: -16px;
+    top: 12px;
+    border-width: 6px;
+    border-left: 0;
+  }
+}
