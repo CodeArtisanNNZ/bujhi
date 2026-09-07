@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import {useEffect,useState} from "react";
-import {ArrowLeft,Coffee,Eye,EyeOff,Globe2,LampDesk,LockKeyhole,Mail,UserRound} from "lucide-react";
+import {ArrowLeft,Eye,EyeOff,Globe2,LampDesk,LockKeyhole,Mail,UserRound} from "lucide-react";
 
 const worldFacts=["Earth's maps are flat models of a round world, so every map projection changes some shapes or distances.","The earliest surviving terrestrial globe was made in 1492, but it did not include the Americas.","About 71% of Earth's surface is covered by water.","Bangladesh sits on the world's largest river delta."];
 const bookFacts={
@@ -19,12 +19,27 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
  return <main className={`auth-page ${light?"lamp-on":"lamp-off"}`}>
   <header className="auth-header"><Link className="brand" href="/"><img src="/bujhi-icon.png" alt=""/>Bujhi</Link><Link href="/"><ArrowLeft/>Home</Link></header>
   <section className="desk-scene">
-   <img className="desk-art" src="/auth-desk.png" alt="A study desk with a lamp, globe, books and mug"/>
+ <img
+  className="desk-art"
+  src="/auth-desk-clean.png"
+  alt="A study desk with a lamp, globe and books"
+/>
    <div className="lamp-glow" aria-hidden="true"/>
    <button className="object-hotspot lamp-spot" onClick={()=>setLight(!light)} aria-label="Turn lamp on or off"><LampDesk/><span>{light?"Turn off":"Turn on"}</span></button>
    <button className="object-hotspot globe-spot" onClick={()=>tell(worldFacts[Math.floor(Math.random()*worldFacts.length)])} aria-label="Discover a world fact"><Globe2/><span>World fact</span></button>
    <div className="book-spots">{Object.entries(bookFacts).map(([title,facts])=><button key={title} onClick={()=>tell(facts[Math.floor(Math.random()*facts.length)])}><span>{title}</span></button>)}</div>
-   <button className={`object-hotspot mug-spot drink-${drink.toLowerCase()}`} onClick={()=>setChooser(!chooser)} aria-label="Choose a beverage"><Coffee/><span>{drink}</span></button>
+ <button
+  className={`mug-spot drink-${drink.toLowerCase()}`}
+  onClick={() => setChooser(!chooser)}
+  aria-label={`Current beverage: ${drink}. Choose another beverage`}
+>
+  <span className="cup">
+    <span className="cup-liquid" />
+    {drink === "Lemonade" && <span className="lemon-slice" />}
+  </span>
+
+  <span className="cup-name">{drink}</span>
+</button>
    {chooser&&<div className="drink-menu">{drinks.map(item=><button key={item} onClick={()=>{setDrink(item);setChooser(false);tell(`${item} selected. A good study drink is the one that helps you feel comfortable and focused.`)}}>{item}</button>)}</div>}
    {note&&<aside className="desk-note"><button onClick={()=>setNote("")}>×</button><p>{note}</p></aside>}
    <article className="auth-notebook">
