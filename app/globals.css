@@ -655,3 +655,10 @@ html,body{max-width:100%;overflow-x:hidden}.hero>*{min-width:0}.hero-actions a{b
     left: 28% !important;
   }
 }
+/* ===== BANGLADESH TOMORROW - FORCE DOWN ===== */
+
+@media (min-width: 651px) {
+  .book-spots button:nth-child(3) {
+    transform: translateY(18px) rotate(-0.2deg) !important;
+  }
+}
