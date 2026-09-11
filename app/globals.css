@@ -662,8 +662,3 @@ html,body{max-width:100%;overflow-x:hidden}.hero>*{min-width:0}.hero-actions a{b
     transform: translateY(18px) rotate(-0.2deg) !important;
   }
 }
-@media (min-width: 651px) {
-  .book-spots button:nth-child(2) {
-    transform: translateY(20px) rotate(-0.2deg) !important;
-  }
-}
