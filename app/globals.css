@@ -500,3 +500,126 @@ html,body{max-width:100%;overflow-x:hidden}.hero>*{min-width:0}.hero-actions a{b
     border-left: 0;
   }
 }
+
+/* =========================================================
+   FINAL AUTH DESK BOOK ALIGNMENT
+   Keep this block LAST so it overrides the older book rules.
+   ========================================================= */
+
+.book-spots {
+  position: absolute;
+  z-index: 6;
+  left: 27.5%;
+  top: 59%;
+  width: 23%;
+  height: 160px;
+  display: block;
+  transform: none;
+  pointer-events: none;
+}
+
+.book-spots button {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 28px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 0;
+
+  background: transparent !important;
+  box-shadow: none !important;
+
+  font-size: 0.64rem;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+
+  cursor: pointer;
+  pointer-events: auto;
+
+  text-shadow: 0 1px 2px rgba(30, 15, 10, 0.72);
+}
+
+/* Cream / top book */
+.book-spots button:nth-child(1) {
+  top: 0;
+  left: 4%;
+  width: 92%;
+  color: #67231d;
+  transform: rotate(-0.7deg);
+}
+
+/* Green / middle book */
+.book-spots button:nth-child(2) {
+  top: 49px;
+  left: 1%;
+  width: 98%;
+  color: #f6ecdc;
+  transform: rotate(0.35deg);
+}
+
+/* Red / bottom book */
+.book-spots button:nth-child(3) {
+  top: 101px;
+  left: -1%;
+  width: 101%;
+  color: #f8e9dc;
+  transform: rotate(-0.2deg);
+}
+
+.book-spots button:hover,
+.book-spots button:focus-visible {
+  color: #ffffff;
+  text-shadow:
+    0 1px 2px rgba(30, 15, 10, 0.8),
+    0 0 8px rgba(255, 245, 220, 0.85);
+  outline: none;
+}
+
+/* Tablet */
+@media (max-width: 950px) and (min-width: 651px) {
+  .book-spots {
+    left: 25.5%;
+    top: 59%;
+    width: 25%;
+  }
+}
+
+/* Mobile desk artwork */
+@media (max-width: 650px) {
+  .book-spots {
+    left: 25%;
+    top: 286px;
+    width: 53%;
+    height: 145px;
+    transform: none;
+  }
+
+  .book-spots button {
+    height: 23px;
+    padding: 0 4px;
+    font-size: 0.52rem;
+  }
+
+  .book-spots button:nth-child(1) {
+    top: 0;
+    left: 5%;
+    width: 90%;
+  }
+
+  .book-spots button:nth-child(2) {
+    top: 38px;
+    left: 1%;
+    width: 98%;
+  }
+
+  .book-spots button:nth-child(3) {
+    top: 78px;
+    left: -1%;
+    width: 101%;
+  }
+}
+
