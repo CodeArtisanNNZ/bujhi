@@ -620,32 +620,32 @@ html,body{max-width:100%;overflow-x:hidden}.hero>*{min-width:0}.hero-actions a{b
 
   .book-spots button:nth-child(1) {
     left: 30%;
-    top: 60.5%;
+    top: 62.7%;
     width: 37%;
   }
 
   .book-spots button:nth-child(2) {
     left: 29%;
-    top: 68.0%;
+    top: 70.0%;
     width: 39%;
   }
 
   .book-spots button:nth-child(3) {
     left: 28%;
-    top: 75.3%;
+    top: 77.5%;
     width: 41%;
   }
 }
 /* MOVE BOOK TITLES LEFT — FINAL OVERRIDE */
 
 .book-spots button:nth-child(1) {
-  left: 29.5% !important;
+  left: 25.5% !important;
 }
 
 .book-spots button:nth-child(2) {
-  left: 29.9% !important;
+  left: 25.9% !important;
 }
 
 .book-spots button:nth-child(3) {
-  left: 29.9% !important;
+  left: 25.9% !important;
 }
