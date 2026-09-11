@@ -649,3 +649,9 @@ html,body{max-width:100%;overflow-x:hidden}.hero>*{min-width:0}.hero-actions a{b
 .book-spots button:nth-child(3) {
   left: 25.9% !important;
 }
+@media (max-width: 650px) {
+  .book-spots button:nth-child(3) {
+    top: 82% !important;
+    left: 28% !important;
+  }
+}
