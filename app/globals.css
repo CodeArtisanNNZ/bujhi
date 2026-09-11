@@ -636,4 +636,16 @@ html,body{max-width:100%;overflow-x:hidden}.hero>*{min-width:0}.hero-actions a{b
     width: 41%;
   }
 }
+/* MOVE BOOK TITLES LEFT — FINAL OVERRIDE */
 
+.book-spots button:nth-child(1) {
+  left: 31.5% !important;
+}
+
+.book-spots button:nth-child(2) {
+  left: 31.9% !important;
+}
+
+.book-spots button:nth-child(3) {
+  left: 30.9% !important;
+}
