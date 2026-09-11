@@ -502,124 +502,138 @@ html,body{max-width:100%;overflow-x:hidden}.hero>*{min-width:0}.hero-actions a{b
 }
 
 /* =========================================================
-   FINAL AUTH DESK BOOK ALIGNMENT
-   Keep this block LAST so it overrides the older book rules.
+   FINAL AUTH DESK BOOK ALIGNMENT — DESKTOP TUNED
+   Based on the current deployed desktop artwork.
+   Keep this block LAST in globals.css.
    ========================================================= */
 
 .book-spots {
   position: absolute;
-  z-index: 6;
-  left: 27.5%;
-  top: 59%;
-  width: 23%;
-  height: 160px;
-  display: block;
-  transform: none;
+  z-index: 8;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transform: none !important;
   pointer-events: none;
 }
 
+/* Remove the old shared book-button geometry completely */
 .book-spots button {
   position: absolute;
+  z-index: 1;
+  margin: 0;
+  padding: 0 8px;
+  height: 26px;
+
+  border: 0;
+  border-radius: 0;
+  background: transparent !important;
+  box-shadow: none !important;
+
   display: flex;
   align-items: center;
   justify-content: center;
-
-  height: 28px;
-  padding: 0 8px;
-  border: 0;
-  border-radius: 0;
-
-  background: transparent !important;
-  box-shadow: none !important;
 
   font-size: 0.64rem;
   font-weight: 700;
   line-height: 1;
   white-space: nowrap;
 
-  cursor: pointer;
   pointer-events: auto;
+  cursor: pointer;
 
-  text-shadow: 0 1px 2px rgba(30, 15, 10, 0.72);
+  text-shadow: 0 1px 2px rgba(34, 18, 12, 0.65);
 }
 
-/* Cream / top book */
+/* TOP CREAM BOOK — move DOWN onto the actual spine */
 .book-spots button:nth-child(1) {
-  top: 0;
-  left: 4%;
-  width: 92%;
+  left: 34.7%;
+  top: 62.7%;
+  width: 13.7%;
   color: #67231d;
-  transform: rotate(-0.7deg);
+  transform: rotate(-0.7deg) !important;
 }
 
-/* Green / middle book */
+/* MIDDLE GREEN BOOK */
 .book-spots button:nth-child(2) {
-  top: 49px;
-  left: 1%;
-  width: 98%;
-  color: #f6ecdc;
-  transform: rotate(0.35deg);
+  left: 35.1%;
+  top: 69.0%;
+  width: 13.2%;
+  color: #f7eddd;
+  transform: rotate(0.2deg) !important;
 }
 
-/* Red / bottom book */
+/* BOTTOM RED BOOK */
 .book-spots button:nth-child(3) {
-  top: 101px;
-  left: -1%;
-  width: 101%;
-  color: #f8e9dc;
-  transform: rotate(-0.2deg);
+  left: 34.1%;
+  top: 75.4%;
+  width: 14.5%;
+  color: #f8eadf;
+  transform: rotate(-0.2deg) !important;
 }
 
 .book-spots button:hover,
 .book-spots button:focus-visible {
-  color: #ffffff;
+  color: #fff;
   text-shadow:
     0 1px 2px rgba(30, 15, 10, 0.8),
-    0 0 8px rgba(255, 245, 220, 0.85);
+    0 0 7px rgba(255, 245, 220, 0.85);
   outline: none;
 }
 
-/* Tablet */
-@media (max-width: 950px) and (min-width: 651px) {
-  .book-spots {
-    left: 25.5%;
-    top: 59%;
-    width: 25%;
-  }
-}
-
-/* Mobile desk artwork */
-@media (max-width: 650px) {
-  .book-spots {
-    left: 25%;
-    top: 286px;
-    width: 53%;
-    height: 145px;
-    transform: none;
-  }
-
-  .book-spots button {
-    height: 23px;
-    padding: 0 4px;
-    font-size: 0.52rem;
-  }
-
+/* Medium screens */
+@media (max-width: 1200px) and (min-width: 651px) {
   .book-spots button:nth-child(1) {
-    top: 0;
-    left: 5%;
-    width: 90%;
+    left: 34.2%;
+    top: 62.5%;
+    width: 14.8%;
   }
 
   .book-spots button:nth-child(2) {
-    top: 38px;
-    left: 1%;
-    width: 98%;
+    left: 34.6%;
+    top: 68.9%;
+    width: 14.5%;
   }
 
   .book-spots button:nth-child(3) {
-    top: 78px;
-    left: -1%;
-    width: 101%;
+    left: 33.6%;
+    top: 75.3%;
+    width: 15.8%;
+  }
+}
+
+/* Mobile: keep labels attached to the portrait artwork */
+@media (max-width: 650px) {
+  .book-spots {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 520px;
+  }
+
+  .book-spots button {
+    height: 22px;
+    padding: 0 4px;
+    font-size: 0.50rem;
+  }
+
+  .book-spots button:nth-child(1) {
+    left: 30%;
+    top: 60.5%;
+    width: 37%;
+  }
+
+  .book-spots button:nth-child(2) {
+    left: 29%;
+    top: 68.0%;
+    width: 39%;
+  }
+
+  .book-spots button:nth-child(3) {
+    left: 28%;
+    top: 75.3%;
+    width: 41%;
   }
 }
 
