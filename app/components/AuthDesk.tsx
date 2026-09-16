@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import {useRouter} from "next/navigation";
 import {useEffect,useState} from "react";
 import {ArrowLeft,Eye,EyeOff,Globe2,LampDesk,LockKeyhole,Mail,UserRound} from "lucide-react";
 
@@ -30,7 +29,6 @@ type DemoProfile={
 };
 
 export default function AuthDesk({kind}:{kind:"login"|"signup"}){
- const router=useRouter();
  const[light,setLight]=useState(true);
  const[show,setShow]=useState(false);
  const[drink,setDrink]=useState("Tea");
@@ -46,46 +44,55 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
  const[error,setError]=useState("");
 
  useEffect(()=>{
-  const q=new URLSearchParams(location.search);
-  setRole(q.get("role")==="teacher"?"teacher":"student");
+  const q=new URLSearchParams(window.location.search);
+  const queryRole=q.get("role")==="teacher"?"teacher":"student";
+  setRole(queryRole);
+
   try{
    const saved=localStorage.getItem(DEMO_USER_KEY);
    if(saved&&kind==="login"){
     const profile=JSON.parse(saved) as DemoProfile;
     setEmail(profile.email||"");
-    setRole(profile.role||"student");
+    setRole(profile.role||queryRole);
    }
   }catch{}
  },[kind]);
 
  function tell(text:string){setNote(text)}
 
- function submit(e:React.FormEvent){
+ function submit(e:React.FormEvent<HTMLFormElement>){
   e.preventDefault();
   setError("");
+
+  const cleanEmail=email.trim();
+  if(!cleanEmail){setError("Enter an email address.");return}
   if(password.length<6){setError("Use at least 6 characters for the prototype password.");return}
+  if(kind==="signup"&&!fullName.trim()){setError("Enter your full name.");return}
+
   setLoading(true);
 
-  window.setTimeout(()=>{
-   let profile:DemoProfile;
-   try{
-    const saved=localStorage.getItem(DEMO_USER_KEY);
-    const existing=saved?JSON.parse(saved) as DemoProfile:null;
-    profile={
-     full_name:kind==="signup"?(fullName.trim()||"Bujhi Student"):(existing?.full_name||"Bujhi Student"),
-     email:email.trim(),
-     role,
-     class_level:role==="student"?(kind==="signup"?classLevel:(existing?.class_level||"8")):undefined,
-     subject:role==="teacher"?(kind==="signup"?subject:(existing?.subject||"")):undefined
-    };
-    localStorage.setItem(DEMO_USER_KEY,JSON.stringify(profile));
-    localStorage.setItem("bujhi-demo-auth","true");
-   }catch{
-    profile={full_name:fullName||"Bujhi Student",email,role,class_level:"8"};
-   }
-   setLoading(false);
-   router.push(role==="student"?"/dashboard":"/teacher-dashboard");
-  },420);
+  let existing:DemoProfile|null=null;
+  try{
+   const saved=localStorage.getItem(DEMO_USER_KEY);
+   existing=saved?JSON.parse(saved) as DemoProfile:null;
+  }catch{}
+
+  const fallbackName=cleanEmail.split("@")[0].replace(/[._-]+/g," ").replace(/\b\w/g,c=>c.toUpperCase())||"Bujhi Student";
+  const profile:DemoProfile={
+   full_name:kind==="signup"?fullName.trim():(existing?.full_name||fallbackName),
+   email:cleanEmail,
+   role,
+   class_level:role==="student"?(kind==="signup"?classLevel:(existing?.class_level||"8")):undefined,
+   subject:role==="teacher"?(kind==="signup"?subject.trim():(existing?.subject||"")):undefined
+  };
+
+  try{
+   localStorage.setItem(DEMO_USER_KEY,JSON.stringify(profile));
+   localStorage.setItem("bujhi-demo-auth","true");
+  }catch{}
+
+  const destination=role==="student"?"/dashboard":"/teacher-dashboard";
+  window.location.assign(destination);
  }
 
  return <main className={`auth-page ${light?"lamp-on":"lamp-off"}`}>
@@ -101,20 +108,20 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
    </picture>
    <div className="lamp-glow" aria-hidden="true"/>
 
-   <button className="object-hotspot lamp-spot" onClick={()=>setLight(!light)} aria-label="Turn lamp on or off"><LampDesk/><span>{light?"Turn off":"Turn on"}</span></button>
-   <button className="object-hotspot globe-spot" onClick={()=>tell(worldFacts[Math.floor(Math.random()*worldFacts.length)])} aria-label="Discover a world fact"><Globe2/><span>World fact</span></button>
+   <button type="button" className="object-hotspot lamp-spot" onClick={()=>setLight(!light)} aria-label="Turn lamp on or off"><LampDesk/><span>{light?"Turn off":"Turn on"}</span></button>
+   <button type="button" className="object-hotspot globe-spot" onClick={()=>tell(worldFacts[Math.floor(Math.random()*worldFacts.length)])} aria-label="Discover a world fact"><Globe2/><span>World fact</span></button>
 
    <div className="book-spots">
-    {Object.entries(bookFacts).map(([title,facts])=><button key={title} onClick={()=>tell(facts[Math.floor(Math.random()*facts.length)])}><span>{title}</span></button>)}
+    {Object.entries(bookFacts).map(([title,facts])=><button type="button" key={title} onClick={()=>tell(facts[Math.floor(Math.random()*facts.length)])}><span>{title}</span></button>)}
    </div>
 
-   <button className={`mug-spot drink-${drink.toLowerCase()}`} onClick={()=>setChooser(!chooser)} aria-label={`Current beverage: ${drink}. Choose another beverage`}>
+   <button type="button" className={`mug-spot drink-${drink.toLowerCase()}`} onClick={()=>setChooser(!chooser)} aria-label={`Current beverage: ${drink}. Choose another beverage`}>
     <span className="cup"><span className="cup-liquid"/>{drink==="Lemonade"&&<span className="lemon-slice"/>}</span>
     <span className="cup-name">{drink}</span>
    </button>
 
-   {chooser&&<div className="drink-menu">{drinks.map(item=><button key={item} onClick={()=>{setDrink(item);setChooser(false);tell(`${item} selected. Choose whatever helps your study desk feel comfortable.`)}}>{item}</button>)}</div>}
-   {note&&<aside className="desk-note"><button onClick={()=>setNote("")}>×</button><p>{note}</p></aside>}
+   {chooser&&<div className="drink-menu">{drinks.map(item=><button type="button" key={item} onClick={()=>{setDrink(item);setChooser(false);tell(`${item} selected. Choose whatever helps your study desk feel comfortable.`)}}>{item}</button>)}</div>}
+   {note&&<aside className="desk-note"><button type="button" onClick={()=>setNote("")}>×</button><p>{note}</p></aside>}
 
    <article className="auth-notebook">
     <div className="auth-rings">{Array.from({length:7}).map((_,i)=><i key={i}/>)}</div>
@@ -137,8 +144,8 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
      {kind==="signup"&&role==="teacher"&&<label><span>Subject</span><input className="plain-input" value={subject} onChange={e=>setSubject(e.target.value)} placeholder="For example: Science"/></label>}
 
      {error&&<p className="auth-error">{error}</p>}
-     <p className="auth-preview-note">Frontend prototype: this account stays only in this browser for now. Database connection comes later.</p>
-     <button className="submit-auth" disabled={loading}>{loading?"Opening your desk…":kind==="login"?"Log in":"Create account"}</button>
+     <p className="auth-preview-note">Frontend prototype: any email and any password with 6+ characters will open the dashboard. No database is connected yet.</p>
+     <button type="submit" className="submit-auth" disabled={loading}>{loading?"Opening your desk…":kind==="login"?"Log in":"Create account"}</button>
     </form>
 
     <p className="auth-swap">{kind==="login"?"New to Bujhi? ":"Already have an account? "}<Link href={kind==="login"?`/register?role=${role}`:`/login?role=${role}`}>{kind==="login"?"Choose your place":"Log in"}</Link></p>
