@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import Script from "next/script";
-import {useEffect,useMemo,useRef,useState} from "react";\nimport type {ChangeEvent,CSSProperties} from "react";
+import {useEffect,useMemo,useRef,useState} from "react";
+import type {ChangeEvent,CSSProperties} from "react";
 import {
   BookOpen,ChevronLeft,ChevronRight,CircleCheck,Coffee,
   Droplets,FolderOpen,LampDesk,LogOut,NotebookPen,PencilLine,Plus,
