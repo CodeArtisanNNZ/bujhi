@@ -242,7 +242,8 @@ export default function TeacherDashboard(){
           next=parsed.map((item,index)=>{
             if(typeof item==="string")return {id:uid(),time:"",label:item};
             const row=item as {time?:unknown;label?:unknown;class?:unknown;subject?:unknown};
-            const fallback=[row.class,row.subject].filter(Boolean).join(" ");\n            const label=String(row.label??(fallback||`Routine ${index+1}`));
+            const fallback=[row.class,row.subject].filter(Boolean).join(" ");
+            const label=String(row.label??(fallback||`Routine ${index+1}`));
             return {id:uid(),time:String(row.time??""),label};
           });
         }
