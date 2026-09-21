@@ -3,7 +3,7 @@
 import Link from "next/link";
 import {useEffect,useMemo,useState} from "react";
 import {
-  BookOpen,ChevronDown,ChevronRight,Coffee,FileText,LampDesk,LogOut,
+  BookOpen,ChevronDown,ChevronRight,FileText,LampDesk,LogOut,
   NotebookPen,PenLine,Play,StickyNote,UsersRound,X
 } from "lucide-react";
 import styles from "../dashboard/dashboard.module.css";
@@ -137,7 +137,7 @@ export default function StudentDashboard(){
 
     <section className={styles.studyRoom}>
       <div className={styles.shelfFrame}>
-        <div className={styles.vine vineLeft}><i/><i/><i/><i/><i/><i/></div>
+        <div className={styles.vine}><i/><i/><i/><i/><i/><i/></div>
         <div className={styles.bookshelf} aria-label="Class books">
           {books.map(book=><button
             key={book.id}
