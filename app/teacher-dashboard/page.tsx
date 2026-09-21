@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import Script from "next/script";
-import {ChangeEvent,useEffect,useMemo,useRef,useState} from "react";
+import {useEffect,useMemo,useRef,useState} from "react";\nimport type {ChangeEvent,CSSProperties} from "react";
 import {
-  BookOpen,CalendarDays,ChevronLeft,ChevronRight,CircleCheck,Coffee,
+  BookOpen,ChevronLeft,ChevronRight,CircleCheck,Coffee,
   Droplets,FolderOpen,LampDesk,LogOut,NotebookPen,PencilLine,Plus,
   Power,StickyNote,Trash2,Upload,UserRound,X
 } from "lucide-react";
@@ -241,7 +241,7 @@ export default function TeacherDashboard(){
           next=parsed.map((item,index)=>{
             if(typeof item==="string")return {id:uid(),time:"",label:item};
             const row=item as {time?:unknown;label?:unknown;class?:unknown;subject?:unknown};
-            const label=String(row.label??[row.class,row.subject].filter(Boolean).join(" ")??`Routine ${index+1}`);
+            const fallback=[row.class,row.subject].filter(Boolean).join(" ");\n            const label=String(row.label??(fallback||`Routine ${index+1}`));
             return {id:uid(),time:String(row.time??""),label};
           });
         }
@@ -393,7 +393,7 @@ export default function TeacherDashboard(){
           <button onClick={()=>setFolderOpen(false)}><X/></button>
         </div>
         {!selectedSubject?<div className={styles.subjectFiles}>
-          {subjects.map(subject=><button id={`subject-${subject.id}`} key={subject.id} onClick={()=>chooseSubject(subject)} style={{"--accent":subject.accent} as React.CSSProperties}>
+          {subjects.map(subject=><button id={`subject-${subject.id}`} key={subject.id} onClick={()=>chooseSubject(subject)} style={{"--accent":subject.accent} as CSSProperties}>
             <i/><div><strong>{subject.name}</strong><span>{subject.short}</span></div><ChevronRight/>
           </button>)}
         </div>:<div className={styles.chapterFiles}>
