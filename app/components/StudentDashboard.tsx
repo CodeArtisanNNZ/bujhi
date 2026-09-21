@@ -89,7 +89,11 @@ export default function StudentDashboard(){
  function newFact(){setGlobeFact(globeFacts[Math.floor(Math.random()*globeFacts.length)])}
  function goNext(){setStep(s=>Math.min(4,s+1) as WizardStep)}
  function goBack(){setStep(s=>Math.max(1,s-1) as WizardStep)}
- function startLesson(){\n  setLaptopOpen(false);\n  if(selectedBook.id==="science"&&chapter==="2"){location.href="/dashboard/science/chapter-2";return}\n  setLessonOpen(true);\n }
+ function startLesson(){
+  setLaptopOpen(false);
+  if(selectedBook.id==="science"&&chapter==="2"){location.href="/dashboard/science/chapter-2";return}
+  setLessonOpen(true);
+ }
 
  const firstName=profile.full_name?.trim().split(" ")[0];
  const modeLabel=learningStyles.find(x=>x.id===style)?.label||"Teach me like a teacher";
