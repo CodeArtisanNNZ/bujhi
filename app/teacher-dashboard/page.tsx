@@ -3,9 +3,8 @@
 import Link from "next/link";
 import {useEffect,useMemo,useState} from "react";
 import {
-  BarChart3,BookOpen,CalendarDays,CheckCircle2,ChevronRight,
-  ClipboardCheck,FileText,FolderOpen,LogOut,MonitorPlay,
-  NotebookPen,UserRound,UsersRound,X
+  BookOpen,ChevronRight,CircleCheck,ClipboardCheck,LogOut,
+  Monitor,NotebookPen,UsersRound,X
 } from "lucide-react";
 import styles from "./teacher.module.css";
 
@@ -14,47 +13,42 @@ type Panel="lesson"|"assignments"|"progress"|"resources"|"activity"|"calendar"|"
 
 const classFolders=[6,7,8,9,10] as const;
 
+const assignments:Array<[string,string,string]>=[
+  ["Living & non-living worksheet","Due today","18 / 24 submitted"],
+  ["Cells and their functions","Tomorrow","11 / 24 submitted"],
+  ["Human body systems","Friday","Draft"]
+];
+
+const progressItems:Array<{label:string;value:number}>=[
+  {label:"Living & non-living things",value:82},
+  {label:"Cells and their functions",value:74},
+  {label:"Human body systems",value:61},
+  {label:"Food and nutrition",value:56}
+];
+
+const activityItems:Array<{emoji:string;label:string;living:boolean}>=[
+  {emoji:"🌳",label:"Tree",living:true},
+  {emoji:"🪨",label:"Stone",living:false},
+  {emoji:"🐦",label:"Bird",living:true},
+  {emoji:"🚲",label:"Bicycle",living:false}
+];
+
+const resources:Array<[string,string]>=[
+  ["Lesson slides","Presentation"],
+  ["Chapter images","Visuals"],
+  ["Quick questions","Assessment"],
+  ["Worksheets","Printable"]
+];
+
 const panelCopy={
-  lesson:{
-    eyebrow:"Lesson plan",
-    title:"Science · Chapter 1",
-    subtitle:"Living and non-living things"
-  },
-  assignments:{
-    eyebrow:"Assignments",
-    title:"Class 8A assignments",
-    subtitle:"Review work before your next lesson"
-  },
-  progress:{
-    eyebrow:"Student progress",
-    title:"Understanding overview",
-    subtitle:"A quick view of the class"
-  },
-  resources:{
-    eyebrow:"My resources",
-    title:"Teaching resources",
-    subtitle:"Keep classroom materials close to the lesson"
-  },
-  activity:{
-    eyebrow:"Interactive activity",
-    title:"Living or non-living?",
-    subtitle:"Classify each item before you use it with students"
-  },
-  calendar:{
-    eyebrow:"Calendar",
-    title:"December 2024",
-    subtitle:"Your teaching dates and reminders"
-  },
-  tasks:{
-    eyebrow:"Today",
-    title:"Teaching checklist",
-    subtitle:"Small things to finish before class"
-  },
-  class:{
-    eyebrow:"Class folder",
-    title:"Class overview",
-    subtitle:"Open a class folder from the shelf"
-  }
+  lesson:{eyebrow:"Lesson plan",title:"Science · Chapter 1",subtitle:"Living and non-living things"},
+  assignments:{eyebrow:"Assignments",title:"Class 8A assignments",subtitle:"Review work before your next lesson"},
+  progress:{eyebrow:"Student progress",title:"Understanding overview",subtitle:"A quick view of the class"},
+  resources:{eyebrow:"My resources",title:"Teaching resources",subtitle:"Keep classroom materials close to the lesson"},
+  activity:{eyebrow:"Interactive activity",title:"Living or non-living?",subtitle:"Classify each item before you use it with students"},
+  calendar:{eyebrow:"Calendar",title:"December 2024",subtitle:"Your teaching dates and reminders"},
+  tasks:{eyebrow:"Today",title:"Teaching checklist",subtitle:"Small things to finish before class"},
+  class:{eyebrow:"Class folder",title:"Class overview",subtitle:"Open a class folder from the shelf"}
 } as const;
 
 export default function TeacherDashboard(){
@@ -66,7 +60,7 @@ export default function TeacherDashboard(){
   useEffect(()=>{
     try{
       const saved=localStorage.getItem("bujhi-demo-user");
-      if(saved)setProfile(JSON.parse(saved));
+      if(saved)setProfile(JSON.parse(saved) as Profile);
     }catch{}
   },[]);
 
@@ -99,7 +93,7 @@ export default function TeacherDashboard(){
       </div>
 
       <button className={styles.profileSpot} onClick={()=>setPanel("class")} aria-label="Open teacher profile">
-        <UserRound/>
+        <UsersRound/>
       </button>
 
       <div className={styles.folderSpots} aria-label="Class folders">
@@ -117,8 +111,8 @@ export default function TeacherDashboard(){
       <div className={styles.bookSpots} aria-label="Teacher tools">
         <button onClick={()=>setPanel("lesson")}><NotebookPen/><span>Lesson plan</span></button>
         <button onClick={()=>setPanel("assignments")}><ClipboardCheck/><span>Assignments</span></button>
-        <button onClick={()=>setPanel("progress")}><BarChart3/><span>Student progress</span></button>
-        <button onClick={()=>setPanel("resources")}><FolderOpen/><span>My resources</span></button>
+        <button onClick={()=>setPanel("progress")}><UsersRound/><span>Student progress</span></button>
+        <button onClick={()=>setPanel("resources")}><BookOpen/><span>My resources</span></button>
       </div>
 
       <button className={`${styles.hotspot} ${styles.notebookSpot}`} onClick={()=>setPanel("lesson")} aria-label="Open the lesson notebook"><span>Open lesson plan</span></button>
@@ -138,8 +132,8 @@ export default function TeacherDashboard(){
       <div className={styles.mobileTools}>
         <button onClick={()=>setPanel("lesson")}><NotebookPen/>Lesson plan</button>
         <button onClick={()=>setPanel("assignments")}><ClipboardCheck/>Assignments</button>
-        <button onClick={()=>setPanel("progress")}><BarChart3/>Progress</button>
-        <button onClick={()=>setPanel("activity")}><MonitorPlay/>Activity</button>
+        <button onClick={()=>setPanel("progress")}><UsersRound/>Progress</button>
+        <button onClick={()=>setPanel("activity")}><Monitor/>Activity</button>
       </div>
     </section>
 
@@ -169,42 +163,36 @@ export default function TeacherDashboard(){
         </div>}
 
         {panel==="assignments"&&<div className={styles.listPanel}>
-          {[
-            ["Living & non-living worksheet","Due today","18 / 24 submitted"],
-            ["Cells and their functions","Tomorrow","11 / 24 submitted"],
-            ["Human body systems","Friday","Draft"]
-          ].map(([title,date,status])=><article key={title}><ClipboardCheck/><div><strong>{title}</strong><span>{date} · {status}</span></div><ChevronRight/></article>)}
+          {assignments.map(([title,date,status])=><article key={title}><ClipboardCheck/><div><strong>{title}</strong><span>{date} · {status}</span></div><ChevronRight/></article>)}
           <button className={styles.primaryButton}>Create assignment <ChevronRight/></button>
         </div>}
 
         {panel==="progress"&&<div className={styles.progressPanel}>
-          {[["Living & non-living things",82],["Cells and their functions",74],["Human body systems",61],["Food and nutrition",56]].map(([label,value])=><article key={String(label)}>
-            <div><strong>{label}</strong><span>{value}%</span></div>
-            <i><b style={{width:`${value}%`}}/></i>
+          {progressItems.map(item=><article key={item.label}>
+            <div><strong>{item.label}</strong><span>{item.value}%</span></div>
+            <i><b style={{width:`${item.value}%`}}/></i>
           </article>)}
-          <section className={styles.summaryCard}><UsersRound/><div><strong>Class 8{selectedSection}</strong><span>24 students · 7 may need another explanation</span></div></section>
+          <section className={styles.summaryCard}><UsersRound/><div><strong>Class {selectedClass}{selectedSection}</strong><span>24 students · 7 may need another explanation</span></div></section>
         </div>}
 
         {panel==="resources"&&<div className={styles.resourceGrid}>
-          {[
-            ["Lesson slides","Presentation"],["Chapter images","Visuals"],["Quick questions","Assessment"],["Worksheets","Printable"]
-          ].map(([title,type])=><button key={title}><FileText/><strong>{title}</strong><span>{type}</span></button>)}
+          {resources.map(([title,type])=><button key={title}><BookOpen/><strong>{title}</strong><span>{type}</span></button>)}
         </div>}
 
         {panel==="activity"&&<div className={styles.activityPanel}>
           <p>Tap the label you would use in class.</p>
           <div className={styles.activityGrid}>
-            {[["🌳","Tree",true],["🪨","Stone",false],["🐦","Bird",true],["🚲","Bicycle",false]].map(([emoji,label,living])=><article key={String(label)}>
-              <span className={styles.emoji}>{emoji}</span>
-              <strong>{label}</strong>
-              <div><button className={living?styles.answerOn:""}>Living</button><button className={!living?styles.answerOn:""}>Non-living</button></div>
+            {activityItems.map(item=><article key={item.label}>
+              <span className={styles.emoji}>{item.emoji}</span>
+              <strong>{item.label}</strong>
+              <div><button className={item.living?styles.answerOn:""}>Living</button><button className={!item.living?styles.answerOn:""}>Non-living</button></div>
             </article>)}
           </div>
-          <section className={styles.activityTip}><CheckCircle2/><span>Use this as a quick understanding check after the explanation.</span></section>
+          <section className={styles.activityTip}><CircleCheck/><span>Use this as a quick understanding check after the explanation.</span></section>
         </div>}
 
         {panel==="calendar"&&<div className={styles.calendarPanel}>
-          <div className={styles.calendarHeader}><CalendarDays/><strong>December 2024</strong></div>
+          <div className={styles.calendarHeader}><BookOpen/><strong>December 2024</strong></div>
           <div className={styles.weekRow}>{["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].map(day=><span key={day}>{day}</span>)}</div>
           <div className={styles.dateGrid}>{Array.from({length:31},(_,index)=>index+1).map(day=><button key={day} className={day===10?styles.todayDate:""}>{day}</button>)}</div>
         </div>}
@@ -218,9 +206,9 @@ export default function TeacherDashboard(){
           <div className={styles.classActions}>
             <button onClick={()=>setPanel("lesson")}><NotebookPen/><div><strong>Plan a lesson</strong><span>Open the teaching notebook</span></div><ChevronRight/></button>
             <button onClick={()=>setPanel("assignments")}><ClipboardCheck/><div><strong>Assignments</strong><span>Review and create class work</span></div><ChevronRight/></button>
-            <button onClick={()=>setPanel("progress")}><BarChart3/><div><strong>Student progress</strong><span>See understanding at a glance</span></div><ChevronRight/></button>
+            <button onClick={()=>setPanel("progress")}><UsersRound/><div><strong>Student progress</strong><span>See understanding at a glance</span></div><ChevronRight/></button>
           </div>
-          <div className={styles.teacherIdentity}><UserRound/><div><span>Signed in as</span><strong>{teacherName}</strong></div><button onClick={logout}><LogOut/>Log out</button></div>
+          <div className={styles.teacherIdentity}><UsersRound/><div><span>Signed in as</span><strong>{teacherName}</strong></div><button onClick={logout}><LogOut/>Log out</button></div>
         </div>}
       </aside>
     </div>}
