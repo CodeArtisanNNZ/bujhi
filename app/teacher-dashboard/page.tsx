@@ -287,9 +287,7 @@ export default function TeacherDashboard(){
 
       <div className={styles.topRail}>
         <Link href="/" className={styles.brand}>Bujhi</Link><i/>
-        <span>Teacher desk</span><i/>
-        <button onClick={()=>openClass(selectedClass)}>Class {selectedClass}</button><i/>
-        <span>Section A</span>
+        <span>Teacher desk</span>
         <button className={styles.profileButton} title={teacherName}><UserRound/></button>
       </div>
 
@@ -359,18 +357,6 @@ export default function TeacherDashboard(){
         <div className={styles.deskEdge}/>
       </div>
 
-      <div className={styles.leftBooks}>
-        <button onClick={()=>{if(lesson){anime(`.${styles.notebook}`,{scale:[.985,1.018,1],duration:420});}else openClass(selectedClass)}} className={styles.redBook}><NotebookPen/><span>Lesson plan</span></button>
-        <button onClick={()=>setQuickPanel("assignments")} className={styles.creamBook}><CircleCheck/><span>Assignments</span></button>
-        <button onClick={()=>setQuickPanel("progress")} className={styles.greenBook}><BarChart3/><span>Student progress</span></button>
-        <button onClick={()=>setQuickPanel("resources")} className={styles.ochreBook}><FolderOpen/><span>My resources</span></button>
-      </div>
-
-      <div className={styles.assessmentPaper} aria-hidden="true">
-        <strong>Assessment checklist</strong>
-        {["Living and non-living things","Cells and their functions","Human body systems","Food and nutrition","Safety in the laboratory"].map((item,index)=><span key={item}><b>{item}</b><i className={index<2?styles.assessmentDone:""}/></span>)}
-      </div>
-
       <div className={styles.pen} aria-hidden="true"/>
 
       {!lesson&&<button className={styles.notebookBlank} onClick={()=>openClass(selectedClass)}>
@@ -413,20 +399,6 @@ export default function TeacherDashboard(){
         </div>
       </section>}
 
-      {!lesson&&<div className={styles.tablet}>
-        <div className={styles.tabletBezel}>
-          <div className={styles.tabletTopbar}><span>✧</span><strong>{selectedSubject?selectedSubject.name:"Science · Chapter 1"}</strong><i/></div>
-          <div className={styles.tabletTabs}><b>Content</b><span>Activities</span><span>Resources</span></div>
-          <div className={styles.tabletContent}>
-            <strong>Interactive activity</strong>
-            <small>Classify each item as living or non-living</small>
-            <div className={styles.activityCards}>
-              {["🌳","🪨","🐦","🚲"].map((emoji,index)=><div key={index}><span>{emoji}</span><b>{["Tree","Stone","Bird","Bicycle"][index]}</b><i>{index%2===0?"Living":"Non-living"}</i></div>)}
-            </div>
-          </div>
-        </div>
-      </div>}
-
       <div className={styles.cupArea}>
         <button className={styles.cup} onClick={()=>setDrinkMenu(value=>!value)} aria-label={`Current drink: ${drink}. Change drink`}>
           <span className={styles.liquid} style={{background:drinkMeta[drink].color}}/>
@@ -439,10 +411,6 @@ export default function TeacherDashboard(){
             {value==="Water"?<Droplets/>:<Coffee/>}<span>{value}</span>
           </button>)}
         </div>}
-      </div>
-
-      <div className={styles.smallSticky} aria-hidden="true">
-        <span>☑ Plan</span><span>☑ Teach</span><span>☐ Reflect</span><span>☐ Improve</span>
       </div>
 
       {folderOpen&&<section className={styles.fileDeck}>
@@ -500,21 +468,6 @@ export default function TeacherDashboard(){
           <header><div><span>Calendar</span><h2>{calendar.label}</h2></div><button onClick={()=>setCalendarOpen(false)}><X/></button></header>
           <div className={styles.bigCalendarWeek}>{["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].map(day=><span key={day}>{day}</span>)}</div>
           <div className={styles.bigCalendarDays}>{calendar.days.map((day,index)=><button key={index} disabled={!day} className={day===calendar.today?styles.bigToday:""}>{day||""}</button>)}</div>
-        </section>
-      </div>}
-
-      {quickPanel&&<div className={styles.modalBackdrop} onMouseDown={event=>{if(event.currentTarget===event.target)setQuickPanel(null)}}>
-        <section className={styles.modalPanel}>
-          <header><div><span>Desk book</span><h2>{quickPanel==="assignments"?"Assignments":quickPanel==="progress"?"Student progress":"My resources"}</h2></div><button onClick={()=>setQuickPanel(null)}><X/></button></header>
-          {quickPanel==="assignments"&&<div className={styles.quickList}>
-            {["Living & non-living worksheet · 18/24 submitted","Cells and their functions · due tomorrow","Human body systems · draft"].map(item=><button key={item}><CircleCheck/><span>{item}</span><ChevronRight/></button>)}
-          </div>}
-          {quickPanel==="progress"&&<div className={styles.progressList}>
-            {[["Living & non-living things",82],["Cells and their functions",74],["Human body systems",61]].map(([label,value])=><div key={String(label)}><span><strong>{label}</strong><b>{value}%</b></span><i><em style={{width:`${value}%`}}/></i></div>)}
-          </div>}
-          {quickPanel==="resources"&&<div className={styles.resourceList}>
-            {["Lesson slides","Chapter images","Quick questions","Worksheets"].map(item=><button key={item}><FolderOpen/><span>{item}</span></button>)}
-          </div>}
         </section>
       </div>}
 
