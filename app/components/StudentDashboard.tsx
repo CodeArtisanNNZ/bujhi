@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import {createElement,useEffect,useMemo,useRef,useState} from "react";
+import {createElement,useEffect,useMemo,useState} from "react";
 import {
   BookOpen,ChevronDown,ChevronRight,FileText,LogOut,
   NotebookPen,PenLine,Play,StickyNote,UsersRound,X
@@ -11,23 +11,7 @@ import styles from "../dashboard/dashboard.module.css";
 type Profile={full_name?:string;role?:string;class_level?:string};
 type Drink="coffee"|"tea"|"water"|"lemonade";
 type Panel="book"|"notes"|"practice"|"lesson"|null;
-type Book={
-  id:string;
-  title:string;
-  label:string;
-  glyph:string;
-  accent:string;
-};
-
-type ModelProps={
-  src:string;
-  alt:string;
-  className?:string;
-  orbit?:string;
-  fieldOfView?:string;
-  interactive?:boolean;
-  eager?:boolean;
-};
+type Book={id:string;title:string;label:string;glyph:string;accent:string};
 
 const books:Book[]=[
   {id:"bangla",title:"Bangla",label:"বাংলা",glyph:"অ",accent:"#8d2d29"},
@@ -53,76 +37,54 @@ const scienceChapters=[
   "Earth and Space"
 ];
 
-const drinkModels:{
-  id:Drink;
-  label:string;
-  detail:string;
-  src:string;
-  accessory?:string;
-}[]=[
-  {
-    id:"coffee",
-    label:"Coffee",
-    detail:"Stoneware coffee mug",
-    src:"https://cdn.3dassets.dev/assets/33831/v1/model.glb"
-  },
-  {
-    id:"tea",
-    label:"Tea",
-    detail:"Red enamel tea mug",
-    src:"https://cdn.3dassets.dev/assets/26026/v1/model.glb"
-  },
-  {
-    id:"water",
-    label:"Water",
-    detail:"Glass water carafe",
-    src:"https://cdn.3dassets.dev/assets/16535/v1/model.glb"
-  },
-  {
-    id:"lemonade",
-    label:"Lemonade",
-    detail:"Glass carafe with lemon",
-    src:"https://cdn.3dassets.dev/assets/16535/v1/model.glb",
-    accessory:"https://cdn.3dassets.dev/assets/26906/v1/model.glb"
-  }
+const drinks:{id:Drink;label:string;detail:string;src:string;accessory?:string}[]=[
+  {id:"coffee",label:"Coffee",detail:"Stoneware coffee mug",src:"https://cdn.3dassets.dev/assets/33831/v1/model.glb"},
+  {id:"tea",label:"Tea",detail:"Red enamel tea mug",src:"https://cdn.3dassets.dev/assets/26026/v1/model.glb"},
+  {id:"water",label:"Water",detail:"Glass water carafe",src:"https://cdn.3dassets.dev/assets/16535/v1/model.glb"},
+  {id:"lemonade",label:"Lemonade",detail:"Glass carafe with lemon",src:"https://cdn.3dassets.dev/assets/16535/v1/model.glb",accessory:"https://cdn.3dassets.dev/assets/26906/v1/model.glb"}
 ];
 
-function Model({
-  src,
-  alt,
-  className,
-  orbit="30deg 72deg 2.5m",
-  fieldOfView="30deg",
-  interactive=false,
-  eager=false
-}:ModelProps){
-  const props:Record<string,unknown>={
+const bookHotspots=[
+  {left:10.3,width:5.4},
+  {left:16.2,width:5.7},
+  {left:22.2,width:6.1},
+  {left:28.4,width:6.8},
+  {left:35.4,width:5.8},
+  {left:41.5,width:6.5},
+  {left:48.1,width:5.4},
+  {left:53.8,width:5.6},
+  {left:59.6,width:6.0},
+  {left:66.0,width:6.2},
+  {left:72.6,width:6.5},
+  {left:79.3,width:6.6}
+];
+
+function Model({src,alt}:{src:string;alt:string}){
+  return createElement("model-viewer",{
     src,
     alt,
-    class:className,
-    "camera-orbit":orbit,
-    "field-of-view":fieldOfView,
+    class:styles.drinkModel,
+    "camera-orbit":"25deg 68deg 2m",
+    "field-of-view":"24deg",
     "interaction-prompt":"none",
-    "shadow-intensity":"0.68",
+    "shadow-intensity":"0.9",
     "shadow-softness":"1",
     "environment-image":"neutral",
-    exposure:"0.92",
+    exposure:"0.96",
     "tone-mapping":"neutral",
-    loading:eager?"eager":"lazy",
+    loading:"eager",
     "disable-zoom":true,
     style:{width:"100%",height:"100%",background:"transparent"}
-  };
-  if(interactive)props["camera-controls"]=true;
-  return createElement("model-viewer",props);
+  });
 }
 
 export default function StudentDashboard(){
-  const sceneRef=useRef<HTMLElement|null>(null);
   const[profile,setProfile]=useState<Profile>({class_level:"8"});
-  const[selectedBook,setSelectedBook]=useState<Book>(books.find(book=>book.id==="science")||books[0]);
+  const[selectedBook,setSelectedBook]=useState<Book>(books[3]);
   const[selectedChapter,setSelectedChapter]=useState(1);
   const[lightOn,setLightOn]=useState(true);
   const[drink,setDrink]=useState<Drink>("tea");
+  const[drinkOpen,setDrinkOpen]=useState(false);
   const[panel,setPanel]=useState<Panel>(null);
   const[bookTab,setBookTab]=useState<"pdf"|"chapters">("chapters");
   const[note,setNote]=useState("");
@@ -138,75 +100,9 @@ export default function StudentDashboard(){
       const savedNote=localStorage.getItem("bujhi-student-sticky-note");
       if(savedNote)setNote(savedNote);
       const savedDrink=localStorage.getItem("bujhi-student-drink") as Drink|null;
-      if(savedDrink&&drinkModels.some(item=>item.id===savedDrink))setDrink(savedDrink);
+      if(savedDrink&&drinks.some(item=>item.id===savedDrink))setDrink(savedDrink);
     }catch{}
   },[]);
-
-  useEffect(()=>{
-    let cancelled=false;
-    let timer:ReturnType<typeof setTimeout>|null=null;
-    let context:{revert?:()=>void}|null=null;
-    let attempts=0;
-
-    const boot=()=>{
-      if(cancelled)return;
-      const gsap=(window as unknown as {gsap?:any}).gsap;
-      if(!gsap){
-        if(attempts++<50)timer=setTimeout(boot,100);
-        return;
-      }
-      context=gsap.context(()=>{
-        gsap.from("[data-reveal]",{
-          opacity:0,
-          y:8,
-          duration:.52,
-          ease:"power2.out",
-          stagger:.035
-        });
-
-        const plants=gsap.utils.toArray("[data-plant]");
-        plants.forEach((plant:any,index:number)=>{
-          gsap.set(plant,{transformOrigin:"50% 100%"});
-          gsap.to(plant,{
-            rotation:()=>gsap.utils.random(-.42,.42),
-            duration:6.2+(index*.85),
-            repeat:-1,
-            yoyo:true,
-            repeatRefresh:true,
-            ease:"sine.inOut",
-            delay:index*.45
-          });
-        });
-      },sceneRef.current);
-    };
-
-    boot();
-    return ()=>{
-      cancelled=true;
-      if(timer)clearTimeout(timer);
-      context?.revert?.();
-    };
-  },[]);
-
-  useEffect(()=>{
-    const gsap=(window as unknown as {gsap?:any}).gsap;
-    if(!gsap)return;
-    gsap.fromTo(
-      '[data-active-subject="true"]',
-      {y:2,scale:.995},
-      {y:-1,scale:1,duration:.24,ease:"power2.out"}
-    );
-  },[selectedBook.id]);
-
-  useEffect(()=>{
-    const gsap=(window as unknown as {gsap?:any}).gsap;
-    if(!gsap)return;
-    gsap.fromTo(
-      "[data-drink-model]",
-      {opacity:0,y:8,scale:.985},
-      {opacity:1,y:0,scale:1,duration:.4,ease:"power2.out"}
-    );
-  },[drink]);
 
   function logout(){
     try{localStorage.removeItem("bujhi-demo-auth")}catch{}
@@ -222,6 +118,7 @@ export default function StudentDashboard(){
 
   function chooseDrink(next:Drink){
     setDrink(next);
+    setDrinkOpen(false);
     try{localStorage.setItem("bujhi-student-drink",next)}catch{}
   }
 
@@ -232,241 +129,99 @@ export default function StudentDashboard(){
 
   const firstName=profile.full_name?.trim().split(" ")[0]||"Samiha";
   const chapters=useMemo(
-    ()=>selectedBook.id==="science"
-      ?scienceChapters
-      :Array.from({length:6},(_,index)=>`Chapter ${index+1}`),
+    ()=>selectedBook.id==="science"?scienceChapters:Array.from({length:6},(_,i)=>`Chapter ${i+1}`),
     [selectedBook.id]
   );
   const currentTitle=chapters[selectedChapter-1]||chapters[0];
-  const activeDrink=drinkModels.find(item=>item.id===drink)||drinkModels[0];
+  const activeDrink=drinks.find(item=>item.id===drink)||drinks[0];
 
   return <main className={styles.page}>
-    <header className={styles.topbar}>
-      <Link href="/" className={styles.brand}>Bujhi<span>❧</span></Link>
+    <section className={styles.referenceDesk} aria-label="Bujhi student study desk">
+      <img
+        src="/classroom-student-view.png"
+        alt="Bujhi student desk with subject books, study notebook, lamp, learning screen, plants and desk accessories"
+        className={styles.referenceImage}
+        draggable={false}
+      />
 
-      <div className={styles.classPicker}>
-        <button onClick={()=>setClassOpen(value=>!value)}>
+      <div className={styles.removeSlogan} aria-hidden="true"/>
+
+      <div className={styles.dynamicClass}>
+        <button onClick={()=>setClassOpen(v=>!v)}>
           Class {profile.class_level||"8"} <ChevronDown/>
         </button>
         {classOpen&&<div className={styles.classMenu}>
-          {[6,7,8,9,10].map(level=><button
-            key={level}
-            onClick={()=>{
-              setProfile(current=>({...current,class_level:String(level)}));
-              setClassOpen(false);
-            }}
-          >Class {level}</button>)}
+          {[6,7,8,9,10].map(level=><button key={level} onClick={()=>{
+            setProfile(current=>({...current,class_level:String(level)}));
+            setClassOpen(false);
+          }}>Class {level}</button>)}
         </div>}
       </div>
 
-      <div className={styles.profileBlock}>
-        <span className={styles.avatar}><UsersRound/></span>
+      <div className={styles.dynamicProfile}>
+        <span><UsersRound/></span>
         <strong>{firstName}</strong>
-        <button className={styles.logout} onClick={logout} aria-label="Log out"><LogOut/></button>
+        <button onClick={logout} aria-label="Log out"><LogOut/></button>
       </div>
-    </header>
 
-    <section
-      ref={sceneRef}
-      className={`${styles.scene} ${lightOn?styles.sceneLight:styles.sceneDim}`}
-    >
-      <section className={styles.subjectShelf} data-reveal>
-        <div className={styles.shelfPlantLeft} data-plant>
-          <Model src="https://cdn.3dassets.dev/assets/36418/v1/model.glb" alt="Decorative potted plant" className={styles.fullModel}/>
-        </div>
+      <div className={styles.bookHotspots} aria-label="Subject books">
+        {books.map((book,index)=><button
+          key={book.id}
+          style={{left:`${bookHotspots[index].left}%`,width:`${bookHotspots[index].width}%`}}
+          onClick={()=>chooseBook(book)}
+          aria-label={`Open ${book.title}`}
+          title={book.title}
+        />)}
+      </div>
 
-        <div className={styles.shelfFurniture} aria-hidden="true">
-          <Model
-            src="https://cdn.3dassets.dev/assets/34995/v1/model.glb"
-            alt=""
-            className={styles.fullModel}
-            orbit="-28deg 70deg 3.3m"
-            fieldOfView="24deg"
-            eager
-          />
-        </div>
+      <button
+        className={styles.lampHotspot}
+        onClick={()=>setLightOn(v=>!v)}
+        aria-label={lightOn?"Turn lamp off":"Turn lamp on"}
+      >
+        <span>{lightOn?"ON":"OFF"}</span>
+      </button>
+      <div className={`${styles.lampOffMask} ${!lightOn?styles.lampOffMaskVisible:""}`} aria-hidden="true"/>
 
-        <div className={styles.subjectRail} aria-label="Books for this class">
-          {books.map(book=><button
-            key={book.id}
-            data-active-subject={selectedBook.id===book.id?"true":"false"}
-            className={`${styles.subjectBook} ${selectedBook.id===book.id?styles.subjectBookActive:""}`}
-            onClick={()=>chooseBook(book)}
-          >
-            <span className={styles.subjectIcon} style={{background:book.accent}}>{book.glyph}</span>
-            <strong>{book.label}</strong>
-            <small>{book.title}</small>
-          </button>)}
-        </div>
+      <div className={styles.chapterHotspots} aria-label="Science chapter list">
+        {scienceChapters.map((chapter,index)=><button
+          key={chapter}
+          onClick={()=>{
+            setSelectedBook(books[3]);
+            setSelectedChapter(index+1);
+            setPanel("lesson");
+          }}
+          aria-label={`Open Chapter ${index+1}: ${chapter}`}
+        />)}
+      </div>
 
-        <div className={styles.shelfBooks3d} data-float aria-hidden="true">
-          <Model src="https://cdn.3dassets.dev/assets/31036/v1/model.glb" alt="" className={styles.fullModel} orbit="35deg 67deg 2m"/>
-        </div>
+      <button className={styles.stickyHotspot} onClick={()=>setPanel("notes")} aria-label="Open sticky note"/>
 
-        <div className={styles.shelfPlantRight} data-plant aria-hidden="true">
-          <Model src="https://cdn.3dassets.dev/assets/36579/v1/model.glb" alt="" className={styles.fullModel} orbit="-25deg 72deg 2.2m"/>
-        </div>
-      </section>
+      <button className={styles.tabletHotspot} onClick={()=>setPanel("lesson")} aria-label="Continue lesson on learning screen"/>
 
-      <section className={styles.workspace}>
-        <div className={styles.wallWash} aria-hidden="true"/>
+      <div className={styles.actionHotspots}>
+        <button className={styles.continueHotspot} onClick={()=>setPanel("lesson")} aria-label="Continue learning"/>
+        <button className={styles.lessonHotspot} onClick={()=>setPanel("lesson")} aria-label="Start lesson"/>
+        <button className={styles.practiceHotspot} onClick={()=>setPanel("practice")} aria-label="Practice"/>
+        <button className={styles.notesHotspot} onClick={()=>setPanel("notes")} aria-label="My notes"/>
+      </div>
 
-        <button
-          className={styles.lampObject}
-          data-lamp-object
-          data-reveal
-          onClick={()=>setLightOn(value=>!value)}
-          aria-label={lightOn?"Turn lamp off":"Turn lamp on"}
-        >
-          <Model
-            src="https://cdn.3dassets.dev/assets/38866/v1/model.glb"
-            alt="Desk lamp"
-            className={styles.fullModel}
-            orbit="-32deg 70deg 2m"
-            fieldOfView="28deg"
-            eager
-          />
-          <span className={`${styles.lampBeam} ${lightOn?styles.lampBeamOn:""}`}/>
-          <span className={styles.lampToggle}>{lightOn?"Lamp on":"Lamp off"}</span>
+      <aside className={styles.mugOverlay}>
+        <button className={styles.mugStage} onClick={()=>setDrinkOpen(v=>!v)} aria-label={`Current drink: ${activeDrink.label}. Change drink.`}>
+          <Model src={activeDrink.src} alt={activeDrink.detail}/>
+          {activeDrink.accessory&&<span className={styles.lemonModel}><Model src={activeDrink.accessory} alt="Lemon"/></span>}
         </button>
-
-        <div className={styles.leftPlant} data-plant data-reveal aria-hidden="true">
-          <Model src="https://cdn.3dassets.dev/assets/36418/v1/model.glb" alt="" className={styles.fullModel} orbit="26deg 72deg 2m"/>
-        </div>
-
-        <div className={styles.decorBooks} data-float data-reveal aria-hidden="true">
-          <Model src="https://cdn.3dassets.dev/assets/31036/v1/model.glb" alt="" className={styles.fullModel} orbit="-25deg 66deg 1.8m"/>
-        </div>
-
-        <section className={styles.notebook} data-reveal aria-label="Current subject notebook">
-          <div className={styles.notebookLeft}>
-            <div className={styles.notebookTitle}>
-              <span style={{background:selectedBook.accent}}>{selectedBook.glyph}</span>
-              <div><small>Class {profile.class_level||"8"}</small><strong>{selectedBook.title}</strong></div>
-            </div>
-
-            <div className={styles.chapterList}>
-              {chapters.map((chapterTitle,index)=><button
-                key={chapterTitle}
-                onClick={()=>setSelectedChapter(index+1)}
-                className={selectedChapter===index+1?styles.chapterActive:""}
-              >
-                <span>{String(index+1).padStart(2,"0")}</span>
-                <div><strong>Chapter {index+1}</strong><small>{chapterTitle}</small></div>
-                <ChevronRight/>
-              </button>)}
-            </div>
-          </div>
-
-          <div className={styles.notebookBinding} aria-hidden="true">
-            <i/><i/><i/><i/><i/><i/>
-          </div>
-
-          <div className={styles.notebookRight}>
-            <span className={styles.chapterTag}>Chapter {selectedChapter}</span>
-            <h1>{currentTitle}</h1>
-            <p>Read the textbook, open the chapter lesson, practise the topic, or keep your own notes from the same desk.</p>
-
-            <div className={styles.lessonPreview}>
-              <BookOpen/>
-              <div>
-                <strong>{selectedBook.title}</strong>
-                <span>Chapter {selectedChapter} learning space</span>
-              </div>
-            </div>
-
-            <button className={styles.stickyButton} onClick={()=>setPanel("notes")}>
-              <StickyNote/>
-              <div>
-                <strong>{note.trim()?"My sticky note":"Add a sticky note"}</strong>
-                <span>{note.trim()?note.slice(0,54):"Keep a thought beside the lesson."}</span>
-              </div>
-            </button>
-          </div>
-        </section>
-
-        <aside className={styles.mediaStation} data-reveal>
-          <div className={styles.monitorModel} data-float>
-            <Model
-              src="https://cdn.3dassets.dev/assets/29958/v1/model.glb"
-              alt="Learning screen"
-              className={styles.fullModel}
-              orbit="-27deg 72deg 2.4m"
-              fieldOfView="28deg"
-            />
-          </div>
-          <div className={styles.mediaCard}>
-            <span>{selectedBook.title}</span>
-            <strong>Chapter {selectedChapter}</strong>
-            <p>{currentTitle}</p>
-            <div className={styles.mediaProgress}><i/></div>
-            <button onClick={()=>setPanel("lesson")}><Play/>Continue</button>
-          </div>
-          <div className={styles.keyboardModel} aria-hidden="true">
-            <Model src="/3d/computerKeyboard.glb" alt="" className={styles.fullModel} orbit="15deg 54deg 2m"/>
-          </div>
-          <div className={styles.mouseModel} aria-hidden="true">
-            <Model src="/3d/computerMouse.glb" alt="" className={styles.fullModel} orbit="-30deg 58deg 1.6m"/>
-          </div>
-        </aside>
-
-        <div className={styles.rightPlant} data-plant data-reveal aria-hidden="true">
-          <Model src="https://cdn.3dassets.dev/assets/36579/v1/model.glb" alt="" className={styles.fullModel} orbit="-22deg 72deg 2m"/>
-        </div>
-      </section>
-
-      <section className={styles.deskZone}>
-        <div className={styles.deskModel} aria-hidden="true" data-reveal>
-          <Model
-            src="https://cdn.3dassets.dev/assets/38859/v1/model.glb"
-            alt=""
-            className={styles.fullModel}
-            orbit="0deg 68deg 3.4m"
-            fieldOfView="22deg"
-            eager
-          />
-        </div>
-
-        <div className={styles.actionDock} data-reveal>
-          <button className={styles.continueButton} onClick={()=>setPanel("lesson")}>
-            <span><Play/></span>
-            <div><strong>Continue learning</strong><small>Chapter {selectedChapter} · {currentTitle}</small></div>
-            <ChevronRight/>
-          </button>
-          <button onClick={()=>setPanel("lesson")}><NotebookPen/><span>Start lesson</span><ChevronRight/></button>
-          <button onClick={()=>setPanel("practice")}><PenLine/><span>Practice</span><ChevronRight/></button>
-          <button onClick={()=>setPanel("notes")}><BookOpen/><span>My notes</span><ChevronRight/></button>
-        </div>
-
-        <aside className={styles.drinkDock} data-reveal>
-          <div className={styles.drinkStage} data-drink-model>
-            <Model
-              src={activeDrink.src}
-              alt={activeDrink.detail}
-              className={styles.fullModel}
-              orbit="28deg 68deg 2m"
-              fieldOfView="25deg"
-              interactive
-              eager
-            />
-            {activeDrink.accessory&&<div className={styles.lemonAccessory}>
-              <Model src={activeDrink.accessory} alt="Lemon" className={styles.fullModel} orbit="-28deg 72deg 1.8m"/>
-            </div>}
-          </div>
-          <div className={styles.drinkCaption}>
-            <strong>{activeDrink.label}</strong>
-            <span>{activeDrink.detail}</span>
-          </div>
-          <div className={styles.drinkPicker}>
-            {drinkModels.map(item=><button
-              key={item.id}
-              className={drink===item.id?styles.drinkActive:""}
-              onClick={()=>chooseDrink(item.id)}
-            >{item.label}</button>)}
-          </div>
-        </aside>
-      </section>
+        {drinkOpen&&<div className={styles.drinkMenu}>
+          {drinks.map(item=><button
+            key={item.id}
+            className={drink===item.id?styles.drinkActive:""}
+            onClick={()=>chooseDrink(item.id)}
+          >{item.label}</button>)}
+        </div>}
+      </aside>
     </section>
+
+    <div className={styles.mobileHint}>Tap the subject books, lamp, notebook, learning screen, action buttons or mug.</div>
 
     {panel&&<div className={styles.overlay} onMouseDown={event=>{if(event.currentTarget===event.target)setPanel(null)}}>
       <section className={styles.panel}>
@@ -478,19 +233,17 @@ export default function StudentDashboard(){
             <div>
               <p>Class {profile.class_level||"8"} book</p>
               <h2>{selectedBook.title}</h2>
-              <small>Textbook first, then chapter-wise lessons.</small>
+              <small>Open the textbook PDF or choose a chapter lesson.</small>
             </div>
           </div>
-
           <div className={styles.tabs}>
             <button className={bookTab==="pdf"?styles.tabActive:""} onClick={()=>setBookTab("pdf")}><FileText/>Textbook PDF</button>
             <button className={bookTab==="chapters"?styles.tabActive:""} onClick={()=>setBookTab("chapters")}><BookOpen/>Chapter lessons</button>
           </div>
-
           {bookTab==="pdf"?<div className={styles.pdfPanel}>
             <FileText/>
             <h3>{selectedBook.title} textbook</h3>
-            <p>The PDF viewer slot is ready for the official book file. The book can be connected here without changing the desk layout.</p>
+            <p>The PDF viewer slot is ready for the official textbook file.</p>
             <button disabled>PDF will be connected here</button>
           </div>:<div className={styles.chapterPanel}>
             {chapters.map((title,index)=><button key={title} onClick={()=>{setSelectedChapter(index+1);setPanel("lesson")}}>
@@ -536,7 +289,7 @@ export default function StudentDashboard(){
           <div className={styles.lessonPlaceholder}>
             <Play/>
             <h3>Chapter lesson space</h3>
-            <p>The chapter-wise lesson content will be uploaded here later. The desk already keeps the selected subject, chapter, notes and practice flow connected.</p>
+            <p>Chapter-wise lessons will be uploaded here later. The functional flow is ready without animating the decorative desk scene.</p>
           </div>
         </>}
       </section>
