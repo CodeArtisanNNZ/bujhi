@@ -119,6 +119,7 @@
   width:100%;
   height:100%;
   --poster-color:transparent;
+  filter:saturate(.92) contrast(.98);
 }
 
 .subjectShelf{
@@ -269,18 +270,20 @@
 .lampBeam{
   position:absolute;
   z-index:-1;
-  left:44%;
-  top:34%;
-  width:250px;
-  height:260px;
+  left:45%;
+  top:31%;
+  width:270px;
+  height:285px;
   transform:translateX(-50%);
-  clip-path:polygon(33% 0,66% 0,100% 100%,0 100%);
-  background:radial-gradient(ellipse at top,rgba(255,232,151,.7),rgba(255,222,124,.18) 48%,transparent 73%);
+  clip-path:polygon(37% 0,63% 0,88% 100%,12% 100%);
+  background:radial-gradient(ellipse at 50% 5%,rgba(255,238,178,.55),rgba(255,220,126,.16) 48%,transparent 76%);
+  filter:blur(13px);
+  mix-blend-mode:screen;
   opacity:0;
-  transition:opacity .25s ease;
+  transition:opacity .48s cubic-bezier(.22,.61,.36,1);
   pointer-events:none;
 }
-.lampBeamOn{opacity:1}
+.lampBeamOn{opacity:.72}
 .lampToggle{
   position:absolute;
   left:50%;
@@ -631,7 +634,7 @@
   width:min(900px,74vw);
   height:500px;
   transform:translateX(-50%);
-  opacity:.46;
+  opacity:.72;
   pointer-events:none;
 }
 .actionDock{
