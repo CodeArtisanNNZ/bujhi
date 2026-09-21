@@ -8,6 +8,7 @@ import {
  RefreshCcw,Sparkles,Target
 } from "lucide-react";
 import styles from "./chapter2.module.css";
+import CinematicLab from "./CinematicLabs";
 
 type Lesson={
  id:number; title:string; short:string; eyebrow:string; hook:string;
@@ -310,15 +311,7 @@ function DetailBox({lesson}:{lesson:number}){
  </div>;
 }
 
-function Simulation({lesson}:{lesson:number}){
- if(lesson===1)return <DivisionLab/>;
- if(lesson===2||lesson===3)return <MitosisLab/>;
- if(lesson===4)return <GrowthLab/>;
- if(lesson===5||lesson===6)return <MeiosisLab/>;
- if(lesson===7)return <ChromosomeExplorer/>;
- if(lesson===8)return <DnaLab/>;
- return <HeredityLab/>;
-}
+function Simulation({lesson}:{lesson:number}){ return <CinematicLab lesson={lesson}/>; }
 
 export default function ChapterTwo(){
  const[active,setActive]=useState(1);
