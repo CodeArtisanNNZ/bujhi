@@ -103,9 +103,10 @@ function Model({
     "camera-orbit":orbit,
     "field-of-view":fieldOfView,
     "interaction-prompt":"none",
-    "shadow-intensity":"1.2",
-    "shadow-softness":"0.85",
-    exposure:"1.05",
+    "shadow-intensity":"0.68",
+    "shadow-softness":"1",
+    "environment-image":"neutral",
+    exposure:"0.92",
     "tone-mapping":"neutral",
     loading:eager?"eager":"lazy",
     "disable-zoom":true,
@@ -157,26 +158,24 @@ export default function StudentDashboard(){
       context=gsap.context(()=>{
         gsap.from("[data-reveal]",{
           opacity:0,
-          y:18,
-          duration:.72,
-          ease:"power3.out",
-          stagger:.055
+          y:8,
+          duration:.52,
+          ease:"power2.out",
+          stagger:.035
         });
-        gsap.to("[data-plant]",{
-          rotation:1.7,
-          x:3,
-          duration:4.6,
-          yoyo:true,
-          repeat:-1,
-          ease:"sine.inOut",
-          transformOrigin:"50% 95%"
-        });
-        gsap.to("[data-float]",{
-          y:-7,
-          duration:3.4,
-          yoyo:true,
-          repeat:-1,
-          ease:"sine.inOut"
+
+        const plants=gsap.utils.toArray("[data-plant]");
+        plants.forEach((plant:any,index:number)=>{
+          gsap.set(plant,{transformOrigin:"50% 100%"});
+          gsap.to(plant,{
+            rotation:()=>gsap.utils.random(-.42,.42),
+            duration:6.2+(index*.85),
+            repeat:-1,
+            yoyo:true,
+            repeatRefresh:true,
+            ease:"sine.inOut",
+            delay:index*.45
+          });
         });
       },sceneRef.current);
     };
@@ -194,8 +193,8 @@ export default function StudentDashboard(){
     if(!gsap)return;
     gsap.fromTo(
       '[data-active-subject="true"]',
-      {y:7,scale:.98},
-      {y:-4,scale:1,duration:.42,ease:"back.out(1.5)"}
+      {y:2,scale:.995},
+      {y:-1,scale:1,duration:.24,ease:"power2.out"}
     );
   },[selectedBook.id]);
 
@@ -204,21 +203,10 @@ export default function StudentDashboard(){
     if(!gsap)return;
     gsap.fromTo(
       "[data-drink-model]",
-      {opacity:.2,rotationY:-24,scale:.88},
-      {opacity:1,rotationY:0,scale:1,duration:.58,ease:"back.out(1.4)"}
+      {opacity:0,y:8,scale:.985},
+      {opacity:1,y:0,scale:1,duration:.4,ease:"power2.out"}
     );
   },[drink]);
-
-  useEffect(()=>{
-    const gsap=(window as unknown as {gsap?:any}).gsap;
-    if(!gsap)return;
-    gsap.to("[data-lamp-object]",{
-      rotation:lightOn?-2:2.5,
-      duration:.55,
-      ease:"power2.out",
-      transformOrigin:"50% 85%"
-    });
-  },[lightOn]);
 
   function logout(){
     try{localStorage.removeItem("bujhi-demo-auth")}catch{}
@@ -284,12 +272,12 @@ export default function StudentDashboard(){
     >
       <section className={styles.subjectShelf} data-reveal>
         <div className={styles.shelfPlantLeft} data-plant>
-          <Model src="/3d/pottedPlant.glb" alt="Decorative potted plant" className={styles.fullModel}/>
+          <Model src="https://cdn.3dassets.dev/assets/36418/v1/model.glb" alt="Decorative potted plant" className={styles.fullModel}/>
         </div>
 
         <div className={styles.shelfFurniture} aria-hidden="true">
           <Model
-            src="/3d/bookcaseOpen.glb"
+            src="https://cdn.3dassets.dev/assets/34995/v1/model.glb"
             alt=""
             className={styles.fullModel}
             orbit="-28deg 70deg 3.3m"
@@ -312,11 +300,11 @@ export default function StudentDashboard(){
         </div>
 
         <div className={styles.shelfBooks3d} data-float aria-hidden="true">
-          <Model src="/3d/books.glb" alt="" className={styles.fullModel} orbit="35deg 67deg 2m"/>
+          <Model src="https://cdn.3dassets.dev/assets/31036/v1/model.glb" alt="" className={styles.fullModel} orbit="35deg 67deg 2m"/>
         </div>
 
         <div className={styles.shelfPlantRight} data-plant aria-hidden="true">
-          <Model src="/3d/plantSmall2.glb" alt="" className={styles.fullModel} orbit="-25deg 72deg 2.2m"/>
+          <Model src="https://cdn.3dassets.dev/assets/36579/v1/model.glb" alt="" className={styles.fullModel} orbit="-25deg 72deg 2.2m"/>
         </div>
       </section>
 
@@ -331,7 +319,7 @@ export default function StudentDashboard(){
           aria-label={lightOn?"Turn lamp off":"Turn lamp on"}
         >
           <Model
-            src="/3d/lampRoundTable.glb"
+            src="https://cdn.3dassets.dev/assets/38866/v1/model.glb"
             alt="Desk lamp"
             className={styles.fullModel}
             orbit="-32deg 70deg 2m"
@@ -343,11 +331,11 @@ export default function StudentDashboard(){
         </button>
 
         <div className={styles.leftPlant} data-plant data-reveal aria-hidden="true">
-          <Model src="/3d/plantSmall2.glb" alt="" className={styles.fullModel} orbit="26deg 72deg 2m"/>
+          <Model src="https://cdn.3dassets.dev/assets/36418/v1/model.glb" alt="" className={styles.fullModel} orbit="26deg 72deg 2m"/>
         </div>
 
         <div className={styles.decorBooks} data-float data-reveal aria-hidden="true">
-          <Model src="/3d/books.glb" alt="" className={styles.fullModel} orbit="-25deg 66deg 1.8m"/>
+          <Model src="https://cdn.3dassets.dev/assets/31036/v1/model.glb" alt="" className={styles.fullModel} orbit="-25deg 66deg 1.8m"/>
         </div>
 
         <section className={styles.notebook} data-reveal aria-label="Current subject notebook">
@@ -400,7 +388,7 @@ export default function StudentDashboard(){
         <aside className={styles.mediaStation} data-reveal>
           <div className={styles.monitorModel} data-float>
             <Model
-              src="/3d/computerScreen.glb"
+              src="https://cdn.3dassets.dev/assets/29958/v1/model.glb"
               alt="Learning screen"
               className={styles.fullModel}
               orbit="-27deg 72deg 2.4m"
@@ -423,14 +411,14 @@ export default function StudentDashboard(){
         </aside>
 
         <div className={styles.rightPlant} data-plant data-reveal aria-hidden="true">
-          <Model src="/3d/pottedPlant.glb" alt="" className={styles.fullModel} orbit="-22deg 72deg 2m"/>
+          <Model src="https://cdn.3dassets.dev/assets/36579/v1/model.glb" alt="" className={styles.fullModel} orbit="-22deg 72deg 2m"/>
         </div>
       </section>
 
       <section className={styles.deskZone}>
         <div className={styles.deskModel} aria-hidden="true" data-reveal>
           <Model
-            src="/3d/desk.glb"
+            src="https://cdn.3dassets.dev/assets/38859/v1/model.glb"
             alt=""
             className={styles.fullModel}
             orbit="0deg 68deg 3.4m"
