@@ -273,6 +273,43 @@ function HeredityLab(){
  </div>
 }
 
+function DetailBox({lesson}:{lesson:number}){
+ if(lesson===1)return <div className={styles.detailGrid}>
+  <div><strong>অ্যামাইটোসিস</strong><span>প্রত্যক্ষ বিভাজন</span><p>পাঠ্যবইয়ে ব্যাকটেরিয়া, ইস্ট, ছত্রাক ও অ্যামিবার মতো এককোষী জীবের উদাহরণ দেওয়া হয়েছে। মাতৃকোষ সরাসরি দুই ভাগে বিভক্ত হয়।</p></div>
+  <div><strong>মাইটোসিস</strong><span>সমীকরণিক বিভাজন</span><p>উদ্ভিদ ও প্রাণীর দেহকোষে ঘটে। ১টি মাতৃকোষ থেকে ২টি অপত্য কোষ; ক্রোমোজোম সংখ্যা একই থাকে।</p></div>
+  <div><strong>মিয়োসিস</strong><span>হ্রাসমূলক বিভাজন</span><p>জননকোষ তৈরির সময় ঘটে। ১টি মাতৃকোষ থেকে ৪টি কোষ; ক্রোমোজোম সংখ্যা অর্ধেক হয়।</p></div>
+ </div>;
+ if(lesson===2)return <div className={styles.detailSplit}>
+  <div><span>মাইটোসিস কোথায় হয়?</span><p>প্রাণীর দেহকোষে, ভ্রূণের বৃদ্ধিতে এবং উদ্ভিদের বর্ধনশীল ভাজক টিস্যুতে—যেমন মূল ও কাণ্ডের অগ্রভাগ, কুঁড়ি ও বর্ধনশীল অংশে।</p></div>
+  <div><span>কোথায় সাধারণত হয় না?</span><p>পাঠ্যবইয়ের উদাহরণ: পরিণত স্নায়ুকোষ, স্তন্যপায়ী প্রাণীর পরিণত লোহিত রক্তকণিকা ও অনুচক্রিকা এবং উদ্ভিদের অনেক স্থায়ী টিস্যু।</p></div>
+ </div>;
+ if(lesson===3)return <div className={styles.phaseStrip}><div><b>প্রো-মেটাফেজ</b><span>পর্দা বিলুপ্ত · স্পিন্ডল তৈরি</span></div><i>→</i><div><b>মেটাফেজ</b><span>মাঝখানে সারি</span></div><i>→</i><div><b>অ্যানাফেজ</b><span>ক্রোমাটিড দুই মেরুতে</span></div></div>;
+ if(lesson===4)return <div className={styles.compareBox}><div><strong>উদ্ভিদকোষ</strong><p>মাঝখানে কোষপ্লেট তৈরি হয় → প্লেট বড় হয়ে নতুন বিভাজক প্রাচীর গঠন করে।</p></div><div><strong>প্রাণিকোষ</strong><p>কোষপর্দায় cleavage furrow বা খাঁজ তৈরি হয় → ভিতরের দিকে এগিয়ে দুই কোষ আলাদা করে।</p></div></div>;
+ if(lesson===5)return <div className={styles.detailSplit}>
+  <div><span>মিয়োসিস কোথায় ঘটে?</span><p>জনন মাতৃকোষে। সপুষ্পক উদ্ভিদের পরাগধানী ও ডিম্বকে এবং উন্নত প্রাণীর শুক্রাশয় ও ডিম্বাশয়ে জননকোষ তৈরির সঙ্গে সম্পর্কিত।</p></div>
+  <div><span>কেন দরকার?</span><p>গ্যামেটে n ক্রোমোজোম রাখে, যাতে নিষেকের সময় n+n = 2n হয়ে প্রজাতির স্বাভাবিক ক্রোমোজোম সংখ্যা বজায় থাকে।</p></div>
+ </div>;
+ if(lesson===6)return <div className={styles.compareTable}>
+  <div className={styles.compareHead}><b>বিষয়</b><b>মাইটোসিস</b><b>মিয়োসিস</b></div>
+  <div><span>বিভাজন</span><span>১ বার</span><span>২ বার</span></div>
+  <div><span>অপত্য কোষ</span><span>২টি</span><span>৪টি</span></div>
+  <div><span>ক্রোমোজোম</span><span>সংখ্যা একই</span><span>সংখ্যা অর্ধেক</span></div>
+  <div><span>প্রধান ভূমিকা</span><span>বৃদ্ধি, ক্ষয়পূরণ</span><span>গ্যামেট সৃষ্টি, সংখ্যা ধ্রুব রাখা</span></div>
+ </div>;
+ if(lesson===7)return <div className={styles.chromosomeMath}>
+  <div><span>মানুষের দেহকোষ</span><strong>46 = 23 জোড়া</strong><small>ডিপ্লয়েড (2n)</small></div><div className={styles.mathArrow}>→ মিয়োসিস →</div><div><span>মানুষের গ্যামেট</span><strong>23</strong><small>হ্যাপ্লয়েড (n)</small></div><div className={styles.mathArrow}>+ 23 →</div><div><span>জাইগোট</span><strong>46</strong><small>আবার 2n</small></div>
+ </div>;
+ if(lesson===8)return <div className={styles.detailGrid}>
+  <div><strong>Chromosome</strong><span>প্যাকেজ</span><p>DNA-কে সংগঠিতভাবে বহন করে।</p></div>
+  <div><strong>DNA</strong><span>তথ্যের অণু</span><p>বংশগত তথ্য সংরক্ষণ করে এবং প্রতিলিপি করতে পারে।</p></div>
+  <div><strong>Gene</strong><span>DNA-এর অংশ</span><p>নির্দিষ্ট কার্যকর তথ্য বহন করে; অনেক জিন মিলে বৈশিষ্ট্যে অবদান রাখতে পারে।</p></div>
+ </div>;
+ return <div className={styles.detailSplit}>
+  <div><span>মেন্ডেল কেন গুরুত্বপূর্ণ?</span><p>গ্রেগর জোহান মেন্ডেল বৈশিষ্ট্য প্রজন্মে কীভাবে সঞ্চারিত হয় তা পরীক্ষার মাধ্যমে ব্যাখ্যার ভিত্তি তৈরি করেন; তাই তাকে জিনতত্ত্বের জনক বলা হয়।</p></div>
+  <div><span>RNA নিয়ে কী মনে রাখবে?</span><p>RNA প্রোটিন তৈরির প্রক্রিয়ায় গুরুত্বপূর্ণ। কিছু ভাইরাসে RNA-ই বংশগত উপাদান হিসেবে কাজ করে—পাঠ্যবইয়ে তামাক মোজাইক ভাইরাসের উদাহরণ দেওয়া হয়।</p></div>
+ </div>;
+}
+
 function Simulation({lesson}:{lesson:number}){
  if(lesson===1)return <DivisionLab/>;
  if(lesson===2||lesson===3)return <MitosisLab/>;
@@ -332,6 +369,7 @@ export default function ChapterTwo(){
     <section className={styles.explain}>
      <div className={styles.sectionLabel}><span>01</span><strong>আগে বুঝে নিই</strong></div>
      {lesson.explain.map((p,i)=><p key={i}>{p}</p>)}
+     <DetailBox lesson={active}/>
     </section>
 
     <section>
