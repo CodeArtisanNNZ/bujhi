@@ -1,8 +1,8 @@
 "use client";
 
-import {useEffect,useMemo,useState} from "react";
+import {useEffect,useState} from "react";
 import {
- ChevronLeft,ChevronRight,CircleDot,Dna,Maximize2,Microscope,
+ ArrowRight,ChevronLeft,ChevronRight,CircleDot,Dna,Microscope,
  Pause,Play,RefreshCcw,ScanSearch,SlidersHorizontal,Sparkles
 } from "lucide-react";
 import styles from "./cinematic.module.css";
