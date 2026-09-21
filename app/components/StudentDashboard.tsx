@@ -52,7 +52,7 @@ const friendPrompts=[
 export default function StudentDashboard(){
  const[profile,setProfile]=useState<Profile>({class_level:"8"});
  const[selectedBook,setSelectedBook]=useState<Book>(books.find(b=>b.id==="science")||books[0]);
- const[chapter,setChapter]=useState("4");
+ const[chapter,setChapter]=useState("2");
  const[light,setLight]=useState(true);
  const[laptopOpen,setLaptopOpen]=useState(false);
  const[friendOpen,setFriendOpen]=useState(false);
@@ -80,7 +80,7 @@ export default function StudentDashboard(){
 
  function chooseBook(book:Book){
   setSelectedBook(book);
-  setChapter(book.id==="science"?"4":"1");
+  setChapter(book.id==="science"?"2":"1");
   setStep(2);
   setLaptopOpen(true);
  }
@@ -89,7 +89,7 @@ export default function StudentDashboard(){
  function newFact(){setGlobeFact(globeFacts[Math.floor(Math.random()*globeFacts.length)])}
  function goNext(){setStep(s=>Math.min(4,s+1) as WizardStep)}
  function goBack(){setStep(s=>Math.max(1,s-1) as WizardStep)}
- function startLesson(){setLaptopOpen(false);setLessonOpen(true)}
+ function startLesson(){\n  setLaptopOpen(false);\n  if(selectedBook.id==="science"&&chapter==="2"){location.href="/dashboard/science/chapter-2";return}\n  setLessonOpen(true);\n }
 
  const firstName=profile.full_name?.trim().split(" ")[0];
  const modeLabel=learningStyles.find(x=>x.id===style)?.label||"Teach me like a teacher";
@@ -175,7 +175,7 @@ export default function StudentDashboard(){
      {step===1&&<>
       <p className={styles.stepNumber}>01 · Subject</p>
       <h3>Which book do you want to learn?</h3>
-      <div className={styles.subjectGrid}>{books.map(book=><button key={book.id} onClick={()=>{setSelectedBook(book);setChapter(book.id==="science"?"4":"1");setStep(2)}} className={selectedBook.id===book.id?styles.selectedSubject:""}><span className={`${styles.bookDot} ${styles[book.tone]}`}/><strong>{book.title}</strong><small>{book.short}</small></button>)}</div>
+      <div className={styles.subjectGrid}>{books.map(book=><button key={book.id} onClick={()=>{setSelectedBook(book);setChapter(book.id==="science"?"2":"1");setStep(2)}} className={selectedBook.id===book.id?styles.selectedSubject:""}><span className={`${styles.bookDot} ${styles[book.tone]}`}/><strong>{book.title}</strong><small>{book.short}</small></button>)}</div>
      </>}
 
      {step===2&&<>
