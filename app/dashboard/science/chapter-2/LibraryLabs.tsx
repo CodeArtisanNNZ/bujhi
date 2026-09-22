@@ -1,293 +1,126 @@
 "use client";
 
-import Script from "next/script";
-import {useEffect,useRef,useState} from "react";
-import {ArrowRight,Check,ChevronLeft,ChevronRight,Dna,Gamepad2,Pause,Play,RefreshCcw,Sparkles,Target,Zap} from "lucide-react";
 import styles from "./librarylabs.module.css";
 
-declare global {
-  interface Window {
-    anime: any;
-    THREE: any;
-  }
+const sharedCss = `
+:root{--red:#990000;--cream:#fff8ef;--ink:#34251f;--muted:#725f56;--line:#dfcec2}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,"Noto Sans Bengali",sans-serif;background:var(--cream);color:var(--ink)}
+.app{min-height:560px;background:linear-gradient(180deg,#fffaf5,#f4e5da)}
+.top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;padding:20px 22px;border-bottom:1px solid var(--line);background:#fffaf7}
+.kicker{font-size:11px;font-weight:800;letter-spacing:.12em;color:var(--red)}h2{margin:6px 0 5px;font-family:Georgia,serif;font-size:30px}p{margin:0;color:var(--muted);line-height:1.55;font-size:14px}
+.badge{border:1px solid #d5c1b5;border-radius:999px;padding:7px 10px;font-size:11px;font-weight:800;background:white;color:#6c574e}
+.stage{position:relative;min-height:380px;display:grid;place-items:center;overflow:hidden;background:radial-gradient(circle at 50% 42%,#fff5e9,#ead6c7 70%,#d9bfad)}
+.controls{display:flex;justify-content:center;gap:8px;padding:13px;background:white;border-top:1px solid var(--line)}
+button{border:1px solid #d6c4b8;background:white;color:#5f4b43;border-radius:999px;padding:9px 13px;font-weight:800;cursor:pointer}
+button.active,button.primary{background:var(--red);border-color:var(--red);color:white}
+.rail{display:flex;gap:7px;overflow:auto;padding:12px 14px;background:#fbf3ed}.rail button{min-width:110px;border-radius:12px}
+.info{padding:14px 18px;background:#34251f;color:white;display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap}.info strong{color:#ffd5cb;font-family:Georgia,serif;font-size:20px}.info span{font-size:13px;color:#dfd0ca}
+.cell{width:250px;height:190px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe4d6,#eda194 70%,#c86b66);border:6px solid #93433e;position:relative;box-shadow:0 14px 28px #71452f22}.nucleus{position:absolute;width:95px;height:95px;border-radius:50%;background:radial-gradient(circle,#eadcf1,#9674a2);border:5px solid #66506f;left:50%;top:50%;transform:translate(-50%,-50%)}
+.chr{position:absolute;left:50%;top:50%;font:900 44px Arial;color:#7d2458;transform:translate(-50%,-50%);transform-origin:center}.chr:nth-child(2){color:#47758e}.chr:nth-child(3){color:#4e8b82}.chr:nth-child(4){color:#a64f7a}
+.split{display:flex;gap:24px;align-items:center;justify-content:center;flex-wrap:wrap}.mini{width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,#ffdfd1,#efa093);border:5px solid #97443f;position:relative}.mini b{position:absolute;right:10px;bottom:8px;color:#74322e}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;padding:24px}.card{background:white;border:1px solid var(--line);border-radius:18px;padding:18px}.card h3{margin:0 0 6px;font-family:Georgia,serif}
+input[type=range]{width:100%;accent-color:var(--red)}
+@media(max-width:650px){h2{font-size:24px}.top{padding:16px;flex-direction:column}.stage{min-height:330px}.grid{grid-template-columns:1fr;padding:14px}}
+`;
+
+function page(title:string, subtitle:string, body:string, script:string, libs:string){
+  return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>${sharedCss}</style>${libs}</head><body><main class="app"><header class="top"><div><div class="kicker">FREE OPEN-SOURCE LIBRARY</div><h2>${title}</h2><p>${subtitle}</p></div><div class="badge">Bujhi · Class 8</div></header>${body}</main><script>${script}<\/script></body></html>`;
 }
 
-const MITO = [
-  {name:"ইন্টারফেজ", note:"DNA প্রতিলিপি হয় এবং কোষ বিভাজনের জন্য প্রস্তুত হয়।"},
-  {name:"প্রোফেজ", note:"ক্রোমাটিন ঘনীভূত হয়ে দৃশ্যমান chromosome তৈরি করে।"},
-  {name:"প্রো-মেটাফেজ", note:"nuclear envelope ভাঙে এবং spindle fibre chromosome-এর সাথে যুক্ত হয়।"},
-  {name:"মেটাফেজ", note:"chromosome-গুলো equator-এ এক সারিতে দাঁড়ায়।"},
-  {name:"অ্যানাফেজ", note:"sister chromatid আলাদা হয়ে দুই মেরুর দিকে যায়।"},
-  {name:"টেলোফেজ", note:"দুই মেরুতে নতুন nucleus তৈরি হয়।"},
-  {name:"সাইটোকাইনেসিস", note:"cytoplasm ভাগ হয়ে দুটি daughter cell তৈরি হয়।"}
-];
+const animeLib = '<script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"><\/script>';
+const threeLib = '<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"><\/script>';
 
-function waitForLib(name:"anime"|"THREE", cb:()=>void){
-  let tries=0;
-  const tick=()=>{
-    if(window[name]) return cb();
-    if(tries++<80) window.setTimeout(tick,50);
-  };
-  tick();
+function divisionDoc(){
+  const body=`
+  <div class="controls" id="types"><button data-type="amitosis">অ্যামাইটোসিস</button><button class="active" data-type="mitosis">মাইটোসিস</button><button data-type="meiosis">মিয়োসিস</button></div>
+  <section class="stage"><div class="cell"><div class="nucleus"></div></div><div style="font-size:38px;margin:0 24px">→</div><div class="split" id="children"></div></section>
+  <div class="info"><strong id="result">2n → 2n + 2n</strong><span id="desc">দুটি সমগুণসম্পন্ন daughter cell</span></div>`;
+  const script=`
+  const cfg={amitosis:{n:2,r:'1 → 2',d:'সরাসরি বিভাজন'},mitosis:{n:2,r:'2n → 2n + 2n',d:'দুটি সমগুণসম্পন্ন daughter cell'},meiosis:{n:4,r:'2n → 4 × n',d:'চারটি haploid cell'}};
+  const box=document.getElementById('children'),result=document.getElementById('result'),desc=document.getElementById('desc');
+  function render(t){document.querySelectorAll('#types button').forEach(b=>b.classList.toggle('active',b.dataset.type===t));box.innerHTML='';for(let i=0;i<cfg[t].n;i++){const d=document.createElement('div');d.className='mini';d.innerHTML='<div class="nucleus" style="width:48px;height:48px;border-width:3px"></div><b>'+(t==='meiosis'?'n':'2n')+'</b>';box.appendChild(d)}result.textContent=cfg[t].r;desc.textContent=cfg[t].d;anime({targets:'#children .mini',scale:[.2,1],opacity:[0,1],delay:anime.stagger(90),duration:650,easing:'easeOutBack'})}
+  document.querySelectorAll('#types button').forEach(b=>b.addEventListener('click',()=>render(b.dataset.type)));render('mitosis');`;
+  return page("Cell Division Compare","একই 'কোষ বিভাজন'—কিন্তু outcome এক নয়। বেছে দেখে তুলনা করো।",body,script,animeLib);
 }
 
-function LibraryBadge(){
-  return <div className={styles.libraryBadge}><span>FREE LIBRARY POWERED</span><b>Anime.js + Three.js</b></div>;
+function mitosisDoc(start:number){
+  const stages=["ইন্টারফেজ","প্রোফেজ","প্রো-মেটাফেজ","মেটাফেজ","অ্যানাফেজ","টেলোফেজ","সাইটোকাইনেসিস"];
+  const notes=["DNA replicate হয়","chromosome দৃশ্যমান হয়","nuclear envelope ভাঙে","chromosome equator-এ সাজে","chromatid দুই মেরুতে যায়","দুটি nucleus তৈরি হয়","দুটি daughter cell তৈরি হয়"];
+  const body=`
+  <section class="stage"><div class="cell" id="cell"><div class="nucleus" id="nucleus"></div><div id="chroms"><span class="chr">×</span><span class="chr">×</span><span class="chr">×</span><span class="chr">×</span></div></div></section>
+  <div class="info"><strong id="stageName"></strong><span id="stageNote"></span></div>
+  <div class="controls"><button id="prev">←</button><button class="primary" id="play">Play</button><button id="next">→</button></div>
+  <div class="rail" id="rail"></div>`;
+  const script=`
+  const stages=${JSON.stringify(stages)},notes=${JSON.stringify(notes)};let s=${start},timer=null;const chrom=[...document.querySelectorAll('.chr')],nuc=document.getElementById('nucleus');
+  const rail=document.getElementById('rail');stages.forEach((x,i)=>{const b=document.createElement('button');b.textContent=(i+1)+' · '+x;b.addEventListener('click',()=>go(i));rail.appendChild(b)});
+  function target(i){const row=-60+i*40;if(s===0)return{x:(i%2?45:-45),y:(i<2?-35:35),r:(i-2)*16,sc:.75};if(s===1)return{x:(i%2?40:-40),y:(i<2?-35:35),r:(i-2)*9,sc:1};if(s===2)return{x:(i%2?22:-22),y:row,r:0,sc:1};if(s===3)return{x:0,y:row,r:0,sc:1};if(s===4)return{x:(i%2?105:-105),y:row,r:(i%2?16:-16),sc:.85};return{x:(i%2?85:-85),y:(i<2?-35:35),r:0,sc:.65}}
+  function go(n){s=n;document.getElementById('stageName').textContent=stages[s];document.getElementById('stageNote').textContent=notes[s];[...rail.children].forEach((b,i)=>b.classList.toggle('active',i===s));chrom.forEach((el,i)=>{const t=target(i);anime({targets:el,translateX:t.x,translateY:t.y,rotate:t.r,scale:t.sc,duration:850,easing:'easeInOutQuart'})});anime({targets:nuc,opacity:s<=1?1:s===2?.15:0,duration:500});if(s>=5){anime({targets:'#cell',scaleX:s===6?.82:1,duration:650,easing:'easeInOutQuad'})}else anime({targets:'#cell',scaleX:1,duration:450})}
+  document.getElementById('prev').onclick=()=>go((s+6)%7);document.getElementById('next').onclick=()=>go((s+1)%7);document.getElementById('play').onclick=e=>{if(timer){clearInterval(timer);timer=null;e.currentTarget.textContent='Play'}else{timer=setInterval(()=>go((s+1)%7),2100);e.currentTarget.textContent='Pause'}};go(s);`;
+  return page("Mitosis · Anime.js Timeline","Play/Pause করো বা যেকোনো stage নিজে বেছে নাও।",body,script,animeLib);
 }
 
-function MitosisLab({start=0}:{start?:number}){
-  const[stage,setStage]=useState(start);
-  const[playing,setPlaying]=useState(false);
-  const[ready,setReady]=useState(false);
-  const svgRef=useRef<SVGSVGElement|null>(null);
-  const timer=useRef<number|null>(null);
-
-  useEffect(()=>{waitForLib("anime",()=>setReady(true))},[]);
-
-  const animateStage=(to:number)=>{
-    const anime=window.anime;
-    const svg=svgRef.current;
-    if(!anime||!svg){setStage(to);return}
-    anime.remove(svg.querySelectorAll("[data-anim]"));
-    const chromosomes=Array.from(svg.querySelectorAll<SVGGElement>("[data-chr]"));
-    const nucleus=svg.querySelector("[data-nucleus]");
-    const nucleus2=svg.querySelector("[data-nucleus2]");
-    const spindle=svg.querySelector("[data-spindle]");
-    const split=svg.querySelector("[data-split]");
-
-    const target = (i:number)=>{
-      const row=-90+i*36;
-      if(to===0) return {x:(i%3-1)*82,y:(i%2-.5)*120,scale:.75,rot:(i-2)*13};
-      if(to===1) return {x:(i%3-1)*62,y:(i%2-.5)*100,scale:1,rot:(i-2)*9};
-      if(to===2) return {x:(i%2?22:-22),y:row,scale:1,rot:0};
-      if(to===3) return {x:0,y:row,scale:1,rot:0};
-      if(to===4) return {x:(i%2?155:-155),y:row,scale:.86,rot:(i%2?16:-16)};
-      return {x:(i%2?132:-132),y:(i%3-1)*50,scale:.62,rot:(i%2?10:-10)};
-    };
-
-    chromosomes.forEach((el,i)=>{
-      const t=target(i);
-      anime({targets:el,translateX:t.x,translateY:t.y,scale:t.scale,rotate:t.rot,duration:820,easing:"easeInOutQuart"});
-    });
-    anime({targets:nucleus,opacity:to<=1?1:to===2?.15:0,duration:500,easing:"easeOutQuad"});
-    anime({targets:nucleus2,opacity:to>=5?1:0,duration:600,easing:"easeOutQuad"});
-    anime({targets:spindle,opacity:to>=2&&to<=4?1:0,duration:450});
-    anime({targets:split,opacity:to===6?1:0,duration:500});
-    setStage(to);
-  };
-
-  useEffect(()=>{
-    if(!ready)return;
-    animateStage(stage);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[ready]);
-
-  useEffect(()=>{
-    if(timer.current) window.clearInterval(timer.current);
-    if(!playing)return;
-    timer.current=window.setInterval(()=>setStage(v=>{
-      const n=(v+1)%MITO.length;
-      window.setTimeout(()=>animateStage(n),0);
-      return n;
-    }),2200);
-    return()=>{if(timer.current)window.clearInterval(timer.current)};
-  },[playing]);
-
-  return <section className={styles.lab}>
-    <Script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js" strategy="afterInteractive" />
-    <div className={styles.head}><div><LibraryBadge/><h3>মাইটোসিস — controllable animation</h3><p>Anime.js timeline দিয়ে chromosome movement, nucleus change এবং spindle transition smooth করা হয়েছে।</p></div></div>
-    <div className={styles.stage}>
-      <svg ref={svgRef} viewBox="0 0 800 460" className={styles.bioSvg}>
-        <defs>
-          <radialGradient id="cellg" cx="35%" cy="30%"><stop offset="0" stopColor="#ffe8dc"/><stop offset=".72" stopColor="#f2aa9d"/><stop offset="1" stopColor="#c96864"/></radialGradient>
-          <radialGradient id="nucg"><stop offset="0" stopColor="#eadbf2"/><stop offset="1" stopColor="#9675a2"/></radialGradient>
-        </defs>
-        <ellipse cx="400" cy="230" rx="290" ry="170" fill="url(#cellg)" stroke="#90413d" strokeWidth="6"/>
-        <ellipse cx="345" cy="175" rx="160" ry="55" fill="#ffffff25"/>
-        <g data-anim data-nucleus>
-          <circle cx="400" cy="230" r="100" fill="url(#nucg)" stroke="#66506f" strokeWidth="5"/>
-          <circle cx="425" cy="207" r="18" fill="#785483"/>
-        </g>
-        <g data-anim data-nucleus2 opacity="0">
-          <circle cx="270" cy="230" r="75" fill="url(#nucg)" stroke="#66506f" strokeWidth="5"/>
-          <circle cx="530" cy="230" r="75" fill="url(#nucg)" stroke="#66506f" strokeWidth="5"/>
-        </g>
-        <g data-anim data-spindle opacity="0" stroke="#f0d485" strokeWidth="2">
-          {Array.from({length:11},(_,i)=><g key={i}><line x1="135" y1="230" x2="400" y2={75+i*31}/><line x1="665" y1="230" x2="400" y2={75+i*31}/></g>)}
-          <circle cx="135" cy="230" r="9" fill="#e4b45d"/><circle cx="665" cy="230" r="9" fill="#e4b45d"/>
-        </g>
-        {Array.from({length:6},(_,i)=><g data-anim data-chr key={i} transform={"translate("+(400+(i%3-1)*82)+" "+(230+(i%2-.5)*120)+") scale(.75)"}>
-          <path d="M-22 -31 C-8 -17 -7 -7 0 0 C7 -7 8 -17 22 -31" fill="none" stroke={["#9d3f70","#4d7898","#4e8b82","#6d4a79","#dc756b","#5f8c57"][i]} strokeWidth="11" strokeLinecap="round"/>
-          <path d="M-22 31 C-8 17 -7 7 0 0 C7 7 8 17 22 31" fill="none" stroke={["#9d3f70","#4d7898","#4e8b82","#6d4a79","#dc756b","#5f8c57"][i]} strokeWidth="11" strokeLinecap="round"/>
-          <circle r="6" fill="#e6b358"/>
-        </g>)}
-        <line data-anim data-split x1="400" y1="62" x2="400" y2="398" stroke="#fff8ea" strokeWidth="18" opacity="0"/>
-      </svg>
-      <div className={styles.overlay}><span>{stage+1}/7</span><strong>{MITO[stage].name}</strong><p>{MITO[stage].note}</p></div>
-    </div>
-    <div className={styles.controls}>
-      <button onClick={()=>{setPlaying(false);animateStage((stage+6)%7)}}><ChevronLeft/></button>
-      <button className={styles.primary} onClick={()=>setPlaying(v=>!v)}>{playing?<Pause/>:<Play/>}{playing?"Pause":"Play"}</button>
-      <button onClick={()=>{setPlaying(false);animateStage((stage+1)%7)}}><ChevronRight/></button>
-    </div>
-    <div className={styles.rail}>{MITO.map((s,i)=><button key={s.name} className={stage===i?styles.active:""} onClick={()=>{setPlaying(false);animateStage(i)}}><b>{i+1}</b><span>{s.name}</span></button>)}</div>
-  </section>
+function growthDoc(){
+  const body=`
+  <div class="grid"><div class="card"><div style="height:320px;position:relative;background:linear-gradient(#bde5ef 0 60%,#8a5a35 60%);overflow:hidden;border-radius:16px"><div id="stem" style="position:absolute;left:50%;bottom:25%;width:11px;height:160px;background:#5a9250;border-radius:99px;transform:translateX(-50%)"><i style="position:absolute;width:75px;height:35px;background:#69a95f;border-radius:70% 15% 70% 15%;left:2px;top:38%"></i><i style="position:absolute;width:75px;height:35px;background:#69a95f;border-radius:70% 15% 70% 15%;right:2px;top:55%;transform:scaleX(-1)"></i></div></div></div><div class="card"><h3>বিভাজনের round</h3><div style="font:700 48px Georgia;color:#990000" id="roundN">4</div><input id="range" type="range" min="0" max="10" value="4"><h3 style="margin-top:20px">সরল model-এ cell</h3><div style="font:700 34px Georgia" id="cells">16</div><p>প্রতি round-এ সব cell ভাগ হলে সংখ্যা হয় 2ⁿ।</p></div></div>`;
+  const script=`
+  const range=document.getElementById('range'),stem=document.getElementById('stem');function go(){const n=+range.value;document.getElementById('roundN').textContent=n;document.getElementById('cells').textContent=Math.pow(2,n).toLocaleString();anime({targets:stem,height:90+n*22,duration:650,easing:'easeOutElastic(1,.7)'})}range.addEventListener('input',go);go();`;
+  return page("Growth Lab · Anime.js","Slider দিয়ে একটি চারা বড় করো এবং cell number কীভাবে বাড়ে দেখো।",body,script,animeLib);
 }
 
-function DivisionLab(){
-  const[type,setType]=useState<"amitosis"|"mitosis"|"meiosis">("mitosis");
-  const data={amitosis:{cells:2,result:"1 → 2",copy:"সরাসরি বিভাজন"},mitosis:{cells:2,result:"2n → 2n + 2n",copy:"বৃদ্ধি ও ক্ষয়পূরণ"},meiosis:{cells:4,result:"2n → 4 × n",copy:"জননকোষ তৈরি"}}[type];
-  const wrap=useRef<HTMLDivElement|null>(null);
-  useEffect(()=>{waitForLib("anime",()=>{if(!wrap.current)return;window.anime({targets:wrap.current.querySelectorAll("[data-child]"),scale:[.2,1],opacity:[0,1],delay:window.anime.stagger(90),duration:520,easing:"easeOutBack"})})},[type]);
-  return <section className={styles.lab}>
-    <Script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js" strategy="afterInteractive" />
-    <div className={styles.head}><div><LibraryBadge/><h3>কোষ বিভাজন compare lab</h3><p>বিভাজনের ধরন বদলালে outcome Anime.js দিয়ে animatedভাবে বদলায়।</p></div></div>
-    <div className={styles.tabs}>{(["amitosis","mitosis","meiosis"] as const).map(x=><button key={x} className={type===x?styles.activeTab:""} onClick={()=>setType(x)}>{x==="amitosis"?"অ্যামাইটোসিস":x==="mitosis"?"মাইটোসিস":"মিয়োসিস"}</button>)}</div>
-    <div className={styles.compare}><div className={styles.cell}><i/><span>মাতৃকোষ</span></div><ArrowRight/><div ref={wrap} className={styles.children}>{Array.from({length:data.cells},(_,i)=><div data-child className={styles.smallCell} key={i}><i/><b>{type==="meiosis"?"n":"2n"}</b></div>)}</div></div>
-    <div className={styles.result}><strong>{data.result}</strong><span>{data.copy}</span></div>
-  </section>
+function meiosisDoc(start:number){
+  const stages=["Interphase","Prophase I","Metaphase I","Anaphase I","Telophase I","Prophase II","Metaphase II","Anaphase II","Telophase II"];
+  const cells=[1,1,1,1,2,2,2,2,4];
+  const body=`<section class="stage"><div class="split" id="mei"></div></section><div class="info"><strong id="nm"></strong><span id="pl"></span></div><div class="controls"><button id="prev">←</button><button class="primary" id="play">Play</button><button id="next">→</button></div><div class="rail" id="rail"></div>`;
+  const script=`
+  const names=${JSON.stringify(stages)},counts=${JSON.stringify(cells)};let s=${start},timer=null;const rail=document.getElementById('rail');names.forEach((n,i)=>{const b=document.createElement('button');b.textContent=(i+1)+' · '+n;b.onclick=()=>go(i);rail.appendChild(b)});
+  function go(n){s=n;const box=document.getElementById('mei');box.innerHTML='';for(let i=0;i<counts[s];i++){const d=document.createElement('div');d.className='mini';d.innerHTML='<div style="display:flex;gap:8px;align-items:center;justify-content:center;height:100%;font:900 34px Arial"><span style="color:#4d7898">X</span><span style="color:#a94c7b">X</span></div><b>'+(s>=4?'n':'2n')+'</b>';box.appendChild(d)}document.getElementById('nm').textContent=names[s];document.getElementById('pl').textContent=s<4?'diploid phase':'haploid phase';[...rail.children].forEach((b,i)=>b.classList.toggle('active',i===s));anime({targets:'#mei .mini',scale:[.4,1],opacity:[0,1],delay:anime.stagger(90),duration:650,easing:'easeOutBack'})}
+  document.getElementById('prev').onclick=()=>go((s+8)%9);document.getElementById('next').onclick=()=>go((s+1)%9);document.getElementById('play').onclick=e=>{if(timer){clearInterval(timer);timer=null;e.currentTarget.textContent='Play'}else{timer=setInterval(()=>go((s+1)%9),2100);e.currentTarget.textContent='Pause'}};go(s);`;
+  return page("Meiosis · Anime.js Tracker","2n থেকে n এবং শেষে চারটি haploid cell—stage ধরে follow করো।",body,script,animeLib);
 }
 
-function GrowthLab(){
-  const[round,setRound]=useState(4);
-  const stem=useRef<HTMLDivElement|null>(null);
-  const leaves=useRef<HTMLDivElement|null>(null);
-  const cells=Math.pow(2,round);
-  useEffect(()=>{waitForLib("anime",()=>{if(stem.current)window.anime({targets:stem.current,height:90+round*23,duration:600,easing:"easeOutElastic(1,.65)"});if(leaves.current)window.anime({targets:leaves.current.children,scale:[.6,1],rotate:[-8,0],delay:window.anime.stagger(80),duration:500,easing:"easeOutBack"})})},[round]);
-  return <section className={styles.lab}>
-    <Script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js" strategy="afterInteractive" />
-    <div className={styles.head}><div><LibraryBadge/><h3>Growth lab</h3><p>Slider সরাও—Anime.js plant motion-এর সাথে cell growth model দেখাবে।</p></div></div>
-    <div className={styles.growth}>
-      <div className={styles.plantWorld}><div className={styles.sun}/><div className={styles.soil}/><div ref={stem} className={styles.stem}><div ref={leaves}><i className={styles.leaf1}/><i className={styles.leaf2}/><i className={styles.leaf3}/><i className={styles.leaf4}/></div></div></div>
-      <div className={styles.growthPanel}><span>division round</span><strong>{round}</strong><input type="range" min="0" max="10" value={round} onChange={e=>setRound(Number(e.target.value))}/><div><small>সরল model-এ cell</small><b>{cells.toLocaleString("bn-BD")}</b></div><p>প্রতি round-এ সব cell ভাগ হলে সংখ্যা হয় 2ⁿ। বাস্তবে সব cell একই সময়ে ভাগ হয় না।</p></div>
-    </div>
-  </section>
+function zoomDoc(){
+  const body=`<section class="stage"><div id="zoom" style="width:280px;height:280px;display:grid;place-items:center;position:relative"><div class="cell" id="layer0"><div class="nucleus"></div></div><div id="layer1" style="display:none;width:210px;height:210px;border-radius:50%;background:radial-gradient(circle,#eadcf1,#9674a2);border:7px solid #66506f"></div><div id="layer2" style="display:none;font:900 150px Arial;color:#6b1f50">X</div><div id="layer3" style="display:none;font:900 64px Georgia;color:#4d7898">DNA</div><div id="layer4" style="display:none;background:#f0b94e;border:3px solid #7c5527;border-radius:10px;padding:18px;font-weight:900">GENE</div></div></section><div class="rail" id="rail"></div><div class="info"><strong id="label">কোষ</strong><span id="copy">কোষের ভিতরে nucleus থাকে।</span></div>`;
+  const script=`
+  const names=['কোষ','নিউক্লিয়াস','ক্রোমোজোম','DNA','জিন'],copy=['কোষের ভিতরে nucleus থাকে।','nucleus-এর ভিতরে chromosome থাকে।','chromosome DNA-কে compact করে বহন করে।','DNA-তে hereditary information থাকে।','gene হলো DNA-এর নির্দিষ্ট কার্যকর অংশ।'];const rail=document.getElementById('rail');names.forEach((n,i)=>{const b=document.createElement('button');b.textContent=(i+1)+' · '+n;b.onclick=()=>go(i);rail.appendChild(b)});function go(n){for(let i=0;i<5;i++)document.getElementById('layer'+i).style.display=i===n?'grid':'none';document.getElementById('label').textContent=names[n];document.getElementById('copy').textContent=copy[n];[...rail.children].forEach((b,i)=>b.classList.toggle('active',i===n));anime({targets:'#layer'+n,scale:[.55,1],opacity:[0,1],duration:700,easing:'easeOutExpo'})}go(0);`;
+  return page("Cell → Gene Zoom","Anime.js দিয়ে cell-এর ভেতরে layer ধরে zoom করো।",body,script,animeLib);
 }
 
-const MEI=[
- {name:"Interphase",cells:1,n:"2n",note:"DNA replicate হয়েছে।"},
- {name:"Prophase I",cells:1,n:"2n",note:"homologous chromosome pair হয়; crossing-over হতে পারে।"},
- {name:"Metaphase I",cells:1,n:"2n",note:"pair equator-এ সাজে।"},
- {name:"Anaphase I",cells:1,n:"2n",note:"homologous chromosome আলাদা হয়।"},
- {name:"Telophase I",cells:2,n:"n",note:"দুটি haploid cell।"},
- {name:"Prophase II",cells:2,n:"n",note:"দুই cell আবার প্রস্তুত হয়।"},
- {name:"Metaphase II",cells:2,n:"n",note:"chromosome আবার equator-এ।"},
- {name:"Anaphase II",cells:2,n:"n",note:"sister chromatid আলাদা হয়।"},
- {name:"Telophase II",cells:4,n:"n",note:"চারটি haploid cell।"}
-];
-
-function MeiosisLab({start=0}:{start?:number}){
-  const[stage,setStage]=useState(start);
-  const[playing,setPlaying]=useState(false);
-  const box=useRef<HTMLDivElement|null>(null);
-  useEffect(()=>{waitForLib("anime",()=>{if(!box.current)return;window.anime({targets:box.current.querySelectorAll("[data-mei]"),scale:[.7,1],opacity:[0,1],delay:window.anime.stagger(75),duration:620,easing:"easeOutElastic(1,.7)"})})},[stage]);
-  useEffect(()=>{if(!playing)return;const id=window.setInterval(()=>setStage(v=>(v+1)%MEI.length),2100);return()=>window.clearInterval(id)},[playing]);
-  const d=MEI[stage];
-  return <section className={styles.lab}>
-    <Script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js" strategy="afterInteractive" />
-    <div className={styles.head}><div><LibraryBadge/><h3>মিয়োসিস chromosome tracker</h3><p>Stage-by-stage cell count ও ploidy Anime.js transition দিয়ে দেখানো হয়েছে।</p></div></div>
-    <div ref={box} className={styles.meiosisArea}>{Array.from({length:d.cells},(_,i)=><div data-mei key={i} className={styles.meiCell}><span>{d.n}</span><div><b className={styles.blue}>X</b><b className={styles.pink}>X</b></div></div>)}</div>
-    <div className={styles.result}><strong>{d.name}</strong><span>{d.note}</span></div>
-    <div className={styles.controls}><button onClick={()=>{setPlaying(false);setStage(v=>(v+8)%9)}}><ChevronLeft/></button><button className={styles.primary} onClick={()=>setPlaying(v=>!v)}>{playing?<Pause/>:<Play/>}{playing?"Pause":"Play"}</button><button onClick={()=>{setPlaying(false);setStage(v=>(v+1)%9)}}><ChevronRight/></button></div>
-    <div className={styles.rail}>{MEI.map((s,i)=><button key={s.name} className={stage===i?styles.active:""} onClick={()=>{setPlaying(false);setStage(i)}}><b>{i+1}</b><span>{s.name}</span></button>)}</div>
-  </section>
+function dnaDoc(){
+  const body=`<div class="grid"><div class="card" style="background:#1d1816;min-height:430px;padding:0"><div id="three" style="height:430px;touch-action:none"></div></div><div class="card"><h3>Three.js DNA viewer</h3><p>Drag করে molecule ঘুরিয়ে দেখো। Double helix-এর দুটি backbone এবং base-pair bridge একসাথে দেখা যাবে।</p><div style="margin-top:18px;background:#f4e7dd;padding:14px;border-radius:14px"><strong style="color:#990000">A ↔ T</strong><br><strong style="color:#990000">G ↔ C</strong></div></div></div>`;
+  const script=`
+  const THREE=window.THREE,el=document.getElementById('three'),scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(42,el.clientWidth/430,.1,1000);camera.position.z=15;const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});renderer.setSize(el.clientWidth,430);renderer.setPixelRatio(Math.min(devicePixelRatio,2));el.appendChild(renderer.domElement);scene.add(new THREE.AmbientLight(0xffffff,1.4));const dl=new THREE.DirectionalLight(0xffffff,1.5);dl.position.set(4,5,8);scene.add(dl);const g=new THREE.Group();scene.add(g);const ma=new THREE.MeshStandardMaterial({color:0x8e315d}),mb=new THREE.MeshStandardMaterial({color:0x39798b}),sphere=new THREE.SphereGeometry(.17,18,18);for(let i=0;i<22;i++){const a=i*.55,y=(i-10.5)*.42,r=2.4,p1=new THREE.Vector3(Math.cos(a)*r,y,Math.sin(a)*r),p2=new THREE.Vector3(Math.cos(a+Math.PI)*r,y,Math.sin(a+Math.PI)*r);const s1=new THREE.Mesh(sphere,ma),s2=new THREE.Mesh(sphere,mb);s1.position.copy(p1);s2.position.copy(p2);g.add(s1,s2);const dir=p2.clone().sub(p1),mid=p1.clone().add(p2).multiplyScalar(.5),rod=new THREE.Mesh(new THREE.CylinderGeometry(.055,.055,dir.length(),10),new THREE.MeshStandardMaterial({color:0xf0d9ab}));rod.position.copy(mid);rod.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),dir.clone().normalize());g.add(rod)}let drag=false,lx=0,ly=0;renderer.domElement.onpointerdown=e=>{drag=true;lx=e.clientX;ly=e.clientY};renderer.domElement.onpointermove=e=>{if(!drag)return;g.rotation.y+=(e.clientX-lx)*.01;g.rotation.x+=(e.clientY-ly)*.006;lx=e.clientX;ly=e.clientY};renderer.domElement.onpointerup=()=>drag=false;function loop(){if(!drag)g.rotation.y+=.004;renderer.render(scene,camera);requestAnimationFrame(loop)}loop();`;
+  return page("DNA 3D · Three.js","Free Three.js WebGL library দিয়ে rotatable DNA model।",body,script,threeLib);
 }
 
-function ZoomLab(){
-  const[level,setLevel]=useState(0);
-  const art=useRef<HTMLDivElement|null>(null);
-  const levels=["কোষ","নিউক্লিয়াস","ক্রোমোজোম","DNA","জিন"];
-  useEffect(()=>{waitForLib("anime",()=>{if(!art.current)return;window.anime({targets:art.current.querySelectorAll("[data-layer]"),scale:[.8,1],opacity:[0,1],delay:window.anime.stagger(100),duration:650,easing:"easeOutExpo"})})},[level]);
-  return <section className={styles.lab}>
-    <Script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js" strategy="afterInteractive" />
-    <div className={styles.head}><div><LibraryBadge/><h3>Cell → Gene zoom journey</h3><p>Anime.js layer transitions ব্যবহার করে cell-এর ভিতরে ধাপে ধাপে zoom করো।</p></div></div>
-    <div className={styles.zoomGrid}>
-      <div ref={art} className={styles.zoomArt}>
-        {level===0&&<div data-layer className={styles.bigCell}><i/></div>}
-        {level===1&&<div data-layer className={styles.bigNucleus}/>}
-        {level===2&&<div data-layer className={styles.bigChrom}>X</div>}
-        {level>=3&&<div data-layer className={styles.dnaLadder}>{Array.from({length:12},(_,i)=><i key={i}/>)}{level===4&&<b>GENE</b>}</div>}
-      </div>
-      <div className={styles.zoomInfo}><span>LEVEL {level+1}/5</span><strong>{levels[level]}</strong><p>{["কোষের ভিতরে nucleus থাকে।","nucleus-এর ভিতরে chromosome থাকে।","chromosome DNA-কে compact করে বহন করে।","DNA-তে hereditary information থাকে।","gene হলো DNA-এর নির্দিষ্ট কার্যকর অংশ।"][level]}</p></div>
-    </div>
-    <div className={styles.rail}>{levels.map((x,i)=><button key={x} className={level===i?styles.active:""} onClick={()=>setLevel(i)}><b>{i+1}</b><span>{x}</span></button>)}</div>
-  </section>
+function punnettDoc(){
+  const body=`<div class="controls"><label>মা <select id="mom"><option>AA</option><option selected>Aa</option><option>aa</option></select></label><span>×</span><label>বাবা <select id="dad"><option>AA</option><option selected>Aa</option><option>aa</option></select></label></div><div class="grid"><div class="card"><div id="punnett" style="display:grid;grid-template-columns:80px 1fr 1fr;border:1px solid #dcc9bd;border-radius:14px;overflow:hidden"></div></div><div class="card"><h3>কী দেখবে?</h3><p>একটি allele মা থেকে, একটি বাবা থেকে আসে। Parent genotype বদলালে সম্ভাব্য combination বদলায়।</p></div></div>`;
+  const script=`
+  const mom=document.getElementById('mom'),dad=document.getElementById('dad'),box=document.getElementById('punnett');function gam(g){return g[0]===g[1]?[g[0],g[0]]:[g[0],g[1]]}function render(){const m=gam(mom.value),d=gam(dad.value),kids=[m[0]+d[0],m[1]+d[0],m[0]+d[1],m[1]+d[1]].map(x=>x==='aA'?'Aa':x);box.innerHTML=['×',m[0],m[1],d[0],kids[0],kids[1],d[1],kids[2],kids[3]].map((x,i)=>'<div class="'+(i===0?'corner':i<3||i===3||i===6?'head':'kid')+'" style="min-height:75px;display:grid;place-items:center;border-right:1px solid #e7d9d0;border-bottom:1px solid #e7d9d0;font-weight:900;font-size:22px">'+x+'</div>').join('');anime({targets:'#punnett .kid',scale:[.6,1],opacity:[0,1],delay:anime.stagger(70),duration:500,easing:'easeOutBack'})}mom.onchange=render;dad.onchange=render;render();`;
+  return page("Punnett Square Game","Anime.js transition সহ Mendelian genotype combinations।",body,script,animeLib);
 }
 
-function DnaThreeLab(){
-  const mount=useRef<HTMLDivElement|null>(null);
-  const[loaded,setLoaded]=useState(false);
-  useEffect(()=>{
-    if(!loaded||!mount.current||!window.THREE)return;
-    const THREE=window.THREE;
-    const el=mount.current;
-    while(el.firstChild)el.removeChild(el.firstChild);
-    const scene=new THREE.Scene();
-    const camera=new THREE.PerspectiveCamera(42,1,.1,1000);camera.position.set(0,0,15);
-    const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
-    const resize=()=>{const w=Math.max(280,el.clientWidth),h=Math.max(360,el.clientHeight);renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix()};
-    resize();el.appendChild(renderer.domElement);
-    scene.add(new THREE.AmbientLight(0xffffff,1.3));
-    const light=new THREE.DirectionalLight(0xffffff,1.5);light.position.set(5,5,8);scene.add(light);
-    const group=new THREE.Group();scene.add(group);
-    const matA=new THREE.MeshStandardMaterial({color:0x8e315d,roughness:.35});
-    const matB=new THREE.MeshStandardMaterial({color:0x39798b,roughness:.35});
-    const pairMats:Record<string,any>={A:new THREE.MeshStandardMaterial({color:0xc84f59}),T:new THREE.MeshStandardMaterial({color:0x4c9589}),G:new THREE.MeshStandardMaterial({color:0xd19d40}),C:new THREE.MeshStandardMaterial({color:0x597eab})};
-    const seq=["A","T","G","C","A","G","T","C","G","A","C","T","G","C","A","T","G","C","A","T"];
-    const comp:{[k:string]:string}={A:"T",T:"A",G:"C",C:"G"};
-    const sphere=new THREE.SphereGeometry(.18,22,22);
-    const cylinder=new THREE.CylinderGeometry(.06,.06,1,12);
-    for(let i=0;i<seq.length;i++){
-      const a=i*.58,y=(i-(seq.length-1)/2)*.42,r=2.4;
-      const p1=new THREE.Vector3(Math.cos(a)*r,y,Math.sin(a)*r);
-      const p2=new THREE.Vector3(Math.cos(a+Math.PI)*r,y,Math.sin(a+Math.PI)*r);
-      const s1=new THREE.Mesh(sphere,matA),s2=new THREE.Mesh(sphere,matB);s1.position.copy(p1);s2.position.copy(p2);group.add(s1,s2);
-      const mid=p1.clone().add(p2).multiplyScalar(.5),dir=p2.clone().sub(p1),len=dir.length();
-      const rod=new THREE.Mesh(new THREE.CylinderGeometry(.07,.07,len,10),new THREE.MeshStandardMaterial({color:0xf0d9ab}));rod.position.copy(mid);rod.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),dir.clone().normalize());group.add(rod);
-      const ba=new THREE.Mesh(new THREE.SphereGeometry(.28,18,18),pairMats[seq[i]]);ba.position.copy(p1.clone().lerp(p2,.38));group.add(ba);
-      const bb=new THREE.Mesh(new THREE.SphereGeometry(.28,18,18),pairMats[comp[seq[i]]]);bb.position.copy(p1.clone().lerp(p2,.62));group.add(bb);
-    }
-    let dragging=false,lastX=0,lastY=0,raf=0;
-    const down=(e:PointerEvent)=>{dragging=true;lastX=e.clientX;lastY=e.clientY;renderer.domElement.setPointerCapture(e.pointerId)};
-    const move=(e:PointerEvent)=>{if(!dragging)return;group.rotation.y+=(e.clientX-lastX)*.01;group.rotation.x+=(e.clientY-lastY)*.006;lastX=e.clientX;lastY=e.clientY};
-    const up=()=>{dragging=false};
-    renderer.domElement.addEventListener("pointerdown",down);renderer.domElement.addEventListener("pointermove",move);renderer.domElement.addEventListener("pointerup",up);renderer.domElement.addEventListener("pointercancel",up);
-    const animate=()=>{if(!dragging)group.rotation.y+=.004;renderer.render(scene,camera);raf=requestAnimationFrame(animate)};animate();
-    window.addEventListener("resize",resize);
-    return()=>{cancelAnimationFrame(raf);window.removeEventListener("resize",resize);renderer.domElement.removeEventListener("pointerdown",down);renderer.domElement.removeEventListener("pointermove",move);renderer.domElement.removeEventListener("pointerup",up);renderer.dispose();while(el.firstChild)el.removeChild(el.firstChild)};
-  },[loaded]);
-  return <section className={styles.lab}>
-    <Script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js" strategy="afterInteractive" onLoad={()=>setLoaded(true)} />
-    <div className={styles.head}><div><LibraryBadge/><h3>DNA 3D viewer</h3><p>Three.js WebGL renderer ব্যবহার করা হয়েছে। Drag করে double helix ঘুরিয়ে দেখো।</p></div></div>
-    <div className={styles.threeWrap}><div ref={mount} className={styles.threeMount}/><div className={styles.threeInfo}><Dna/><strong>Three.js molecular view</strong><p>দুটি backbone, complementary base-pair এবং double-helix twist একসাথে দেখানো হয়েছে।</p><span>A ↔ T · G ↔ C</span></div></div>
-  </section>
-}
-
-function PunnettLab(){
-  const[mom,setMom]=useState("Aa");
-  const[dad,setDad]=useState("Aa");
-  const box=useRef<HTMLDivElement|null>(null);
-  const gam=(g:string)=>g[0]===g[1]?[g[0],g[0]]:[g[0],g[1]];
-  const m=gam(mom),d=gam(dad);
-  const kids=[m[0]+d[0],m[1]+d[0],m[0]+d[1],m[1]+d[1]].map(x=>x==="aA"?"Aa":x);
-  useEffect(()=>{waitForLib("anime",()=>{if(box.current)window.anime({targets:box.current.querySelectorAll("[data-kid]"),scale:[.65,1],opacity:[0,1],delay:window.anime.stagger(70),duration:420,easing:"easeOutBack"})})},[mom,dad]);
-  return <section className={styles.lab}>
-    <Script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js" strategy="afterInteractive" />
-    <div className={styles.head}><div><LibraryBadge/><h3>Punnett square genetics game</h3><p>Parent genotype বদলাও; Anime.js result transition-এর সাথে সম্ভাব্য সন্তান genotype দেখো।</p></div></div>
-    <div className={styles.parents}><label>মা<select value={mom} onChange={e=>setMom(e.target.value)}><option>AA</option><option>Aa</option><option>aa</option></select></label><ArrowRight/><label>বাবা<select value={dad} onChange={e=>setDad(e.target.value)}><option>AA</option><option>Aa</option><option>aa</option></select></label></div>
-    <div ref={box} className={styles.punnett}><b>×</b><b>{m[0]}</b><b>{m[1]}</b><b>{d[0]}</b><span data-kid>{kids[0]}</span><span data-kid>{kids[1]}</span><b>{d[1]}</b><span data-kid>{kids[2]}</span><span data-kid>{kids[3]}</span></div>
-    <div className={styles.note}><Lightbulb/><span>এটি single-gene Mendelian pattern বোঝানোর simplified model; বাস্তব মানুষের অনেক trait polygenic এবং environment-নির্ভর।</span></div>
-  </section>
+function getDoc(lesson:number){
+  if(lesson===1)return divisionDoc();
+  if(lesson===2)return mitosisDoc(0);
+  if(lesson===3)return mitosisDoc(2);
+  if(lesson===4)return growthDoc();
+  if(lesson===5)return meiosisDoc(0);
+  if(lesson===6)return meiosisDoc(4);
+  if(lesson===7)return zoomDoc();
+  if(lesson===8)return dnaDoc();
+  return punnettDoc();
 }
 
 export default function LibraryLabs({lesson}:{lesson:number}){
-  if(lesson===1)return <DivisionLab/>;
-  if(lesson===2)return <MitosisLab start={0}/>;
-  if(lesson===3)return <MitosisLab start={2}/>;
-  if(lesson===4)return <GrowthLab/>;
-  if(lesson===5)return <MeiosisLab start={0}/>;
-  if(lesson===6)return <MeiosisLab start={4}/>;
-  if(lesson===7)return <ZoomLab/>;
-  if(lesson===8)return <DnaThreeLab/>;
-  return <PunnettLab/>;
+  return <div className={styles.frameShell}>
+    <iframe
+      key={lesson}
+      className={styles.frame}
+      title={"Bujhi Chapter 2 interactive simulation "+lesson}
+      sandbox="allow-scripts"
+      srcDoc={getDoc(lesson)}
+    />
+    <div className={styles.sourceNote}>Simulation engine: free/open-source Anime.js (MIT) and Three.js (MIT).</div>
+  </div>;
 }
