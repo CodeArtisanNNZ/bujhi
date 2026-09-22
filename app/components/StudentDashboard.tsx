@@ -6,13 +6,10 @@ import {
   PenLine,Play,StickyNote,UsersRound,X
 } from "lucide-react";
 import styles from "../dashboard/dashboard.module.css";
-import deskBg0 from "./student-assets/deskBg0";
-import deskBg1 from "./student-assets/deskBg1";
 import drink0 from "./student-assets/drink0";
 import drink1 from "./student-assets/drink1";
 import drink2 from "./student-assets/drink2";
 
-const DESK_SRC=`data:image/webp;base64,${deskBg0}${deskBg1}`;
 const DRINK_SPRITE_SRC=`data:image/avif;base64,${drink0}${drink1}${drink2}`;
 
 type Profile={full_name?:string;role?:string;class_level?:string};
@@ -136,19 +133,18 @@ export default function StudentDashboard(){
 
       <div className={styles.deskSurface} aria-hidden="true"/>
       <div className={styles.lamp} data-on={lightOn} aria-hidden="true">
-        <div className={styles.lampGlow}/><div className={styles.lampShade}/><div className={styles.lampStem}/><div className={styles.lampBase}/>
+        <span className={styles.lampGlow}/>
+        <span className={styles.lampBase}/>
+        <span className={styles.lampLowerArm}/>
+        <span className={styles.lampJointOne}/>
+        <span className={styles.lampUpperArm}/>
+        <span className={styles.lampJointTwo}/>
+        <span className={styles.lampShade}><i/></span>
       </div>
       <button type="button" className={styles.lampSwitch} onClick={()=>setLightOn(value=>!value)} aria-pressed={lightOn} aria-label={lightOn?"Turn desk lamp off":"Turn desk lamp on"}>{lightOn?"Lamp on":"Lamp off"}</button>
 
-      <div className={styles.moneyPlant} role="img" aria-label="Money plant in a terracotta pot">
-        <svg viewBox="0 0 200 250" aria-hidden="true">
-          <path d="M101 200 Q65 133 104 48 M100 176 Q151 124 147 81 M97 152 Q43 118 44 75 M101 189 Q166 191 176 143" fill="none" stroke="#4a653c" strokeWidth="4"/>
-          {[[104,48,-20],[91,89,35],[78,125,-50],[147,81,30],[137,125,-25],[44,75,-45],[58,111,45],[176,143,25],[149,178,-30]].map(([x,y,r],i)=><g key={i} transform={`translate(${x} ${y}) rotate(${r})`}><path d="M0 17 C-39 -1 -29 -33 -8 -23 Q0 -22 0 -13 Q12 -37 27 -23 C46 0 15 12 0 17Z" fill={i%2?"#63864b":"#3d623e"}/><path d="M0 15 L0 -14 M0 0 L-17 -12 M0 4 L19 -12" stroke="#bbca85" strokeWidth="1.3" fill="none"/></g>)}
-          <ellipse cx="101" cy="241" rx="47" ry="7" fill="#38251a" opacity=".15"/>
-          <path d="M62 187 L71 235 Q100 249 131 235 L140 187Z" fill="#b57752"/>
-          <path d="M68 196 L76 232" stroke="#dca67a" strokeWidth="6" opacity=".65"/>
-          <ellipse cx="101" cy="188" rx="40" ry="10" fill="#d0956b"/><ellipse cx="101" cy="187" rx="32" ry="6" fill="#564333"/>
-        </svg>
+      <div className={styles.moneyPlant} role="img" aria-label="Real money plant in a white pot">
+        <img src="https://images.unsplash.com/photo-1599067897079-aedd464866d6?auto=format&fit=crop&fm=jpg&q=82&w=720" alt="" draggable={false} loading="eager"/>
       </div>
 
       <div className={styles.studyNotebook}>
@@ -167,16 +163,15 @@ export default function StudentDashboard(){
 
       <aside className={styles.drinkArea}>
         <button type="button" className={styles.cupHotspot} onClick={()=>setDrinkOpen(value=>!value)} aria-expanded={drinkOpen} aria-label={`Change desk drink: ${activeDrink.label}`}>
-          <span key={drink} className={styles.cupScene} data-drink={drink} aria-hidden="true">
-            <span className={styles.steam}><i/><i/><i/></span>
-            <span className={styles.saucer}/><span className={styles.cupHandle}/>
-            <span className={styles.cupBody}><span className={styles.liquid}/>{drink==="boba"&&<span className={styles.pearls}>● ● ●<br/> ● ●</span>}<span className={styles.cupMark}>বুঝি</span></span>
+          <span key={drink} className={styles.drinkImageFrame} aria-hidden="true">
+            {(drink==="tea"||drink==="coffee")&&<span className={styles.steam}><i/><i/><i/></span>}
+            <img className={styles.drinkSprite} src={DRINK_SPRITE_SRC} alt="" draggable={false} style={{transform:`translateX(-${activeDrink.spriteIndex*20}%)`}}/>
           </span>
           <span className={styles.drinkLabel}>{activeDrink.label} · Change</span>
         </button>
         {drinkOpen&&<div className={styles.drinkMenu}>
           <div className={styles.drinkMenuTitle}>Choose a drink</div>
-          {drinkOptions.map(item=><button type="button" key={item.id} className={drink===item.id?styles.drinkActive:""} onClick={()=>chooseDrink(item.id)} aria-pressed={drink===item.id}><span>{item.label}</span></button>)}
+          {drinkOptions.map(item=><button type="button" key={item.id} className={drink===item.id?styles.drinkActive:""} onClick={()=>chooseDrink(item.id)} aria-pressed={drink===item.id}><span className={styles.drinkThumb} aria-hidden="true"><img src={DRINK_SPRITE_SRC} alt="" draggable={false} style={{transform:`translateX(-${item.spriteIndex*20}%)`}}/></span><span>{item.label}</span></button>)}
         </div>}
       </aside>
     </section>
