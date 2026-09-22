@@ -13,9 +13,9 @@
 .bookHotspots button:nth-child(3n){height:166px}.bookHotspots button:nth-child(4n){height:190px}.bookHotspots button:hover{transform:translateY(-12px);box-shadow:inset 5px 0 #ffffff12,6px 12px 12px #35231a33}
 .bookGlyph{font:23px Georgia,serif}.bookTitle{writing-mode:vertical-rl;font:600 12px/1.1 Georgia,serif;text-align:center;max-height:118px}.bookHotspots small{font-size:10px;opacity:.6}
 .deskSurface{position:absolute;z-index:-1;inset:400px 0 0;background:repeating-linear-gradient(1deg,transparent 0 12px,#55351e0b 13px,transparent 14px 35px),linear-gradient(#d0a476,#b98759);border-top:9px solid #bd9268;box-shadow:0 -10px 35px #7c583519}
-.lamp{position:absolute;z-index:3;top:315px;left:1.5%;width:330px;height:330px;pointer-events:none;filter:drop-shadow(8px 12px 10px #4b1b182c)}
+.lamp{position:absolute;z-index:3;top:300px;left:1%;width:365px;height:370px;pointer-events:none;filter:drop-shadow(8px 12px 10px #4b1b182c)}
 .studentLampImage{position:absolute;left:0;bottom:0;width:100%;height:100%;object-fit:contain;object-position:left bottom;user-select:none;pointer-events:none}
-.roomLightSwitch{position:absolute;z-index:70;top:655px;left:7%;right:auto;min-height:38px;padding:0 14px 0 11px;border:1px solid #c5b298;border-radius:22px;background:#fff8eb;color:#594538;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 7px 18px #3b241629}
+.roomLightSwitch{position:absolute;z-index:70;top:675px;left:7.2%;right:auto;min-height:38px;padding:0 14px 0 11px;border:1px solid #c5b298;border-radius:22px;background:#fff8eb;color:#594538;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 7px 18px #3b241629}
 .roomLightSwitch:hover{background:#fffdf7}
 .roomLightDot{width:10px;height:10px;border-radius:50%;background:#d6a93d;box-shadow:0 0 0 4px #d6a93d22}
 .pageDim .roomLightDot{background:#5e5148;box-shadow:0 0 0 4px #5e514822}
@@ -157,7 +157,7 @@
 
 @media(max-width:1000px){
 .bookHotspots{left:4%;width:92%;gap:4px}.bookTitle{font-size:11px}
-.lamp{left:0;width:285px;height:300px}.roomLightSwitch{left:6%;right:auto;top:625px}.moneyPlant{right:0;width:164px;height:238px}.drinkArea{right:0;width:180px}
+.lamp{left:-4px;top:315px;width:305px;height:320px}.roomLightSwitch{left:6.3%;right:auto;top:642px}.moneyPlant{right:0;width:164px;height:238px}.drinkArea{right:0;width:180px}
 .studyNotebook{left:23%;width:53%}.actionHotspots{left:23%;width:53%}.stickyHotspot{right:18%;width:125px}
 }
 @media(max-width:620px){
@@ -166,7 +166,7 @@
 .bookHotspots{top:140px;height:195px;left:4%;width:92%;overflow-x:auto;gap:7px;padding:0 5px 20px;scrollbar-width:thin;scrollbar-color:#9c7752 #dbc7aa}
 .bookHotspots button{flex:0 0 53px;height:158px}.bookHotspots button:nth-child(3n){height:149px}.bookHotspots button:nth-child(4n){height:165px}.bookHotspots:after{position:fixed;display:none}
 .bookHotspots{border-bottom:12px solid #aa7e52;box-shadow:0 9px 12px #573c2422}.bookHotspots button:hover{transform:translateY(-4px)}
-.deskSurface{top:470px}.lamp{top:350px;left:-10px;width:245px;height:265px;transform:scale(.84);transform-origin:left bottom}.roomLightSwitch{top:592px;left:8%;right:auto;min-height:38px;font-size:11px}.moneyPlant{top:342px;right:2%;width:148px;height:220px}
+.deskSurface{top:470px}.lamp{top:358px;left:-12px;width:245px;height:270px;transform:none}.roomLightSwitch{top:618px;left:7%;right:auto;min-height:38px;font-size:11px}.moneyPlant{top:342px;right:2%;width:148px;height:220px}
 .stickyHotspot{top:525px;right:6%;width:135px;min-height:90px}
 .studyNotebook{top:663px;left:5%;width:90%;min-height:242px;padding:21px 22px 20px 39px}.studyNotebook h1{font-size:29px}
 .actionHotspots{top:983px;left:5%;width:90%;gap:8px}.actionHotspots button{font-size:11px;gap:5px;min-height:44px}
