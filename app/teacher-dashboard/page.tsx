@@ -208,9 +208,10 @@ export default function TeacherDashboard(){
         className={styles.roomLightSwitch}
         onClick={()=>setLightOn(value=>!value)}
         aria-pressed={lightOn}
+        aria-label={lightOn?"Turn lamp off":"Turn lamp on"}
       >
         <span className={styles.roomLightDot}/>
-        <span>{lightOn?"Room light on":"Room light off"}</span>
+        <span>{lightOn?"Lamp on":"Lamp off"}</span>
       </button>
 
       <div className={styles.moneyPlant} aria-hidden="true">
