@@ -235,9 +235,8 @@ export default function TeacherDashboard(){
         <small>Class → NCTB subject structure → subject details</small>
       </div>
 
-      <button type="button" className={styles.stickyHotspot} onClick={()=>setNoteOpen(true)}>
-        <StickyNote size={18}/>
-        <strong>Note</strong>
+      <button type="button" className={styles.stickyHotspot} onClick={()=>setNoteOpen(true)} aria-label="Open note">
+        {note&&<span>{note}</span>}
       </button>
 
       <nav className={styles.actionHotspots} aria-label="Teacher tools">
