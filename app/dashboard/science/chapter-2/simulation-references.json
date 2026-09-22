@@ -1,0 +1,62 @@
+{
+  "purpose": "Research notes for Bujhi Class 8 Science Chapter 2 simulation design. External projects were used as references for interaction patterns and rendering ideas; Bujhi simulation code is an original implementation.",
+  "reviewed": [
+    {
+      "name": "Anime.js",
+      "url": "https://github.com/juliangarnier/anime",
+      "license": "MIT",
+      "used_for": "Reference for smooth timeline/easing patterns and SVG/DOM animation ergonomics."
+    },
+    {
+      "name": "Three.js",
+      "url": "https://github.com/mrdoob/three.js",
+      "license": "MIT",
+      "used_for": "Reference for 3D scene/helix rendering concepts."
+    },
+    {
+      "name": "Ideogram.js",
+      "url": "https://github.com/eweitz/ideogram",
+      "license": "CC0-1.0",
+      "used_for": "Reference for crisp browser chromosome visualization and zoomable genomic graphics."
+    },
+    {
+      "name": "PhET Gene Expression Essentials",
+      "url": "https://github.com/phetsims/gene-expression-essentials",
+      "license": "GPL-3.0",
+      "used_for": "UX/learning-design inspiration only; no source copied into Bujhi."
+    },
+    {
+      "name": "all-science-sims mitosis/meiosis",
+      "url": "https://github.com/listyantidewi1/all-science-sims",
+      "license": "No repository license found during review",
+      "used_for": "Reference for phase-by-phase controls; no source copied."
+    },
+    {
+      "name": "EduTech mitosis canvas",
+      "url": "https://github.com/Timvane-coder/EduTech",
+      "license": "No repository license found during review",
+      "used_for": "Reference for continuous canvas rendering and stage interpolation; no source copied."
+    },
+    {
+      "name": "Three.js cellular biology mitosis demo",
+      "url": "https://github.com/react-laravel/three.js/blob/main/public/demos/3266-cellular-biology-mitosis/main.js",
+      "license": "Reference gallery; source not copied",
+      "used_for": "Reference for chromosome interpolation and spindle visualization."
+    },
+    {
+      "name": "Interactive DNA Double Helix Configurator",
+      "url": "https://codepen.io/WaelYasmina/pen/jEPRPWM",
+      "license": "CodePen example; source not copied",
+      "used_for": "Reference for drag/rotate DNA interaction and helix geometry."
+    }
+  ],
+  "design_rules": [
+    "No microscope photography in student simulations.",
+    "Class 8 first: one biological idea per interaction.",
+    "Continuous motion instead of stage-to-stage teleporting.",
+    "Every animation must remain controllable: play, pause, previous, next or direct stage selection.",
+    "Color is semantic: maternal/paternal chromosomes stay consistent.",
+    "Use simplified scientific models without pretending they are literal microscope views.",
+    "Mobile controls must remain tappable and readable."
+  ]
+}
