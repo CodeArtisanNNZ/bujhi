@@ -44,3 +44,87 @@
 @media(max-width:1000px){.folderShelf{left:5%;width:90%;gap:14px}.classFolder{width:145px}.lamp{left:-4px;top:315px;width:305px;height:320px}.roomLightSwitch{left:6.3%;top:642px}.moneyPlant{right:0;width:164px;height:238px}.drinkArea{right:0;width:180px}.teacherNotebook{left:23%;width:53%}.actionHotspots{left:23%;width:53%}.stickyHotspot{right:18%;width:125px}.subjectGrid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:620px){.referenceDesk{min-height:1060px}.deskBrand{top:20px;left:5%;gap:8px}.deskBrand span{font-size:10px}.deskBrand a strong{font-size:24px}.deskBrand a img{width:32px;height:32px}.teacherBadge{left:5%;top:75px;height:38px;font-size:11px}.dynamicProfile{top:20px;right:5%}.folderShelf{top:145px;left:4%;width:92%;height:190px;overflow-x:auto;justify-content:flex-start;gap:10px;padding:0 8px 20px;border-bottom:12px solid #aa7e52}.folderShelf:after{display:none}.classFolder{flex:0 0 128px;height:150px}.classFolder strong{font-size:15px;top:75px}.classFolder small{bottom:14px}.deskSurface{top:470px}.lamp{top:358px;left:-12px;width:245px;height:270px}.roomLightSwitch{top:618px;left:7%;font-size:11px}.moneyPlant{top:342px;right:2%;width:148px;height:220px}.stickyHotspot{top:525px;right:6%;width:135px;min-height:90px}.teacherNotebook{top:663px;left:5%;width:90%;min-height:242px;padding:21px 22px 20px 39px}.teacherNotebook h1{font-size:28px}.actionHotspots{top:983px;left:5%;width:90%;gap:8px}.actionHotspots button{font-size:11px;gap:5px;min-height:44px}.drinkArea{top:501px;right:calc(50% - 75px);width:150px;transform:scale(.72);transform-origin:center bottom}.drinkMenu{transform:scale(1.35);transform-origin:bottom center;right:-8px}.folderPanel{padding:22px 14px}.subjectGrid{grid-template-columns:1fr 1fr}.detailStats{grid-template-columns:1fr}.subjectMeta{font-size:8px}}
 @media(prefers-reduced-motion:reduce){.page *,.page *:before,.page *:after{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+
+
+/* =========================================================
+   PHONE-FIRST TEACHER DESK
+   ========================================================= */
+@media(max-width:700px){
+  .page{min-height:100dvh;overflow-x:hidden}
+  .referenceDesk{width:100%;min-height:1035px;overflow:hidden}
+
+  .deskBrand{top:14px;left:14px;gap:8px}
+  .deskBrand a{gap:7px}
+  .deskBrand a img{width:30px;height:30px}
+  .deskBrand a strong{font-size:22px}
+  .deskBrand span{display:none}
+
+  .dynamicProfile{top:12px;right:10px;height:38px;max-width:46%;padding:0 4px}
+  .dynamicProfile>span{width:28px;height:28px}
+  .dynamicProfile strong{max-width:74px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px}
+  .dynamicProfile button{width:30px;height:30px}
+
+  .teacherBadge{top:62px;left:14px;right:14px;width:auto;height:40px;border-radius:12px;justify-content:flex-start;padding:0 12px;font-size:11px}
+
+  .folderShelf{top:126px;left:0;width:100%;height:205px;justify-content:flex-start;gap:9px;padding:0 14px 15px;overflow-x:auto;overflow-y:hidden;border-bottom:12px solid #aa7e52;scrollbar-width:thin;scrollbar-color:#8d6747 #dbc7aa}
+  .folderShelf:after{display:none}
+  .classFolder{flex:0 0 118px;width:118px;height:145px}
+  .folderTab{left:12px;top:-14px;width:62px;height:20px}
+  .folderPapers{left:25px;right:10px;top:10px;height:46px}
+  .folderHole{left:10px;top:65px;width:11px;height:11px}
+  .classFolder strong{left:28px;right:9px;top:70px;padding:10px 4px;font-size:14px}
+  .classFolder small{left:28px;right:8px;bottom:13px;font-size:8px;line-height:1.25}
+  .classFolder:hover{transform:translateY(-4px)}
+
+  .deskSurface{top:370px}
+  .lamp{top:322px;left:-30px;width:205px;height:235px}
+  .moneyPlant{top:327px;right:-5px;width:128px;height:188px}
+  .roomLightSwitch{top:550px;left:14px;min-height:36px;padding:0 11px;font-size:10px}
+  .stickyHotspot{top:493px;right:16px;width:118px;min-height:80px;padding:14px 10px 9px}
+  .stickyHotspot:before{width:34px;height:14px;top:-6px;right:-6px}
+  .stickyHotspot strong{font-size:11px;margin:0 0 5px}
+  .stickyHotspot span{font-size:9px;line-height:1.35;-webkit-line-clamp:3}
+
+  .drinkArea{top:500px;right:calc(50% - 58px);width:116px;height:132px;transform:none}
+  .drinkImageFrame{width:105px;height:100px}
+  .steam{left:41px;transform:scale(.7)}
+  .drinkLabel{font-size:9px;padding:4px 8px}
+  .drinkMenu{right:50%;bottom:125px;transform:translateX(50%);width:180px}
+  .drinkMenu button{min-height:44px}
+
+  .teacherNotebook{top:642px;left:14px;width:calc(100% - 28px);min-height:220px;padding:20px 16px 18px 36px;border-radius:6px 12px 12px 6px}
+  .notebookBinding{left:7px;width:14px}
+  .teacherNotebook p{font-size:9px}
+  .teacherNotebook h1{font-size:clamp(24px,8vw,31px);margin-bottom:9px}
+  .teacherNotebook>span{font-size:11px;line-height:1.45;display:block}
+  .teacherNotebook button{width:100%;min-height:42px;margin-top:14px}
+  .teacherNotebook small{font-size:9px;line-height:1.4}
+
+  .actionHotspots{top:890px;left:14px;width:calc(100% - 28px);gap:7px}
+  .actionHotspots button{min-width:0;min-height:46px;padding:7px 5px;font-size:9px;gap:4px}
+  .actionHotspots svg{width:15px}
+
+  .overlay{padding:10px;align-items:end}
+  .folderPanel,.notePanel{width:100%;max-width:none;max-height:88dvh;padding:22px 14px 18px;border-radius:18px 18px 10px 10px}
+  .folderPanel header{gap:10px;padding-right:38px;margin-bottom:16px}
+  .panelFolderIcon{width:48px;height:44px;flex:0 0 auto}
+  .folderPanel h2,.notePanel h2{font-size:1.7rem}
+  .subjectGrid{grid-template-columns:1fr}
+  .subjectGrid button{min-height:88px}
+  .subjectMeta{font-size:9px}
+  .detailStats{grid-template-columns:1fr}
+  .choiceList>div{display:block}
+  .choiceList span{display:block;overflow-wrap:anywhere;border-radius:9px}
+  .notePanel textarea{min-height:180px;font-size:16px}
+}
+
+@media(max-width:390px){
+  .dynamicProfile strong{display:none}
+  .dynamicProfile{max-width:none}
+  .classFolder{flex-basis:112px;width:112px}
+  .lamp{width:190px;left:-38px}
+  .moneyPlant{width:118px;right:-10px}
+  .stickyHotspot{right:10px;width:110px}
+  .teacherNotebook{left:10px;width:calc(100% - 20px)}
+  .actionHotspots{left:10px;width:calc(100% - 20px)}
+}
