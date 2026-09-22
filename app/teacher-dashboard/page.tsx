@@ -237,8 +237,7 @@ export default function TeacherDashboard(){
 
       <button type="button" className={styles.stickyHotspot} onClick={()=>setNoteOpen(true)}>
         <StickyNote size={18}/>
-        <strong>Teacher note</strong>
-        <span>{note||"Write a reminder for yourself…"}</span>
+        <strong>Note</strong>
       </button>
 
       <nav className={styles.actionHotspots} aria-label="Teacher tools">
