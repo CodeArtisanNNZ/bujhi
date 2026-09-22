@@ -107,7 +107,7 @@ export default function StudentDashboard(){
     try{localStorage.setItem("bujhi-student-sticky-note",value)}catch{}
   }
 
-  return <main className={styles.page}>
+  return <main className={`${styles.page} ${lightOn?"":styles.pageDim}`}>
     <section ref={sceneRef} className={styles.referenceDesk} aria-label="Bujhi student study desk">
       <div className={styles.deskBrand}><a href="/">বুঝি</a><span>Student desk</span></div>
       <div className={styles.headerClassCover} aria-hidden="true"/>
@@ -132,11 +132,20 @@ export default function StudentDashboard(){
       </div>
 
       <div className={styles.deskSurface} aria-hidden="true"/>
-      <div className={styles.lamp} data-on={lightOn} aria-hidden="true">
-        <span className={styles.lampGlow}/>
+      <div className={styles.lamp} aria-hidden="true">
         <img className={styles.studentLampImage} src="/student-lamp.webp" alt="" draggable={false}/>
       </div>
-      <button type="button" className={styles.lampSwitch} onClick={()=>setLightOn(value=>!value)} aria-pressed={lightOn} aria-label={lightOn?"Turn desk lamp off":"Turn desk lamp on"}>{lightOn?"Lamp on":"Lamp off"}</button>
+
+      <button
+        type="button"
+        className={styles.roomLightSwitch}
+        onClick={()=>setLightOn(value=>!value)}
+        aria-pressed={lightOn}
+        aria-label={lightOn?"Dim the whole study room":"Brighten the whole study room"}
+      >
+        <span className={styles.roomLightDot} aria-hidden="true"/>
+        <span>{lightOn?"Room light on":"Room light off"}</span>
+      </button>
 
       <div className={styles.moneyPlant} role="img" aria-label="Real money plant in a white pot">
         <img src="https://images.unsplash.com/photo-1599067897079-aedd464866d6?auto=format&fit=crop&fm=jpg&q=82&w=720" alt="" draggable={false} loading="eager"/>
