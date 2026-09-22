@@ -6,12 +6,6 @@ import {
   PenLine,Play,StickyNote,UsersRound,X
 } from "lucide-react";
 import styles from "../dashboard/dashboard.module.css";
-import drink0 from "./student-assets/drink0";
-import drink1 from "./student-assets/drink1";
-import drink2 from "./student-assets/drink2";
-
-const DRINK_SPRITE_SRC=`data:image/avif;base64,${drink0}${drink1}${drink2}`;
-
 type Profile={full_name?:string;role?:string;class_level?:string};
 type Drink="boba"|"tea"|"coffee"|"water"|"lemonade";
 type Panel="notes"|"practice"|"lesson"|null;
@@ -41,12 +35,12 @@ const scienceChapters=[
   "Earth and Space"
 ];
 
-const drinkOptions:{id:Drink;label:string;spriteIndex:number}[]=[
-  {id:"boba",label:"Boba tea",spriteIndex:0},
-  {id:"tea",label:"Tea",spriteIndex:1},
-  {id:"coffee",label:"Coffee",spriteIndex:2},
-  {id:"water",label:"Water",spriteIndex:3},
-  {id:"lemonade",label:"Lemonade",spriteIndex:4}
+const drinkOptions:{id:Drink;label:string;image:string}[]=[
+  {id:"boba",label:"Boba tea",image:"/bobatea.png"},
+  {id:"tea",label:"Tea",image:"/classictea.png"},
+  {id:"coffee",label:"Coffee",image:"/classiccoffee.png"},
+  {id:"water",label:"Water",image:"/glassofwater.png"},
+  {id:"lemonade",label:"Lemonade",image:"/lemonade.png"}
 ];
 
 export default function StudentDashboard(){
@@ -169,13 +163,13 @@ export default function StudentDashboard(){
         <button type="button" className={styles.cupHotspot} onClick={()=>setDrinkOpen(value=>!value)} aria-expanded={drinkOpen} aria-label={`Change desk drink: ${activeDrink.label}`}>
           <span key={drink} className={styles.drinkImageFrame} aria-hidden="true">
             {(drink==="tea"||drink==="coffee")&&<span className={styles.steam}><i/><i/><i/></span>}
-            <img className={styles.drinkSprite} src={DRINK_SPRITE_SRC} alt="" draggable={false} style={{transform:`translateX(-${activeDrink.spriteIndex*20}%)`}}/>
+            <img className={styles.drinkImage} src={activeDrink.image} alt="" draggable={false}/>
           </span>
           <span className={styles.drinkLabel}>{activeDrink.label} · Change</span>
         </button>
         {drinkOpen&&<div className={styles.drinkMenu}>
           <div className={styles.drinkMenuTitle}>Choose a drink</div>
-          {drinkOptions.map(item=><button type="button" key={item.id} className={drink===item.id?styles.drinkActive:""} onClick={()=>chooseDrink(item.id)} aria-pressed={drink===item.id}><span className={styles.drinkThumb} aria-hidden="true"><img src={DRINK_SPRITE_SRC} alt="" draggable={false} style={{transform:`translateX(-${item.spriteIndex*20}%)`}}/></span><span>{item.label}</span></button>)}
+          {drinkOptions.map(item=><button type="button" key={item.id} className={drink===item.id?styles.drinkActive:""} onClick={()=>chooseDrink(item.id)} aria-pressed={drink===item.id}><span className={styles.drinkThumb} aria-hidden="true"><img src={item.image} alt="" draggable={false}/></span><span>{item.label}</span></button>)}
         </div>}
       </aside>
     </section>
