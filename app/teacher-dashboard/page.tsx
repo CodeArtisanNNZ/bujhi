@@ -236,6 +236,7 @@ export default function TeacherDashboard(){
       </div>
 
       <button type="button" className={styles.stickyHotspot} onClick={()=>setNoteOpen(true)} aria-label="Open note">
+        <strong>Note</strong>
         {note&&<span>{note}</span>}
       </button>
 
