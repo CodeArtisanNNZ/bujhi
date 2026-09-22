@@ -1,39 +1,18 @@
 "use client";
 
 import {useEffect,useMemo,useRef,useState} from "react";
+import {useRouter} from "next/navigation";
 import {
-  ChevronDown,ChevronRight,FileText,LogOut,
-  PenLine,Play,StickyNote,UsersRound,X
+  FileText,LogOut,PenLine,Play,StickyNote,UsersRound,X
 } from "lucide-react";
 import styles from "../dashboard/dashboard.module.css";
+import {
+  studentBookCatalog,studentClassKey,studentClassLabels,type NctbBook
+} from "../data/nctbBooks";
+
 type Profile={full_name?:string;role?:string;class_level?:string};
 type Drink="boba"|"tea"|"coffee"|"water"|"lemonade";
-type Panel="notes"|"practice"|"lesson"|null;
-type Book={id:string;title:string;label:string;glyph:string;accent:string;left:number;width:number};
-
-const books:Book[]=[
-  {id:"bangla",title:"Bangla",label:"বাংলা",glyph:"অ",accent:"#8d2d29",left:12.3,width:5.2},
-  {id:"english",title:"English",label:"English",glyph:"Aa",accent:"#98453f",left:17.8,width:5.8},
-  {id:"math",title:"Mathematics",label:"Mathematics",glyph:"△",accent:"#65523e",left:24.0,width:5.7},
-  {id:"science",title:"Science",label:"Science",glyph:"❧",accent:"#49634d",left:30.0,width:6.6},
-  {id:"ict",title:"ICT",label:"ICT",glyph:"▣",accent:"#48656b",left:36.8,width:5.8},
-  {id:"bangladesh",title:"Bangladesh Studies",label:"Bangladesh Studies",glyph:"⌂",accent:"#52685a",left:42.8,width:6.2},
-  {id:"religion",title:"Religion",label:"Religion",glyph:"◌",accent:"#735d49",left:49.3,width:5.7},
-  {id:"agriculture",title:"Agriculture",label:"Agriculture",glyph:"☘",accent:"#596849",left:55.2,width:5.9},
-  {id:"home-science",title:"Home Science",label:"Home Science",glyph:"⌂",accent:"#915449",left:61.3,width:5.9},
-  {id:"arts",title:"Arts",label:"Arts",glyph:"◉",accent:"#a36e3f",left:67.5,width:5.6},
-  {id:"physical",title:"Physical Education",label:"Physical Education",glyph:"↗",accent:"#526b72",left:73.3,width:6.0},
-  {id:"work",title:"Work Education",label:"Work Education",glyph:"⚒",accent:"#765b48",left:79.6,width:6.3}
-];
-
-const scienceChapters=[
-  "Living Things and Their Environment",
-  "Cells and Their Functions",
-  "Human Body Systems",
-  "Food and Nutrition",
-  "Matter and Energy",
-  "Earth and Space"
-];
+type Panel="notes"|"practice"|null;
 
 const drinkOptions:{id:Drink;label:string;image:string}[]=[
   {id:"boba",label:"Boba tea",image:"/bobatea.png"},
@@ -44,17 +23,16 @@ const drinkOptions:{id:Drink;label:string;image:string}[]=[
 ];
 
 export default function StudentDashboard(){
+  const router=useRouter();
   const sceneRef=useRef<HTMLElement|null>(null);
   const[profile,setProfile]=useState<Profile>({class_level:"8"});
-  const[selectedBook,setSelectedBook]=useState<Book>(books[3]);
-  const[selectedChapter,setSelectedChapter]=useState(1);
-  const[readerOpen,setReaderOpen]=useState(false);
+  const[profileReady,setProfileReady]=useState(false);
+  const[selectedBookId,setSelectedBookId]=useState("");
   const[lightOn,setLightOn]=useState(true);
   const[drink,setDrink]=useState<Drink>("tea");
   const[drinkOpen,setDrinkOpen]=useState(false);
   const[panel,setPanel]=useState<Panel>(null);
   const[note,setNote]=useState("");
-  const[classOpen,setClassOpen]=useState(false);
 
   useEffect(()=>{
     void (async()=>{
@@ -72,6 +50,9 @@ export default function StudentDashboard(){
         if(data.profile)setProfile(data.profile);
       }catch{
         location.replace("/login?role=student");
+        return;
+      }finally{
+        setProfileReady(true);
       }
     })();
 
@@ -79,11 +60,19 @@ export default function StudentDashboard(){
       const savedNote=localStorage.getItem("bujhi-student-sticky-note");
       if(savedNote)setNote(savedNote);
       const savedDrink=localStorage.getItem("bujhi-student-drink") as Drink|null;
-      if(savedDrink&&drinkOptions.some(item=>item.id===savedDrink)){
-        setDrink(savedDrink);
-      }
+      if(savedDrink&&drinkOptions.some(item=>item.id===savedDrink))setDrink(savedDrink);
     }catch{}
   },[]);
+
+  const classKey=studentClassKey(profile.class_level);
+  const books=studentBookCatalog[classKey];
+  const selectedBook=useMemo<NctbBook>(()=>books.find(book=>book.id===selectedBookId)||books[0],[books,selectedBookId]);
+  const firstName=profile.full_name?.trim().split(" ")[0]||"Student";
+  const activeDrink=drinkOptions.find(item=>item.id===drink)||drinkOptions[1];
+
+  useEffect(()=>{
+    setSelectedBookId(current=>books.some(book=>book.id===current)?current:books[0]?.id||"");
+  },[books]);
 
   async function logout(){
     try{await fetch("/api/auth/logout",{method:"POST"})}catch{}
@@ -94,22 +83,14 @@ export default function StudentDashboard(){
     location.href="/login?role=student";
   }
 
-  const chapters=useMemo(
-    ()=>selectedBook.id==="science"
-      ?scienceChapters
-      :Array.from({length:6},(_,index)=>`${selectedBook.title} — Chapter ${index+1}`),
-    [selectedBook]
-  );
-  const currentTitle=chapters[selectedChapter-1]||chapters[0];
-  const firstName=profile.full_name?.trim().split(" ")[0]||"Samiha";
-  const activeDrink=drinkOptions.find(item=>item.id===drink)||drinkOptions[1];
-
-  function openBook(book:Book){
-    setSelectedBook(book);setSelectedChapter(1);setReaderOpen(true);
+  function openBook(book:NctbBook){
+    setSelectedBookId(book.id);
+    router.push(`/student-dashboard/books/${classKey}/${book.id}`);
   }
 
   function chooseDrink(next:Drink){
-    setDrink(next);setDrinkOpen(false);
+    setDrink(next);
+    setDrinkOpen(false);
     try{localStorage.setItem("bujhi-student-drink",next)}catch{}
   }
 
@@ -118,27 +99,45 @@ export default function StudentDashboard(){
     try{localStorage.setItem("bujhi-student-sticky-note",value)}catch{}
   }
 
+  if(!profileReady){
+    return <main className={styles.page}><div className={styles.studentLoading}>Opening your study desk…</div></main>;
+  }
+
   return <main className={`${styles.page} ${lightOn?"":styles.pageDim}`}>
-    <section ref={sceneRef} className={styles.referenceDesk} aria-label="Bujhi student study desk">
+    <section ref={sceneRef} className={styles.referenceDesk} aria-label={`Bujhi ${studentClassLabels[classKey]} study desk`}>
       <div className={styles.deskBrand}><a href="/">বুঝি</a><span>Student desk</span></div>
-      <div className={styles.headerClassCover} aria-hidden="true"/>
+
       <div className={styles.dynamicClass}>
-        <button type="button" onClick={()=>setClassOpen(v=>!v)}>Class {profile.class_level||"8"} <ChevronDown/></button>
-        {classOpen&&<div className={styles.classMenu}>
-          {[6,7,8,9,10].map(level=><button type="button" key={level} onClick={()=>{setProfile(current=>({...current,class_level:String(level)}));setClassOpen(false);}}>Class {level}</button>)}
-        </div>}
+        <div className={styles.classPill}>
+          <strong>{studentClassLabels[classKey]}</strong>
+          <span>NCTB 2026 · {books.length} books</span>
+        </div>
       </div>
 
-      <div className={styles.headerProfileCover} aria-hidden="true"/>
       <div className={styles.dynamicProfile}>
         <span><UsersRound/></span><strong>{firstName}</strong>
         <button type="button" onClick={logout} aria-label="Log out"><LogOut/></button>
       </div>
 
+      <div className={styles.shelfMeta}>
+        <strong>{studentClassLabels[classKey]} bookshelf</strong>
+        <span>Scroll the shelf · choose any NCTB textbook</span>
+      </div>
 
-      <div className={styles.bookHotspots} aria-label="Subject books">
-        {books.map(book=><button type="button" key={book.id} style={{backgroundColor:book.accent}} onClick={()=>openBook(book)} aria-label={`Open ${book.title}`} title={book.title}>
-          <span className={styles.bookGlyph}>{book.glyph}</span><span className={styles.bookTitle}>{book.label}</span><small>বুঝি</small>
+      <div className={styles.bookHotspots} aria-label={`${studentClassLabels[classKey]} NCTB textbooks`}>
+        {books.map(book=><button
+          type="button"
+          key={book.id}
+          className={selectedBook.id===book.id?styles.bookSelected:""}
+          style={{backgroundColor:book.accent}}
+          onClick={()=>openBook(book)}
+          onMouseEnter={()=>setSelectedBookId(book.id)}
+          aria-label={`Open ${book.title}`}
+          title={book.englishTitle}
+        >
+          <span className={styles.bookGlyph}>{book.glyph}</span>
+          <span className={styles.bookTitle}>{book.title}</span>
+          <small>NCTB</small>
         </button>)}
       </div>
 
@@ -164,14 +163,19 @@ export default function StudentDashboard(){
 
       <div className={styles.studyNotebook}>
         <div className={styles.notebookBinding} aria-hidden="true"/>
-        <p>My study desk</p><h1>A little learning,<br/>every day.</h1>
-        <span>Pick a book from your shelf to begin.</span>
-        <button type="button" onClick={()=>openBook(selectedBook)}><Play size={16}/> Open {selectedBook.title}<ChevronRight size={16}/></button>
-        <small>Class {profile.class_level||"8"} · Your own space to understand</small>
+        <p>{studentClassLabels[classKey]} · My study desk</p>
+        <h1>{selectedBook.title}</h1>
+        <span>{selectedBook.englishTitle} · Open the book page to read the PDF or learn the lesson.</span>
+        <button type="button" onClick={()=>openBook(selectedBook)}><Play size={16}/> Open this book</button>
+        <small>Every book has its own PDF + Learn Lesson page.</small>
       </div>
-      <button type="button" className={styles.stickyHotspot} onClick={()=>setPanel("notes")} aria-label="Open sticky note"><StickyNote size={19}/><strong>A thought to keep</strong><span>{note||"Write something you want to remember…"}</span></button>
+
+      <button type="button" className={styles.stickyHotspot} onClick={()=>setPanel("notes")} aria-label="Open sticky note">
+        <StickyNote size={19}/><strong>A thought to keep</strong><span>{note||"Write something you want to remember…"}</span>
+      </button>
+
       <nav className={styles.actionHotspots} aria-label="Study tools">
-        <button type="button" onClick={()=>openBook(selectedBook)}><FileText size={18}/>My books</button>
+        <button type="button" onClick={()=>openBook(selectedBook)}><FileText size={18}/>Selected book</button>
         <button type="button" onClick={()=>setPanel("practice")}><PenLine size={18}/>Practice</button>
         <button type="button" onClick={()=>setPanel("notes")}><StickyNote size={18}/>My notes</button>
       </nav>
@@ -186,30 +190,12 @@ export default function StudentDashboard(){
         </button>
         {drinkOpen&&<div className={styles.drinkMenu}>
           <div className={styles.drinkMenuTitle}>Choose a drink</div>
-          {drinkOptions.map(item=><button type="button" key={item.id} className={drink===item.id?styles.drinkActive:""} onClick={()=>chooseDrink(item.id)} aria-pressed={drink===item.id}><span className={styles.drinkThumb} aria-hidden="true"><img src={item.image} alt="" draggable={false}/></span><span>{item.label}</span></button>)}
+          {drinkOptions.map(item=><button type="button" key={item.id} className={drink===item.id?styles.drinkActive:""} onClick={()=>chooseDrink(item.id)} aria-pressed={drink===item.id}>
+            <span className={styles.drinkThumb} aria-hidden="true"><img src={item.image} alt="" draggable={false}/></span><span>{item.label}</span>
+          </button>)}
         </div>}
       </aside>
     </section>
-
-    {readerOpen&&<div className={styles.readerBackdrop}>
-      <section className={styles.openBook} aria-label={`${selectedBook.title} chapters`}>
-        <button type="button" className={styles.readerClose} onClick={()=>setReaderOpen(false)} aria-label="Close book"><X/></button>
-        <div className={styles.readerLeft}>
-          <div className={styles.readerSubject}><span style={{background:selectedBook.accent}}>{selectedBook.glyph}</span><div><small>Class {profile.class_level||"8"}</small><h2>{selectedBook.title}</h2></div></div>
-          <div className={styles.pdfCard}><FileText/><div><strong>Textbook PDF</strong><span>Open the full official textbook.</span></div><button type="button" disabled title="The PDF file will be connected later">PDF coming soon</button></div>
-          <p className={styles.readerTip}>Choose a chapter on the right. Chapter lessons can be uploaded later without changing this desk.</p>
-        </div>
-        <div className={styles.readerSpine} aria-hidden="true"><i/><i/><i/><i/><i/><i/></div>
-        <div className={styles.readerRight}>
-          <p className={styles.readerKicker}>Chapter lessons</p><h3>Choose a chapter</h3>
-          <div className={styles.chapterList}>
-            {chapters.map((title,index)=><button type="button" key={title} onClick={()=>{setSelectedChapter(index+1);setReaderOpen(false);setPanel("lesson");}}>
-              <span>{String(index+1).padStart(2,"0")}</span><div><strong>Chapter {index+1}</strong><small>{title}</small></div><ChevronRight/>
-            </button>)}
-          </div>
-        </div>
-      </section>
-    </div>}
 
     {panel&&<div className={styles.overlay} onMouseDown={event=>{if(event.currentTarget===event.target)setPanel(null)}}>
       <section className={styles.panel}>
@@ -220,16 +206,12 @@ export default function StudentDashboard(){
           <div className={styles.noteMeta}><span>{note.length}/500</span><strong>Saved automatically</strong></div>
         </>}
         {panel==="practice"&&<>
-          <div className={styles.panelHeader}><span className={styles.noteHeaderIcon}><PenLine/></span><div><p>Practice</p><h2>{selectedBook.title} · Chapter {selectedChapter}</h2><small>{currentTitle}</small></div></div>
+          <div className={styles.panelHeader}><span style={{background:selectedBook.accent}}>{selectedBook.glyph}</span><div><p>Practice</p><h2>{selectedBook.title}</h2><small>{studentClassLabels[classKey]}</small></div></div>
           <div className={styles.practiceCards}>
-            <article><strong>Quick check</strong><p>Short concept questions for this chapter.</p><button disabled>Coming with lesson content</button></article>
-            <article><strong>Practice set</strong><p>Topic-wise exercises and revision activities.</p><button disabled>Coming with lesson content</button></article>
-            <article><strong>Try again</strong><p>Questions based on topics that need another explanation.</p><button disabled>Coming with progress data</button></article>
+            <article><strong>Quick check</strong><p>Short questions will connect to this textbook's lesson content.</p><button disabled>Coming with lessons</button></article>
+            <article><strong>Practice set</strong><p>Topic-wise exercises will appear after lesson content is added.</p><button disabled>Coming with lessons</button></article>
+            <article><strong>Try again</strong><p>Revision will use the student's progress in this book.</p><button disabled>Coming with progress data</button></article>
           </div>
-        </>}
-        {panel==="lesson"&&<>
-          <div className={styles.panelHeader}><span style={{background:selectedBook.accent}}>{selectedBook.glyph}</span><div><p>Lesson</p><h2>{selectedBook.title} · Chapter {selectedChapter}</h2><small>{currentTitle}</small></div></div>
-          <div className={styles.lessonPlaceholder}><Play/><h3>Chapter lesson space</h3><p>Chapter-wise lessons will be uploaded here later. The selected book and chapter are already connected to this flow.</p></div>
         </>}
       </section>
     </div>}
