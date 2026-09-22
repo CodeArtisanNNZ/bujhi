@@ -1,5 +1,7 @@
 "use client";
 
+// Production teacher desk route
+
 import {useEffect,useMemo,useState} from "react";
 import {
   BookOpen,ChevronLeft,ChevronRight,FileText,FolderOpen,
