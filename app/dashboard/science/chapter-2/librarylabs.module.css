@@ -3,3 +3,35 @@
 .frame{display:block;width:100%;min-height:700px;border:0;background:#fff8ef}
 .sourceNote{padding:9px 14px;border-top:1px solid #eadbd2;background:#fff;color:#806d63;font-size:.62rem;line-height:1.45}
 @media(max-width:700px){.frame{min-height:760px}}
+
+/* PHONE-FIRST LIBRARY LAB */
+@media(max-width:560px){
+  .lab{border-radius:16px}
+  .head{padding:14px}
+  .head h3{font-size:1.55rem}
+  .head p{font-size:.76rem}
+  .bioSvg{min-height:260px}
+  .overlay{left:8px;bottom:8px;max-width:calc(100% - 16px);padding:9px}
+  .controls{padding:10px;gap:5px;flex-wrap:wrap}
+  .controls button{height:38px;min-width:38px;padding:0 10px}
+  .rail{padding:10px}
+  .rail button{min-width:96px}
+  .tabs{overflow-x:auto;flex-wrap:nowrap;padding:11px}
+  .tabs button{flex:0 0 auto}
+  .compare{min-height:220px;padding:18px 6px;gap:10px}
+  .cell{width:92px;height:92px}
+  .children{grid-template-columns:repeat(2,54px)}
+  .smallCell{width:52px;height:52px}
+  .growthPanel,.zoomInfo,.threeInfo{padding:16px}
+  .zoomArt{min-height:285px}
+  .bigCell{width:205px;height:205px}
+  .bigCell i{width:82px;height:82px}
+  .bigNucleus{width:155px;height:155px}
+  .bigChrom{font-size:6rem}
+  .threeMount{min-height:320px}
+  .parents{padding:14px 8px}
+  .parents label{width:100%;min-width:0}
+  .punnett{width:calc(100% - 12px);grid-template-columns:58px 1fr 1fr}
+  .punnett>*{min-height:58px}
+  .frame{min-height:620px}
+}
