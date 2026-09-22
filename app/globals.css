@@ -921,5 +921,5 @@ html,body{max-width:100%;overflow-x:hidden}.hero>*{min-width:0}.hero-actions a{b
   .desk-scene{padding-left:8px;padding-right:8px}
   .auth-notebook{padding-left:38px}
   .classroom-stage{width:calc(100% - 12px);margin-inline:6px}
-  .seat-grid{inset-left:2%;inset-right:2%}
+  .seat-grid{left:2%;right:2%}
 }
