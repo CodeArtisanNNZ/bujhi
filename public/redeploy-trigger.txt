@@ -1,0 +1,2 @@
+Redeploy trigger: 2026-09-22 21:56 +06:00
+Full Bujhi redeploy requested after mobile responsive updates.
