@@ -397,19 +397,17 @@ const dnaColors:{[k:string]:string}={A:"#c84f59",T:"#4c9589",G:"#d19d40",C:"#597
 
 function DnaStudio(){
  const canvasWrap=useRef<HTMLDivElement|null>(null);
- const[yaw,setYaw]=useState(.4);
- const[pitch,setPitch]=useState(-.08);
  const[auto,setAuto]=useState(true);
  const[selected,setSelected]=useState(8);
  const[sequence,setSequence]=useState(["A","T","G","C","A","G","T","C","G","A","C","T","G","C","A","T","C","G"]);
  const drag=useRef({down:false,x:0,y:0,yaw:0,pitch:0});
- const yawRef=useRef(yaw),pitchRef=useRef(pitch),autoRef=useRef(auto),selRef=useRef(selected);
- useEffect(()=>{yawRef.current=yaw},[yaw]);useEffect(()=>{pitchRef.current=pitch},[pitch]);useEffect(()=>{autoRef.current=auto},[auto]);useEffect(()=>{selRef.current=selected},[selected]);
+ const yawRef=useRef(.4),pitchRef=useRef(-.08),autoRef=useRef(auto),selRef=useRef(selected);
+ useEffect(()=>{autoRef.current=auto},[auto]);useEffect(()=>{selRef.current=selected},[selected]);
 
  function randomize(){const b=["A","T","G","C"];setSequence(Array.from({length:18},()=>b[Math.floor(Math.random()*4)]));setSelected(8)}
 
  const draw:DrawFn=(ctx,w,h,now)=>{
-  if(autoRef.current&&!drag.current.down){yawRef.current+=.0035;setYaw(yawRef.current)}
+  if(autoRef.current&&!drag.current.down){yawRef.current+=.0035}
   const points:{x:number;y:number;z:number;base:string;strand:number;i:number}[]=[];
   const centerX=w*.5,centerY=h*.5;
   const radius=Math.min(w*.18,105),spacing=Math.min(h*.044,20),cam=420;
@@ -451,7 +449,7 @@ function DnaStudio(){
  };
 
  const pointerDown=(e:React.PointerEvent<HTMLCanvasElement>)=>{e.currentTarget.setPointerCapture(e.pointerId);drag.current={down:true,x:e.clientX,y:e.clientY,yaw:yawRef.current,pitch:pitchRef.current};setAuto(false)};
- const pointerMove=(e:React.PointerEvent<HTMLCanvasElement>)=>{if(!drag.current.down)return;const ny=drag.current.yaw+(e.clientX-drag.current.x)*.009;const np=clamp(drag.current.pitch+(e.clientY-drag.current.y)*.006,-.65,.65);yawRef.current=ny;pitchRef.current=np;setYaw(ny);setPitch(np)};
+ const pointerMove=(e:React.PointerEvent<HTMLCanvasElement>)=>{if(!drag.current.down)return;const ny=drag.current.yaw+(e.clientX-drag.current.x)*.009;const np=clamp(drag.current.pitch+(e.clientY-drag.current.y)*.006,-.65,.65);yawRef.current=ny;pitchRef.current=np};
  const pointerUp=()=>{drag.current.down=false};
 
  return <div className={styles.proLab}>
