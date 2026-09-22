@@ -10,10 +10,7 @@ export const metadata:Metadata={
 export default function Layout({children}:{children:React.ReactNode}){
   return <html lang="en">
     <head>
-      <script
-        type="module"
-        src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js"
-      />
+      <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" />
     </head>
     <body>{children}</body>
   </html>
