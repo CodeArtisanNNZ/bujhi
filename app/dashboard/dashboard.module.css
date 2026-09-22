@@ -178,3 +178,83 @@
 @media(prefers-reduced-motion:reduce){.openBook,.moneyPlant,.drinkImageFrame,.steam i{animation:none}.steam i{opacity:.3}.bookHotspots button,.pageDim:after{transition:none}}
 
 .studentLoading{min-height:100vh;display:grid;place-items:center;color:#7b6553;font:700 1.1rem Georgia,serif;background:#e9decc}
+
+
+/* =========================================================
+   PHONE-FIRST STUDENT DESK
+   ========================================================= */
+@media(max-width:700px){
+  .page{min-height:100dvh;overflow-x:hidden}
+  .referenceDesk{width:100%;min-height:1010px;overflow:hidden}
+
+  .deskBrand{top:14px;left:14px;gap:8px}
+  .deskBrand a{gap:7px}
+  .deskBrand a img{width:30px;height:30px}
+  .deskBrand a strong{font-size:22px}
+  .deskBrand span{display:none}
+
+  .dynamicProfile{top:12px;right:10px;height:38px;max-width:46%;padding:0 4px}
+  .dynamicProfile>span{width:28px;height:28px}
+  .dynamicProfile strong{max-width:74px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px}
+  .dynamicProfile button{width:30px;height:30px}
+
+  .dynamicClass{top:62px;left:14px;right:14px}
+  .classPill{width:100%;min-height:42px;border-radius:12px;align-items:flex-start;padding:7px 12px}
+  .classPill strong{font-size:12px}
+  .classPill span{font-size:8px}
+
+  .shelfMeta{top:116px;left:14px;right:14px}
+  .shelfMeta strong{font-size:11px}
+  .shelfMeta span{display:none}
+  .bookHotspots{top:138px;left:0;width:100%;height:190px;padding:0 14px 14px;gap:7px;border-bottom-width:12px;border-radius:0;box-shadow:0 9px 14px #573c2422}
+  .bookHotspots button{flex:0 0 50px;width:50px;min-width:50px;height:145px!important;padding:9px 3px 8px}
+  .bookGlyph{font-size:17px}
+  .bookTitle{font-size:10px;max-height:100px}
+  .bookHotspots small{font-size:8px}
+
+  .deskSurface{top:365px}
+  .lamp{top:320px;left:-28px;width:205px;height:235px}
+  .moneyPlant{top:325px;right:-5px;width:128px;height:188px}
+  .roomLightSwitch{top:548px;left:14px;min-height:36px;padding:0 11px;font-size:10px}
+  .stickyHotspot{top:492px;right:16px;width:118px;min-height:80px;padding:10px;font-size:10px}
+  .stickyHotspot strong{font-size:11px}
+  .stickyHotspot span{font-size:9px;line-height:1.35}
+
+  .drinkArea{top:500px;right:calc(50% - 58px);width:116px;height:132px;transform:none}
+  .drinkImageFrame{width:105px;height:100px}
+  .steam{left:41px;transform:scale(.7)}
+  .drinkLabel{font-size:9px;padding:4px 8px}
+  .drinkMenu{right:50%;bottom:125px;transform:translateX(50%);width:180px}
+  .drinkMenu button{min-height:44px}
+
+  .studyNotebook{top:640px;left:14px;width:calc(100% - 28px);min-height:220px;padding:20px 16px 18px 36px;border-radius:6px 12px 12px 6px}
+  .notebookBinding{left:7px;width:14px}
+  .studyNotebook p{font-size:9px}
+  .studyNotebook h1{font-size:clamp(24px,8vw,31px);margin-bottom:9px}
+  .studyNotebook>span{font-size:11px;line-height:1.45;display:block}
+  .studyNotebook button{width:100%;min-height:42px;margin-top:14px}
+  .studyNotebook small{font-size:9px;line-height:1.4}
+
+  .actionHotspots{top:888px;left:14px;width:calc(100% - 28px);gap:7px}
+  .actionHotspots button{min-width:0;min-height:46px;padding:7px 5px;font-size:9px;gap:4px}
+  .actionHotspots svg{width:15px}
+
+  .overlay{padding:10px;align-items:end}
+  .panel{width:100%;max-height:88dvh;padding:22px 14px 18px;border-radius:18px 18px 10px 10px}
+  .panelHeader{padding-right:38px;gap:10px}
+  .panelHeader>span{width:48px;height:56px}
+  .panelHeader h2{font-size:1.7rem}
+  .practiceCards{grid-template-columns:1fr}
+  .noteEditor{min-height:180px;font-size:16px}
+}
+
+@media(max-width:390px){
+  .dynamicProfile strong{display:none}
+  .dynamicProfile{max-width:none}
+  .bookHotspots button{flex-basis:47px;width:47px;min-width:47px}
+  .lamp{width:190px;left:-38px}
+  .moneyPlant{width:118px;right:-10px}
+  .stickyHotspot{right:10px;width:110px}
+  .studyNotebook{left:10px;width:calc(100% - 20px)}
+  .actionHotspots{left:10px;width:calc(100% - 20px)}
+}
