@@ -51,12 +51,25 @@ export default function TeacherDashboard(){
   const[noteOpen,setNoteOpen]=useState(false);
 
   useEffect(()=>{
-    try{
-      const saved=localStorage.getItem("bujhi-demo-user");
-      if(saved){
-        const data=JSON.parse(saved) as Profile;
-        if(data.role==="teacher")setProfile(data);
+    void (async()=>{
+      try{
+        const response=await fetch("/api/me",{cache:"no-store"});
+        if(!response.ok){
+          location.replace("/login?role=teacher");
+          return;
+        }
+        const data=await response.json() as {profile?:Profile};
+        if(data.profile?.role==="student"){
+          location.replace("/dashboard");
+          return;
+        }
+        if(data.profile)setProfile(data.profile);
+      }catch{
+        location.replace("/login?role=teacher");
       }
+    })();
+
+    try{
       const savedNote=localStorage.getItem("bujhi-teacher-note");
       if(savedNote)setNote(savedNote);
       const savedDrink=localStorage.getItem("bujhi-teacher-drink") as Drink|null;
