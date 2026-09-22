@@ -1,5 +1,6 @@
 import type {Metadata,Viewport} from "next";
 import "./globals.css";
+import LanguageToggle from "./components/LanguageToggle";
 
 export const viewport:Viewport={width:"device-width",initialScale:1,viewportFit:"cover"};
 
@@ -14,6 +15,6 @@ export default function Layout({children}:{children:React.ReactNode}){
     <head>
       <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" />
     </head>
-    <body>{children}</body>
+    <body><LanguageToggle/>{children}</body>
   </html>
 }
