@@ -133,7 +133,7 @@ export default function StudentDashboard(){
 
       <div className={styles.deskSurface} aria-hidden="true"/>
       <div className={styles.lamp} aria-hidden="true">
-        <img className={styles.studentLampImage} src="/student-lamp.webp" alt="" draggable={false}/>
+        <img className={styles.studentLampImage} src="/student-lamp-red.webp" alt="" draggable={false}/>
       </div>
 
       <button
