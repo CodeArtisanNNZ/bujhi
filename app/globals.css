@@ -731,7 +731,7 @@ html,body{max-width:100%;overflow-x:hidden}.hero>*{min-width:0}.hero-actions a{b
 }
 .auth-drink-menu{
   left:47%!important;
-  top:43%!important;
+  top:30%!important;
   bottom:auto!important;
   width:200px;
   max-height:min(330px,48vh);
@@ -772,5 +772,5 @@ html,body{max-width:100%;overflow-x:hidden}.hero>*{min-width:0}.hero-actions a{b
 @media(max-width:650px){
   .auth-drink-button{width:118px;min-height:124px}
   .auth-drink-frame{width:108px;height:98px}
-  .auth-drink-menu{left:auto!important;right:5%!important;top:30%!important;bottom:auto!important;width:185px;max-height:300px}
+  .auth-drink-menu{left:auto!important;right:5%!important;top:22%!important;bottom:auto!important;width:185px;max-height:300px}
 }
