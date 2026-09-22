@@ -1,8 +1,8 @@
 import {cookies} from "next/headers";
 import {NextResponse} from "next/server";
 
-const url=process.env.SUPABASE_URL;
-const key=process.env.SUPABASE_PUBLISHABLE_KEY||process.env.SUPABASE_ANON_KEY;
+const url=process.env.SUPABASE_URL||process.env.NEXT_PUBLIC_SUPABASE_URL||"https://enaaebxrrqnyfnwigwkz.supabase.co";
+const key=process.env.SUPABASE_PUBLISHABLE_KEY||process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY||process.env.SUPABASE_ANON_KEY||"sb_publishable_Z91RkfoBLf5CGuThT5tljQ_kcsneXK0";
 
 export async function GET(){
  if(!url||!key)return NextResponse.json({error:"Database is not configured yet."},{status:503});
