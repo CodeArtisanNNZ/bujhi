@@ -17,12 +17,19 @@ const bookFacts={
  "Bangladesh Tomorrow":["Bangladesh launched Bangabandhu Satellite-1 in 2018.","Young Bangladeshis are building solutions in climate resilience, health, education and technology."]
 };
 
-const drinks=["Water","Coffee","Tea","Lemonade"];
+type AuthDrink="boba"|"tea"|"coffee"|"water"|"lemonade";
+const drinks:{id:AuthDrink;label:string;image:string}[]=[
+ {id:"boba",label:"Boba tea",image:"/bobatea.png"},
+ {id:"tea",label:"Tea",image:"/classictea.png"},
+ {id:"coffee",label:"Coffee",image:"/classiccoffee.png"},
+ {id:"water",label:"Water",image:"/glassofwater.png"},
+ {id:"lemonade",label:"Lemonade",image:"/lemonade.png"}
+];
 
 export default function AuthDesk({kind}:{kind:"login"|"signup"}){
  const[light,setLight]=useState(true);
  const[show,setShow]=useState(false);
- const[drink,setDrink]=useState("Tea");
+ const[drink,setDrink]=useState<AuthDrink>("tea");
  const[chooser,setChooser]=useState(false);
  const[note,setNote]=useState("");
  const[role,setRole]=useState<"student"|"teacher">("student");
@@ -33,6 +40,7 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
  const[subject,setSubject]=useState("");
  const[loading,setLoading]=useState(false);
  const[error,setError]=useState("");
+ const activeDrink=drinks.find(item=>item.id===drink)||drinks[1];
 
  useEffect(()=>{
   const q=new URLSearchParams(window.location.search);
@@ -110,12 +118,20 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
     {Object.entries(bookFacts).map(([title,facts])=><button type="button" key={title} onClick={()=>tell(facts[Math.floor(Math.random()*facts.length)])}><span>{title}</span></button>)}
    </div>
 
-   <button type="button" className={`mug-spot drink-${drink.toLowerCase()}`} onClick={()=>setChooser(!chooser)} aria-label={`Current beverage: ${drink}. Choose another beverage`}>
-    <span className="cup"><span className="cup-liquid"/>{drink==="Lemonade"&&<span className="lemon-slice"/>}</span>
-    <span className="cup-name">{drink}</span>
+   <button type="button" className="mug-spot auth-drink-button" onClick={()=>setChooser(!chooser)} aria-label={`Current beverage: ${activeDrink.label}. Choose another beverage`}>
+    <span className="auth-drink-frame" aria-hidden="true">
+     {(drink==="tea"||drink==="coffee")&&<span className="auth-drink-steam"><i/><i/><i/></span>}
+     <img src={activeDrink.image} alt="" draggable={false}/>
+    </span>
+    <span className="cup-name">{activeDrink.label}</span>
    </button>
 
-   {chooser&&<div className="drink-menu">{drinks.map(item=><button type="button" key={item} onClick={()=>{setDrink(item);setChooser(false);tell(`${item} selected. Choose whatever helps your study desk feel comfortable.`)}}>{item}</button>)}</div>}
+   {chooser&&<div className="drink-menu auth-drink-menu">
+    {drinks.map(item=><button type="button" key={item.id} className={drink===item.id?"active":""} onClick={()=>{setDrink(item.id);setChooser(false);tell(`${item.label} selected. Choose whatever helps your study desk feel comfortable.`)}}>
+     <span className="auth-drink-thumb" aria-hidden="true"><img src={item.image} alt="" draggable={false}/></span>
+     <span>{item.label}</span>
+    </button>)}
+   </div>}
    {note&&<aside className="desk-note"><button type="button" onClick={()=>setNote("")}>×</button><p>{note}</p></aside>}
 
    <article className="auth-notebook">
