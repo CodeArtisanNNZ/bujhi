@@ -6,6 +6,14 @@ import {
   PenLine,Play,StickyNote,UsersRound,X
 } from "lucide-react";
 import styles from "../dashboard/dashboard.module.css";
+import deskBg0 from "./student-assets/deskBg0";
+import deskBg1 from "./student-assets/deskBg1";
+import drink0 from "./student-assets/drink0";
+import drink1 from "./student-assets/drink1";
+import drink2 from "./student-assets/drink2";
+
+const DESK_SRC=`data:image/webp;base64,${deskBg0}${deskBg1}`;
+const DRINK_SPRITE_SRC=`data:image/avif;base64,${drink0}${drink1}${drink2}`;
 
 type Profile={full_name?:string;role?:string;class_level?:string};
 type Drink="boba"|"tea"|"coffee"|"water"|"lemonade";
