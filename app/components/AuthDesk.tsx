@@ -91,7 +91,7 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
    localStorage.setItem("bujhi-demo-auth","true");
   }catch{}
 
-  const destination=role==="student"?"/dashboard":"/teacher-dashboard";
+  const destination=role==="student"?"/student-dashboard":"/teacher-dashboard";
   window.location.assign(destination);
  }
 
