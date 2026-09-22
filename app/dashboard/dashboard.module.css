@@ -1,147 +1,32 @@
-.page{
-  min-height:100vh;
-  margin:0;
-  background:#a86e47;
-  color:#2e241d;
-  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-}
-.referenceDesk{
-  position:relative;
-  width:min(1536px,100%);
-  margin:0 auto;
-  aspect-ratio:3/2;
-  overflow:hidden;
-  background:#e9dac5;
-}
-.referenceImage{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  display:block;
-  object-fit:cover;
-  user-select:none;
-  pointer-events:none;
-}
-.headerClassCover{
-  position:absolute;z-index:8;left:25.7%;top:.7%;width:10.8%;height:6%;
-  border-radius:999px;background:#f1e5d4;
-}
-.dynamicClass{position:absolute;z-index:20;left:26.15%;top:1.15%}
-.dynamicClass>button{
-  min-width:118px;height:43px;border:1px solid #d7c5af;border-radius:999px;
-  background:#f7eee1;color:#4a3025;padding:0 15px;display:flex;align-items:center;
-  justify-content:center;gap:8px;font-weight:800;cursor:pointer;
-}
-.dynamicClass svg{width:16px}
-.classMenu{
-  position:absolute;top:48px;left:0;width:132px;padding:6px;border:1px solid #d7c6b3;
-  border-radius:13px;background:#fff9f0;box-shadow:0 18px 36px rgba(54,30,16,.18);
-}
-.classMenu button{
-  width:100%;min-height:38px;border:0;border-radius:8px;background:transparent;
-  text-align:left;padding:0 10px;cursor:pointer;
-}
-.classMenu button:hover{background:#efe1d2}
-.headerProfileCover{
-  position:absolute;z-index:8;right:2.5%;top:.55%;width:16.6%;height:6.2%;
-  border-radius:999px;background:#f1e5d4;
-}
-.dynamicProfile{
-  position:absolute;z-index:20;right:3.4%;top:.92%;min-width:180px;height:47px;
-  padding:0 5px 0 6px;border-radius:999px;background:#f7eee1;display:flex;
-  align-items:center;gap:9px;
-}
-.dynamicProfile>span{
-  width:38px;height:38px;border-radius:50%;background:#8b201d;color:white;
-  display:grid;place-items:center;
-}
-.dynamicProfile>span svg{width:20px}
-.dynamicProfile strong{font-size:.9rem;color:#5d3026}
-.dynamicProfile>button{
-  margin-left:auto;width:33px;height:33px;border:0;border-radius:50%;background:transparent;
-  color:#7a5f4f;display:grid;place-items:center;cursor:pointer;
-}
-.dynamicProfile>button:hover{background:#ead8c5;color:#8b201d}
-.dynamicProfile>button svg{width:17px}
 
-.bookHotspots{position:absolute;inset:0;z-index:15}
-.bookHotspots button{
-  position:absolute;top:10.1%;height:18.8%;border:0;border-radius:7px;background:transparent;cursor:pointer;
-}
-.bookHotspots button:hover,.bookHotspots button:focus-visible{
-  outline:none;box-shadow:inset 0 0 0 3px rgba(255,224,139,.74),0 0 22px rgba(118,51,25,.2);
-}
-.bookHotspots button:disabled{cursor:default}
-.bookProxy{
-  position:absolute;z-index:70;display:none;border-radius:7px;
-  box-shadow:0 22px 40px rgba(45,24,14,.32);pointer-events:none;
-  backface-visibility:hidden;transform-style:preserve-3d;
-}
-
-.lampSwitch{
-  position:absolute;z-index:21;left:8.2%;top:64.4%;width:55px;height:28px;
-  border:1px solid rgba(103,49,32,.34);border-radius:999px;background:rgba(255,247,236,.94);
-  color:#7e201b;font-size:.62rem;font-weight:900;letter-spacing:.08em;cursor:pointer;
-  box-shadow:0 5px 12px rgba(52,29,16,.12);
-}
-.lampDarkness{
-  position:absolute;z-index:7;left:0;top:26%;width:39%;height:45%;opacity:0;
-  pointer-events:none;transition:opacity .2s ease;
-  background:radial-gradient(ellipse at 31% 18%,transparent 0 10%,rgba(42,30,24,.18) 38%,rgba(39,28,24,.46) 72%,transparent 100%);
-  mix-blend-mode:multiply;
-}
-.lampDarknessOn{opacity:.9}
-.stickyHotspot{
-  position:absolute;z-index:16;right:5.3%;top:34.2%;width:7.8%;height:11.5%;
-  border:0;border-radius:7px;background:transparent;cursor:pointer;
-}
-.stickyHotspot:hover,.stickyHotspot:focus-visible{
-  outline:none;box-shadow:inset 0 0 0 3px rgba(151,111,45,.38);
-}
-
-.actionHotspots button{
-  position:absolute;z-index:16;top:75.25%;height:6.6%;border:0;border-radius:10px;background:transparent;cursor:pointer;
-}
-.actionHotspots button:hover,.actionHotspots button:focus-visible{
-  outline:none;box-shadow:inset 0 0 0 3px rgba(255,238,215,.55),0 6px 14px rgba(53,28,16,.12);
-}
-.continueHotspot{left:19.7%;width:21.6%}
-.lessonHotspot{left:42%;width:11.4%}
-.practiceHotspot{left:54.6%;width:11%}
-.notesHotspot{left:66.3%;width:11.1%}
-
-.drinkArea{position:absolute;z-index:25;right:0;top:0;width:100%;height:100%;pointer-events:none}
-.cupHotspot{
-  position:absolute;right:.5%;top:64.1%;width:13.1%;height:21.4%;border:0;border-radius:45%;
-  background:transparent;cursor:pointer;pointer-events:auto;
-}
-.cupHotspot:hover,.cupHotspot:focus-visible{
-  outline:none;box-shadow:inset 0 0 0 3px rgba(255,237,210,.5);
-}
-.drinkReplacement{
-  position:absolute;right:.2%;top:63.2%;width:14.2%;height:23.5%;border-radius:47%;
-  pointer-events:none;
-  background:radial-gradient(ellipse at 48% 58%,rgba(174,113,70,.98) 0 56%,rgba(160,96,57,.88) 69%,transparent 72%);
-}
-.drinkSprite{
-  width:100%;height:100%;background-repeat:no-repeat;pointer-events:none;
-  filter:drop-shadow(0 12px 9px rgba(58,29,15,.22));
-}
-.drinkMenu{
-  position:absolute;z-index:35;right:11.6%;top:54.2%;width:190px;padding:9px;
-  border:1px solid #d6c3ad;border-radius:15px;background:rgba(255,249,240,.97);
-  box-shadow:0 20px 42px rgba(48,25,13,.2);pointer-events:auto;
-}
-.drinkMenuTitle{padding:5px 7px 8px;color:#7d201c;font:700 .84rem Georgia,"Times New Roman",serif}
-.drinkMenu button{
-  width:100%;min-height:48px;border:0;border-radius:10px;background:transparent;color:#554235;
-  display:grid;grid-template-columns:45px 1fr;align-items:center;gap:8px;padding:4px 8px;text-align:left;cursor:pointer;
-}
-.drinkMenu button:hover{background:#efe1d3}
-.drinkMenu .drinkActive{background:#7f201b;color:white}
-.drinkThumb{width:42px;height:42px;display:block;background-repeat:no-repeat}
-
+.page{min-height:100vh;margin:0;background:#e9decc;color:#493629;font-family:Inter,ui-sans-serif,system-ui,sans-serif}
+.referenceDesk{position:relative;isolation:isolate;width:min(1440px,100%);min-height:800px;margin:0 auto;overflow:hidden;background:radial-gradient(ellipse at 20% 25%,#fff7e5aa,transparent 65%),repeating-linear-gradient(90deg,#c1ad8d12 0 1px,transparent 1px 6px),#e9decc}
+.deskBrand{position:absolute;top:25px;left:5%;display:flex;align-items:center;gap:18px}.deskBrand a{color:#990000;font:bold 32px Georgia,serif;text-decoration:none}.deskBrand span{font-size:12px;letter-spacing:.1em;color:#715e4c}
+.headerClassCover,.headerProfileCover{display:none}
+.dynamicClass{position:absolute;z-index:30;top:24px;left:44%}.dynamicClass>button,.dynamicProfile{height:44px;border:1px solid #cdbba2;border-radius:25px;background:#fff8eb;color:#493629;display:flex;align-items:center;gap:8px;padding:0 15px;font-weight:600}
+.dynamicClass button{cursor:pointer}.dynamicClass svg{width:15px}.classMenu{position:absolute;top:50px;left:0;width:140px;padding:6px;border:1px solid #d7c6b3;border-radius:13px;background:#fff9f0;box-shadow:0 18px 36px #361e102e}.classMenu button{width:100%;min-height:40px;border:0;border-radius:8px;background:transparent;text-align:left;padding:0 10px}.classMenu button:hover{background:#efe1d2}
+.dynamicProfile{position:absolute;z-index:30;top:24px;right:4%;padding:0 7px;gap:10px}.dynamicProfile>span{width:32px;height:32px;border-radius:50%;background:#8b201d;color:white;display:grid;place-items:center}.dynamicProfile svg{width:18px}.dynamicProfile strong{font-size:13px}.dynamicProfile button{width:36px;height:36px;border:0;background:transparent;color:#785e4b;cursor:pointer}
+.bookHotspots{position:absolute;z-index:3;top:113px;left:9%;width:82%;height:208px;display:flex;align-items:flex-end;gap:7px;padding:0 13px 18px}
+.bookHotspots:after{content:"";position:absolute;bottom:0;left:-3%;width:106%;height:20px;border-radius:3px;background:linear-gradient(#c5996a,#ae7b4b 65%,#825638 66%,#9d7048);box-shadow:0 17px 19px #4a2d2429}
+.bookHotspots button{position:relative;flex:1;min-width:0;height:180px;border:1px solid #462f2933;border-radius:5px 8px 3px 3px;color:#fff1dc;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:14px 4px 12px;box-shadow:inset 5px 0 #ffffff12,inset -5px 0 #0000001a,3px 2px 3px #35231a33;transition:transform .25s,box-shadow .25s}
+.bookHotspots button:nth-child(3n){height:166px}.bookHotspots button:nth-child(4n){height:190px}.bookHotspots button:hover{transform:translateY(-12px);box-shadow:inset 5px 0 #ffffff12,6px 12px 12px #35231a33}
+.bookGlyph{font:23px Georgia,serif}.bookTitle{writing-mode:vertical-rl;font:600 12px/1.1 Georgia,serif;text-align:center;max-height:118px}.bookHotspots small{font-size:10px;opacity:.6}
+.deskSurface{position:absolute;z-index:-1;inset:400px 0 0;background:repeating-linear-gradient(1deg,transparent 0 12px,#55351e0b 13px,transparent 14px 35px),linear-gradient(#d0a476,#b98759);border-top:9px solid #bd9268;box-shadow:0 -10px 35px #7c583519}
+.lamp{position:absolute;top:358px;left:3%;width:210px;height:260px;pointer-events:none}.lampShade{position:absolute;z-index:3;top:0;left:12%;width:76%;height:100px;border-radius:80px 80px 12px 12px;background:repeating-linear-gradient(90deg,transparent 0 9px,#826a3717 10px 12px),linear-gradient(90deg,#b99562,#f5e5ba 48%,#c8a876);box-shadow:inset 0 -8px #b89a68,0 4px 5px #6c492524}.lampShade:after{content:"";position:absolute;bottom:3px;left:8%;width:84%;height:9px;border-radius:50%;background:#ffe9ab;box-shadow:0 8px 20px #ffe1a3}.lampStem{position:absolute;top:92px;left:48%;width:10px;height:145px;background:linear-gradient(90deg,#8e6e3f,#d3b177,#725531)}.lampBase{position:absolute;bottom:5px;left:19%;width:65%;height:24px;border-radius:50%;background:linear-gradient(#bb9562,#7c5d3f);box-shadow:0 8px 9px #5a392937}.lampGlow{position:absolute;top:60px;left:-35%;width:170%;height:230px;border-radius:50%;background:radial-gradient(ellipse,#ffe7a69c,transparent 68%);transition:opacity .3s}.lamp[data-on="false"] .lampGlow{opacity:0}.lamp[data-on="false"] .lampShade:after{background:#b6a080;box-shadow:none}
+.lampSwitch{position:absolute;z-index:4;top:625px;left:7%;min-height:36px;padding:0 16px;border:1px solid #aa825d;border-radius:20px;background:#f9edd9;color:#68442d;font-size:12px;cursor:pointer}
+.moneyPlant{position:absolute;top:319px;right:4%;width:190px;transform-origin:bottom center;animation:plantSway 7s ease-in-out infinite}.moneyPlant svg{display:block;width:100%;height:auto;filter:drop-shadow(7px 10px 5px #39231318)}
+.studyNotebook{position:absolute;top:396px;left:26%;width:47%;min-height:258px;padding:24px 30px 24px 43px;border:1px solid #c7b899;border-radius:6px 15px 15px 6px;background:repeating-linear-gradient(180deg,transparent 0 27px,#9e8e7319 28px),#faf3e3;box-shadow:3px 4px #e5d8bd,5px 7px #f6ead2,9px 16px 24px #51361e33}
+.notebookBinding{position:absolute;left:9px;top:12px;bottom:12px;width:16px;background:repeating-linear-gradient(180deg,transparent 0 15px,#867762 16px 19px,transparent 20px 28px);border-right:1px solid #bfae92}
+.studyNotebook p{margin:0 0 10px;text-transform:uppercase;letter-spacing:.15em;font-size:10px;color:#8b201d;font-weight:700}.studyNotebook h1{font:400 clamp(24px,2.8vw,37px)/1.15 Georgia,serif;color:#493629;margin:0 0 12px}.studyNotebook>span{font-size:12px;color:#80705c}.studyNotebook button{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:17px;padding:11px 16px;border:0;border-radius:7px;background:#8b201d;color:#fff4e3;cursor:pointer;font-size:12px}.studyNotebook small{display:block;margin-top:13px;font-size:10px;color:#80705c}
+.stickyHotspot{position:absolute;z-index:4;top:342px;right:22%;width:140px;min-height:100px;padding:12px;border:0;border-radius:2px;background:#ebd89b;color:#6d5838;box-shadow:2px 5px 9px #65452126;text-align:left;cursor:pointer}.stickyHotspot strong{display:block;font:600 12px Georgia,serif;margin:5px 0}.stickyHotspot span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:10px;line-height:1.5}
+.actionHotspots{position:absolute;top:731px;left:26%;width:47%;display:flex;gap:12px;justify-content:center}.actionHotspots button{display:flex;align-items:center;justify-content:center;gap:9px;flex:1;min-height:43px;border:1px solid #a57d56;border-radius:8px;background:#f6e7cd;color:#694a32;box-shadow:0 3px 0 #9f734d;cursor:pointer;font-size:12px}
+.drinkArea{position:absolute;z-index:10;right:2%;top:556px;width:200px;height:188px}.cupHotspot{display:block;width:100%;height:100%;border:0;background:transparent;cursor:pointer;color:#60442f}.cupScene{display:block;position:relative;width:170px;height:155px;margin:auto;animation:cupChange .45s ease-out;--liquid:#a27030}.cupScene[data-drink="coffee"]{--liquid:#493226}.cupScene[data-drink="water"]{--liquid:#9ac7cb}.cupScene[data-drink="lemonade"]{--liquid:#e5c968}.cupScene[data-drink="boba"]{--liquid:#b18b68}
+.saucer{position:absolute;bottom:4px;left:8px;width:150px;height:29px;border-radius:50%;background:linear-gradient(#fbf4df,#d8c5a7);box-shadow:0 8px 8px #4b2d292e}.cupHandle{position:absolute;right:8px;top:60px;width:47px;height:53px;border:12px solid #e9dcc5;border-radius:45%;box-shadow:2px 2px 2px #856b4422}.cupBody{position:absolute;left:30px;top:48px;width:100px;height:95px;border-radius:9px 9px 40px 40px;background:linear-gradient(90deg,#d1bc9a,#fff7e4 36%,#e6d7ba);box-shadow:inset -3px -5px 5px #a98e5922;overflow:hidden}.liquid{position:absolute;left:5px;right:5px;top:5px;height:17px;border:3px solid #e7d7b8;border-radius:50%;background:var(--liquid)}.cupMark{position:absolute;top:43px;left:0;right:0;font:bold 20px Georgia,serif;color:#8b201d}.pearls{position:absolute;bottom:4px;left:12px;color:#432f29;font-size:13px;line-height:1.1}.cupScene[data-drink="boba"] .cupMark{top:30px}.steam{position:absolute;top:0;left:51px;display:flex;gap:12px}.steam i{display:block;width:6px;height:40px;border-radius:50%;background:#fff9e3;filter:blur(3px);animation:steamRise 2.8s infinite;opacity:0}.steam i:nth-child(2){animation-delay:.8s}.steam i:nth-child(3){animation-delay:1.6s}.cupScene[data-drink="water"] .steam,.cupScene[data-drink="lemonade"] .steam,.cupScene[data-drink="boba"] .steam{display:none}.drinkLabel{font-size:11px;background:#f3e3cbbb;padding:6px 12px;border-radius:20px}
+.drinkMenu{position:absolute;z-index:35;right:12px;bottom:180px;width:168px;padding:8px;border:1px solid #d6c3ad;border-radius:13px;background:#fff9f0;box-shadow:0 16px 35px #30190d33}.drinkMenuTitle{padding:8px;color:#7d201c;font:700 14px Georgia,serif}.drinkMenu button{width:100%;min-height:40px;border:0;border-radius:8px;background:transparent;color:#554235;padding:8px 12px;text-align:left;cursor:pointer}.drinkMenu button:hover{background:#efe1d3}.drinkMenu .drinkActive{background:#7f201b;color:white}
+.referenceDesk button:focus-visible,.deskBrand a:focus-visible{outline:3px solid #990000;outline-offset:4px}
+@keyframes steamRise{0%{opacity:0;transform:translateY(9px) scaleX(1)}40%{opacity:.7}100%{opacity:0;transform:translateY(-22px) scaleX(1.8)}}
+@keyframes plantSway{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(1deg)}}
+@keyframes cupChange{from{opacity:.2;transform:translateY(-8px) scale(.94)}to{opacity:1;transform:none}}
 .readerBackdrop{
   position:fixed;z-index:90;inset:0;padding:24px;display:grid;place-items:center;
   background:rgba(39,21,12,.57);backdrop-filter:blur(7px);
@@ -250,32 +135,23 @@
 .lessonPlaceholder h3{margin:13px 0 7px;font:700 1.5rem Georgia,serif}
 .lessonPlaceholder p{max-width:520px;margin:0;color:#705f53;font-size:.85rem;line-height:1.55}
 
-@media(max-width:800px){
-  .dynamicClass{transform:scale(.77);transform-origin:top left}
-  .dynamicProfile{transform:scale(.77);transform-origin:top right}
-  .headerClassCover,.headerProfileCover{height:7%}
-  .lampSwitch{transform:scale(.78);transform-origin:left top}
-  .drinkMenu{right:12%;top:49%;transform:scale(.9);transform-origin:right bottom}
+
+@media(max-width:1000px){
+.bookHotspots{left:4%;width:92%;gap:4px}.bookTitle{font-size:11px}
+.lamp{left:0;width:175px}.moneyPlant{right:0;width:155px}.drinkArea{right:0;width:170px}
+.studyNotebook{left:23%;width:53%}.actionHotspots{left:23%;width:53%}.stickyHotspot{right:18%;width:125px}
 }
 @media(max-width:620px){
-  .dynamicClass{transform:scale(.62)}
-  .dynamicProfile{transform:scale(.62)}
-  .lampSwitch{transform:scale(.64)}
-  .bookHotspots button:hover,.bookHotspots button:focus-visible,
-  .stickyHotspot:hover,.stickyHotspot:focus-visible,
-  .actionHotspots button:hover,.actionHotspots button:focus-visible,
-  .cupHotspot:hover,.cupHotspot:focus-visible{box-shadow:none}
-  .readerBackdrop{padding:10px;align-items:start;overflow:auto}
-  .openBook{width:96vw;margin:18px 0;grid-template-columns:1fr;filter:drop-shadow(0 16px 24px rgba(27,15,9,.25))}
-  .readerSpine{display:none}
-  .readerLeft,.readerRight{min-height:auto;border-radius:13px;padding:28px 18px}
-  .readerLeft{padding-top:42px}
-  .readerRight h3{font-size:1.65rem}
-  .panel{padding:23px 15px}
-  .practiceCards{grid-template-columns:1fr}
-  .drinkMenu{right:4%;top:43%;width:165px;transform:scale(.8)}
+.referenceDesk{min-height:1060px}.deskBrand{top:20px;left:5%;gap:8px}.deskBrand span{font-size:10px}.deskBrand a{font-size:26px}
+.dynamicClass{left:5%;top:75px}.dynamicClass>button{height:38px;font-size:12px}.dynamicProfile{top:20px;right:5%}
+.bookHotspots{top:140px;height:195px;left:4%;width:92%;overflow-x:auto;gap:7px;padding:0 5px 20px;scrollbar-width:thin;scrollbar-color:#9c7752 #dbc7aa}
+.bookHotspots button{flex:0 0 53px;height:158px}.bookHotspots button:nth-child(3n){height:149px}.bookHotspots button:nth-child(4n){height:165px}.bookHotspots:after{position:fixed;display:none}
+.bookHotspots{border-bottom:12px solid #aa7e52;box-shadow:0 9px 12px #573c2422}.bookHotspots button:hover{transform:translateY(-4px)}
+.deskSurface{top:470px}.lamp{top:367px;left:2%;width:150px;height:225px}.lampShade{height:82px}.lampStem{top:79px;height:126px}.lampSwitch{left:8%;top:595px;min-height:40px}.moneyPlant{top:341px;right:3%;width:146px}
+.stickyHotspot{top:525px;right:6%;width:135px;min-height:90px}
+.studyNotebook{top:663px;left:5%;width:90%;min-height:242px;padding:21px 22px 20px 39px}.studyNotebook h1{font-size:29px}
+.actionHotspots{top:983px;left:5%;width:90%;gap:8px}.actionHotspots button{font-size:11px;gap:5px;min-height:44px}
+.drinkArea{top:501px;right:calc(50% - 75px);width:150px;transform:scale(.72);transform-origin:center bottom}.drinkMenu{transform:scale(1.35);transform-origin:bottom center;right:-8px}
+.readerBackdrop{padding:10px;align-items:start;overflow:auto}.openBook{width:96vw;margin:18px 0;grid-template-columns:1fr;filter:drop-shadow(0 16px 24px #1b0f0940)}.readerSpine{display:none}.readerLeft,.readerRight{min-height:auto;border-radius:13px;padding:28px 18px}.readerLeft{padding-top:42px}.readerRight h3{font-size:1.65rem}.panel{padding:23px 15px}.practiceCards{grid-template-columns:1fr}
 }
-@media(prefers-reduced-motion:reduce){
-  .openBook{animation:none}
-  .lampDarkness{transition:none}
-}
+@media(prefers-reduced-motion:reduce){.openBook,.moneyPlant,.cupScene,.steam i{animation:none}.steam i{opacity:.3}.lampGlow,.bookHotspots button{transition:none}}

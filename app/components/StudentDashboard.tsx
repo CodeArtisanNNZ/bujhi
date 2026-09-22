@@ -44,26 +44,14 @@ const drinkOptions:{id:Drink;label:string;spriteIndex:number}[]=[
   {id:"lemonade",label:"Lemonade",spriteIndex:4}
 ];
 
-function spriteStyle(index:number){
-  return {
-    backgroundImage:"url('/drink-sprite.webp')",
-    backgroundSize:"500% 100%",
-    backgroundPosition:`${index*25}% 50%`
-  };
-}
-
 export default function StudentDashboard(){
   const sceneRef=useRef<HTMLElement|null>(null);
-  const proxyRef=useRef<HTMLDivElement|null>(null);
-  const cupRef=useRef<HTMLDivElement|null>(null);
   const[profile,setProfile]=useState<Profile>({class_level:"8"});
   const[selectedBook,setSelectedBook]=useState<Book>(books[3]);
   const[selectedChapter,setSelectedChapter]=useState(1);
   const[readerOpen,setReaderOpen]=useState(false);
-  const[bookAnimating,setBookAnimating]=useState(false);
   const[lightOn,setLightOn]=useState(true);
   const[drink,setDrink]=useState<Drink>("tea");
-  const[customDrink,setCustomDrink]=useState(false);
   const[drinkOpen,setDrinkOpen]=useState(false);
   const[panel,setPanel]=useState<Panel>(null);
   const[note,setNote]=useState("");
@@ -80,7 +68,7 @@ export default function StudentDashboard(){
       if(savedNote)setNote(savedNote);
       const savedDrink=localStorage.getItem("bujhi-student-drink") as Drink|null;
       if(savedDrink&&drinkOptions.some(item=>item.id===savedDrink)){
-        setDrink(savedDrink); setCustomDrink(true);
+        setDrink(savedDrink);
       }
     }catch{}
   },[]);
@@ -100,42 +88,13 @@ export default function StudentDashboard(){
   const firstName=profile.full_name?.trim().split(" ")[0]||"Samiha";
   const activeDrink=drinkOptions.find(item=>item.id===drink)||drinkOptions[1];
 
-  function openBook(book:Book,event:React.MouseEvent<HTMLButtonElement>){
-    if(bookAnimating)return;
-    setSelectedBook(book); setSelectedChapter(1); setReaderOpen(false); setBookAnimating(true);
-    const scene=sceneRef.current, proxy=proxyRef.current, source=event.currentTarget;
-    if(!scene||!proxy){setReaderOpen(true);setBookAnimating(false);return;}
-    const sceneRect=scene.getBoundingClientRect(), sourceRect=source.getBoundingClientRect();
-    const x=sourceRect.left-sceneRect.left, y=sourceRect.top-sceneRect.top;
-    Object.assign(proxy.style,{
-      display:"block",left:`${x}px`,top:`${y}px`,
-      width:`${sourceRect.width}px`,height:`${sourceRect.height}px`,
-      backgroundImage:"url('/student-desk-bg.webp')",
-      backgroundSize:`${sceneRect.width}px ${sceneRect.height}px`,
-      backgroundPosition:`-${x}px -${y}px`,backgroundRepeat:"no-repeat",opacity:"1"
-    });
-    const gsap=(window as Window & {gsap?:any}).gsap;
-    if(!gsap){proxy.style.display="none";setReaderOpen(true);setBookAnimating(false);return;}
-    const destinationX=sceneRect.width/2-(x+sourceRect.width/2);
-    const destinationY=sceneRect.height/2-(y+sourceRect.height/2)-sceneRect.height*.03;
-    gsap.set(proxy,{x:0,y:0,scale:1,rotation:0,rotationY:0,transformPerspective:1100,transformOrigin:"left center"});
-    const tl=gsap.timeline({onComplete:()=>{proxy.style.display="none";setBookAnimating(false);}});
-    tl.to(proxy,{x:destinationX,y:destinationY,scale:Math.min(2.35,Math.max(1.7,sceneRect.width/720)),rotation:-1.5,duration:.62,ease:"power3.inOut"})
-      .call(()=>setReaderOpen(true))
-      .to(proxy,{rotationY:-105,x:destinationX-sourceRect.width*.85,opacity:.15,duration:.42,ease:"power2.in"},"<+.02");
+  function openBook(book:Book){
+    setSelectedBook(book);setSelectedChapter(1);setReaderOpen(true);
   }
 
   function chooseDrink(next:Drink){
-    const gsap=(window as Window & {gsap?:any}).gsap, cup=cupRef.current;
-    const commit=()=>{
-      setDrink(next);setCustomDrink(true);setDrinkOpen(false);
-      try{localStorage.setItem("bujhi-student-drink",next)}catch{}
-    };
-    if(!gsap||!cup){commit();return;}
-    gsap.to(cup,{opacity:.15,scale:.96,duration:.12,ease:"power1.in",onComplete:()=>{
-      commit();
-      requestAnimationFrame(()=>gsap.fromTo(cup,{opacity:.15,scale:.96},{opacity:1,scale:1,duration:.2,ease:"power2.out"}));
-    }});
+    setDrink(next);setDrinkOpen(false);
+    try{localStorage.setItem("bujhi-student-drink",next)}catch{}
   }
 
   function saveNote(value:string){
@@ -145,8 +104,7 @@ export default function StudentDashboard(){
 
   return <main className={styles.page}>
     <section ref={sceneRef} className={styles.referenceDesk} aria-label="Bujhi student study desk">
-      <img src="/student-desk-bg.webp" alt="Warm Bujhi student desk with class books, lamp, plants, stationery and study controls" className={styles.referenceImage} draggable={false}/>
-
+      <div className={styles.deskBrand}><a href="/">বুঝি</a><span>Student desk</span></div>
       <div className={styles.headerClassCover} aria-hidden="true"/>
       <div className={styles.dynamicClass}>
         <button type="button" onClick={()=>setClassOpen(v=>!v)}>Class {profile.class_level||"8"} <ChevronDown/></button>
@@ -161,30 +119,56 @@ export default function StudentDashboard(){
         <button type="button" onClick={logout} aria-label="Log out"><LogOut/></button>
       </div>
 
+
       <div className={styles.bookHotspots} aria-label="Subject books">
-        {books.map(book=><button type="button" key={book.id} style={{left:`${book.left}%`,width:`${book.width}%`}} onClick={event=>openBook(book,event)} aria-label={`Open ${book.title}`} title={book.title} disabled={bookAnimating}/>)}
+        {books.map(book=><button type="button" key={book.id} style={{backgroundColor:book.accent}} onClick={()=>openBook(book)} aria-label={`Open ${book.title}`} title={book.title}>
+          <span className={styles.bookGlyph}>{book.glyph}</span><span className={styles.bookTitle}>{book.label}</span><small>বুঝি</small>
+        </button>)}
       </div>
-      <div ref={proxyRef} className={styles.bookProxy} aria-hidden="true"/>
 
-      <button type="button" className={styles.lampSwitch} onClick={()=>setLightOn(value=>!value)} aria-pressed={lightOn} aria-label={lightOn?"Turn desk lamp off":"Turn desk lamp on"}>{lightOn?"ON":"OFF"}</button>
-      <div className={`${styles.lampDarkness} ${lightOn?"":styles.lampDarknessOn}`} aria-hidden="true"/>
-
-      <button type="button" className={styles.stickyHotspot} onClick={()=>setPanel("notes")} aria-label="Open sticky note"/>
-      <div className={styles.actionHotspots}>
-        <button type="button" className={styles.continueHotspot} onClick={()=>setPanel("lesson")} aria-label="Continue learning"/>
-        <button type="button" className={styles.lessonHotspot} onClick={()=>setPanel("lesson")} aria-label="Start lesson"/>
-        <button type="button" className={styles.practiceHotspot} onClick={()=>setPanel("practice")} aria-label="Practice"/>
-        <button type="button" className={styles.notesHotspot} onClick={()=>setPanel("notes")} aria-label="My notes"/>
+      <div className={styles.deskSurface} aria-hidden="true"/>
+      <div className={styles.lamp} data-on={lightOn} aria-hidden="true">
+        <div className={styles.lampGlow}/><div className={styles.lampShade}/><div className={styles.lampStem}/><div className={styles.lampBase}/>
       </div>
+      <button type="button" className={styles.lampSwitch} onClick={()=>setLightOn(value=>!value)} aria-pressed={lightOn} aria-label={lightOn?"Turn desk lamp off":"Turn desk lamp on"}>{lightOn?"Lamp on":"Lamp off"}</button>
+
+      <div className={styles.moneyPlant} role="img" aria-label="Money plant in a terracotta pot">
+        <svg viewBox="0 0 200 250" aria-hidden="true">
+          <path d="M101 200 Q65 133 104 48 M100 176 Q151 124 147 81 M97 152 Q43 118 44 75 M101 189 Q166 191 176 143" fill="none" stroke="#4a653c" strokeWidth="4"/>
+          {[[104,48,-20],[91,89,35],[78,125,-50],[147,81,30],[137,125,-25],[44,75,-45],[58,111,45],[176,143,25],[149,178,-30]].map(([x,y,r],i)=><g key={i} transform={`translate(${x} ${y}) rotate(${r})`}><path d="M0 17 C-39 -1 -29 -33 -8 -23 Q0 -22 0 -13 Q12 -37 27 -23 C46 0 15 12 0 17Z" fill={i%2?"#63864b":"#3d623e"}/><path d="M0 15 L0 -14 M0 0 L-17 -12 M0 4 L19 -12" stroke="#bbca85" strokeWidth="1.3" fill="none"/></g>)}
+          <ellipse cx="101" cy="241" rx="47" ry="7" fill="#38251a" opacity=".15"/>
+          <path d="M62 187 L71 235 Q100 249 131 235 L140 187Z" fill="#b57752"/>
+          <path d="M68 196 L76 232" stroke="#dca67a" strokeWidth="6" opacity=".65"/>
+          <ellipse cx="101" cy="188" rx="40" ry="10" fill="#d0956b"/><ellipse cx="101" cy="187" rx="32" ry="6" fill="#564333"/>
+        </svg>
+      </div>
+
+      <div className={styles.studyNotebook}>
+        <div className={styles.notebookBinding} aria-hidden="true"/>
+        <p>My study desk</p><h1>A little learning,<br/>every day.</h1>
+        <span>Pick a book from your shelf to begin.</span>
+        <button type="button" onClick={()=>openBook(selectedBook)}><Play size={16}/> Open {selectedBook.title}<ChevronRight size={16}/></button>
+        <small>Class {profile.class_level||"8"} · Your own space to understand</small>
+      </div>
+      <button type="button" className={styles.stickyHotspot} onClick={()=>setPanel("notes")} aria-label="Open sticky note"><StickyNote size={19}/><strong>A thought to keep</strong><span>{note||"Write something you want to remember…"}</span></button>
+      <nav className={styles.actionHotspots} aria-label="Study tools">
+        <button type="button" onClick={()=>openBook(selectedBook)}><FileText size={18}/>My books</button>
+        <button type="button" onClick={()=>setPanel("practice")}><PenLine size={18}/>Practice</button>
+        <button type="button" onClick={()=>setPanel("notes")}><StickyNote size={18}/>My notes</button>
+      </nav>
 
       <aside className={styles.drinkArea}>
-        {customDrink&&<div className={styles.drinkReplacement}><div ref={cupRef} className={styles.drinkSprite} style={spriteStyle(activeDrink.spriteIndex)} role="img" aria-label={activeDrink.label}/></div>}
-        <button type="button" className={styles.cupHotspot} onClick={()=>setDrinkOpen(value=>!value)} aria-expanded={drinkOpen} aria-label={`Change desk drink${customDrink?`: ${activeDrink.label}`:""}`}/>
+        <button type="button" className={styles.cupHotspot} onClick={()=>setDrinkOpen(value=>!value)} aria-expanded={drinkOpen} aria-label={`Change desk drink: ${activeDrink.label}`}>
+          <span key={drink} className={styles.cupScene} data-drink={drink} aria-hidden="true">
+            <span className={styles.steam}><i/><i/><i/></span>
+            <span className={styles.saucer}/><span className={styles.cupHandle}/>
+            <span className={styles.cupBody}><span className={styles.liquid}/>{drink==="boba"&&<span className={styles.pearls}>● ● ●<br/> ● ●</span>}<span className={styles.cupMark}>বুঝি</span></span>
+          </span>
+          <span className={styles.drinkLabel}>{activeDrink.label} · Change</span>
+        </button>
         {drinkOpen&&<div className={styles.drinkMenu}>
           <div className={styles.drinkMenuTitle}>Choose a drink</div>
-          {drinkOptions.map(item=><button type="button" key={item.id} className={drink===item.id&&customDrink?styles.drinkActive:""} onClick={()=>chooseDrink(item.id)}>
-            <span className={styles.drinkThumb} style={spriteStyle(item.spriteIndex)}/><span>{item.label}</span>
-          </button>)}
+          {drinkOptions.map(item=><button type="button" key={item.id} className={drink===item.id?styles.drinkActive:""} onClick={()=>chooseDrink(item.id)} aria-pressed={drink===item.id}><span>{item.label}</span></button>)}
         </div>}
       </aside>
     </section>
