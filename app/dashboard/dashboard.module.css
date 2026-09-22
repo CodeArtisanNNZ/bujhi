@@ -2,7 +2,7 @@
 .page{position:relative;min-height:100vh;margin:0;background:#e9decc;color:#493629;font-family:Inter,ui-sans-serif,system-ui,sans-serif}
 .pageDim:after{content:"";position:fixed;z-index:60;inset:0;pointer-events:none;background:rgba(22,16,14,.55);backdrop-filter:brightness(.62) saturate(.78);transition:background .35s ease,backdrop-filter .35s ease}
 .referenceDesk{position:relative;isolation:isolate;width:min(1440px,100%);min-height:800px;margin:0 auto;overflow:hidden;background:radial-gradient(ellipse at 20% 25%,#fff7e5aa,transparent 65%),repeating-linear-gradient(90deg,#c1ad8d12 0 1px,transparent 1px 6px),#e9decc}
-.deskBrand{position:absolute;top:25px;left:5%;display:flex;align-items:center;gap:18px}.deskBrand a{color:#990000;font:bold 32px Georgia,serif;text-decoration:none}.deskBrand span{font-size:12px;letter-spacing:.1em;color:#715e4c}
+.deskBrand{position:absolute;top:25px;left:5%;display:flex;align-items:center;gap:14px}.deskBrand a{display:flex;align-items:center;gap:9px;color:#990000;text-decoration:none}.deskBrand a img{width:38px;height:38px;border-radius:9px;object-fit:contain}.deskBrand a strong{font:bold 30px Georgia,serif}.deskBrand span{font-size:12px;letter-spacing:.1em;color:#715e4c}
 .headerClassCover,.headerProfileCover{display:none}
 .dynamicClass{position:absolute;z-index:30;top:20px;left:42%}.classPill{min-height:48px;border:1px solid #cdbba2;border-radius:25px;background:#fff8eb;color:#493629;display:flex;flex-direction:column;justify-content:center;padding:5px 17px;box-shadow:0 6px 18px #51361e13}.classPill strong{font-size:13px;line-height:1.1}.classPill span{margin-top:3px;color:#8a7462;font-size:9px;letter-spacing:.04em}
 .dynamicProfile{position:absolute;z-index:30;top:24px;right:4%;padding:0 7px;gap:10px}.dynamicProfile>span{width:32px;height:32px;border-radius:50%;background:#8b201d;color:white;display:grid;place-items:center}.dynamicProfile svg{width:18px}.dynamicProfile strong{font-size:13px}.dynamicProfile button{width:36px;height:36px;border:0;background:transparent;color:#785e4b;cursor:pointer}
@@ -162,7 +162,7 @@
 .studyNotebook{left:23%;width:53%}.actionHotspots{left:23%;width:53%}.stickyHotspot{right:18%;width:125px}
 }
 @media(max-width:620px){
-.referenceDesk{min-height:1060px}.deskBrand{top:20px;left:5%;gap:8px}.deskBrand span{font-size:10px}.deskBrand a{font-size:26px}
+.referenceDesk{min-height:1060px}.deskBrand{top:20px;left:5%;gap:8px}.deskBrand span{font-size:10px}.deskBrand a strong{font-size:24px}.deskBrand a img{width:32px;height:32px}
 .dynamicClass{left:5%;top:72px}.classPill{min-height:42px;padding:5px 13px}.dynamicProfile{top:20px;right:5%}
 .shelfMeta{top:122px;left:5%;right:5%}.shelfMeta span{display:none}
 .bookHotspots{top:145px;height:195px;left:4%;width:92%;overflow-x:auto;gap:7px;padding:0 5px 18px;scrollbar-width:thin;scrollbar-color:#9c7752 #dbc7aa}
