@@ -151,7 +151,7 @@ function translateTree(root:ParentNode,lang:Lang){
   applying=true;
   try{
     if(root instanceof Element)translateAttributes(root,lang);
-    const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+    const walker=document.createTreeWalker(root as Node,NodeFilter.SHOW_TEXT);
     let node:Node|null;
     while((node=walker.nextNode()))translateTextNode(node,lang);
     if("querySelectorAll" in root)(root as ParentNode).querySelectorAll("*").forEach(el=>translateAttributes(el,lang));
