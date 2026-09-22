@@ -1,6 +1,6 @@
 "use client";
 
-import {useEffect,useMemo,useRef,useState} from "react";
+import {useEffect,useMemo,useRef,useState,type CSSProperties,type PointerEvent as ReactPointerEvent} from "react";
 import {
  ArrowRight,Check,ChevronLeft,ChevronRight,Dna,Gamepad2,Lightbulb,
  Pause,Play,RefreshCcw,Rotate3D,Sparkles,Target,Zap
@@ -9,7 +9,7 @@ import styles from "./professional.module.css";
 
 type DrawFn=(ctx:CanvasRenderingContext2D,w:number,h:number,now:number)=>void;
 
-function CanvasSurface({draw,label,onPointerDown,onPointerMove,onPointerUp}:{draw:DrawFn;label:string;onPointerDown?:(e:React.PointerEvent<HTMLCanvasElement>)=>void;onPointerMove?:(e:React.PointerEvent<HTMLCanvasElement>)=>void;onPointerUp?:(e:React.PointerEvent<HTMLCanvasElement>)=>void}){
+function CanvasSurface({draw,label,onPointerDown,onPointerMove,onPointerUp}:{draw:DrawFn;label:string;onPointerDown?:(e:ReactPointerEvent<HTMLCanvasElement>)=>void;onPointerMove?:(e:ReactPointerEvent<HTMLCanvasElement>)=>void;onPointerUp?:(e:ReactPointerEvent<HTMLCanvasElement>)=>void}){
  const ref=useRef<HTMLCanvasElement|null>(null);
  const drawRef=useRef(draw);
  drawRef.current=draw;
@@ -251,7 +251,7 @@ function DivisionComparator(){
   <div className={styles.segment}>{(["amitosis","mitosis","meiosis"] as const).map(x=><button key={x} className={type===x?styles.segmentOn:""} onClick={()=>setType(x)}>{x==="amitosis"?"অ্যামাইটোসিস":x==="mitosis"?"মাইটোসিস":"মিয়োসিস"}</button>)}</div>
   <div className={styles.comparatorStage}>
    <div className={styles.demoCell}><i/><span>মাতৃকোষ</span></div><ArrowRight/>
-   <div className={styles.resultGrid}>{Array.from({length:data.cells},(_,i)=><div className={styles.smallCell} style={{"--cell-accent":data.color} as React.CSSProperties} key={i}><i/><b>{type==="meiosis"?"n":"2n"}</b></div>)}</div>
+   <div className={styles.resultGrid}>{Array.from({length:data.cells},(_,i)=><div className={styles.smallCell} style={{"--cell-accent":data.color} as CSSProperties} key={i}><i/><b>{type==="meiosis"?"n":"2n"}</b></div>)}</div>
   </div>
   <div className={styles.outcome}><span>{data.tag}</span><strong>{data.result}</strong><p>{data.copy}</p></div>
  </div>
@@ -448,8 +448,8 @@ function DnaStudio(){
   ctx.fillStyle=palette.ink;ctx.font="800 12px sans-serif";ctx.fillText("drag to rotate",18,h-18);
  };
 
- const pointerDown=(e:React.PointerEvent<HTMLCanvasElement>)=>{e.currentTarget.setPointerCapture(e.pointerId);drag.current={down:true,x:e.clientX,y:e.clientY,yaw:yawRef.current,pitch:pitchRef.current};setAuto(false)};
- const pointerMove=(e:React.PointerEvent<HTMLCanvasElement>)=>{if(!drag.current.down)return;const ny=drag.current.yaw+(e.clientX-drag.current.x)*.009;const np=clamp(drag.current.pitch+(e.clientY-drag.current.y)*.006,-.65,.65);yawRef.current=ny;pitchRef.current=np};
+ const pointerDown=(e:ReactPointerEvent<HTMLCanvasElement>)=>{e.currentTarget.setPointerCapture(e.pointerId);drag.current={down:true,x:e.clientX,y:e.clientY,yaw:yawRef.current,pitch:pitchRef.current};setAuto(false)};
+ const pointerMove=(e:ReactPointerEvent<HTMLCanvasElement>)=>{if(!drag.current.down)return;const ny=drag.current.yaw+(e.clientX-drag.current.x)*.009;const np=clamp(drag.current.pitch+(e.clientY-drag.current.y)*.006,-.65,.65);yawRef.current=ny;pitchRef.current=np};
  const pointerUp=()=>{drag.current.down=false};
 
  return <div className={styles.proLab}>
