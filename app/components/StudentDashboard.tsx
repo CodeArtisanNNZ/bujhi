@@ -134,12 +134,7 @@ export default function StudentDashboard(){
       <div className={styles.deskSurface} aria-hidden="true"/>
       <div className={styles.lamp} data-on={lightOn} aria-hidden="true">
         <span className={styles.lampGlow}/>
-        <span className={styles.lampBase}/>
-        <span className={styles.lampLowerArm}/>
-        <span className={styles.lampJointOne}/>
-        <span className={styles.lampUpperArm}/>
-        <span className={styles.lampJointTwo}/>
-        <span className={styles.lampShade}><i/></span>
+        <span className={styles.loginLampArt}><img src="/auth-desk-clean.png" alt="" draggable={false}/></span>
       </div>
       <button type="button" className={styles.lampSwitch} onClick={()=>setLightOn(value=>!value)} aria-pressed={lightOn} aria-label={lightOn?"Turn desk lamp off":"Turn desk lamp on"}>{lightOn?"Lamp on":"Lamp off"}</button>
 
