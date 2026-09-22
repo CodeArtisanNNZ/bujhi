@@ -151,10 +151,10 @@ export default function StudentDashboard(){
         className={styles.roomLightSwitch}
         onClick={()=>setLightOn(value=>!value)}
         aria-pressed={lightOn}
-        aria-label={lightOn?"Dim the whole study room":"Brighten the whole study room"}
+        aria-label={lightOn?"Turn lamp off":"Turn lamp on"}
       >
         <span className={styles.roomLightDot} aria-hidden="true"/>
-        <span>{lightOn?"Room light on":"Room light off"}</span>
+        <span>{lightOn?"Lamp on":"Lamp off"}</span>
       </button>
 
       <div className={styles.moneyPlant} role="img" aria-label="Money plant">
