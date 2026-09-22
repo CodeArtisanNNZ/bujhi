@@ -71,9 +71,13 @@ export default function TeacherDashboard(){
     return selectedSubject.chapters[selectedChapter]||"";
   },[selectedSubject,selectedChapter]);
 
-  function logout(){
-    try{localStorage.removeItem("bujhi-demo-auth")}catch{}
-    location.href="/";
+  async function logout(){
+    try{await fetch("/api/auth/logout",{method:"POST"})}catch{}
+    try{
+      localStorage.removeItem("bujhi-demo-auth");
+      localStorage.removeItem("bujhi-demo-user");
+    }catch{}
+    location.href="/login?role=teacher";
   }
 
   function openClass(value:number){
