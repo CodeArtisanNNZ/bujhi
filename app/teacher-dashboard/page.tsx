@@ -169,7 +169,7 @@ export default function TeacherDashboard(){
 
   return <main className={`${styles.page} ${lightOn?"":styles.pageDim}`}>
     <section className={styles.referenceDesk} aria-label="Bujhi teacher desk">
-      <div className={styles.deskBrand}><a href="/">বুঝি</a><span>Teacher desk</span></div>
+      <div className={styles.deskBrand}><a href="/" aria-label="Bujhi home"><img src="/bujhi-icon.png" alt=""/><strong>Bujhi</strong></a><span>Teacher desk</span></div>
 
       <div className={styles.teacherBadge}>
         <FolderOpen/><span>Your classes</span>
