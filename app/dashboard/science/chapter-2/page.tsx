@@ -8,7 +8,7 @@ import {
  RefreshCcw,Sparkles,Target
 } from "lucide-react";
 import styles from "./chapter2.module.css";
-import CinematicLab from "./CinematicLabs";
+import ProfessionalLabs from "./ProfessionalLabs";
 
 type Lesson={
  id:number; title:string; short:string; eyebrow:string; hook:string;
@@ -311,7 +311,7 @@ function DetailBox({lesson}:{lesson:number}){
  </div>;
 }
 
-function Simulation({lesson}:{lesson:number}){ return <CinematicLab lesson={lesson}/>; }
+function Simulation({lesson}:{lesson:number}){ return <ProfessionalLabs lesson={lesson}/>; }
 
 export default function ChapterTwo(){
  const[active,setActive]=useState(1);
