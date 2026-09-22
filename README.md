@@ -32,14 +32,14 @@ The frontend uses Next.js route handlers that connect to Supabase Auth and Postg
 1. Create a Supabase project for Bujhi.
 2. Open the Supabase SQL editor and run `supabase/schema.sql`.
 3. Copy `.env.example` to `.env.local`.
-4. Add your project URL and publishable/anon key:
+4. Add your project URL and publishable key:
 
 ```env
 SUPABASE_URL=https://YOUR-PROJECT.supabase.co
-SUPABASE_ANON_KEY=YOUR_KEY
+SUPABASE_PUBLISHABLE_KEY=YOUR_KEY
 ```
 
-5. Add the same two environment variables in Vercel.
+5. Add the same two environment variables in Vercel (Vercel Marketplace normally syncs these automatically).
 
 The schema creates `profiles`, automatically creates a profile when a Supabase Auth user signs up, enables row-level security, and includes a `learning_preferences` table for the next personalization stage.
 
