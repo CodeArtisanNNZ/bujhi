@@ -1,7 +1,7 @@
 import {NextResponse} from "next/server";
 
 const url=process.env.SUPABASE_URL;
-const key=process.env.SUPABASE_ANON_KEY;
+const key=process.env.SUPABASE_PUBLISHABLE_KEY||process.env.SUPABASE_ANON_KEY;
 
 export async function POST(request:Request){
  if(!url||!key)return NextResponse.json({error:"Database is not configured yet."},{status:503});
