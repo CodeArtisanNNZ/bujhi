@@ -147,8 +147,8 @@ export default function StudentDashboard(){
         <span>{lightOn?"Room light on":"Room light off"}</span>
       </button>
 
-      <div className={styles.moneyPlant} role="img" aria-label="Real money plant in a white pot">
-        <img src="https://images.unsplash.com/photo-1599067897079-aedd464866d6?auto=format&fit=crop&fm=jpg&q=82&w=720" alt="" draggable={false} loading="eager"/>
+      <div className={styles.moneyPlant} role="img" aria-label="Money plant">
+        <img src="/29e8b631-9c79-4996-b225-405227aa1153.png" alt="" draggable={false} loading="eager"/>
       </div>
 
       <div className={styles.studyNotebook}>
