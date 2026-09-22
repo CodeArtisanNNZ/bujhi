@@ -7,8 +7,8 @@ import styles from "./librarylabs.module.css";
 
 declare global {
   interface Window {
-    anime?: any;
-    THREE?: any;
+    anime: any;
+    THREE: any;
   }
 }
 
