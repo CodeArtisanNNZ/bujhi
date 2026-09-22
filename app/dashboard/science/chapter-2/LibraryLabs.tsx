@@ -2,6 +2,124 @@
 
 import styles from "./librarylabs.module.css";
 
+
+type ResourceKind="mitosis"|"meiosis";
+type ResourceTab={id:string;label:string;url:string;embed:string;kind:"site"|"video"|"reference";note:string};
+
+const PROVIDED_RESOURCES:Record<ResourceKind,ResourceTab[]>={
+  mitosis:[
+    {
+      id:"sim1",
+      label:"Interactive simulation 1",
+      url:"https://nihal-dump.github.io/mitosis-simulation/",
+      embed:"https://nihal-dump.github.io/mitosis-simulation/",
+      kind:"site",
+      note:"Your provided mitosis simulation reference."
+    },
+    {
+      id:"sim2",
+      label:"Interactive simulation 2",
+      url:"https://all-science-sims.vercel.app/#/biology/mitosis",
+      embed:"https://all-science-sims.vercel.app/#/biology/mitosis",
+      kind:"site",
+      note:"Your second provided mitosis simulation reference."
+    },
+    {
+      id:"video",
+      label:"Mitosis video",
+      url:"https://youtu.be/7ybxaYhRpIA",
+      embed:"https://www.youtube-nocookie.com/embed/7ybxaYhRpIA?rel=0",
+      kind:"video",
+      note:"The mitosis animation video from your reference sheet."
+    },
+    {
+      id:"reference",
+      label:"Stage reference",
+      url:"https://www.thoughtco.com/stages-of-mitosis-373534",
+      embed:"https://www.thoughtco.com/stages-of-mitosis-373534",
+      kind:"reference",
+      note:"Stage order and visual reference supplied in your PDF."
+    }
+  ],
+  meiosis:[
+    {
+      id:"sim",
+      label:"Interactive simulation",
+      url:"https://all-science-sims.vercel.app/#/biology/meiosis",
+      embed:"https://all-science-sims.vercel.app/#/biology/meiosis",
+      kind:"site",
+      note:"The meiosis simulation supplied in your reference sheet."
+    },
+    {
+      id:"video",
+      label:"Meiosis video",
+      url:"https://youtu.be/a0wYd1v9Wdg",
+      embed:"https://www.youtube-nocookie.com/embed/a0wYd1v9Wdg?rel=0",
+      kind:"video",
+      note:"The public meiosis video from your reference sheet; the uploaded MP4 was also used as the visual reference."
+    },
+    {
+      id:"reference",
+      label:"Stage reference",
+      url:"https://openstax.org/books/biology-ap-courses/pages/11-1-the-process-of-meiosis",
+      embed:"https://openstax.org/books/biology-ap-courses/pages/11-1-the-process-of-meiosis",
+      kind:"reference",
+      note:"Use this alongside the meiosis stage diagram you supplied."
+    }
+  ]
+};
+
+function ProvidedResourceLab({kind,focus}:{kind:ResourceKind;focus:string}){
+  const resources=PROVIDED_RESOURCES[kind];
+  const[active,setActive]=useState(resources[0].id);
+  const current=resources.find(r=>r.id===active)||resources[0];
+  return <section className={styles.resourceLab}>
+    <div className={styles.resourceHead}>
+      <div>
+        <span>YOUR PROVIDED REFERENCES</span>
+        <h3>{kind==="mitosis"?"Mitosis":"Meiosis"} · watch, control, compare</h3>
+        <p>{focus}</p>
+      </div>
+      <a href={current.url} target="_blank" rel="noreferrer">Open full screen ↗</a>
+    </div>
+    <div className={styles.resourceTabs}>
+      {resources.map(r=><button key={r.id} className={r.id===active?styles.resourceTabOn:""} onClick={()=>setActive(r.id)}>{r.label}</button>)}
+    </div>
+    <div className={styles.resourceFrameWrap}>
+      {current.kind==="reference"?
+        <div className={styles.referencePanel}>
+          <div className={styles.referenceIcon}>↗</div>
+          <strong>{kind==="mitosis"?"Mitosis stage reference":"Meiosis stage reference"}</strong>
+          <p>{current.note}</p>
+          <a href={current.url} target="_blank" rel="noreferrer">Open reference</a>
+          <div className={styles.stageMini}>
+            {(kind==="mitosis"
+              ?["Interphase","Prophase","Late Prophase","Metaphase","Anaphase","Telophase","Cytokinesis"]
+              :["Interphase","Prophase I","Metaphase I","Anaphase I","Telophase I","Prophase II","Metaphase II","Anaphase II","Telophase II"]
+            ).map((x,i)=><span key={x}><b>{i+1}</b>{x}</span>)}
+          </div>
+        </div>
+        :
+        <iframe
+          key={current.embed}
+          className={styles.resourceFrame}
+          src={current.embed}
+          title={current.label}
+          loading="lazy"
+          allow={current.kind==="video"?"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share":"fullscreen"}
+          allowFullScreen
+          referrerPolicy="strict-origin-when-cross-origin"
+        />
+      }
+    </div>
+    <div className={styles.resourceNote}>
+      <span>{current.kind==="video"?"VIDEO":current.kind==="site"?"INTERACTIVE":"REFERENCE"}</span>
+      <p>{current.note}</p>
+      {current.kind==="site"&&<small>If the embedded site blocks inside Bujhi, use “Open full screen” above—the original simulation will open directly.</small>}
+    </div>
+  </section>;
+}
+
 const sharedCss = `
 :root{--red:#990000;--cream:#fff8ef;--ink:#34251f;--muted:#725f56;--line:#dfcec2}
 *{box-sizing:border-box}body{margin:0;font-family:Arial,"Noto Sans Bengali",sans-serif;background:var(--cream);color:var(--ink)}
@@ -113,6 +231,22 @@ function getDoc(lesson:number){
 }
 
 export default function LibraryLabs({lesson}:{lesson:number}){
+  if(lesson>=1&&lesson<=4){
+    const focus=lesson===1
+      ?"Start by comparing the real mitosis resources you supplied. Use the tabs to switch between the two interactive simulations, the animation video, and the stage reference."
+      :lesson===2
+      ?"Focus on Interphase and Prophase first, then scrub through the supplied simulation to see how chromosomes become visible."
+      :lesson===3
+      ?"Focus on Pro-metaphase → Metaphase → Anaphase. Pause the supplied animation and compare each stage with the reference order."
+      :"Use the final mitosis stages to connect Telophase/Cytokinesis with the formation of daughter cells and growth.";
+    return <ProvidedResourceLab kind="mitosis" focus={focus}/>;
+  }
+  if(lesson===5||lesson===6){
+    const focus=lesson===5
+      ?"Use the supplied meiosis simulation and video to follow Meiosis I: homologous pairing, alignment, separation, and the 2n → n change."
+      :"Continue through Meiosis II and track how two haploid cells become four haploid cells.";
+    return <ProvidedResourceLab kind="meiosis" focus={focus}/>;
+  }
   return <div className={styles.frameShell}>
     <iframe
       key={lesson}
@@ -121,6 +255,6 @@ export default function LibraryLabs({lesson}:{lesson:number}){
       sandbox="allow-scripts"
       srcDoc={getDoc(lesson)}
     />
-    <div className={styles.sourceNote}>Simulation engine: free/open-source Anime.js (MIT) and Three.js (MIT).</div>
+    <div className={styles.sourceNote}>Lessons 7–9 still use free/open-source Anime.js (MIT) and Three.js (MIT) while the supplied references cover mitosis and meiosis.</div>
   </div>;
 }
