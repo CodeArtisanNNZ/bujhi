@@ -1,0 +1,81 @@
+"use client";
+
+import Link from "next/link";
+import {useParams,useRouter} from "next/navigation";
+import {useEffect,useMemo,useState} from "react";
+import {ArrowLeft,BookOpen,PenLine,Play} from "lucide-react";
+import styles from "../../../book.module.css";
+import {
+  findNctbBook,studentClassKey,studentClassLabels,type StudentClassKey
+} from "../../../../../data/nctbBooks";
+
+const validClasses:StudentClassKey[]=["6","7","8","9-10"];
+
+export default function LearnBookPage(){
+  const params=useParams();
+  const router=useRouter();
+  const classKeyRaw=Array.isArray(params.classKey)?params.classKey[0]:String(params.classKey||"");
+  const bookId=Array.isArray(params.bookId)?params.bookId[0]:String(params.bookId||"");
+  const classKey=validClasses.includes(classKeyRaw as StudentClassKey)?classKeyRaw as StudentClassKey:null;
+  const book=useMemo(()=>classKey?findNctbBook(classKey,bookId):undefined,[classKey,bookId]);
+  const[ready,setReady]=useState(false);
+
+  useEffect(()=>{
+    void (async()=>{
+      try{
+        const response=await fetch("/api/me",{cache:"no-store"});
+        if(!response.ok){router.replace("/login?role=student");return}
+        const data=await response.json() as {profile?:{role?:string;class_level?:string}};
+        if(data.profile?.role==="teacher"){router.replace("/teacher-dashboard");return}
+        const ownClass=studentClassKey(data.profile?.class_level);
+        if(classKey&&ownClass!==classKey){router.replace("/student-dashboard");return}
+        setReady(true);
+      }catch{
+        router.replace("/login?role=student");
+      }
+    })();
+  },[classKey,router]);
+
+  if(!classKey||!book){
+    return <main className={styles.page}><section className={styles.error}><h1>Lesson not found</h1><Link href="/student-dashboard">Back to my desk</Link></section></main>;
+  }
+
+  if(!ready)return <main className={styles.page}><div className={styles.loading}>Opening lesson mode…</div></main>;
+
+  return <main className={styles.page}>
+    <header className={styles.topbar}>
+      <Link className={styles.brand} href="/">বুঝি</Link>
+      <Link className={styles.back} href={`/student-dashboard/books/${classKey}/${book.id}`}><ArrowLeft/>Back to book</Link>
+    </header>
+
+    <section className={styles.lessonPage}>
+      <div className={styles.lessonHero} style={{"--accent":book.accent} as React.CSSProperties}>
+        <p>{studentClassLabels[classKey]} · Learn Lesson</p>
+        <h1>{book.title}</h1>
+        <span>{book.englishTitle}</span>
+      </div>
+
+      <div className={styles.lessonWorkspace}>
+        <article className={styles.lessonCard}>
+          <BookOpen/>
+          <strong>Understand</strong>
+          <p>The lesson explanation for the selected chapter will live here, based on the actual NCTB textbook.</p>
+        </article>
+        <article className={styles.lessonCard}>
+          <Play/>
+          <strong>Learn visually</strong>
+          <p>Diagrams, simulations, examples and read-aloud material can attach to the same lesson.</p>
+        </article>
+        <article className={styles.lessonCard}>
+          <PenLine/>
+          <strong>Practice</strong>
+          <p>Questions and understanding checks will follow the exact lesson instead of using made-up chapters.</p>
+        </article>
+      </div>
+
+      <div className={styles.lessonNotice}>
+        This lesson route is ready for this exact book. I have intentionally not inserted fake chapter names. When the real PDF/content is uploaded, its real chapter and lesson structure can be connected here.
+      </div>
+    </section>
+  </main>;
+}
