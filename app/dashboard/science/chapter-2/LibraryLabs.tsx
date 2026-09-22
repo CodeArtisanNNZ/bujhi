@@ -1,7 +1,7 @@
 "use client";
 
 import Script from "next/script";
-import {useEffect,useMemo,useRef,useState} from "react";
+import {useEffect,useRef,useState} from "react";
 import {ArrowRight,Check,ChevronLeft,ChevronRight,Dna,Gamepad2,Pause,Play,RefreshCcw,Sparkles,Target,Zap} from "lucide-react";
 import styles from "./librarylabs.module.css";
 
@@ -232,7 +232,7 @@ function DnaThreeLab(){
     const group=new THREE.Group();scene.add(group);
     const matA=new THREE.MeshStandardMaterial({color:0x8e315d,roughness:.35});
     const matB=new THREE.MeshStandardMaterial({color:0x39798b,roughness:.35});
-    const pairMats={A:new THREE.MeshStandardMaterial({color:0xc84f59}),T:new THREE.MeshStandardMaterial({color:0x4c9589}),G:new THREE.MeshStandardMaterial({color:0xd19d40}),C:new THREE.MeshStandardMaterial({color:0x597eab})};
+    const pairMats:Record<string,any>={A:new THREE.MeshStandardMaterial({color:0xc84f59}),T:new THREE.MeshStandardMaterial({color:0x4c9589}),G:new THREE.MeshStandardMaterial({color:0xd19d40}),C:new THREE.MeshStandardMaterial({color:0x597eab})};
     const seq=["A","T","G","C","A","G","T","C","G","A","C","T","G","C","A","T","G","C","A","T"];
     const comp:{[k:string]:string}={A:"T",T:"A",G:"C",C:"G"};
     const sphere=new THREE.SphereGeometry(.18,22,22);
