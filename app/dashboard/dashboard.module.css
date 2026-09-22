@@ -12,20 +12,12 @@
 .bookHotspots button:nth-child(3n){height:166px}.bookHotspots button:nth-child(4n){height:190px}.bookHotspots button:hover{transform:translateY(-12px);box-shadow:inset 5px 0 #ffffff12,6px 12px 12px #35231a33}
 .bookGlyph{font:23px Georgia,serif}.bookTitle{writing-mode:vertical-rl;font:600 12px/1.1 Georgia,serif;text-align:center;max-height:118px}.bookHotspots small{font-size:10px;opacity:.6}
 .deskSurface{position:absolute;z-index:-1;inset:400px 0 0;background:repeating-linear-gradient(1deg,transparent 0 12px,#55351e0b 13px,transparent 14px 35px),linear-gradient(#d0a476,#b98759);border-top:9px solid #bd9268;box-shadow:0 -10px 35px #7c583519}
-.lamp{position:absolute;z-index:3;top:338px;left:2.2%;width:250px;height:292px;pointer-events:none;filter:drop-shadow(6px 10px 8px #51201828)}
-.lamp span{position:absolute;display:block}
-.lampBase{left:51px;bottom:6px;width:112px;height:25px;border-radius:50%;background:linear-gradient(180deg,#d94b43 0,#ad2622 45%,#6e1513 100%);box-shadow:inset 0 4px 4px #ff8a7a45,0 8px 10px #5b2d202e}
-.lampBase:after{content:"";position:absolute;left:20px;right:20px;top:5px;height:5px;border-radius:50%;background:#f77b7040}
-.lampLowerArm{left:105px;bottom:27px;width:14px;height:137px;border-radius:999px;background:linear-gradient(90deg,#74120f,#c93631 45%,#8f1d19);transform-origin:50% 100%;transform:rotate(-10deg);box-shadow:inset 3px 0 #ef766a55}
-.lampJointOne{left:82px;bottom:148px;width:31px;height:31px;border:6px solid #8d1916;border-radius:50%;background:#d94a42;box-shadow:inset 0 0 0 3px #ee7469}
-.lampUpperArm{left:102px;bottom:169px;width:132px;height:13px;border-radius:999px;background:linear-gradient(#de5047,#9b1e1b);transform-origin:0 50%;transform:rotate(-32deg);box-shadow:inset 0 3px #f57f7450}
-.lampJointTwo{left:202px;bottom:225px;width:27px;height:27px;border:5px solid #8b1815;border-radius:50%;background:#d34840;box-shadow:inset 0 0 0 2px #ef766b}
-.lampShade{left:185px;bottom:211px;width:96px;height:69px;border-radius:58px 58px 17px 17px;transform:rotate(18deg);background:linear-gradient(90deg,#8d1815,#d84840 48%,#9a1d19);box-shadow:inset 0 -8px #761310,0 4px 7px #47201538;clip-path:polygon(18% 0,82% 0,100% 74%,91% 100%,9% 100%,0 74%)}
-.lampShade i{position:absolute;left:14px;right:14px;bottom:4px;height:11px;border-radius:50%;background:#ffe1a0;box-shadow:0 9px 25px #ffd987c9}
-.lampGlow{z-index:-1;left:135px;top:65px;width:185px;height:218px;border-radius:50%;background:radial-gradient(ellipse at 50% 12%,#ffe6a7a6 0,#ffd88d52 35%,transparent 72%);filter:blur(2px);transition:opacity .3s ease}
+.lamp{position:absolute;z-index:3;top:323px;left:1.2%;width:315px;height:315px;pointer-events:none;overflow:hidden;filter:drop-shadow(7px 11px 9px #4b2a1d2d)}
+.loginLampArt{position:absolute;inset:0;display:block;overflow:hidden;-webkit-mask-image:radial-gradient(ellipse 67% 72% at 43% 48%,#000 62%,transparent 94%);mask-image:radial-gradient(ellipse 67% 72% at 43% 48%,#000 62%,transparent 94%)}
+.loginLampArt img{position:absolute;left:-14px;top:-30px;width:900px;height:auto;max-width:none;user-select:none;pointer-events:none;mix-blend-mode:multiply;filter:saturate(1.03) contrast(1.02)}
+.lampGlow{position:absolute;z-index:2;left:72px;top:62px;width:245px;height:235px;border-radius:50%;background:radial-gradient(ellipse at 38% 22%,#fff1b5a8 0,#ffe19a55 35%,transparent 72%);filter:blur(3px);transition:opacity .35s ease;mix-blend-mode:screen}
 .lamp[data-on="false"] .lampGlow{opacity:0}
-.lamp[data-on="false"] .lampShade i{background:#8b6f61;box-shadow:none}
-.lamp[data-on="false"]{filter:saturate(.72) brightness(.84) drop-shadow(6px 10px 8px #51201822)}
+.lamp[data-on="false"] .loginLampArt{filter:brightness(.56) saturate(.72)}
 .lampSwitch{position:absolute;z-index:4;top:625px;left:7%;min-height:36px;padding:0 16px;border:1px solid #aa825d;border-radius:20px;background:#f9edd9;color:#68442d;font-size:12px;cursor:pointer}
 .moneyPlant{position:absolute;z-index:2;top:316px;right:3.2%;width:184px;height:258px;transform-origin:bottom center;animation:plantSway 7s ease-in-out infinite;pointer-events:none}
 .moneyPlant img{display:block;width:100%;height:100%;object-fit:cover;object-position:center center;mix-blend-mode:multiply;filter:saturate(1.08) contrast(1.03) drop-shadow(7px 10px 7px #39231324);border-radius:42% 42% 22% 22% / 32% 32% 18% 18%;-webkit-mask-image:radial-gradient(ellipse 61% 55% at 50% 51%,#000 72%,transparent 100%);mask-image:radial-gradient(ellipse 61% 55% at 50% 51%,#000 72%,transparent 100%)}
@@ -164,7 +156,7 @@
 
 @media(max-width:1000px){
 .bookHotspots{left:4%;width:92%;gap:4px}.bookTitle{font-size:11px}
-.lamp{left:0;width:220px}.moneyPlant{right:0;width:164px;height:238px}.drinkArea{right:0;width:180px}
+.lamp{left:0;width:275px;height:290px}.loginLampArt img{width:800px;left:-18px;top:-28px}.moneyPlant{right:0;width:164px;height:238px}.drinkArea{right:0;width:180px}
 .studyNotebook{left:23%;width:53%}.actionHotspots{left:23%;width:53%}.stickyHotspot{right:18%;width:125px}
 }
 @media(max-width:620px){
@@ -173,7 +165,7 @@
 .bookHotspots{top:140px;height:195px;left:4%;width:92%;overflow-x:auto;gap:7px;padding:0 5px 20px;scrollbar-width:thin;scrollbar-color:#9c7752 #dbc7aa}
 .bookHotspots button{flex:0 0 53px;height:158px}.bookHotspots button:nth-child(3n){height:149px}.bookHotspots button:nth-child(4n){height:165px}.bookHotspots:after{position:fixed;display:none}
 .bookHotspots{border-bottom:12px solid #aa7e52;box-shadow:0 9px 12px #573c2422}.bookHotspots button:hover{transform:translateY(-4px)}
-.deskSurface{top:470px}.lamp{top:375px;left:0;width:190px;height:230px;transform:scale(.82);transform-origin:left bottom}.lampSwitch{left:8%;top:595px;min-height:40px}.moneyPlant{top:342px;right:2%;width:148px;height:220px}
+.deskSurface{top:470px}.lamp{top:350px;left:-12px;width:250px;height:270px;transform:scale(.82);transform-origin:left bottom}.loginLampArt img{width:740px;left:-22px;top:-24px}.lampSwitch{left:8%;top:595px;min-height:40px}.moneyPlant{top:342px;right:2%;width:148px;height:220px}
 .stickyHotspot{top:525px;right:6%;width:135px;min-height:90px}
 .studyNotebook{top:663px;left:5%;width:90%;min-height:242px;padding:21px 22px 20px 39px}.studyNotebook h1{font-size:29px}
 .actionHotspots{top:983px;left:5%;width:90%;gap:8px}.actionHotspots button{font-size:11px;gap:5px;min-height:44px}
