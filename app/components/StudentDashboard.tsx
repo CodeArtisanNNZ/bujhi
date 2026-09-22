@@ -57,12 +57,25 @@ export default function StudentDashboard(){
   const[classOpen,setClassOpen]=useState(false);
 
   useEffect(()=>{
-    try{
-      const saved=localStorage.getItem("bujhi-demo-user");
-      if(saved){
-        const data=JSON.parse(saved) as Profile;
-        if(data.role==="student")setProfile(data);
+    void (async()=>{
+      try{
+        const response=await fetch("/api/me",{cache:"no-store"});
+        if(!response.ok){
+          location.replace("/login?role=student");
+          return;
+        }
+        const data=await response.json() as {profile?:Profile};
+        if(data.profile?.role==="teacher"){
+          location.replace("/teacher-dashboard");
+          return;
+        }
+        if(data.profile)setProfile(data.profile);
+      }catch{
+        location.replace("/login?role=student");
       }
+    })();
+
+    try{
       const savedNote=localStorage.getItem("bujhi-student-sticky-note");
       if(savedNote)setNote(savedNote);
       const savedDrink=localStorage.getItem("bujhi-student-drink") as Drink|null;
@@ -72,9 +85,13 @@ export default function StudentDashboard(){
     }catch{}
   },[]);
 
-  function logout(){
-    try{localStorage.removeItem("bujhi-demo-auth")}catch{}
-    location.href="/";
+  async function logout(){
+    try{await fetch("/api/auth/logout",{method:"POST"})}catch{}
+    try{
+      localStorage.removeItem("bujhi-demo-auth");
+      localStorage.removeItem("bujhi-demo-user");
+    }catch{}
+    location.href="/login?role=student";
   }
 
   const chapters=useMemo(
