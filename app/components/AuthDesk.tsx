@@ -135,7 +135,7 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
 
      <label><span>Password</span><div><LockKeyhole/><input required type={show?"text":"password"} minLength={6} value={password} onChange={e=>setPassword(e.target.value)} placeholder="At least 6 characters"/><button type="button" onClick={()=>setShow(!show)} aria-label="Show password">{show?<EyeOff/>:<Eye/>}</button></div></label>
 
-     {kind==="signup"&&role==="student"&&<label><span>Class</span><select className="plain-input" value={classLevel} onChange={e=>setClassLevel(e.target.value)}><option value="8">Class 8</option></select></label>}
+     {kind==="signup"&&role==="student"&&<label><span>Class</span><select className="plain-input" value={classLevel} onChange={e=>setClassLevel(e.target.value)}><option value="6">Class 6</option><option value="7">Class 7</option><option value="8">Class 8</option><option value="9">Class 9 · uses Class 9–10 books</option><option value="10">Class 10 · uses Class 9–10 books</option></select></label>}
      {kind==="signup"&&role==="teacher"&&<label><span>Subject</span><input className="plain-input" value={subject} onChange={e=>setSubject(e.target.value)} placeholder="For example: Science"/></label>}
 
      {error&&<p className="auth-error">{error}</p>}
