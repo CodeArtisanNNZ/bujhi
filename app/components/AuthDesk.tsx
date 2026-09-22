@@ -18,15 +18,6 @@ const bookFacts={
 };
 
 const drinks=["Water","Coffee","Tea","Lemonade"];
-const DEMO_USER_KEY="bujhi-demo-user";
-
-type DemoProfile={
- full_name:string;
- email:string;
- role:"student"|"teacher";
- class_level?:string;
- subject?:string;
-};
 
 export default function AuthDesk({kind}:{kind:"login"|"signup"}){
  const[light,setLight]=useState(true);
@@ -45,54 +36,58 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
 
  useEffect(()=>{
   const q=new URLSearchParams(window.location.search);
-  const queryRole=q.get("role")==="teacher"?"teacher":"student";
-  setRole(queryRole);
-
-  try{
-   const saved=localStorage.getItem(DEMO_USER_KEY);
-   if(saved&&kind==="login"){
-    const profile=JSON.parse(saved) as DemoProfile;
-    setEmail(profile.email||"");
-    setRole(profile.role||queryRole);
-   }
-  }catch{}
- },[kind]);
+  setRole(q.get("role")==="teacher"?"teacher":"student");
+ },[]);
 
  function tell(text:string){setNote(text)}
 
- function submit(e:React.FormEvent<HTMLFormElement>){
+ async function submit(e:React.FormEvent<HTMLFormElement>){
   e.preventDefault();
   setError("");
 
   const cleanEmail=email.trim();
   if(!cleanEmail){setError("Enter an email address.");return}
-  if(password.length<6){setError("Use at least 6 characters for the prototype password.");return}
+  if(password.length<6){setError("Use at least 6 characters for your password.");return}
   if(kind==="signup"&&!fullName.trim()){setError("Enter your full name.");return}
 
   setLoading(true);
-
-  let existing:DemoProfile|null=null;
   try{
-   const saved=localStorage.getItem(DEMO_USER_KEY);
-   existing=saved?JSON.parse(saved) as DemoProfile:null;
-  }catch{}
+   const endpoint=kind==="signup"?"/api/auth/signup":"/api/auth/login";
+   const payload=kind==="signup"
+    ?{email:cleanEmail,password,fullName:fullName.trim(),role,classLevel,subject:subject.trim()}
+    :{email:cleanEmail,password};
 
-  const fallbackName=cleanEmail.split("@")[0].replace(/[._-]+/g," ").replace(/\b\w/g,c=>c.toUpperCase())||"Bujhi Student";
-  const profile:DemoProfile={
-   full_name:kind==="signup"?fullName.trim():(existing?.full_name||fallbackName),
-   email:cleanEmail,
-   role,
-   class_level:role==="student"?(kind==="signup"?classLevel:(existing?.class_level||"8")):undefined,
-   subject:role==="teacher"?(kind==="signup"?subject.trim():(existing?.subject||"")):undefined
-  };
+   const response=await fetch(endpoint,{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify(payload)
+   });
+   const data=await response.json().catch(()=>({})) as {error?:string;needsConfirmation?:boolean};
 
-  try{
-   localStorage.setItem(DEMO_USER_KEY,JSON.stringify(profile));
-   localStorage.setItem("bujhi-demo-auth","true");
-  }catch{}
+   if(!response.ok){
+    setError(data.error||"Could not sign in. Please check your details and try again.");
+    return;
+   }
 
-  const destination=role==="student"?"/student-dashboard":"/teacher-dashboard";
-  window.location.assign(destination);
+   if(kind==="signup"&&data.needsConfirmation){
+    setError("Account created, but email confirmation is still enabled in Supabase. Disable Confirm email to let new users enter immediately.");
+    return;
+   }
+
+   const meResponse=await fetch("/api/me",{cache:"no-store"});
+   const me=await meResponse.json().catch(()=>({})) as {error?:string;profile?:{role?:string}};
+   if(!meResponse.ok){
+    setError(me.error||"Signed in, but Bujhi could not load your profile.");
+    return;
+   }
+
+   const actualRole=me.profile?.role==="teacher"?"teacher":"student";
+   window.location.assign(actualRole==="teacher"?"/teacher-dashboard":"/dashboard");
+  }catch{
+   setError("Could not reach Bujhi's account service. Please try again.");
+  }finally{
+   setLoading(false);
+  }
  }
 
  return <main className={`auth-page ${light?"lamp-on":"lamp-off"}`}>
@@ -144,7 +139,7 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
      {kind==="signup"&&role==="teacher"&&<label><span>Subject</span><input className="plain-input" value={subject} onChange={e=>setSubject(e.target.value)} placeholder="For example: Science"/></label>}
 
      {error&&<p className="auth-error">{error}</p>}
-     <p className="auth-preview-note">Frontend prototype: any email and any password with 6+ characters will open the dashboard. No database is connected yet.</p>
+     <p className="auth-preview-note">Your Bujhi account is used to open the correct student or teacher desk.</p>
      <button type="submit" className="submit-auth" disabled={loading}>{loading?"Opening your desk…":kind==="login"?"Log in":"Create account"}</button>
     </form>
 
