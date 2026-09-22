@@ -30,7 +30,7 @@
 .drinkArea{position:absolute;z-index:10;right:1.2%;top:548px;width:215px;height:195px}
 .cupHotspot{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;width:100%;height:100%;border:0;background:transparent;cursor:pointer;color:#60442f;padding:0}
 .drinkImageFrame{position:relative;display:block;width:172px;height:150px;margin:0 auto 2px;overflow:hidden;animation:cupChange .45s cubic-bezier(.2,.78,.25,1);filter:drop-shadow(0 11px 8px #42251a33)}
-.drinkSprite{position:absolute;left:0;top:0;width:500%;height:100%;max-width:none;object-fit:fill;transform-origin:left center;transition:transform .38s cubic-bezier(.2,.78,.25,1);user-select:none;pointer-events:none}
+.drinkImage{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center bottom;user-select:none;pointer-events:none}
 .steam{position:absolute;z-index:3;top:2px;left:68px;display:flex;gap:11px;pointer-events:none}
 .steam i{display:block;width:6px;height:38px;border-radius:50%;background:#fff7df;filter:blur(3px);animation:steamRise 2.8s infinite;opacity:0}
 .steam i:nth-child(2){animation-delay:.8s}.steam i:nth-child(3){animation-delay:1.6s}
@@ -40,7 +40,7 @@
 .drinkMenu button{width:100%;min-height:48px;border:0;border-radius:10px;background:transparent;color:#554235;padding:5px 8px;text-align:left;cursor:pointer;display:grid;grid-template-columns:42px 1fr;align-items:center;gap:9px}
 .drinkMenu button:hover{background:#efe1d3}.drinkMenu .drinkActive{background:#7f201b;color:white}
 .drinkThumb{position:relative;display:block;width:40px;height:40px;overflow:hidden;border-radius:9px;background:#f5ead9;box-shadow:inset 0 0 0 1px #bda48855}
-.drinkThumb img{position:absolute;left:0;top:0;width:500%;height:100%;max-width:none;object-fit:fill;transform-origin:left center;user-select:none;pointer-events:none}
+.drinkThumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;user-select:none;pointer-events:none}
 .drinkActive .drinkThumb{background:#fff5e9;box-shadow:inset 0 0 0 1px #ffffff66}
 .referenceDesk button:focus-visible,.deskBrand a:focus-visible{outline:3px solid #990000;outline-offset:4px}
 @keyframes steamRise{0%{opacity:0;transform:translateY(9px) scaleX(1)}40%{opacity:.7}100%{opacity:0;transform:translateY(-22px) scaleX(1.8)}}
@@ -173,4 +173,4 @@
 .drinkArea{top:501px;right:calc(50% - 75px);width:150px;transform:scale(.72);transform-origin:center bottom}.drinkMenu{transform:scale(1.35);transform-origin:bottom center;right:-8px}
 .readerBackdrop{padding:10px;align-items:start;overflow:auto}.openBook{width:96vw;margin:18px 0;grid-template-columns:1fr;filter:drop-shadow(0 16px 24px #1b0f0940)}.readerSpine{display:none}.readerLeft,.readerRight{min-height:auto;border-radius:13px;padding:28px 18px}.readerLeft{padding-top:42px}.readerRight h3{font-size:1.65rem}.panel{padding:23px 15px}.practiceCards{grid-template-columns:1fr}
 }
-@media(prefers-reduced-motion:reduce){.openBook,.moneyPlant,.drinkImageFrame,.steam i{animation:none}.steam i{opacity:.3}.bookHotspots button,.drinkSprite,.pageDim:after{transition:none}}
+@media(prefers-reduced-motion:reduce){.openBook,.moneyPlant,.drinkImageFrame,.steam i{animation:none}.steam i{opacity:.3}.bookHotspots button,.pageDim:after{transition:none}}
