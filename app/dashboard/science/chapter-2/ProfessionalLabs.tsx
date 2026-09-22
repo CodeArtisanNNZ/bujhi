@@ -268,7 +268,7 @@ function GrowthLab(){
     <div className={styles.sun}/>
     <div className={styles.cloud+" "+styles.cloud1}/><div className={styles.cloud+" "+styles.cloud2}/>
     <div className={styles.soil}/>
-    <div className={styles.plant} style={{"--grow":round/10} as React.CSSProperties}>
+    <div className={styles.plant} style={{height:(95+(round/10)*240)+"px"}}>
      <div className={styles.stem}/><div className={styles.leaf+" "+styles.l1}/><div className={styles.leaf+" "+styles.l2}/>{round>5&&<><div className={styles.leaf+" "+styles.l3}/><div className={styles.leaf+" "+styles.l4}/></>}<div className={styles.root+" "+styles.r1}/><div className={styles.root+" "+styles.r2}/>
     </div>
    </div>
