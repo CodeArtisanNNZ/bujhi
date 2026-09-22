@@ -662,3 +662,107 @@ html,body{max-width:100%;overflow-x:hidden}.hero>*{min-width:0}.hero-actions a{b
     transform: translateY(18px) rotate(-0.2deg) !important;
   }
 }
+
+/* Login / signup desk: use the same uploaded drink assets as the dashboards */
+.auth-drink-button{
+  border:0!important;
+  background:transparent!important;
+  color:#5a4031!important;
+  padding:0!important;
+  width:150px;
+  min-height:155px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-end;
+  gap:4px;
+  cursor:pointer;
+  filter:drop-shadow(0 10px 8px rgba(56,31,18,.22));
+}
+.auth-drink-frame{
+  position:relative;
+  display:block;
+  width:138px;
+  height:125px;
+  overflow:visible;
+  animation:authDrinkIn .32s ease-out;
+}
+.auth-drink-frame>img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center bottom;
+  display:block;
+  user-select:none;
+  pointer-events:none;
+}
+.auth-drink-steam{
+  position:absolute;
+  z-index:2;
+  left:50%;
+  top:-4px;
+  transform:translateX(-50%);
+  display:flex;
+  gap:9px;
+  pointer-events:none;
+}
+.auth-drink-steam i{
+  display:block;
+  width:5px;
+  height:32px;
+  border-radius:50%;
+  background:rgba(255,250,235,.92);
+  filter:blur(3px);
+  opacity:0;
+  animation:authSteam 2.6s infinite;
+}
+.auth-drink-steam i:nth-child(2){animation-delay:.75s}
+.auth-drink-steam i:nth-child(3){animation-delay:1.5s}
+.auth-drink-button .cup-name{
+  display:inline-flex;
+  padding:5px 10px;
+  border:1px solid rgba(163,123,88,.24);
+  border-radius:999px;
+  background:rgba(255,248,237,.9);
+  color:#604636;
+  font-size:.7rem;
+  font-weight:800;
+  box-shadow:0 4px 12px rgba(67,38,22,.12);
+}
+.auth-drink-menu{
+  width:200px;
+  grid-template-columns:1fr!important;
+  gap:5px!important;
+  padding:8px!important;
+}
+.auth-drink-menu button{
+  min-height:46px;
+  display:grid!important;
+  grid-template-columns:40px 1fr;
+  align-items:center;
+  gap:8px;
+  text-align:left;
+  padding:5px 8px!important;
+}
+.auth-drink-menu button.active{background:#990000!important;color:white}
+.auth-drink-thumb{
+  position:relative;
+  width:38px;
+  height:38px;
+  overflow:hidden;
+  border-radius:8px;
+  background:#fff9ef;
+}
+.auth-drink-thumb img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
+@keyframes authDrinkIn{from{opacity:.25;transform:translateY(-7px) scale(.94)}to{opacity:1;transform:none}}
+@keyframes authSteam{0%{opacity:0;transform:translateY(8px) scaleX(1)}40%{opacity:.65}100%{opacity:0;transform:translateY(-18px) scaleX(1.7)}}
+@media(max-width:650px){
+  .auth-drink-button{width:118px;min-height:124px}
+  .auth-drink-frame{width:108px;height:98px}
+  .auth-drink-menu{right:5%!important;top:39%!important;width:185px}
+}
