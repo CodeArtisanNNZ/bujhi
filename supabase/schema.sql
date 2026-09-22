@@ -13,6 +13,8 @@ create table if not exists public.profiles (
 
 alter table public.profiles enable row level security;
 
+grant select, update on table public.profiles to authenticated;
+
 create policy "Users can read their own profile"
 on public.profiles for select
 using (auth.uid() = id);
@@ -41,6 +43,8 @@ begin
 end;
 $$;
 
+revoke execute on function public.handle_new_user() from public, anon, authenticated;
+
 drop trigger if exists on_auth_user_created on auth.users;
 create trigger on_auth_user_created
 after insert on auth.users
@@ -55,6 +59,8 @@ create table if not exists public.learning_preferences (
 );
 
 alter table public.learning_preferences enable row level security;
+
+grant select, insert, update on table public.learning_preferences to authenticated;
 
 create policy "Students can read their own learning preference"
 on public.learning_preferences for select
