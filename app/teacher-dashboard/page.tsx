@@ -247,6 +247,12 @@ export default function TeacherDashboard(){
             {selectedClass===8&&selectedBook.id==="science"&&<div className={styles.choiceList}>
               <strong>Chapter 1 · প্রাণিজগতের শ্রেণিবিন্যাস</strong>
               <div><a href="/science/class-8/chapter-1">Open the classification explorer and teacher guide →</a></div>
+              {[
+                {number:3,title:"ব্যাপন, অভিস্রবণ ও প্রস্বেদন"},
+                {number:4,title:"উদ্ভিদের বংশ বৃদ্ধি"},
+                {number:5,title:"সমন্বয় ও নিঃসরণ"},
+                {number:6,title:"পরমাণুর গঠন"}
+              ].map(chapter=><div key={chapter.number}><a href={`/science/class-8/chapter-${chapter.number}`}>Chapter {chapter.number} · {chapter.title} →</a></div>)}
               <div><a href="/nctb/2026/class-8/science-chapter-1.pdf" target="_blank" rel="noopener noreferrer">Open the exact textbook at Chapter 1 →</a></div>
             </div>}
             <button className={styles.keepSubject} onClick={()=>setFolderOpen(false)}>Keep this book on my desk</button>
