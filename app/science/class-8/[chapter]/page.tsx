@@ -35,7 +35,7 @@ export default function ScienceLesson(){
  const back=role==="teacher"?"/teacher-dashboard":"/student-dashboard/books/8/science/learn";
  if(!role)return <main className={styles.page}><p className={styles.loading}>{l("পাঠ খুলছে…","Opening lesson…")}</p></main>;
  if(isAdvancedChapter(slug))return <AdvancedChapters slug={slug} role={role}/>;
- if(!chapter)return <main className={styles.page}><Link href="/student-dashboard/books/8/science/learn">Chapter not found · Back to Science</Link></main>;
+ if(!chapter)return <main className={styles.page}><Link href="/student-dashboard/books/8/science/learn">অধ্যায় পাওয়া যায়নি · বিজ্ঞানের বইয়ে ফিরি</Link></main>;
  const phase=(items:Pair[])=> <div className={styles.flow} aria-label={l("ধাপে ধাপে পথ","Step by step pathway")}>{items.map((item,i)=><button key={i} className={i===flow?styles.current:""} onClick={()=>setFlow(i)}>{i+1}. {t(item)}</button>)}</div>;
  const nextFlow=(length:number)=><div className={styles.controls}><button onClick={()=>setFlow(Math.max(0,flow-1))} disabled={flow===0}>← {l("আগে","Previous")}</button><button onClick={()=>setFlow(Math.min(length-1,flow+1))} disabled={flow===length-1}>{l("পরে","Next")} →</button></div>;
  function chooseTopic(i:number){setTopic(i);setPrediction(null);setObserved(false);setExplanation("");setFlow(0)}
