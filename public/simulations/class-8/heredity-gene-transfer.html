@@ -483,9 +483,9 @@
                                 <span class="text-[11px] text-slate-500 block">বৃদ্ধি উপাদান আলফা</span>
                             </div>
                             <select id="poly-gene-a" onchange="updatePolygenicPhenotype()" class="font-mono text-xs font-bold border border-slate-300 rounded-lg p-1.5 bg-slate-50">
-                                <option value="2">AA (+2 একক)</option>
+                                <option value="2">AA (+২ একক)</option>
                                 <option value="1" selected>Aa (+১ একক)</option>
-                                <option value="0">aa (0 একক)</option>
+                                <option value="0">aa (০ একক)</option>
                             </select>
                         </div>
 
@@ -496,9 +496,9 @@
                                 <span class="text-[11px] text-slate-500 block">অস্থি ম্যাট্রিক্স ঘনত্ব</span>
                             </div>
                             <select id="poly-gene-b" onchange="updatePolygenicPhenotype()" class="font-mono text-xs font-bold border border-slate-300 rounded-lg p-1.5 bg-slate-50">
-                                <option value="2">BB (+2 একক)</option>
+                                <option value="2">BB (+২ একক)</option>
                                 <option value="1" selected>Bb (+১ একক)</option>
-                                <option value="0">bb (0 একক)</option>
+                                <option value="0">bb (০ একক)</option>
                             </select>
                         </div>
 
@@ -509,9 +509,9 @@
                                 <span class="text-[11px] text-slate-500 block">হরমোন গ্রাহক</span>
                             </div>
                             <select id="poly-gene-c" onchange="updatePolygenicPhenotype()" class="font-mono text-xs font-bold border border-slate-300 rounded-lg p-1.5 bg-slate-50">
-                                <option value="2">CC (+2 একক)</option>
+                                <option value="2">CC (+২ একক)</option>
                                 <option value="1">Cc (+১ একক)</option>
-                                <option value="0" selected>cc (0 একক)</option>
+                                <option value="0" selected>cc (০ একক)</option>
                             </select>
                         </div>
 
@@ -522,9 +522,9 @@
                                 <span class="text-[11px] text-slate-500 block">বিপাকের হার</span>
                             </div>
                             <select id="poly-gene-d" onchange="updatePolygenicPhenotype()" class="font-mono text-xs font-bold border border-slate-300 rounded-lg p-1.5 bg-slate-50">
-                                <option value="2">DD (+2 একক)</option>
+                                <option value="2">DD (+২ একক)</option>
                                 <option value="1">Dd (+১ একক)</option>
-                                <option value="0" selected>dd (0 একক)</option>
+                                <option value="0" selected>dd (০ একক)</option>
                             </select>
                         </div>
                     </div>
@@ -560,7 +560,7 @@
                 <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-3">
                     <div class="flex justify-between items-center">
                         <span class="font-bold text-xs uppercase tracking-wider text-slate-500">সমন্বিত বৈশিষ্ট্য প্রকাশ</span>
-                        <span id="poly-height-tag" class="font-mono font-bold text-sm text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">হিসাবকৃত উচ্চতা: ১৭২ cm</span>
+                        <span id="poly-height-tag" class="font-mono font-bold text-sm text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">হিসাবকৃত উচ্চতা: ১৭২ সেমি</span>
                     </div>
 
                     <!-- Visual Phenotype Spectrum Bar -->
@@ -569,9 +569,9 @@
                             <div id="poly-bar-fill" class="h-full bg-gradient-to-r from-teal-500 via-emerald-500 to-amber-500 rounded-full transition-all duration-500" style="width: 55%;"></div>
                         </div>
                         <div class="flex justify-between text-[10px] font-mono text-slate-400">
-                            <span>১৪০ cm (খাটো)</span>
-                            <span>১৭০ cm (গড়)</span>
-                            <span>২০০ cm (লম্বা)</span>
+                            <span>১৪০ সেমি (খাটো)</span>
+                            <span>১৭০ সেমি (গড়)</span>
+                            <span>২০০ সেমি (লম্বা)</span>
                         </div>
                     </div>
                 </div>
@@ -1058,7 +1058,7 @@
             // Environmental Nutrition multiplier (80% to 110%)
             const finalHeight = Math.round(baseHeight * (nutrition / 100));
 
-            document.getElementById('poly-height-tag').innerText = `হিসাবকৃত উচ্চতা: ${finalHeight} cm`;
+            document.getElementById('poly-height-tag').innerText = `হিসাবকৃত উচ্চতা: ${finalHeight} সেমি`;
 
             // Bar Percentage Fill (Min 140cm, Max 200cm)
             const fillPct = Math.min(100, Math.max(5, ((finalHeight - 130) / 70) * 100));
