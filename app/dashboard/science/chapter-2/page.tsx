@@ -123,7 +123,7 @@ const lessons:Lesson[]=[
  },
  {
   id:9,title:"RNA, বংশগতি ও পুরো অধ্যায়ের সংযোগ",short:"DNA → RNA → প্রোটিন → বৈশিষ্ট্য",eyebrow:"পাঠ ৯",
-  hook:"DNA-তে তথ্য লেখা আছে—কিন্তু সেই তথ্য ব্যবহার করে কোষ কাজ করবে কীভাবে? এখানে RNA গুরুত্বপূর্ণ মধ্যস্থতাকারী।",
+  hook:"বংশগত তথ্য কীভাবে বাবা-মা থেকে গ্যামেট, নিষেক ও সন্তানের বৈশিষ্ট্যে পৌঁছায়? তারপর DNA-র তথ্য ব্যবহার করে কোষ কাজ করবে কীভাবে? এই পাঠে heredity, gene transfer এবং RNA-র ভূমিকা একসাথে জুড়বে।",
   explain:[
    "RNA-এর পূর্ণ নাম Ribonucleic Acid। কোষে বিভিন্ন ধরনের RNA আছে। সহজভাবে বললে, DNA-র তথ্য ব্যবহার করে প্রোটিন তৈরির প্রক্রিয়ায় RNA গুরুত্বপূর্ণ ভূমিকা নেয়। প্রোটিন কোষের গঠন ও কাজের সঙ্গে যুক্ত, তাই জিনের তথ্য থেকে বৈশিষ্ট্য প্রকাশের সেতু তৈরি হয়।",
    "বংশগতি মানে পিতা-মাতার বৈশিষ্ট্য সম্পর্কিত তথ্য সন্তান-সন্ততিতে সঞ্চারিত হওয়া। মেন্ডেল বংশগতির নিয়ম বোঝার ভিত্তি তৈরি করেছিলেন, তাই তাকে জিনতত্ত্বের জনক বলা হয়।",
@@ -370,6 +370,7 @@ export default function ChapterTwo(){
      <div className={styles.sectionLabel}><span>02</span><strong>চোখের সামনে দেখো</strong></div>
      <Simulation lesson={active}/>
      {active===7&&<p style={{margin:"12px 0 0",fontSize:".82rem",color:"#6b584e"}}><strong style={{color:"#990000"}}>Teacher use:</strong> প্রথমে শিক্ষার্থীদের জিজ্ঞেস করুন বংশগত তথ্য কোথায় থাকে। তারপর continuous zoom-এ Cell → Nucleus → Chromosome → DNA → Gene অনুসরণ করিয়ে শেষে hierarchy মুখে বলতে বলুন।</p>}
+     {active===9&&<p style={{margin:"12px 0 0",fontSize:".82rem",color:"#6b584e"}}><strong style={{color:"#990000"}}>Teacher use:</strong> Parent genotype বেছে শুরু করুন → কোন allele গ্যামেটে গেল তা অনুসরণ করুন → fertilization করান → offspring genotype/phenotype দেখান → শেষে Punnett probability আর বাস্তব sample outcome-এর পার্থক্য আলোচনা করুন।</p>}
      
     </section>
 
