@@ -248,6 +248,20 @@ export default function LibraryLabs({lesson}:{lesson:number}){
       :"Continue through Meiosis II and track how two haploid cells become four haploid cells.";
     return <ProvidedResourceLab kind="meiosis" focus={focus}/>;
   }
+  if(lesson===7)return <div className={styles.frameShell}>
+    <iframe
+      className={styles.frame}
+      title="Bujhi Cell to Gene continuous zoom simulator"
+      src="/simulations/class-8/hereditary-hierarchy.html"
+      loading="lazy"
+      allow="fullscreen"
+      allowFullScreen
+    />
+    <div className={styles.sourceNote}>
+      BUJHI · Chapter 2 · Lesson 7 · Cell → Nucleus → Chromosome → DNA → Gene · <a href="/simulations/class-8/hereditary-hierarchy.html" target="_blank" rel="noreferrer">Open full screen ↗</a>
+    </div>
+  </div>;
+
   return <div className={styles.frameShell}>
     <iframe
       key={lesson}
@@ -256,6 +270,6 @@ export default function LibraryLabs({lesson}:{lesson:number}){
       sandbox="allow-scripts"
       srcDoc={getDoc(lesson)}
     />
-    <div className={styles.sourceNote}>Lessons 7–9 still use free/open-source Anime.js (MIT) and Three.js (MIT) while the supplied references cover mitosis and meiosis.</div>
+    <div className={styles.sourceNote}>Lessons 8–9 use free/open-source learning libraries; Lesson 7 now uses the supplied Bujhi continuous zoom simulator.</div>
   </div>;
 }
