@@ -229,7 +229,7 @@
 
         <!-- Global Control Buttons -->
         <div class="flex items-center space-x-2">
-            <button onclick="toggleSound()" id="sound-btn" class="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition border border-slate-200" title="Audio Toggle">
+            <button onclick="toggleSound()" id="sound-btn" class="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition border border-slate-200" title="অডিও চালু/বন্ধ">
                 <i id="sound-icon" class="fa-solid fa-volume-high text-sm"></i>
             </button>
             <button onclick="openModal('build-modal')" class="px-3 py-2 text-xs font-semibold rounded-lg bg-slate-800 hover:bg-slate-700 text-white transition flex items-center gap-1.5 shadow-sm">
@@ -324,7 +324,7 @@
                             <div class="flex items-center space-x-2">
                                 <button onclick="selectGamete('p1', 0)" id="p1-g0-btn" class="px-2.5 py-1 rounded-lg bg-white border border-p1-border font-mono font-bold text-p1 hover:bg-p1 hover:text-white transition shadow-xs">অ্যালিল ১</button>
                                 <button onclick="selectGamete('p1', 1)" id="p1-g1-btn" class="px-2.5 py-1 rounded-lg bg-white border border-p1-border font-mono font-bold text-p1 hover:bg-p1 hover:text-white transition shadow-xs">অ্যালিল ২</button>
-                                <button onclick="randomGamete('p1')" class="p-1.5 rounded-lg bg-white border border-p1-border text-slate-600 hover:bg-slate-100" title="Random Meiotic Segregation">
+                                <button onclick="randomGamete('p1')" class="p-1.5 rounded-lg bg-white border border-p1-border text-slate-600 hover:bg-slate-100" title="এলোমেলো মিয়োটিক পৃথকীকরণ">
                                     <i class="fa-solid fa-dice text-xs"></i>
                                 </button>
                             </div>
@@ -367,7 +367,7 @@
                             <div class="flex items-center space-x-2">
                                 <button onclick="selectGamete('p2', 0)" id="p2-g0-btn" class="px-2.5 py-1 rounded-lg bg-white border border-p2-border font-mono font-bold text-p2 hover:bg-p2 hover:text-white transition shadow-xs">অ্যালিল ১</button>
                                 <button onclick="selectGamete('p2', 1)" id="p2-g1-btn" class="px-2.5 py-1 rounded-lg bg-white border border-p2-border font-mono font-bold text-p2 hover:bg-p2 hover:text-white transition shadow-xs">অ্যালিল ২</button>
-                                <button onclick="randomGamete('p2')" class="p-1.5 rounded-lg bg-white border border-p2-border text-slate-600 hover:bg-slate-100" title="Random Meiotic Segregation">
+                                <button onclick="randomGamete('p2')" class="p-1.5 rounded-lg bg-white border border-p2-border text-slate-600 hover:bg-slate-100" title="এলোমেলো মিয়োটিক পৃথকীকরণ">
                                     <i class="fa-solid fa-dice text-xs"></i>
                                 </button>
                             </div>
@@ -1049,7 +1049,7 @@
             const sun = parseInt(document.getElementById('env-sun').value);
 
             document.getElementById('env-nutrition-val').innerText = nutrition + '%';
-            document.getElementById('env-sun-val').innerText = sun > 75 ? "High (UV Active)" : sun > 35 ? "মাঝারি" : "Low";
+            document.getElementById('env-sun-val').innerText = sun > 75 ? "উচ্চ (UV সক্রিয়)" : sun > 35 ? "মাঝারি" : "Low";
 
             // Base height formula: 140cm base + 5cm per additive dominant allele
             const totalAdditiveAlleles = gA + gB + gC + gD; // Range 0 to 8
@@ -1105,20 +1105,20 @@
         // নির্দেশিত ধাপ Sequence Definition
         const GUIDED_STEPS = [
             {
-                title: "Step 1: Parent Diploid Genotypes",
-                desc: "Notice how both Parent 1 and Parent 2 carry 2 alleles (a homologous chromosome pair). Change Parent 1 to 'AA' and Parent 2 to 'aa'."
+                title: "ধাপ ১: পিতামাতার ডিপ্লয়েড জিনোটাইপ",
+                desc: "দেখো, পিতামাতা ১ ও পিতামাতা ২—উভয়েরই ২টি অ্যালিল থাকে, যা একটি সমসংস্থ ক্রোমোজোম জোড়া গঠন করে। পিতামাতা ১-কে 'AA' এবং পিতামাতা ২-কে 'aa' করো।"
             },
             {
-                title: "Step 2: Gamete Formation (Meiosis)",
-                desc: "Each parent passes exactly ONE allele into a gamete. Click 'Perform Fertilization' to observe gamete fusion."
+                title: "ধাপ ২: গ্যামেট গঠন (মিয়োসিস)",
+                desc: "প্রতিটি পিতামাতা একটি গ্যামেটে ঠিক একটি অ্যালিল দেয়। গ্যামেটের মিলন দেখতে ‘নিষেক ঘটাও’ চাপো।"
             },
             {
-                title: "Step 3: Offspring Genotype Analysis",
-                desc: "Observe the offspring's genotype: 1 allele came from P1 (Coral) and 1 from P2 (Blue). বিষমযুগ্ম 'Aa' displays the dominant phenotype."
+                title: "ধাপ ৩: সন্তানের জিনোটাইপ বিশ্লেষণ",
+                desc: "সন্তানের জিনোটাইপ দেখো: একটি অ্যালিল P1 থেকে এবং একটি P2 থেকে এসেছে। বিষমযুগ্ম 'Aa' হলে প্রকট বৈশিষ্ট্য প্রকাশ পায়।"
             },
             {
-                title: "Step 4: Punnett Probability vs Sample Size",
-                desc: "Set both parents to 'Aa'. Run N=1 vs N=100 simulations to see how sample size affects Mendelian ratios."
+                title: "ধাপ ৪: পানেট সম্ভাবনা বনাম নমুনার আকার",
+                desc: "দুই পিতামাতাকেই 'Aa' করো। N=১ ও N=১০০ চালিয়ে দেখো নমুনার আকার মেন্ডেলীয় অনুপাতকে কীভাবে প্রভাবিত করে।"
             }
         ];
 
