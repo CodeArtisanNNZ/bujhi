@@ -11,7 +11,7 @@ const mysteries=["amphibia","arthropoda","aves","annelida","mollusca","reptilia"
 const choices=["amphibia","reptilia","aves","mammalia","annelida","arthropoda","mollusca","echinodermata"];
 
 export default function AnimalExplorer(){
- const[lang,setLang]=useState<Lang>("bn");
+ const lang:Lang="bn";
  const[role,setRole]=useState<"teacher"|"student"|null>(null);
  const[mode,setMode]=useState<Mode>("explore");
  const[branch,setBranch]=useState<"invertebrate"|"vertebrate"|null>(null);
@@ -30,7 +30,6 @@ export default function AnimalExplorer(){
  const animal=useMemo(()=>groups.find(g=>g.id===mysteries[index])!,[index]);
  const current=useMemo(()=>groups.find(g=>g.id===choices[challenge%choices.length])!,[challenge]);
  const back=role==="teacher"?"/teacher-dashboard":"/student-dashboard/books/8/science/learn";
- function switchLang(){const next=lang==="bn"?"en":"bn";setLang(next);try{localStorage.setItem("bujhi-language",next)}catch{}}
  function nextAnimal(){setIndex((index+1)%mysteries.length);setStep(0);setAnswer(null);setAttempts(0)}
  const branches=[{key:"invertebrate" as const,title:{bn:"অমেরুদণ্ডী",en:"Invertebrates"},note:{bn:"মেরুদণ্ড নেই · ৮টি পর্ব",en:"No backbone · 8 phyla"}},{key:"vertebrate" as const,title:{bn:"মেরুদণ্ডী",en:"Vertebrates"},note:{bn:"কর্ডাটা পর্ব · ৭টি শ্রেণি",en:"Chordata · 7 classes"}}];
  if(!role)return <main className={styles.page}><p className={styles.loading}>{label("পাঠ খুলছে…","Opening lesson…")}</p></main>;
