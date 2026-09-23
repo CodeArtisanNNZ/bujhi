@@ -547,7 +547,7 @@
                         <!-- Biceps Muscle Group -->
                         <g id="biceps-muscle" transform="translate(130, 280)">
                             <path id="muscle-body" d="M 0 30 Q 30 10 60 30 Q 80 50 60 70 Q 30 80 0 60 Q -20 45 0 30 Z" fill="#dc2626" opacity="0.85" stroke="#991b1b" stroke-width="2"/>
-                            <!-- Muscle Fiber Textures -->
+                            <!-- পেশিতন্তু Textures -->
                             <path d="M 10 35 Q 30 25 50 35 M 10 50 Q 30 45 50 50 M 10 60 Q 30 55 50 60" stroke="#fca5a5" stroke-width="1.5" fill="none" opacity="0.7"/>
                         </g>
 
@@ -812,11 +812,11 @@
         // State Machine Definitions
         const STAGES = {
             প্রস্তুত: { name: 'প্রস্তুত', title: 'সিস্টেম প্রস্তুত', color: '#64748b', desc: 'শুরু করতে তাপ উদ্দীপনা দাও।' },
-            STIMULUS: { name: 'STIMULUS', title: '1. Heat উদ্দীপনা Applied', color: '#d97706', desc: 'উচ্চ heat makes contact with skin surface.' },
-            RECEPTOR: { name: 'RECEPTOR', title: '2. তাপগ্রাহক Activation', color: '#ca8a04', desc: 'ত্বকের গ্রাহকs detect temperature threshold.' },
-            SENSORY: { name: 'SENSORY', title: '৩. সংবেদী স্নায়ু Impulse Propagation', color: '#2563eb', desc: 'বৈদ্যুতিক তরঙ্গ CNS-এর দিকে যায়।' },
+            STIMULUS: { name: 'STIMULUS', title: '১. তাপ উদ্দীপনা প্রয়োগ', color: '#d97706', desc: 'উচ্চ তাপ ত্বকের পৃষ্ঠে স্পর্শ করে।' },
+            RECEPTOR: { name: 'RECEPTOR', title: '2. তাপগ্রাহক সক্রিয় হওয়া', color: '#ca8a04', desc: 'ত্বকের গ্রাহক তাপমাত্রার সীমা শনাক্ত করে।' },
+            SENSORY: { name: 'SENSORY', title: '৩. সংবেদী স্নায়ু আবেগের সঞ্চালন', color: '#2563eb', desc: 'বৈদ্যুতিক তরঙ্গ CNS-এর দিকে যায়।' },
             CNS: { name: 'CNS', title: '৪. CNS Relay Processing', color: '#7c3aed', desc: 'সুষুম্নাকাণ্ডের আন্তঃস্নায়ু সংকেত এগিয়ে দেয়।' },
-            MOTOR: { name: 'MOTOR', title: '৫. চালক স্নায়ু Impulse Propagation', color: '#059669', desc: 'বৈদ্যুতিক তরঙ্গ CNS থেকে পেশির দিকে যায়।' },
+            MOTOR: { name: 'MOTOR', title: '৫. চালক স্নায়ু আবেগের সঞ্চালন', color: '#059669', desc: 'বৈদ্যুতিক তরঙ্গ CNS থেকে পেশির দিকে যায়।' },
             EFFECTOR: { name: 'EFFECTOR', title: '৬. পেশি কার্যকর অঙ্গ সক্রিয়', color: '#dc2626', desc: 'বাহুর পেশি সংকেত পেয়ে সংকুচিত হয়।' },
             RESPONSE: { name: 'RESPONSE', title: '৭. হাত সরিয়ে নেওয়ার প্রতিক্রিয়া', color: '#0284c7', desc: 'হাত গরম পৃষ্ঠ থেকে সরে যায়।' }
         };
@@ -852,11 +852,11 @@
                 q: "এই প্রতিবর্ত ক্রিয়ায় ‘কার্যকর অঙ্গ’ কোনটি?",
                 options: ["গরম পৃষ্ঠের তাপ", "ত্বকের গ্রাহক", "বাহুর পেশি", "হাত সরে যাওয়া"],
                 correct: 2,
-                explain: "The arm muscle is the কার্যকর অঙ্গ (the organ/tissue that acts). হাত সরে যাওয়া is the প্রতিক্রিয়া."
+                explain: "বাহুর পেশি হলো কার্যকর অঙ্গ—যে অঙ্গ কাজটি করে। হাত সরে যাওয়াই হলো প্রতিক্রিয়া।"
             },
             {
                 q: "আরও তীব্র উদ্দীপনা (যেমন ৯০°C তাপ) দিলে কী ঘটে?",
-                options: ["বৈদ্যুতিক আবেগের উচ্চতা বেড়ে যায়", "উচ্চer frequency of action potential impulses", "সংবেদী স্নায়ুর ভেতরে সংকেত রাসায়নিক রূপ নেয়", "সংকেত উল্টো দিকে যায়"],
+                options: ["বৈদ্যুতিক আবেগের উচ্চতা বেড়ে যায়", "অ্যাকশন পটেনশিয়াল আবেগের উচ্চতর কম্পাঙ্ক", "সংবেদী স্নায়ুর ভেতরে সংকেত রাসায়নিক রূপ নেয়", "সংকেত উল্টো দিকে যায়"],
                 correct: 1,
                 explain: "অ্যাকশন পটেনশিয়ালের আকার একই থাকে; উদ্দীপনার তীব্রতা আবেগের কম্পাঙ্কে প্রকাশ পায়।"
             },
@@ -1041,39 +1041,39 @@
 
             switch(currentStage.name) {
                 case 'STIMULUS':
-                    sigType = "Thermal Heat";
-                    nextStage = "গ্রাহক Activation";
+                    sigType = "তাপ উদ্দীপনা";
+                    nextStage = "গ্রাহক সক্রিয় হওয়া";
                     break;
                 case 'RECEPTOR':
-                    sigType = "Transduced Signal";
-                    dirText = "Toward Sensory Axon";
+                    sigType = "রূপান্তরিত সংকেত";
+                    dirText = "সংবেদী অ্যাক্সনের দিকে";
                     nextStage = "সংবেদী স্নায়ু";
                     break;
                 case 'SENSORY':
-                    sigType = "Electrical Action Potential";
-                    dirText = "TOWARD CNS";
+                    sigType = "বৈদ্যুতিক অ্যাকশন পটেনশিয়াল";
+                    dirText = "CNS-এর দিকে";
                     dirIcon = "fa-arrow-right";
-                    nextStage = "Spinal Cord CNS";
+                    nextStage = "সুষুম্নাকাণ্ডের CNS";
                     break;
                 case 'CNS':
-                    sigType = "Chemical Neurotransmitter";
-                    dirText = "Interneuron Relay";
+                    sigType = "রাসায়নিক নিউরোট্রান্সমিটার";
+                    dirText = "আন্তঃস্নায়ু রিলে";
                     nextStage = "চালক স্নায়ু";
                     break;
                 case 'MOTOR':
-                    sigType = "Electrical Action Potential";
-                    dirText = "AWAY from CNS";
+                    sigType = "বৈদ্যুতিক অ্যাকশন পটেনশিয়াল";
+                    dirText = "CNS থেকে দূরে";
                     dirIcon = "fa-arrow-left";
-                    nextStage = "কার্যকর অঙ্গ Muscle";
+                    nextStage = "কার্যকর অঙ্গ: পেশি";
                     break;
                 case 'EFFECTOR':
-                    sigType = "Neuromuscular Excitation";
-                    dirText = "Muscle Fiber";
-                    nextStage = "Physical প্রতিক্রিয়া";
+                    sigType = "নিউরোমাসকুলার উদ্দীপনা";
+                    dirText = "পেশিতন্তু";
+                    nextStage = "শারীরিক প্রতিক্রিয়া";
                     break;
                 case 'RESPONSE':
-                    sigType = "Mechanical Movement";
-                    dirText = "Hand Withdrawn";
+                    sigType = "যান্ত্রিক নড়াচড়া";
+                    dirText = "হাত সরানো হয়েছে";
                     nextStage = "Completed";
                     break;
             }
@@ -1124,11 +1124,11 @@
             let freq = Math.round(val * 0.8) + " Hz";
 
             if (val < 30) {
-                label = "Low (" + val + "°C) - সীমার নিচে";
-                freq = "0 Hz (No Impulse)";
+                label = "কম (" + val + "°C) - সীমার নিচে";
+                freq = "০ Hz (কোনো আবেগ নেই)";
             } else if (val > 75) {
-                label = "উচ্চ (" + val + "°C) - Rapid Firing";
-                freq = Math.round(val * 1.2) + " Hz (উচ্চ Frequency)";
+                label = "উচ্চ (" + val + "°C) - দ্রুত আবেগ সৃষ্টি";
+                freq = Math.round(val * 1.2) + " Hz (উচ্চ কম্পাঙ্ক)";
             }
 
             document.getElementById('intensity-val').innerText = label;
@@ -1198,7 +1198,7 @@
                     setViewMode('SIMPLE');
                 }
             } else {
-                alert("Incorrect step! Remember the signal flow: গ্রাহক -> Sensory -> CNS -> Motor -> কার্যকর অঙ্গ.");
+                alert("ভুল ধাপ। মনে রাখো: গ্রাহক → সংবেদী স্নায়ু → CNS → চালক স্নায়ু → কার্যকর অঙ্গ।");
             }
         }
 
@@ -1249,7 +1249,7 @@
             if (currentQuizIdx < quizQuestions.length) {
                 renderQuizQuestion();
             } else {
-                alert(`Quiz Finished! You scored ${quizScoreCount} / ${quizQuestions.length}`);
+                alert(`কুইজ শেষ। তোমার স্কোর ${quizScoreCount} / ${quizQuestions.length}`);
                 closeModal('quiz-modal');
                 currentQuizIdx = 0;
                 quizScoreCount = 0;
@@ -1263,7 +1263,7 @@
 
         // পথ সাজাও Interactive Modal
         function openBuildPathwayModal() {
-            alert("পথ সাজাও মোড: Arrange cards in correct order: উদ্দীপনা -> গ্রাহক -> Sensory -> CNS -> Motor -> কার্যকর অঙ্গ -> প্রতিক্রিয়া.");
+            alert("পথ সাজাও মোড: কার্ডগুলো সঠিক ক্রমে সাজাও—উদ্দীপনা → গ্রাহক → সংবেদী স্নায়ু → CNS → চালক স্নায়ু → কার্যকর অঙ্গ → প্রতিক্রিয়া।");
         }
     </script>
 </body>
