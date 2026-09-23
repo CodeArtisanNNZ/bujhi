@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-900 selection:bg-teal-500 selection:text-white">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hereditary Information Zoom Simulator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cell: '#0d9488',
+                        nucleus: '#6366f1',
+                        chromosome: '#8b5cf6',
+                        histone: '#f59e0b',
+                        dna: '#06b6d4',
+                        gene: '#ec4899',
+                        adenine: '#ef4444',
+                        thymine: '#3b82f6',
+                        guanine: '#10b981',
+                        cytosine: '#f59e0b'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            user-select: none;
+            overflow: hidden;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(51, 65, 85, 0.8);
+            border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(100, 116, 139, 1);
+        }
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-panel-light {
+            background: rgba(30, 41, 59, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        canvas {
+            touch-action: none;
+        }
+
+        /* Pulsing hint highlight */
+        @keyframes targetPulse {
+            0% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(236, 72, 153, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0); }
+        }
+
+        .pulse-target {
+            animation: targetPulse 1.8s infinite;
+        }
+
+        /* Drag and Drop styles */
+        .draggable-item.dragging {
+            opacity: 0.4;
+            transform: scale(0.95);
+        }
+    
+        /* BUJHI lesson chrome — keeps the scientific canvas immersive */
+        :root{
+            --bujhi-red:#990000;
+            --bujhi-red-dark:#6f1111;
+            --bujhi-cream:#f6efe3;
+            --bujhi-paper:#fffaf3;
+            --bujhi-paper-2:#f2e5cf;
+            --bujhi-ink:#362922;
+            --bujhi-muted:#6b584e;
+            --bujhi-border:#dfcfbb;
+        }
+        body>header{
+            background:rgba(255,250,243,.97)!important;
+            border-color:var(--bujhi-border)!important;
+            border-top:5px solid var(--bujhi-red)!important;
+            color:var(--bujhi-ink)!important;
+        }
+        body>header h1{color:#571719!important}
+        body>header p{color:var(--bujhi-muted)!important}
+        body>nav{
+            background:rgba(242,229,207,.97)!important;
+            border-color:#d7b996!important;
+            color:var(--bujhi-ink)!important;
+        }
+        .bujhi-mark{
+            width:38px;height:38px;border-radius:12px;background:#fff;
+            border:1px solid #e5d4bf;display:grid;place-items:center;
+            box-shadow:0 4px 12px rgba(92,47,35,.10);flex:none;
+        }
+        .bujhi-mark img{width:29px;height:29px;object-fit:contain}
+        .bujhi-kicker{font-size:9px;letter-spacing:.11em;font-weight:900;color:var(--bujhi-red);margin-bottom:3px}
+        #scale-breadcrumbs{background:#fff8ef!important;border-color:#dfcfbb!important}
+        .bc-btn{color:#6b584e!important}
+        #label-btn,.mode-btn.bg-teal-500{
+            background:var(--bujhi-red)!important;color:white!important;border-color:var(--bujhi-red)!important
+        }
+        button.bg-indigo-600{background:var(--bujhi-red)!important}
+        button.bg-indigo-600:hover{background:var(--bujhi-red-dark)!important}
+        #sound-btn,#bp-btn,body>nav label{
+            background:#fff8ef!important;border-color:#dfcfbb!important;color:#5e4d44!important
+        }
+        .glass-panel,.glass-panel-light{
+            box-shadow:none;
+        }
+        input[type="range"]{accent-color:var(--bujhi-red)!important}
+        button:focus-visible,input:focus-visible{
+            outline:3px solid rgba(153,0,0,.22)!important;outline-offset:2px
+        }
+        @media(max-width:640px){
+            body>header{height:auto!important;min-height:58px;padding:8px 10px!important;gap:8px}
+            body>nav{height:auto!important;min-height:44px;padding:6px 8px!important}
+            .bujhi-kicker{display:none}
+        }
+
+    </style>
+</head>
+<body class="h-full w-full flex flex-col text-slate-100 antialiased bg-slate-950">
+
+    <!-- TOP NAVIGATION & BREADCRUMB BAR -->
+    <header class="h-14 glass-panel border-b border-slate-800 px-4 flex items-center justify-between shrink-0 z-30">
+        <div class="flex items-center space-x-3">
+            <div class="bujhi-mark"><img src="/bujhi-icon.png" alt="Bujhi"></div>
+            <div>
+                <div class="bujhi-kicker">BUJHI · CLASS 8 SCIENCE · CHAPTER 2</div>
+                <h1 class="text-sm font-bold tracking-tight flex items-center gap-2">
+                    Where Is Hereditary Information?
+                    <span class="text-[10px] font-mono px-2 py-0.5 rounded-full border" style="background:#f4dfdb;color:#990000;border-color:#d8aaa3">Continuous Zoom</span>
+                </h1>
+                <p class="text-[11px] font-medium hidden sm:block">Cell &rarr; Nucleus &rarr; Chromosome &rarr; Nucleosome &rarr; DNA &rarr; Gene</p>
+            </div>
+        </div>
+
+        <!-- Scale Pathway / Breadcrumbs -->
+        <div id="scale-breadcrumbs" class="hidden lg:flex items-center space-x-1 text-xs font-semibold bg-slate-900/80 p-1 rounded-xl border border-slate-800">
+            <button onclick="zoomToLevel(0)" id="bc-0" class="bc-btn px-2.5 py-1 rounded-lg transition-all flex items-center gap-1.5 hover:bg-slate-800 text-slate-400">
+                <span class="w-2 h-2 rounded-full bg-teal-500"></span>Cell <span class="text-[10px] font-mono text-slate-500">10µm</span>
+            </button>
+            <i class="fa-solid fa-chevron-right text-[9px] text-slate-600"></i>
+            <button onclick="zoomToLevel(1)" id="bc-1" class="bc-btn px-2.5 py-1 rounded-lg transition-all flex items-center gap-1.5 hover:bg-slate-800 text-slate-400">
+                <span class="w-2 h-2 rounded-full bg-indigo-500"></span>Nucleus <span class="text-[10px] font-mono text-slate-500">6µm</span>
+            </button>
+            <i class="fa-solid fa-chevron-right text-[9px] text-slate-600"></i>
+            <button onclick="zoomToLevel(2)" id="bc-2" class="bc-btn px-2.5 py-1 rounded-lg transition-all flex items-center gap-1.5 hover:bg-slate-800 text-slate-400">
+                <span class="w-2 h-2 rounded-full bg-purple-500"></span>Chromosome <span class="text-[10px] font-mono text-slate-500">1.4µm</span>
+            </button>
+            <i class="fa-solid fa-chevron-right text-[9px] text-slate-600"></i>
+            <button onclick="zoomToLevel(2.5)" id="bc-2.5" class="bc-btn px-2.5 py-1 rounded-lg transition-all flex items-center gap-1.5 hover:bg-slate-800 text-slate-400">
+                <span class="w-2 h-2 rounded-full bg-amber-500"></span>Chromatin/Histone <span class="text-[10px] font-mono text-slate-500">11nm</span>
+            </button>
+            <i class="fa-solid fa-chevron-right text-[9px] text-slate-600"></i>
+            <button onclick="zoomToLevel(3)" id="bc-3" class="bc-btn px-2.5 py-1 rounded-lg transition-all flex items-center gap-1.5 hover:bg-slate-800 text-slate-400">
+                <span class="w-2 h-2 rounded-full bg-cyan-400"></span>DNA Helix <span class="text-[10px] font-mono text-slate-500">2nm</span>
+            </button>
+            <i class="fa-solid fa-chevron-right text-[9px] text-slate-600"></i>
+            <button onclick="zoomToLevel(4)" id="bc-4" class="bc-btn px-2.5 py-1 rounded-lg transition-all flex items-center gap-1.5 hover:bg-slate-800 text-slate-400">
+                <span class="w-2 h-2 rounded-full bg-pink-500"></span>Gene <span class="text-[10px] font-mono text-slate-500">0.34nm</span>
+            </button>
+        </div>
+
+        <!-- System Action Controls -->
+        <div class="flex items-center space-x-2">
+            <button id="sound-btn" onclick="toggleAudio()" class="p-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 transition border border-slate-700/50" title="Sound Effects Toggle">
+                <i id="sound-icon" class="fa-solid fa-volume-high text-xs"></i>
+            </button>
+            <button id="label-btn" onclick="toggleLabels()" class="px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-teal-500/20 text-teal-300 border border-teal-500/30 hover:bg-teal-500/30 transition flex items-center gap-1.5">
+                <i class="fa-solid fa-tag"></i> <span class="hidden sm:inline">Labels:</span> <span id="label-status">ON</span>
+            </button>
+            <button onclick="openModal('build-modal')" class="px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white transition flex items-center gap-1.5 shadow-md">
+                <i class="fa-solid fa-cubes"></i> <span class="hidden sm:inline">Build Order</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- SECONDARY MODE TOOLBAR -->
+    <nav class="h-11 glass-panel-light border-b border-slate-800/80 px-4 flex items-center justify-between shrink-0 z-20 text-xs">
+        <div class="flex items-center space-x-1.5 overflow-x-auto custom-scrollbar py-1">
+            <button onclick="setAppMode('EXPLORE')" id="mode-EXPLORE" class="mode-btn px-3 py-1 rounded-lg font-semibold transition flex items-center gap-1.5 bg-teal-500 text-slate-950">
+                <i class="fa-solid fa-compass"></i> Free Explore
+            </button>
+            <button onclick="setAppMode('GUIDED')" id="mode-GUIDED" class="mode-btn px-3 py-1 rounded-lg font-medium text-slate-300 hover:bg-slate-800 transition flex items-center gap-1.5">
+                <i class="fa-solid fa-route"></i> Guided Journey
+            </button>
+            <button onclick="setAppMode('FIND_IT')" id="mode-FIND_IT" class="mode-btn px-3 py-1 rounded-lg font-medium text-slate-300 hover:bg-slate-800 transition flex items-center gap-1.5">
+                <i class="fa-solid fa-crosshairs"></i> "Find It" Challenge
+            </button>
+        </div>
+
+        <div class="flex items-center space-x-3 text-slate-400">
+            <!-- Biological State Toggle -->
+            <label class="flex items-center gap-2 cursor-pointer bg-slate-900/60 px-2.5 py-1 rounded-lg border border-slate-800 hover:border-slate-700 transition">
+                <input type="checkbox" id="condensed-toggle" onchange="toggleChromosomeCondensed(this.checked)" class="rounded bg-slate-800 border-slate-700 text-purple-600 focus:ring-purple-500">
+                <span class="text-[11px] font-medium text-slate-300">Condensed Chromosome (Cell Division)</span>
+            </label>
+
+            <!-- Sequence Detail Toggle -->
+            <button onclick="toggleBasePairs()" id="bp-btn" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 border border-slate-700 text-[11px] text-slate-300 flex items-center gap-1">
+                <i class="fa-solid fa-align-center text-cyan-400"></i> Show Base Sequence
+            </button>
+        </div>
+    </nav>
+
+    <!-- MAIN INTERACTIVE CANVAS & DISPLAY AREA -->
+    <main class="flex-1 relative bg-slate-950 overflow-hidden flex">
+        
+        <!-- Canvas Element -->
+        <canvas id="zoomCanvas" class="w-full h-full cursor-grab active:cursor-grabbing block"></canvas>
+
+        <!-- FLOATING OVERLAY 1: MAGNIFICATION & SCALE BAR (BOTTOM LEFT) -->
+        <div class="absolute bottom-4 left-4 glass-panel p-3 rounded-xl border border-slate-800 space-y-2 pointer-events-auto z-10 w-64 shadow-2xl">
+            <div class="flex items-center justify-between text-xs font-mono">
+                <span class="text-slate-400">Scale Field:</span>
+                <span id="scale-dimension" class="text-teal-400 font-bold">10 µm (Cell)</span>
+            </div>
+            
+            <!-- Scale Bar Visual -->
+            <div class="space-y-1">
+                <div class="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden flex items-center p-0.5">
+                    <div id="scale-bar-fill" class="h-full bg-gradient-to-r from-teal-500 via-indigo-500 to-pink-500 rounded-full transition-all duration-300" style="w-1/6"></div>
+                </div>
+                <div class="flex justify-between text-[10px] font-mono text-slate-500">
+                    <span>10µm</span>
+                    <span>1µm</span>
+                    <span>100nm</span>
+                    <span>2nm</span>
+                </div>
+            </div>
+
+            <!-- Zoom Level Numeric -->
+            <div class="flex justify-between items-center text-[11px] font-mono pt-1 border-t border-slate-800/80 text-slate-400">
+                <span>Mag Index: <strong id="mag-value" class="text-slate-200">0.00x</strong></span>
+                <span id="biological-stage" class="px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 font-bold text-[10px]">CELL STATE</span>
+            </div>
+        </div>
+
+        <!-- FLOATING OVERLAY 2: ZOOM CONTROLS TOOLBAR (BOTTOM RIGHT) -->
+        <div class="absolute bottom-4 right-4 glass-panel p-2 rounded-xl border border-slate-800 flex items-center space-x-2 z-10 shadow-2xl">
+            <button onclick="adjustZoom(-0.25)" class="p-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 transition" title="Zoom Out">
+                <i class="fa-solid fa-minus text-xs"></i>
+            </button>
+
+            <!-- Direct Zoom Slider -->
+            <input type="range" id="zoom-slider" min="0" max="4" step="0.005" value="0" oninput="onSliderZoom(this.value)" class="w-32 sm:w-44 accent-teal-500 h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer">
+
+            <button onclick="adjustZoom(0.25)" class="p-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 transition" title="Zoom In">
+                <i class="fa-solid fa-plus text-xs"></i>
+            </button>
+            <button onclick="resetView()" class="p-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 transition border-l border-slate-700" title="Reset View">
+                <i class="fa-solid fa-rotate-left text-xs"></i>
+            </button>
+        </div>
+
+        <!-- FLOATING OVERLAY 3: EDUCATIONAL CONTEXT & GUIDED PANEL (TOP RIGHT) -->
+        <div id="info-card" class="absolute top-4 right-4 glass-panel p-4 rounded-xl border border-slate-800 max-w-sm w-full z-10 shadow-2xl transition-all duration-300">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-2">
+                <div class="flex items-center space-x-2">
+                    <span id="info-badge-dot" class="w-3 h-3 rounded-full bg-teal-500"></span>
+                    <h2 id="info-title" class="font-bold text-sm text-slate-100 tracking-tight">Eukaryotic Cell</h2>
+                </div>
+                <span id="info-scale-tag" class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">~10–30 µm</span>
+            </div>
+
+            <p id="info-description" class="text-xs text-slate-300 leading-relaxed mb-3">
+                The functional unit of life. The membrane encloses organelles including the cell nucleus, where all genetic instructions are stored.
+            </p>
+
+            <!-- Key Biological Fact callout -->
+            <div class="bg-slate-900/80 p-2.5 rounded-lg border border-slate-800/80 text-[11px] text-slate-300 space-y-1">
+                <div class="font-semibold text-teal-400 flex items-center gap-1">
+                    <i class="fa-solid fa-lightbulb text-amber-400"></i> Key Concept
+                </div>
+                <div id="info-fact" class="text-slate-300 leading-normal">
+                    Genetic material is kept isolated in the nucleus to protect DNA from chemical damage.
+                </div>
+            </div>
+
+            <!-- Guided Journey Prompt Controls -->
+            <div id="guided-controls" class="mt-3 pt-3 border-t border-slate-800 hidden space-y-2">
+                <div class="flex justify-between items-center text-[11px] text-slate-400 font-mono">
+                    <span>Guided Step <strong id="guided-step-num" class="text-teal-400">1</strong> of 5</span>
+                    <span id="guided-progress-pct" class="text-slate-300">20%</span>
+                </div>
+                <div class="flex space-x-2">
+                    <button onclick="prevGuidedStep()" id="guided-prev-btn" class="flex-1 py-1.5 px-3 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-lg transition border border-slate-700">
+                        Previous
+                    </button>
+                    <button onclick="nextGuidedStep()" id="guided-next-btn" class="flex-1 py-1.5 px-3 bg-teal-500 hover:bg-teal-400 text-slate-950 text-xs font-bold rounded-lg transition shadow-md">
+                        Next Step <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Find-It Mode Target Banner -->
+            <div id="findit-banner" class="mt-3 pt-3 border-t border-slate-800 hidden space-y-2">
+                <div class="text-xs font-semibold text-amber-300 flex items-center gap-1.5">
+                    <i class="fa-solid fa-bullseye text-amber-400 animate-pulse"></i> Target: <span id="findit-target-name" class="underline">Cell Nucleus</span>
+                </div>
+                <p id="findit-hint" class="text-[11px] text-slate-400">
+                    Zoom and pan until the requested organelle or molecular structure is centered!
+                </p>
+                <div class="flex items-center justify-between text-[11px] font-mono text-slate-400">
+                    <span>Score: <strong id="findit-score" class="text-teal-400">0</strong></span>
+                    <button onclick="skipFindItTarget()" class="text-slate-400 hover:text-slate-200 underline">Skip Target</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- FLOATING OVERLAY 4: WHERE AM I / TREE HIERARCHY WIDGET (LEFT SIDE) -->
+        <div class="absolute top-4 left-4 glass-panel p-3 rounded-xl border border-slate-800 z-10 hidden sm:block w-52 shadow-2xl">
+            <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2 flex items-center gap-1.5">
+                <i class="fa-solid fa-sitemap text-indigo-400"></i> Structural Hierarchy
+            </div>
+            <div class="space-y-1 text-xs">
+                <div id="tree-0" class="tree-node flex items-center justify-between p-1.5 rounded-lg border border-transparent transition cursor-pointer hover:bg-slate-800/60" onclick="zoomToLevel(0)">
+                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-teal-500"></span> Cell</span>
+                    <span class="text-[10px] font-mono text-slate-500">Organelle</span>
+                </div>
+                <div id="tree-1" class="tree-node flex items-center justify-between p-1.5 rounded-lg border border-transparent transition cursor-pointer hover:bg-slate-800/60 pl-3" onclick="zoomToLevel(1)">
+                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-indigo-500"></span> Nucleus</span>
+                    <span class="text-[10px] font-mono text-slate-500">Envelope</span>
+                </div>
+                <div id="tree-2" class="tree-node flex items-center justify-between p-1.5 rounded-lg border border-transparent transition cursor-pointer hover:bg-slate-800/60 pl-5" onclick="zoomToLevel(2)">
+                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-purple-500"></span> Chromosome</span>
+                    <span class="text-[10px] font-mono text-slate-500">Condensed</span>
+                </div>
+                <div id="tree-2.5" class="tree-node flex items-center justify-between p-1.5 rounded-lg border border-transparent transition cursor-pointer hover:bg-slate-800/60 pl-7" onclick="zoomToLevel(2.5)">
+                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-500"></span> Histone/Nucleosome</span>
+                    <span class="text-[10px] font-mono text-slate-500">11nm</span>
+                </div>
+                <div id="tree-3" class="tree-node flex items-center justify-between p-1.5 rounded-lg border border-transparent transition cursor-pointer hover:bg-slate-800/60 pl-9" onclick="zoomToLevel(3)">
+                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-cyan-400"></span> DNA Helix</span>
+                    <span class="text-[10px] font-mono text-slate-500">2nm</span>
+                </div>
+                <div id="tree-4" class="tree-node flex items-center justify-between p-1.5 rounded-lg border border-transparent transition cursor-pointer hover:bg-slate-800/60 pl-11" onclick="zoomToLevel(4)">
+                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-pink-500"></span> Gene Locus</span>
+                    <span class="text-[10px] font-mono text-slate-500">Code Region</span>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- MODAL 1: BUILD HIERARCHY DRAG & DROP ACTIVITY -->
+    <div id="build-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-panel max-w-xl w-full p-6 rounded-2xl border border-slate-800 shadow-2xl space-y-5">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-layer-group text-teal-400 text-lg"></i>
+                    <h3 class="text-base font-bold text-slate-100">Build Biological Hierarchy</h3>
+                </div>
+                <button onclick="closeModal('build-modal')" class="text-slate-400 hover:text-slate-200">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <p class="text-xs text-slate-300">
+                Drag and reorder the biological structures from <strong>Largest Scale (Outer)</strong> down to <strong>Smallest Functional Sequence (Inner)</strong>:
+            </p>
+
+            <!-- Drag and Drop List Container -->
+            <div id="drag-container" class="space-y-2">
+                <!-- Dynamically generated list items -->
+            </div>
+
+            <div id="build-feedback" class="p-3 rounded-lg bg-slate-900 border border-slate-800 text-xs text-center hidden"></div>
+
+            <div class="flex justify-end space-x-3 border-t border-slate-800 pt-3">
+                <button onclick="resetDragOrder()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition">
+                    Reset
+                </button>
+                <button onclick="verifyDragOrder()" class="px-5 py-2 bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-xs rounded-xl transition shadow-lg">
+                    Check Hierarchy
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: INTERACTIVE CONCEPT QUIZ / MISCONCEPTION CHECK -->
+    <div id="quiz-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-panel max-w-lg w-full p-6 rounded-2xl border border-slate-800 shadow-2xl space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-brain text-purple-400 text-lg"></i>
+                    <h3 class="text-base font-bold text-slate-100">Concept Checkpoint</h3>
+                </div>
+                <button onclick="closeModal('quiz-modal')" class="text-slate-400 hover:text-slate-200">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <div id="quiz-content" class="space-y-4 text-xs">
+                <!-- Question populated by JS -->
+            </div>
+
+            <div class="flex justify-between items-center border-t border-slate-800 pt-3">
+                <span id="quiz-progress" class="text-xs text-slate-400 font-mono">Question 1 of 3</span>
+                <button id="quiz-submit-btn" onclick="submitQuizAnswer()" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl transition shadow-md">
+                    Submit Answer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * HEREDITARY INFORMATION CONTINUOUS ZOOM SIMULATION
+         * HTML5 Vector Rendering Engine
+         */
+
+        // System Audio API Context
+        let audioCtx = null;
+        let audioEnabled = true;
+
+        function initAudio() {
+            if (!audioCtx) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (AudioContext) audioCtx = new AudioContext();
+            }
+        }
+
+        function playTone(freq = 440, type = 'sine', duration = 0.1) {
+            if (!audioEnabled) return;
+            initAudio();
+            if (!audioCtx) return;
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch (e) { }
+        }
+
+        function toggleAudio() {
+            audioEnabled = !audioEnabled;
+            const icon = document.getElementById('sound-icon');
+            icon.className = audioEnabled ? "fa-solid fa-volume-high text-xs text-slate-300" : "fa-solid fa-volume-xmark text-xs text-slate-500";
+            playTone(audioEnabled ? 600 : 300, 'triangle', 0.15);
+        }
+
+        // Global Simulation State
+        const state = {
+            zoomLevel: 0.0, // 0.0 (Cell) to 4.0 (Gene)
+            targetZoom: 0.0,
+            panX: 0,
+            panY: 0,
+            targetPanX: 0,
+            targetPanY: 0,
+            isDragging: false,
+            dragStartX: 0,
+            dragStartY: 0,
+            labelsVisible: true,
+            condensedChromosome: false,
+            showBasePairs: true,
+            appMode: 'EXPLORE', // 'EXPLORE', 'GUIDED', 'FIND_IT'
+            guidedStep: 0,
+            findItIndex: 0,
+            findItScore: 0,
+            time: 0
+        };
+
+        // Scale Level Metadata
+        const SCALE_LEVELS = [
+            {
+                level: 0,
+                name: 'CELL',
+                title: 'Eukaryotic Animal Cell',
+                dim: '10–30 µm',
+                color: '#0d9488',
+                desc: 'The fundamental unit of eukaryotic organisms. Enclosed by a lipid bilayer plasma membrane containing cytoplasm, organelles, and a defined nucleus.',
+                fact: 'DNA is sequestered inside the nucleus to prevent enzymatic degradation and chemical stress.'
+            },
+            {
+                level: 1,
+                name: 'NUCLEUS',
+                title: 'Cell Nucleus',
+                dim: '5–10 µm',
+                color: '#6366f1',
+                desc: 'A double-membraned organelle containing nuclear pores. Houses the organism genome as diffuse chromatin threads.',
+                fact: 'Nuclear pores act as gatekeepers, regulating passage of RNA and proteins while protecting genomic DNA.'
+            },
+            {
+                level: 2,
+                name: 'CHROMOSOME',
+                title: 'Chromosome / Chromatin Structure',
+                dim: '1.4 µm (Condensed)',
+                color: '#8b5cf6',
+                desc: 'A highly organized package of DNA and histone proteins. Normally exists as loose chromatin, condensing into discrete "X" shapes during cell division.',
+                fact: 'Humans have 23 pairs of homologous chromosomes (46 total) carrying maternal and paternal traits.'
+            },
+            {
+                level: 2.5,
+                name: 'NUCLEOSOME',
+                title: 'Nucleosome & Histones',
+                dim: '11 nm',
+                color: '#f59e0b',
+                desc: 'The fundamental unit of DNA packaging ("beads on a string"). DNA wraps twice around an octamer core of 8 histone proteins.',
+                fact: 'Histone tails can be modified chemically (epigenetics) to loosen or tighten DNA, turning genes ON or OFF.'
+            },
+            {
+                level: 3,
+                name: 'DNA_HELIX',
+                title: 'DNA Double Helix',
+                dim: '2 nm',
+                color: '#06b6d4',
+                desc: 'Two antiparallel polynucleotide strands spiraling around a central axis with a sugar-phosphate backbone and complementary nitrogenous base pairs.',
+                fact: 'Base pairing rules are strict: Adenine always pairs with Thymine (A-T), Guanine with Cytosine (G-C).'
+            },
+            {
+                level: 4,
+                name: 'GENE',
+                title: 'Gene Locus (Functional Stretch)',
+                dim: '0.34 nm per base pair',
+                color: '#ec4899',
+                desc: 'A specific continuous sequence region along the DNA molecule that encodes instructions for synthesizing a functional protein or RNA product.',
+                fact: 'MISCONCEPTION CLEAR: A gene is NOT a separate bead or floating ball—it is a continuous nucleotide sequence on the DNA strand!'
+            }
+        ];
+
+        // Guided Steps Configuration
+        const GUIDED_STEPS = [
+            {
+                level: 0,
+                title: "1. The Eukaryotic Cell",
+                text: "Start at the macroscopic cellular level (~10µm). Notice the membrane enclosing the cell. Locate the central sphere: the Nucleus."
+            },
+            {
+                level: 1,
+                title: "2. Into the Nucleus",
+                text: "Zooming through nuclear pores into the nucleus. Here, DNA is stored safely away from the cytoplasm."
+            },
+            {
+                level: 2,
+                title: "3. Chromosomes & Chromatin",
+                text: "Inside the nucleus, DNA wraps into chromatin fibers. During division, these condense into distinct Chromosomes."
+            },
+            {
+                level: 2.5,
+                title: "4. Histones & Nucleosomes",
+                text: "Unraveling the fiber reveals 'beads-on-a-string': DNA coiled tightly twice around histone protein octamers."
+            },
+            {
+                level: 3,
+                title: "5. The DNA Double Helix",
+                text: "Uncoiling completely reveals the antiparallel double helix: sugar-phosphate backbone with paired A-T and G-C bases."
+            },
+            {
+                level: 4,
+                title: "6. The Gene Locus",
+                text: "A Gene is a CONTINUOUS functional stretch on this DNA backbone encoding a specific protein product!"
+            }
+        ];
+
+        // Find-It Challenge Targets
+        const FIND_IT_TARGETS = [
+            { name: "Cell Nucleus", level: 1, hint: "Look for the large indigo double-membrane sphere inside the cell." },
+            { name: "Condensed Chromosome", level: 2, hint: "Zoom deeper into the nucleus to spot the purple X-shaped structure." },
+            { name: "Histone Octamer Core", level: 2.5, hint: "Unpack the chromatin fiber to find amber protein beads wrapped by DNA." },
+            { name: "DNA Double Helix", level: 3, hint: "Zoom in to see the cyan spiraling double backbone strand." },
+            { name: "Gene Stretch", level: 4, hint: "Find the highlighted pink continuous sequence region on the DNA backbone." }
+        ];
+
+        // Canvas Setup & Resize Listener
+        let canvas, ctx;
+        let width = 0, height = 0;
+
+        window.onload = function() {
+            canvas = document.getElementById('zoomCanvas');
+            ctx = canvas.getContext('2d');
+            
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            setupInteractionListeners();
+            setupDragAndDrop();
+            
+            // Start Animation Loop
+            requestAnimationFrame(renderLoop);
+        };
+
+        function resizeCanvas() {
+            width = canvas.width = canvas.parentElement.clientWidth;
+            height = canvas.height = canvas.parentElement.clientHeight;
+        }
+
+        function setupInteractionListeners() {
+            // Mouse Wheel Zooming
+            canvas.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                initAudio();
+                const zoomDelta = e.deltaY * -0.0015;
+                state.targetZoom = Math.max(0, Math.min(4, state.targetZoom + zoomDelta));
+                syncZoomControls();
+            }, { passive: false });
+
+            // Mouse Drag Panning
+            canvas.addEventListener('mousedown', (e) => {
+                state.isDragging = true;
+                state.dragStartX = e.clientX - state.targetPanX;
+                state.dragStartY = e.clientY - state.targetPanY;
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (state.isDragging) {
+                    state.targetPanX = e.clientX - state.dragStartX;
+                    state.targetPanY = e.clientY - state.dragStartY;
+                }
+            });
+
+            window.addEventListener('mouseup', () => {
+                state.isDragging = false;
+            });
+
+            // Touch Gestures (Pinch to Zoom & Touch Drag)
+            let lastTouchDist = 0;
+            canvas.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 1) {
+                    state.isDragging = true;
+                    state.dragStartX = e.touches[0].clientX - state.targetPanX;
+                    state.dragStartY = e.touches[0].clientY - state.targetPanY;
+                } else if (e.touches.length === 2) {
+                    state.isDragging = false;
+                    lastTouchDist = Math.hypot(
+                        e.touches[0].clientX - e.touches[1].clientX,
+                        e.touches[0].clientY - e.touches[1].clientY
+                    );
+                }
+            });
+
+            canvas.addEventListener('touchmove', (e) => {
+                if (e.touches.length === 1 && state.isDragging) {
+                    state.targetPanX = e.touches[0].clientX - state.dragStartX;
+                    state.targetPanY = e.touches[0].clientY - state.dragStartY;
+                } else if (e.touches.length === 2) {
+                    const dist = Math.hypot(
+                        e.touches[0].clientX - e.touches[1].clientX,
+                        e.touches[0].clientY - e.touches[1].clientY
+                    );
+                    const delta = (dist - lastTouchDist) * 0.005;
+                    state.targetZoom = Math.max(0, Math.min(4, state.targetZoom + delta));
+                    lastTouchDist = dist;
+                    syncZoomControls();
+                }
+            });
+
+            canvas.addEventListener('touchend', () => { state.isDragging = false; });
+        }
+
+        // Adjust Zoom Programmatically
+        function zoomToLevel(lvl) {
+            initAudio();
+            playTone(400 + lvl * 100, 'sine', 0.12);
+            state.targetZoom = lvl;
+            state.targetPanX = 0;
+            state.targetPanY = 0;
+            syncZoomControls();
+        }
+
+        function adjustZoom(delta) {
+            zoomToLevel(Math.max(0, Math.min(4, state.targetZoom + delta)));
+        }
+
+        function onSliderZoom(val) {
+            state.targetZoom = parseFloat(val);
+        }
+
+        function resetView() {
+            zoomToLevel(0);
+        }
+
+        function syncZoomControls() {
+            document.getElementById('zoom-slider').value = state.targetZoom;
+        }
+
+        function toggleLabels() {
+            state.labelsVisible = !state.labelsVisible;
+            document.getElementById('label-status').innerText = state.labelsVisible ? "ON" : "OFF";
+            playTone(state.labelsVisible ? 500 : 350, 'triangle', 0.08);
+        }
+
+        function toggleChromosomeCondensed(val) {
+            state.condensedChromosome = val;
+            playTone(val ? 520 : 420, 'sine', 0.1);
+        }
+
+        function toggleBasePairs() {
+            state.showBasePairs = !state.showBasePairs;
+            playTone(600, 'sine', 0.08);
+        }
+
+        function setAppMode(mode) {
+            state.appMode = mode;
+            document.querySelectorAll('.mode-btn').forEach(b => {
+                b.className = "mode-btn px-3 py-1 rounded-lg font-medium text-slate-300 hover:bg-slate-800 transition flex items-center gap-1.5";
+            });
+            document.getElementById('mode-' + mode).className = "mode-btn px-3 py-1 rounded-lg font-semibold transition flex items-center gap-1.5 bg-teal-500 text-slate-950";
+
+            document.getElementById('guided-controls').classList.toggle('hidden', mode !== 'GUIDED');
+            document.getElementById('findit-banner').classList.toggle('hidden', mode !== 'FIND_IT');
+
+            if (mode === 'GUIDED') {
+                state.guidedStep = 0;
+                applyGuidedStep();
+            } else if (mode === 'FIND_IT') {
+                state.findItIndex = 0;
+                applyFindItTarget();
+            }
+            playTone(480, 'sine', 0.1);
+        }
+
+        function applyGuidedStep() {
+            const step = GUIDED_STEPS[state.guidedStep];
+            zoomToLevel(step.level);
+            document.getElementById('guided-step-num').innerText = state.guidedStep + 1;
+            document.getElementById('guided-progress-pct').innerText = Math.round(((state.guidedStep + 1) / GUIDED_STEPS.length) * 100) + '%';
+        }
+
+        function nextGuidedStep() {
+            if (state.guidedStep < GUIDED_STEPS.length - 1) {
+                state.guidedStep++;
+                applyGuidedStep();
+            } else {
+                openModal('quiz-modal');
+            }
+        }
+
+        function prevGuidedStep() {
+            if (state.guidedStep > 0) {
+                state.guidedStep--;
+                applyGuidedStep();
+            }
+        }
+
+        function applyFindItTarget() {
+            const t = FIND_IT_TARGETS[state.findItIndex];
+            document.getElementById('findit-target-name').innerText = t.name;
+            document.getElementById('findit-hint').innerText = t.hint;
+        }
+
+        function skipFindItTarget() {
+            state.findItIndex = (state.findItIndex + 1) % FIND_IT_TARGETS.length;
+            applyFindItTarget();
+        }
+
+        function checkFindItCompletion(currentLvl) {
+            if (state.appMode !== 'FIND_IT') return;
+            const target = FIND_IT_TARGETS[state.findItIndex];
+            if (Math.abs(currentLvl - target.level) < 0.25) {
+                state.findItScore += 100;
+                document.getElementById('findit-score').innerText = state.findItScore;
+                playTone(800, 'sine', 0.25);
+                state.findItIndex = (state.findItIndex + 1) % FIND_IT_TARGETS.length;
+                applyFindItTarget();
+            }
+        }
+
+        function renderLoop() {
+            state.time += 0.015;
+
+            // Continuous Smooth Interpolation (LERP)
+            state.zoomLevel += (state.targetZoom - state.zoomLevel) * 0.08;
+            state.panX += (state.targetPanX - state.panX) * 0.08;
+            state.panY += (state.targetPanY - state.panY) * 0.08;
+
+            checkFindItCompletion(state.zoomLevel);
+
+            // Clear Background
+            ctx.fillStyle = '#020617';
+            ctx.fillRect(0, 0, width, height);
+
+            ctx.save();
+            // Center Origin + User Pan Offset
+            ctx.translate(width / 2 + state.panX, height / 2 + state.panY);
+
+            // Draw Vector Visuals based on Logarithmic Scale Zoom level
+            drawContinuousZoomScene();
+
+            ctx.restore();
+
+            // Render HUD overlay updates
+            updateHUDOverlay();
+
+            requestAnimationFrame(renderLoop);
+        }
+
+        // Main Rendering Orchestration
+        function drawContinuousZoomScene() {
+            const z = state.zoomLevel;
+
+            // Logarithmic scale factor: Scale exponentially with zoom level
+            const baseScale = Math.pow(4, z);
+
+            // Layer 1: Eukaryotic Cell (Visible z: 0.0 to 1.5)
+            if (z < 1.5) {
+                const opacity = Math.max(0, 1 - (z / 1.3));
+                drawCellLayer(baseScale, opacity);
+            }
+
+            // Layer 2: Nucleus & Organelles (Visible z: 0.2 to 2.3)
+            if (z >= 0.2 && z < 2.3) {
+                const opacity = z < 0.8 ? (z - 0.2) / 0.6 : Math.max(0, 1 - (z - 1.5) / 0.8);
+                drawNucleusLayer(baseScale, opacity);
+            }
+
+            // Layer 3: Chromosome / Chromatin Fiber (Visible z: 1.2 to 2.8)
+            if (z >= 1.2 && z < 2.8) {
+                const opacity = z < 1.8 ? (z - 1.2) / 0.6 : Math.max(0, 1 - (z - 2.3) / 0.5);
+                drawChromosomeLayer(baseScale, opacity);
+            }
+
+            // Layer 4: Histone Octamers & Nucleosomes (Visible z: 2.1 to 3.4)
+            if (z >= 2.1 && z < 3.4) {
+                const opacity = z < 2.6 ? (z - 2.1) / 0.5 : Math.max(0, 1 - (z - 3.0) / 0.4);
+                drawNucleosomeLayer(baseScale, opacity);
+            }
+
+            // Layer 5: DNA Double Helix & Base Pairs (Visible z: 2.7 to 4.0)
+            if (z >= 2.7) {
+                const opacity = Math.min(1, (z - 2.7) / 0.5);
+                drawDnaHelixLayer(baseScale, opacity);
+            }
+        }
+
+        
+        // LAYER 0: CELL STRUCTURE
+        function drawCellLayer(scale, opacity) {
+            if (opacity <= 0) return;
+            ctx.save();
+            ctx.globalAlpha = opacity;
+
+            const radius = 220 * scale;
+
+            // Cell Outer Membrane Blob
+            ctx.beginPath();
+            ctx.strokeStyle = '#0d9488';
+            ctx.lineWidth = Math.max(2, 4 * scale);
+            ctx.fillStyle = 'rgba(13, 148, 136, 0.08)';
+
+            for (let a = 0; a < Math.PI * 2; a += 0.1) {
+                const offset = Math.sin(a * 5 + state.time) * (8 * scale);
+                const r = radius + offset;
+                const x = Math.cos(a) * r;
+                const y = Math.sin(a) * r;
+                if (a === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // Cytoplasm Organelles (Mitochondria, Endoplasmic Reticulum)
+            if (scale > 0.4) {
+                // Mitochondria
+                drawOrganelle(-radius * 0.5, -radius * 0.4, 30 * scale, '#f59e0b');
+                drawOrganelle(radius * 0.6, radius * 0.3, 25 * scale, '#f59e0b');
+                // Ribosomes
+                for (let i = 0; i < 8; i++) {
+                    const rx = Math.sin(i * 1.2) * radius * 0.7;
+                    const ry = Math.cos(i * 1.2) * radius * 0.7;
+                    ctx.beginPath();
+                    ctx.arc(rx, ry, 3 * scale, 0, Math.PI * 2);
+                    ctx.fillStyle = '#64748b';
+                    ctx.fill();
+                }
+            }
+
+            if (state.labelsVisible && scale > 0.5) {
+                drawLabel(0, -radius - 15, "Cell Membrane", "#0d9488");
+                drawLabel(-radius * 0.5, -radius * 0.4 - 20, "Mitochondrion", "#f59e0b");
+            }
+
+            ctx.restore();
+        }
+
+        // LAYER 1: NUCLEUS & NUCLEAR ENVELOPE
+        function drawNucleusLayer(scale, opacity) {
+            if (opacity <= 0) return;
+            ctx.save();
+            ctx.globalAlpha = opacity;
+
+            const radius = 100 * scale;
+
+            // Outer Nuclear Envelope (Double Membrane)
+            ctx.beginPath();
+            ctx.arc(0, 0, radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(99, 102, 241, 0.15)';
+            ctx.fill();
+            ctx.strokeStyle = '#6366f1';
+            ctx.lineWidth = Math.max(2, 5 * scale);
+            ctx.stroke();
+
+            // Nuclear Pores
+            const poreCount = 12;
+            for (let i = 0; i < poreCount; i++) {
+                const angle = (i / poreCount) * Math.PI * 2;
+                const px = Math.cos(angle) * radius;
+                const py = Math.sin(angle) * radius;
+                ctx.beginPath();
+                ctx.arc(px, py, 4 * scale, 0, Math.PI * 2);
+                ctx.fillStyle = '#1e1b4b';
+                ctx.fill();
+                ctx.strokeStyle = '#818cf8';
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+            }
+
+            // Nucleolus Core
+            ctx.beginPath();
+            ctx.arc(-radius * 0.2, -radius * 0.2, radius * 0.35, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(79, 70, 229, 0.4)';
+            ctx.fill();
+
+            if (state.labelsVisible && scale > 0.8) {
+                drawLabel(radius + 10, 0, "Nuclear Membrane", "#6366f1");
+                drawLabel(-radius * 0.2, -radius * 0.2, "Nucleolus", "#818cf8");
+            }
+
+            ctx.restore();
+        }
+
+        // LAYER 2: CHROMOSOME & CHROMATIN FIBER
+        function drawChromosomeLayer(scale, opacity) {
+            if (opacity <= 0) return;
+            ctx.save();
+            ctx.globalAlpha = opacity;
+
+            const s = scale * 0.15;
+
+            if (state.condensedChromosome) {
+                // Condensed Metaphase Chromosome ("X" Shape)
+                ctx.strokeStyle = '#8b5cf6';
+                ctx.lineWidth = 28 * s;
+                ctx.lineCap = 'round';
+
+                // Chromatid 1
+                ctx.beginPath();
+                ctx.moveTo(-60 * s, -140 * s);
+                ctx.bezierCurveTo(-10 * s, -50 * s, -10 * s, 50 * s, -60 * s, 140 * s);
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.moveTo(60 * s, -140 * s);
+                ctx.bezierCurveTo(10 * s, -50 * s, 10 * s, 50 * s, 60 * s, 140 * s);
+                ctx.stroke();
+
+                // Centromere connection
+                ctx.beginPath();
+                ctx.arc(0, 0, 18 * s, 0, Math.PI * 2);
+                ctx.fillStyle = '#c084fc';
+                ctx.fill();
+
+                if (state.labelsVisible) {
+                    drawLabel(80 * s, -100 * s, "Sister Chromatids", "#8b5cf6");
+                    drawLabel(0, 25 * s, "Centromere", "#c084fc");
+                }
+            } else {
+                // Interphase Diffuse Chromatin Network
+                ctx.beginPath();
+                ctx.strokeStyle = '#a855f7';
+                ctx.lineWidth = Math.max(1.5, 3 * s);
+
+                for (let i = 0; i < 5; i++) {
+                    ctx.moveTo(-150 * s + i * 40 * s, -100 * s);
+                    ctx.bezierCurveTo(
+                        100 * s, -50 * s + Math.sin(state.time + i) * 30 * s,
+                        -100 * s, 50 * s + Math.cos(state.time + i) * 30 * s,
+                        150 * s - i * 40 * s, 100 * s
+                    );
+                }
+                ctx.stroke();
+
+                if (state.labelsVisible) {
+                    drawLabel(0, -60 * s, "Uncoiled Chromatin Network", "#a855f7");
+                }
+            }
+
+            ctx.restore();
+        }
+
+        // LAYER 2.5: HISTONE OCTAMERS & NUCLEOSOMES
+        function drawNucleosomeLayer(scale, opacity) {
+            if (opacity <= 0) return;
+            ctx.save();
+            ctx.globalAlpha = opacity;
+
+            const s = scale * 0.035;
+
+            // Draw "Beads-on-a-string" nucleosome line
+            const beadSpacing = 90 * s;
+            const count = 7;
+
+            for (let i = -3; i <= 3; i++) {
+                const bx = i * beadSpacing;
+                const by = Math.sin(i * 0.8 + state.time * 0.5) * (30 * s);
+
+                // Histone Core (Amber Sphere)
+                ctx.beginPath();
+                ctx.arc(bx, by, 24 * s, 0, Math.PI * 2);
+                ctx.fillStyle = '#f59e0b';
+                ctx.fill();
+                ctx.strokeStyle = '#d97706';
+                ctx.lineWidth = 3 * s;
+                ctx.stroke();
+
+                // Histone protein subunit divisions
+                ctx.beginPath();
+                ctx.moveTo(bx - 18 * s, by);
+                ctx.lineTo(bx + 18 * s, by);
+                ctx.moveTo(bx, by - 18 * s);
+                ctx.lineTo(bx, by + 18 * s);
+                ctx.strokeStyle = 'rgba(0,0,0,0.25)';
+                ctx.lineWidth = 1.5 * s;
+                ctx.stroke();
+
+                // DNA Strand Wrapping Around Histone (2 Loops)
+                ctx.beginPath();
+                ctx.arc(bx, by, 29 * s, 0, Math.PI * 2.5);
+                ctx.strokeStyle = '#06b6d4';
+                ctx.lineWidth = 5 * s;
+                ctx.stroke();
+            }
+
+            if (state.labelsVisible) {
+                drawLabel(0, -50 * s, "Histone Octamer Core (8 Proteins)", "#f59e0b");
+                drawLabel(beadSpacing, 50 * s, "Linker DNA Strand", "#06b6d4");
+            }
+
+            ctx.restore();
+        }
+
+        // LAYER 3 & 4: DNA DOUBLE HELIX & GENE LOCUS
+        function drawDnaHelixLayer(scale, opacity) {
+            if (opacity <= 0) return;
+            ctx.save();
+            ctx.globalAlpha = opacity;
+
+            const s = scale * 0.008;
+
+            const points = 40;
+            const spacing = 18 * s;
+            const startX = -(points * spacing) / 2;
+            const amplitude = 55 * s;
+
+            // Gene Region Span (Indices 12 to 28)
+            const geneStartIdx = 12;
+            const geneEndIdx = 28;
+
+            // Highlight Gene Region Backdrop Bracket
+            const geneX1 = startX + geneStartIdx * spacing;
+            const geneX2 = startX + geneEndIdx * spacing;
+
+            ctx.fillStyle = 'rgba(236, 72, 153, 0.12)';
+            ctx.fillRect(geneX1, -amplitude - 35 * s, geneX2 - geneX1, (amplitude * 2) + 70 * s);
+            ctx.strokeStyle = '#ec4899';
+            ctx.lineWidth = 2 * s;
+            ctx.strokeRect(geneX1, -amplitude - 35 * s, geneX2 - geneX1, (amplitude * 2) + 70 * s);
+
+            if (state.labelsVisible) {
+                drawLabel((geneX1 + geneX2) / 2, -amplitude - 50 * s, "GENE LOCUS (Continuous Functional Stretch)", "#ec4899");
+            }
+
+            // Draw Nitrogenous Base Rungs
+            const bases = ['A', 'T', 'G', 'C'];
+            const baseColors = { 'A': '#ef4444', 'T': '#3b82f6', 'G': '#10b981', 'C': '#f59e0b' };
+            const complement = { 'A': 'T', 'T': 'A', 'G': 'C', 'C': 'G' };
+
+            for (let i = 0; i < points; i++) {
+                const x = startX + i * spacing;
+                const phase = i * 0.35 + state.time * 0.8;
+                const y1 = Math.sin(phase) * amplitude;
+                const y2 = -Math.sin(phase) * amplitude;
+
+                const baseChar = bases[i % 4];
+                const compChar = complement[baseChar];
+
+                // Base Pair Connecting Rung
+                ctx.beginPath();
+                ctx.moveTo(x, y1);
+                ctx.lineTo(x, y2);
+                ctx.strokeStyle = (i >= geneStartIdx && i <= geneEndIdx) ? '#f472b6' : '#475569';
+                ctx.lineWidth = (i >= geneStartIdx && i <= geneEndIdx) ? 4 * s : 2.5 * s;
+                ctx.stroke();
+
+                // Base Color Spheres / Sequence Letters
+                if (state.showBasePairs && s > 0.4) {
+                    // Strand 1 Base
+                    ctx.beginPath();
+                    ctx.arc(x, y1, 6 * s, 0, Math.PI * 2);
+                    ctx.fillStyle = baseColors[baseChar];
+                    ctx.fill();
+
+                    // Strand 2 Base
+                    ctx.beginPath();
+                    ctx.arc(x, y2, 6 * s, 0, Math.PI * 2);
+                    ctx.fillStyle = baseColors[compChar];
+                    ctx.fill();
+
+                    if (s > 0.8) {
+                        ctx.font = `bold ${Math.round(8 * s)}px JetBrains Mono`;
+                        ctx.fillStyle = '#ffffff';
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText(baseChar, x, y1);
+                        ctx.fillText(compChar, x, y2);
+                    }
+                }
+            }
+
+            // Backbone Strand 1 (5' to 3')
+            ctx.beginPath();
+            for (let i = 0; i < points; i++) {
+                const x = startX + i * spacing;
+                const y = Math.sin(i * 0.35 + state.time * 0.8) * amplitude;
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.strokeStyle = '#06b6d4';
+            ctx.lineWidth = 6 * s;
+            ctx.stroke();
+
+            // Backbone Strand 2 (3' to 5' Antiparallel)
+            ctx.beginPath();
+            for (let i = 0; i < points; i++) {
+                const x = startX + i * spacing;
+                const y = -Math.sin(i * 0.35 + state.time * 0.8) * amplitude;
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.strokeStyle = '#38bdf8';
+            ctx.lineWidth = 6 * s;
+            ctx.stroke();
+
+            if (state.labelsVisible) {
+                drawLabel(startX, amplitude + 25 * s, "5' End Sugar-Phosphate Backbone", "#06b6d4");
+                drawLabel(startX, -amplitude - 25 * s, "3' Antiparallel Strand", "#38bdf8");
+            }
+
+            ctx.restore();
+        }
+
+        // Helper Organelle Blob
+        function drawOrganelle(x, y, size, color) {
+            ctx.beginPath();
+            ctx.ellipse(x, y, size, size * 0.5, 0.4, 0, Math.PI * 2);
+            ctx.fillStyle = color;
+            ctx.globalAlpha = 0.3;
+            ctx.fill();
+            ctx.globalAlpha = 1.0;
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+
+        // Floating Text Label Helper
+        function drawLabel(x, y, text, color) {
+            ctx.save();
+            ctx.font = '600 11px Inter';
+            const textWidth = ctx.measureText(text).width;
+
+            // Background Badge
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.roundRect(x - textWidth / 2 - 6, y - 10, textWidth + 12, 20, 6);
+            ctx.fill();
+            ctx.stroke();
+
+            // Text
+            ctx.fillStyle = '#f8fafc';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, x, y);
+            ctx.restore();
+        }
+
+        // Update HUD Floating Panels Info
+        function updateHUDOverlay() {
+            const z = state.zoomLevel;
+
+            // Calculate active level index
+            let activeIdx = 0;
+            if (z >= 3.5) activeIdx = 5;
+            else if (z >= 2.7) activeIdx = 4;
+            else if (z >= 2.1) activeIdx = 3;
+            else if (z >= 1.2) activeIdx = 2;
+            else if (z >= 0.2) activeIdx = 1;
+
+            const info = SCALE_LEVELS[activeIdx];
+
+            document.getElementById('info-title').innerText = info.title;
+            document.getElementById('info-badge-dot').style.backgroundColor = info.color;
+            document.getElementById('info-scale-tag').innerText = info.dim;
+            document.getElementById('info-description').innerText = info.desc;
+            document.getElementById('info-fact').innerText = info.fact;
+
+            document.getElementById('biological-stage').innerText = info.name + " LEVEL";
+            document.getElementById('biological-stage').style.color = info.color;
+            document.getElementById('scale-dimension').innerText = info.dim;
+            document.getElementById('scale-dimension').style.color = info.color;
+            document.getElementById('mag-value').innerText = Math.round(Math.pow(10, z * 1.5)) + "x";
+
+            // Scale Bar Fill Percentage
+            document.getElementById('scale-bar-fill').style.width = Math.min(100, Math.max(5, (z / 4) * 100)) + '%';
+
+            // Update Breadcrumbs
+            document.querySelectorAll('.bc-btn').forEach((btn, idx) => {
+                const btnLvl = parseFloat(btn.id.replace('bc-', ''));
+                if (Math.abs(z - btnLvl) < 0.35) {
+                    btn.className = "bc-btn px-2.5 py-1 rounded-lg transition-all flex items-center gap-1.5 bg-slate-800 text-teal-300 font-bold border border-teal-500/30";
+                } else {
+                    btn.className = "bc-btn px-2.5 py-1 rounded-lg transition-all flex items-center gap-1.5 hover:bg-slate-800 text-slate-400";
+                }
+            });
+
+            // Update Left Hierarchy Tree Node Highlighting
+            document.querySelectorAll('.tree-node').forEach((node) => {
+                const nodeLvl = parseFloat(node.id.replace('tree-', ''));
+                if (Math.abs(z - nodeLvl) < 0.35) {
+                    node.className = "tree-node flex items-center justify-between p-1.5 rounded-lg border border-teal-500/40 bg-teal-500/10 text-teal-300 font-bold transition cursor-pointer";
+                } else {
+                    node.className = "tree-node flex items-center justify-between p-1.5 rounded-lg border border-transparent transition cursor-pointer hover:bg-slate-800/60 text-slate-400";
+                }
+            });
+        }
+
+        const correctHierarchy = [
+            { id: 'cell', name: 'Eukaryotic Cell', scale: '10–30 µm' },
+            { id: 'nucleus', name: 'Cell Nucleus', scale: '5–10 µm' },
+            { id: 'chromosome', name: 'Chromosome', scale: '1.4 µm' },
+            { id: 'nucleosome', name: 'Nucleosome / Histone', scale: '11 nm' },
+            { id: 'dna', name: 'DNA Double Helix', scale: '2 nm' },
+            { id: 'gene', name: 'Gene (Continuous Locus)', scale: '0.34 nm' }
+        ];
+
+        let currentDragOrder = [];
+
+        function setupDragAndDrop() {
+            resetDragOrder();
+        }
+
+        function resetDragOrder() {
+            // Shuffle order for initial state
+            currentDragOrder = [...correctHierarchy].sort(() => Math.random() - 0.5);
+            renderDragList();
+            document.getElementById('build-feedback').classList.add('hidden');
+        }
+
+        function renderDragList() {
+            const container = document.getElementById('drag-container');
+            container.innerHTML = '';
+
+            currentDragOrder.forEach((item, index) => {
+                const el = document.createElement('div');
+                el.className = "draggable-item p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between cursor-grab active:cursor-grabbing hover:border-slate-700 transition";
+                el.draggable = true;
+                el.dataset.index = index;
+
+                el.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-solid fa-grip-vertical text-slate-600"></i>
+                        <span class="font-bold text-xs text-slate-200">${item.name}</span>
+                    </div>
+                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400">${item.scale}</span>
+                `;
+
+                // Drag Event Listeners
+                el.addEventListener('dragstart', handleDragStart);
+                el.addEventListener('dragover', handleDragOver);
+                el.addEventListener('drop', handleDrop);
+                el.addEventListener('dragend', handleDragEnd);
+
+                container.appendChild(el);
+            });
+        }
+
+        let dragSrcIndex = null;
+
+        function handleDragStart(e) {
+            dragSrcIndex = parseInt(this.dataset.index);
+            this.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            const targetIndex = parseInt(this.dataset.index);
+            if (dragSrcIndex !== null && dragSrcIndex !== targetIndex) {
+                // Swap items
+                const item = currentDragOrder.splice(dragSrcIndex, 1)[0];
+                currentDragOrder.splice(targetIndex, 0, item);
+                renderDragList();
+            }
+        }
+
+        function handleDragEnd() {
+            this.classList.remove('dragging');
+        }
+
+        function verifyDragOrder() {
+            const isCorrect = currentDragOrder.every((item, idx) => item.id === correctHierarchy[idx].id);
+            const fb = document.getElementById('build-feedback');
+            fb.classList.remove('hidden');
+
+            if (isCorrect) {
+                fb.className = "p-3 rounded-lg bg-teal-500/20 border border-teal-500/40 text-teal-300 text-xs font-bold text-center";
+                fb.innerHTML = `<i class="fa-solid fa-circle-check text-base mb-1 block"></i> Perfect! You correctly ordered the biological hierarchy from Cell down to Gene!`;
+                playTone(800, 'sine', 0.3);
+            } else {
+                fb.className = "p-3 rounded-lg bg-rose-500/20 border border-rose-500/40 text-rose-300 text-xs font-medium text-center";
+                fb.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-base mb-1 block"></i> Order is incorrect. Remember: Genes are stretches on DNA, which coils around Histones into Chromosomes inside the Nucleus of a Cell.`;
+                playTone(300, 'triangle', 0.3);
+            }
+        }
+
+        const quizQuestions = [
+            {
+                q: "Where is hereditary information physically located?",
+                opts: [
+                    "Only floating in the cytoplasm",
+                    "Stored as DNA sequences in chromosomes inside the cell nucleus",
+                    "In separate floating protein balls called genes",
+                    "Outside the cell membrane"
+                ],
+                correct: 1,
+                explain: "DNA is packaged into chromosomes housed safely inside the cell nucleus."
+            },
+            {
+                q: "What is a 'Gene' in physical terms?",
+                opts: [
+                    "A separate organelle inside the cytoplasm",
+                    "A continuous specific sequence region on the DNA double helix strand",
+                    "A histone protein ball",
+                    "The membrane surrounding the nucleus"
+                ],
+                correct: 1,
+                explain: "MISCONCEPTION CHECK: A gene is NOT a separate bead—it is a continuous functional sequence on the DNA strand!"
+            },
+            {
+                q: "What is the role of Histone proteins in the nucleus?",
+                opts: [
+                    "They digest cellular waste",
+                    "They act as spools around which DNA coils to form nucleosomes and fit inside the nucleus",
+                    "They produce ATP energy",
+                    "They form the outer cell membrane"
+                ],
+                correct: 1,
+                explain: "Histones serve as spool cores around which long DNA strands wrap tightly to fit within the microscopic nucleus."
+            }
+        ];
+
+        let currentQuizIdx = 0;
+        let selectedQuizOpt = null;
+
+        function renderQuizQuestion() {
+            const q = quizQuestions[currentQuizIdx];
+            const container = document.getElementById('quiz-content');
+            
+            container.innerHTML = `
+                <div class="space-y-3">
+                    <h4 class="font-bold text-sm text-slate-100">${currentQuizIdx + 1}. ${q.q}</h4>
+                    <div class="space-y-2">
+                        ${q.opts.map((opt, i) => `
+                            <label class="flex items-center space-x-3 p-3 rounded-xl bg-slate-900 border border-slate-800 cursor-pointer hover:border-slate-700 transition">
+                                <input type="radio" name="quiz-opt" value="${i}" onchange="selectedQuizOpt=${i}" class="text-teal-500 focus:ring-teal-500">
+                                <span class="text-xs text-slate-200 font-medium">${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            document.getElementById('quiz-progress').innerText = `Question ${currentQuizIdx + 1} of ${quizQuestions.length}`;
+            selectedQuizOpt = null;
+        }
+
+        function submitQuizAnswer() {
+            if (selectedQuizOpt === null) {
+                alert("Please select an answer choice!");
+                return;
+            }
+
+            const q = quizQuestions[currentQuizIdx];
+            if (selectedQuizOpt === q.correct) {
+                playTone(750, 'sine', 0.2);
+                alert("Correct! " + q.explain);
+            } else {
+                playTone(320, 'triangle', 0.25);
+                alert("Incorrect. " + q.explain);
+            }
+
+            currentQuizIdx++;
+            if (currentQuizIdx < quizQuestions.length) {
+                renderQuizQuestion();
+            } else {
+                alert("Quiz Completed! You've mastered the Hereditary Information Hierarchy!");
+                closeModal('quiz-modal');
+                currentQuizIdx = 0;
+            }
+        }
+
+        // Modal Controls
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+            if (id === 'quiz-modal') renderQuizQuestion();
+            playTone(500, 'sine', 0.1);
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+            playTone(400, 'sine', 0.08);
+        }
+    </script>
+</body>
+</html>
