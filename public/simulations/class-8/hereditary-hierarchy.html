@@ -189,7 +189,7 @@
 
         <!-- System Action Controls -->
         <div class="flex items-center space-x-2">
-            <button id="sound-btn" onclick="toggleAudio()" class="p-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 transition border border-slate-700/50" title="Sound Effects Toggle">
+            <button id="sound-btn" onclick="toggleAudio()" class="p-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 transition border border-slate-700/50" title="শব্দ চালু/বন্ধ">
                 <i id="sound-icon" class="fa-solid fa-volume-high text-xs"></i>
             </button>
             <button id="label-btn" onclick="toggleLabels()" class="px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-teal-500/20 text-teal-300 border border-teal-500/30 hover:bg-teal-500/30 transition flex items-center gap-1.5">
@@ -211,7 +211,7 @@
                 <i class="fa-solid fa-route"></i> Guided Journey
             </button>
             <button onclick="setAppMode('FIND_IT')" id="mode-FIND_IT" class="mode-btn px-3 py-1 rounded-lg font-medium text-slate-300 hover:bg-slate-800 transition flex items-center gap-1.5">
-                <i class="fa-solid fa-crosshairs"></i> "Find It" Challenge
+                <i class="fa-solid fa-crosshairs"></i> "খুঁজে বের করো" Challenge
             </button>
         </div>
 
@@ -264,17 +264,17 @@
 
         <!-- FLOATING OVERLAY 2: ZOOM CচালুTROLS TOOLBAR (BOTTOM RIGHT) -->
         <div class="absolute bottom-4 right-4 glass-panel p-2 rounded-xl border border-slate-800 flex items-center space-x-2 z-10 shadow-2xl">
-            <button onclick="adjustZoom(-0.25)" class="p-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 transition" title="Zoom Out">
+            <button onclick="adjustZoom(-0.25)" class="p-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 transition" title="জুম আউট">
                 <i class="fa-solid fa-minus text-xs"></i>
             </button>
 
             <!-- Direct Zoom Slider -->
             <input type="range" id="zoom-slider" min="0" max="4" step="0.005" value="0" oninput="onSliderZoom(this.value)" class="w-32 sm:w-44 accent-teal-500 h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer">
 
-            <button onclick="adjustZoom(0.25)" class="p-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 transition" title="Zoom In">
+            <button onclick="adjustZoom(0.25)" class="p-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 transition" title="জুম ইন">
                 <i class="fa-solid fa-plus text-xs"></i>
             </button>
-            <button onclick="resetView()" class="p-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 transition border-l border-slate-700" title="Reset View">
+            <button onclick="resetView()" class="p-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 transition border-l border-slate-700" title="দৃশ্য রিসেট">
                 <i class="fa-solid fa-rotate-left text-xs"></i>
             </button>
         </div>
@@ -498,11 +498,11 @@
             {
                 level: 0,
                 name: 'CELL',
-                title: 'Eukaryotic Animal কোষ',
+                title: 'ইউক্যারিওটিক প্রাণীকোষ',
                 dim: '10–30 µm',
                 color: '#0d9488',
-                desc: 'The fundamental unit of eukaryotic organisms. Enclosed by a lipid bilayer plasma membrane containing cytoplasm, organelles, and a defined nucleus.',
-                fact: 'DNA is sequestered inside the nucleus to prevent enzymatic degradation and chemical stress.'
+                desc: 'ইউক্যারিওটিক জীবের মৌলিক একক। এটি লিপিড দ্বিস্তর প্লাজমা ঝিল্লি দ্বারা আবৃত; ভেতরে সাইটোপ্লাজম, অঙ্গাণু ও সুস্পষ্ট নিউক্লিয়াস থাকে।',
+                fact: 'DNA নিউক্লিয়াসের ভেতরে সুরক্ষিত থাকে, ফলে এনজাইমজনিত ক্ষয় ও রাসায়নিক চাপ থেকে রক্ষা পায়।'
             },
             {
                 level: 1,
@@ -510,26 +510,26 @@
                 title: 'কোষ নিউক্লিয়াস',
                 dim: '5–10 µm',
                 color: '#6366f1',
-                desc: 'A double-membraned organelle containing nuclear pores. Houses the organism genome as diffuse chromatin threads.',
-                fact: 'Nuclear pores act as gatekeepers, regulating passage of RNA and proteins while protecting genomic DNA.'
+                desc: 'এটি দ্বিস্তর ঝিল্লিবেষ্টিত অঙ্গাণু, যাতে নিউক্লিয়ার পোর থাকে। এখানে জীবের জিনোম ক্রোমাটিন তন্তু হিসেবে অবস্থান করে।',
+                fact: 'নিউক্লিয়ার পোর RNA ও প্রোটিনের যাতায়াত নিয়ন্ত্রণ করে এবং জিনগত DNA সুরক্ষিত রাখে।'
             },
             {
                 level: 2,
                 name: 'CHROMOSOME',
-                title: 'ক্রোমোজোম / Chromatin Structure',
+                title: 'ক্রোমোজোম / ক্রোমাটিন গঠন',
                 dim: '1.4 µm (ঘনীভূত)',
                 color: '#8b5cf6',
-                desc: 'A highly organized package of DNA and histone proteins. Normally exists as loose chromatin, condensing into discrete "X" shapes during cell division.',
-                fact: 'Humans have 23 pairs of homologous chromosomes (46 total) carrying maternal and paternal traits.'
+                desc: 'DNA ও হিস্টোন প্রোটিনের সুসংগঠিত প্যাকেজ। সাধারণ অবস্থায় ঢিলা ক্রোমাটিন হিসেবে থাকে এবং কোষ বিভাজনের সময় ঘনীভূত হয়ে X-আকৃতি ধারণ করতে পারে।',
+                fact: 'মানুষের ২৩ জোড়া সমসংস্থ ক্রোমোজোম (মোট ৪৬টি) থাকে।'
             },
             {
                 level: 2.5,
                 name: 'NUCLEOSOME',
-                title: 'Nucleosome & Histones',
+                title: 'নিউক্লিওসোম ও হিস্টোন',
                 dim: '11 nm',
                 color: '#f59e0b',
-                desc: 'The fundamental unit of DNA packaging ("beads on a string"). DNA wraps twice around an octamer core of 8 histone proteins.',
-                fact: 'Histone tails can be modified chemically (epigenetics) to loosen or tighten DNA, turning genes চালু or OFF.'
+                desc: 'The fundamental unit of DNA packaging ("সুতায় গাঁথা দানার মতো"). DNA wraps twice around an octamer core of 8 histone proteins.',
+                fact: 'হিস্টোনের অংশে রাসায়নিক পরিবর্তন DNA-কে ঢিলা বা শক্তভাবে প্যাক করতে পারে এবং জিনের সক্রিয়তা প্রভাবিত করতে পারে।'
             },
             {
                 level: 3,
@@ -537,17 +537,17 @@
                 title: 'DNA ডাবল হেলিক্স',
                 dim: '2 nm',
                 color: '#06b6d4',
-                desc: 'Two antiparallel polynucleotide strands spiraling around a central axis with a sugar-phosphate backbone and complementary nitrogenous base pairs.',
-                fact: 'Base pairing rules are strict: Adenine always pairs with Thymine (A-T), Guanine with Cytosine (G-C).'
+                desc: 'দুইটি বিপরীতমুখী পলিনিউক্লিওটাইড সূত্র কেন্দ্রীয় অক্ষকে ঘিরে পাক খায়; সুগার-ফসফেট মূলসূত্রের মধ্যে পরিপূরক নাইট্রোজেন বেস জোড়া থাকে।',
+                fact: 'বেস জোড়ার নিয়ম: অ্যাডেনিন থাইমিনের সঙ্গে (A-T) এবং গুয়ানিন সাইটোসিনের সঙ্গে (G-C) জোড়া বাঁধে।'
             },
             {
                 level: 4,
                 name: 'GENE',
-                title: 'জিন লোকাস (Functional Stretch)',
-                dim: '0.34 nm per base pair',
+                title: 'জিন লোকাস (কার্যকর অনুক্রম)',
+                dim: 'প্রতি বেস জোড়ায় ০.৩৪ nm',
                 color: '#ec4899',
-                desc: 'A specific continuous sequence region along the DNA molecule that encodes instructions for synthesizing a functional protein or RNA product.',
-                fact: 'MISCচালুCEPTIচালু CLEAR: A gene is NOT a separate bead or floating ball—it is a continuous nucleotide sequence on the DNA strand!'
+                desc: 'DNA অণুর একটি নির্দিষ্ট ধারাবাহিক অনুক্রম অঞ্চল, যা কার্যকর প্রোটিন বা RNA তৈরির নির্দেশ বহন করে।',
+                fact: 'ভুল ধারণা পরিষ্কার করো: জিন আলাদা কোনো দানা বা ভাসমান বল নয়—এটি DNA সূত্রের ধারাবাহিক নিউক্লিওটাইড অনুক্রম।'
             }
         ];
 
@@ -555,43 +555,43 @@
         const GUIDED_STEPS = [
             {
                 level: 0,
-                title: "1. The ইউক্যারিওটিক কোষ",
-                text: "Start at the macroscopic cellular level (~10µm). Notice the membrane enclosing the cell. Locate the central sphere: the নিউক্লিয়াস."
+                title: "১. ইউক্যারিওটিক কোষ",
+                text: "কোষের বড় স্তর (~১০ µm) থেকে শুরু করো। কোষকে ঘিরে থাকা ঝিল্লি লক্ষ্য করো। মাঝের গোলাকার অংশটি হলো নিউক্লিয়াস।"
             },
             {
                 level: 1,
-                title: "2. Into the নিউক্লিয়াস",
-                text: "Zooming through nuclear pores into the nucleus. Here, DNA is stored safely away from the cytoplasm."
+                title: "২. নিউক্লিয়াসের ভেতরে",
+                text: "নিউক্লিয়ার পোর দিয়ে নিউক্লিয়াসের ভেতরে জুম করো। এখানে DNA সাইটোপ্লাজম থেকে আলাদা ও সুরক্ষিতভাবে থাকে।"
             },
             {
                 level: 2,
-                title: "3. ক্রোমোজোমs & Chromatin",
-                text: "Inside the nucleus, DNA wraps into chromatin fibers. During division, these condense into distinct ক্রোমোজোমs."
+                title: "৩. ক্রোমোজোম ও ক্রোমাটিন",
+                text: "নিউক্লিয়াসের ভেতরে DNA ক্রোমাটিন তন্তু গঠন করে। কোষ বিভাজনের সময় এগুলো ঘনীভূত হয়ে স্পষ্ট ক্রোমোজোম তৈরি করে।"
             },
             {
                 level: 2.5,
-                title: "4. Histones & Nucleosomes",
-                text: "Unraveling the fiber reveals 'beads-on-a-string': DNA coiled tightly twice around histone protein octamers."
+                title: "৪. হিস্টোন ও নিউক্লিওসোম",
+                text: "ক্রোমাটিন তন্তু খুললে সুতায় গাঁথা দানার মতো গঠন দেখা যায়: DNA হিস্টোন প্রোটিন অক্টামারের চারপাশে পেঁচানো থাকে।"
             },
             {
                 level: 3,
-                title: "5. The DNA ডাবল হেলিক্স",
-                text: "Uncoiling completely reveals the antiparallel double helix: sugar-phosphate backbone with paired A-T and G-C bases."
+                title: "৫. DNA ডাবল হেলিক্স",
+                text: "পুরোপুরি খুললে বিপরীতমুখী DNA ডাবল হেলিক্স দেখা যায়, যেখানে সুগার-ফসফেট মূলসূত্রের মধ্যে A-T ও G-C বেস জোড়া থাকে।"
             },
             {
                 level: 4,
-                title: "6. The জিন লোকাস",
-                text: "A জিন is a CচালুTINUOUS functional stretch on this DNA backbone encoding a specific protein product!"
+                title: "৬. জিন লোকাস",
+                text: "জিন হলো DNA-এর একটি ধারাবাহিক কার্যকর অনুক্রম, যা নির্দিষ্ট প্রোটিন বা RNA তৈরির নির্দেশ বহন করে।"
             }
         ];
 
         // Find-It Challenge Targets
         const FIND_IT_TARGETS = [
-            { name: "কোষ নিউক্লিয়াস", level: 1, hint: "Look for the large indigo double-membrane sphere inside the cell." },
-            { name: "ঘনীভূত ক্রোমোজোম", level: 2, hint: "Zoom deeper into the nucleus to spot the purple X-shaped structure." },
-            { name: "Histone Octamer Core", level: 2.5, hint: "Unpack the chromatin fiber to find amber protein beads wrapped by DNA." },
-            { name: "DNA ডাবল হেলিক্স", level: 3, hint: "Zoom in to see the cyan spiraling double backbone strand." },
-            { name: "জিন Stretch", level: 4, hint: "Find the highlighted pink continuous sequence region on the DNA backbone." }
+            { name: "কোষ নিউক্লিয়াস", level: 1, hint: "কোষের ভেতরের বড় দ্বিস্তর ঝিল্লিবেষ্টিত গোলাকার নিউক্লিয়াসটি খুঁজে বের করো।" },
+            { name: "ঘনীভূত ক্রোমোজোম", level: 2, hint: "নিউক্লিয়াসের আরও ভেতরে জুম করে X-আকৃতির ক্রোমোজোম খুঁজে বের করো।" },
+            { name: "হিস্টোন অক্টামার কেন্দ্র", level: 2.5, hint: "ক্রোমাটিন তন্তু খুলে DNA-তে মোড়ানো হিস্টোন প্রোটিনের দানাগুলো খুঁজে দেখো।" },
+            { name: "DNA ডাবল হেলিক্স", level: 3, hint: "জুম করে পাকানো দ্বৈত DNA মূলসূত্র দেখো।" },
+            { name: "জিনের অংশ", level: 4, hint: "DNA-এর ওপর গোলাপি রঙে দেখানো ধারাবাহিক অনুক্রম অঞ্চলটি খুঁজে বের করো।" }
         ];
 
         // Canvas Setup & Resize Listener
@@ -899,7 +899,7 @@
             }
 
             if (state.labelsVisible && scale > 0.5) {
-                drawLabel(0, -radius - 15, "কোষ Membrane", "#0d9488");
+                drawLabel(0, -radius - 15, "কোষঝিল্লি", "#0d9488");
                 drawLabel(-radius * 0.5, -radius * 0.4 - 20, "Mitochondrion", "#f59e0b");
             }
 
@@ -945,7 +945,7 @@
             ctx.fill();
 
             if (state.labelsVisible && scale > 0.8) {
-                drawLabel(radius + 10, 0, "Nuclear Membrane", "#6366f1");
+                drawLabel(radius + 10, 0, "নিউক্লিয়ার ঝিল্লি", "#6366f1");
                 drawLabel(-radius * 0.2, -radius * 0.2, "Nucleolus", "#818cf8");
             }
 
@@ -984,7 +984,7 @@
                 ctx.fill();
 
                 if (state.labelsVisible) {
-                    drawLabel(80 * s, -100 * s, "Sister Chromatids", "#8b5cf6");
+                    drawLabel(80 * s, -100 * s, "সিস্টার ক্রোমাটিড", "#8b5cf6");
                     drawLabel(0, 25 * s, "Centromere", "#c084fc");
                 }
             } else {
@@ -1004,7 +1004,7 @@
                 ctx.stroke();
 
                 if (state.labelsVisible) {
-                    drawLabel(0, -60 * s, "Uncoiled Chromatin Network", "#a855f7");
+                    drawLabel(0, -60 * s, "খোলা ক্রোমাটিন জাল", "#a855f7");
                 }
             }
 
@@ -1055,8 +1055,8 @@
             }
 
             if (state.labelsVisible) {
-                drawLabel(0, -50 * s, "Histone Octamer Core (8 Proteins)", "#f59e0b");
-                drawLabel(beadSpacing, 50 * s, "Linker DNA Strand", "#06b6d4");
+                drawLabel(0, -50 * s, "হিস্টোন অক্টামার কেন্দ্র (8 Proteins)", "#f59e0b");
+                drawLabel(beadSpacing, 50 * s, "লিঙ্কার DNA সূত্র", "#06b6d4");
             }
 
             ctx.restore();
@@ -1090,7 +1090,7 @@
             ctx.strokeRect(geneX1, -amplitude - 35 * s, geneX2 - geneX1, (amplitude * 2) + 70 * s);
 
             if (state.labelsVisible) {
-                drawLabel((geneX1 + geneX2) / 2, -amplitude - 50 * s, "GENE LOCUS (Continuous Functional Stretch)", "#ec4899");
+                drawLabel((geneX1 + geneX2) / 2, -amplitude - 50 * s, "জিন লোকাস (ধারাবাহিক কার্যকর অনুক্রম)", "#ec4899");
             }
 
             // Draw Nitrogenous Base Rungs
@@ -1165,8 +1165,8 @@
             ctx.stroke();
 
             if (state.labelsVisible) {
-                drawLabel(startX, amplitude + 25 * s, "5' End Sugar-Phosphate Backbone", "#06b6d4");
-                drawLabel(startX, -amplitude - 25 * s, "3' Antiparallel Strand", "#38bdf8");
+                drawLabel(startX, amplitude + 25 * s, "5' প্রান্তের সুগার-ফসফেট মূলসূত্র", "#06b6d4");
+                drawLabel(startX, -amplitude - 25 * s, "3' বিপরীতমুখী সূত্র", "#38bdf8");
             }
 
             ctx.restore();
@@ -1264,7 +1264,7 @@
             { id: 'chromosome', name: 'ক্রোমোজোম', scale: '1.4 µm' },
             { id: 'nucleosome', name: 'নিউক্লিওসোম / হিস্টোন', scale: '11 nm' },
             { id: 'dna', name: 'DNA ডাবল হেলিক্স', scale: '2 nm' },
-            { id: 'gene', name: 'জিন (Continuous Locus)', scale: '0.34 nm' }
+            { id: 'gene', name: 'জিন (ধারাবাহিক লোকাস)', scale: '0.34 nm' }
         ];
 
         let currentDragOrder = [];
@@ -1365,7 +1365,7 @@
                 explain: "DNA ক্রোমোজোমে সংগঠিত হয়ে কোষের নিউক্লিয়াসে থাকে।"
             },
             {
-                q: "What is a 'জিন' in physical terms?",
+                q: "ভৌতভাবে ‘জিন’ কী?",
                 opts: [
                     "সাইটোপ্লাজমের ভেতরে আলাদা অঙ্গাণু",
                     "DNA ডাবল হেলিক্সের একটি নির্দিষ্ট ধারাবাহিক অনুক্রম অঞ্চল",
