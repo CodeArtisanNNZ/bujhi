@@ -28,14 +28,14 @@ function teacherClassKey(value:number):StudentClassKey{
 }
 
 const drinkOptions:{id:Drink;label:string;image:string}[]=[
-  {id:"boba",label:"Boba tea",image:"/bobatea.png"},
-  {id:"tea",label:"Tea",image:"/classictea.png"},
-  {id:"coffee",label:"Coffee",image:"/classiccoffee.png"},
-  {id:"water",label:"Water",image:"/glassofwater.png"},
-  {id:"lemonade",label:"Lemonade",image:"/lemonade.png"}
+  {id:"boba",label:"বাবল টি",image:"/bobatea.png"},
+  {id:"tea",label:"চা",image:"/classictea.png"},
+  {id:"coffee",label:"কফি",image:"/classiccoffee.png"},
+  {id:"water",label:"পানি",image:"/glassofwater.png"},
+  {id:"lemonade",label:"লেবুর শরবত",image:"/lemonade.png"}
 ];
 
-export default function TeacherDashboard(){
+export default function চাcherDashboard(){
   const[profile,setProfile]=useState<Profile>({});
   const[selectedClass,setSelectedClass]=useState(8);
   const[selectedBook,setSelectedBook]=useState<NctbBook|null>(null);
@@ -73,7 +73,7 @@ export default function TeacherDashboard(){
     }catch{}
   },[]);
 
-  const teacherName=profile.full_name?.trim().split(" ")[0]||"Teacher";
+  const teacherName=profile.full_name?.trim().split(" ")[0]||"চাcher";
   const activeDrink=drinkOptions.find(item=>item.id===drink)||drinkOptions[2];
   const booksForClass=useMemo(
     ()=>studentBookCatalog[teacherClassKey(selectedClass)],
@@ -107,32 +107,32 @@ export default function TeacherDashboard(){
   }
 
   return <main className={`${styles.page} ${lightOn?"":styles.pageDim}`}>
-    <section className={styles.referenceDesk} aria-label="Bujhi teacher desk">
-      <div className={styles.deskBrand}><a href="/" aria-label="Bujhi home"><img src="/bujhi-icon.png" alt=""/><strong>Bujhi</strong></a><span>Teacher desk</span></div>
+    <section className={styles.referenceDesk} aria-label="বুঝি শিক্ষক ডেস্ক">
+      <div className={styles.deskBrand}><a href="/" aria-label="বুঝি হোম"><img src="/bujhi-icon.png" alt=""/><strong>বুঝি</strong></a><span>চাcher desk</span></div>
 
       <div className={styles.teacherBadge}>
-        <FolderOpen/><span>Your classes</span>
+        <FolderOpen/><span>তোমার শ্রেণিগুলো</span>
       </div>
 
       <div className={styles.dynamicProfile}>
         <span><UsersRound/></span><strong>{teacherName}</strong>
-        <button type="button" onClick={logout} aria-label="Log out"><LogOut/></button>
+        <button type="button" onClick={logout} aria-label="লগ আউট"><LogOut/></button>
       </div>
 
-      <div className={styles.folderShelf} aria-label="Class folders">
+      <div className={styles.folderShelf} aria-label="শ্রেণির ফোল্ডার">
         {classFolders.map(folder=><button
           type="button"
           key={folder.value}
           className={styles.classFolder}
           style={{backgroundColor:folder.accent}}
           onClick={()=>openClass(folder.value)}
-          aria-label={`Open Class ${folder.value} folder`}
+          aria-label={`শ্রেণি ${folder.value}-এর ফোল্ডার খোলো`}
         >
           <span className={styles.folderTab}/>
           <span className={styles.folderPapers}><i/><i/><i/></span>
           <span className={styles.folderHole}/>
-          <strong>Class {folder.value}</strong>
-          <small>{studentBookCatalog[teacherClassKey(folder.value)].length} books · NCTB 2026</small>
+          <strong>শ্রেণি {folder.value}</strong>
+          <small>{studentBookCatalog[teacherClassKey(folder.value)].length}টি বই · NCTB ২০২৬</small>
         </button>)}
       </div>
 
@@ -147,10 +147,10 @@ export default function TeacherDashboard(){
         className={styles.roomLightSwitch}
         onClick={()=>setLightOn(value=>!value)}
         aria-pressed={lightOn}
-        aria-label={lightOn?"Turn lamp off":"Turn lamp on"}
+        aria-label={lightOn?"বাতি বন্ধ করো":"বাতি চালু করো"}
       >
         <span className={styles.roomLightDot}/>
-        <span>{lightOn?"Lamp on":"Lamp off"}</span>
+        <span>{lightOn?"বাতি চালু":"বাতি বন্ধ"}</span>
       </button>
 
       <div className={styles.moneyPlant} aria-hidden="true">
@@ -159,30 +159,30 @@ export default function TeacherDashboard(){
 
       <div className={styles.teacherNotebook}>
         <div className={styles.notebookBinding}/>
-        <p>Teacher lesson desk</p>
-        <h1>{selectedBook?selectedBook.title:"Plan. Teach. Help them understand."}</h1>
+        <p>চাcher lesson desk</p>
+        <h1>{selectedBook?selectedBook.title:"Plan. চাch. Help them understand."}</h1>
         <span>
           {selectedBook
-            ?`Class ${selectedClass} · ${selectedBook.englishTitle} · NCTB 2026`
-            :"Open a class folder to see its NCTB 2026 textbooks."}
+            ?`শ্রেণি ${selectedClass} · ${selectedBook.title} · NCTB ২০২৬`
+            :"NCTB ২০২৬-এর পাঠ্যবই দেখতে শ্রেণির ফোল্ডার খোলো।"}
         </span>
         <button type="button" onClick={()=>openClass(selectedClass)}>
           <FolderOpen size={17}/>
-          {selectedBook?"Open class folder":`Open Class ${selectedClass}`}
+          {selectedBook?"শ্রেণির ফোল্ডার খোলো":`শ্রেণি ${selectedClass} খোলো`}
           <ChevronRight size={16}/>
         </button>
-        <small>Class → NCTB 2026 textbooks → book</small>
+        <small>শ্রেণি → NCTB ২০২৬ পাঠ্যবই → বই</small>
       </div>
 
-      <button type="button" className={styles.stickyHotspot} onClick={()=>setNoteOpen(true)} aria-label="Open note">
-        <strong>Note</strong>
+      <button type="button" className={styles.stickyHotspot} onClick={()=>setNoteOpen(true)} aria-label="নোট খোলো">
+        <strong>নোট</strong>
         {note&&<span>{note}</span>}
       </button>
 
-      <nav className={styles.actionHotspots} aria-label="Teacher tools">
-        <button type="button" onClick={()=>openClass(selectedClass)}><FolderOpen size={18}/>My classes</button>
-        <button type="button" onClick={()=>setFolderOpen(true)}><BookOpen size={18}/>Lessons</button>
-        <button type="button" onClick={()=>setNoteOpen(true)}><NotebookPen size={18}/>My notes</button>
+      <nav className={styles.actionHotspots} aria-label="চাcher tools">
+        <button type="button" onClick={()=>openClass(selectedClass)}><FolderOpen size={18}/>আমার শ্রেণিগুলো</button>
+        <button type="button" onClick={()=>setFolderOpen(true)}><BookOpen size={18}/>পাঠসমূহ</button>
+        <button type="button" onClick={()=>setNoteOpen(true)}><NotebookPen size={18}/>আমার নোট</button>
       </nav>
 
       <aside className={styles.drinkArea}>
@@ -191,10 +191,10 @@ export default function TeacherDashboard(){
             {(drink==="tea"||drink==="coffee")&&<span className={styles.steam}><i/><i/><i/></span>}
             <img className={styles.drinkImage} src={activeDrink.image} alt="" draggable={false}/>
           </span>
-          <span className={styles.drinkLabel}>{activeDrink.label} · Change</span>
+          <span className={styles.drinkLabel}>{activeDrink.label} · বদলাও</span>
         </button>
         {drinkOpen&&<div className={styles.drinkMenu}>
-          <div className={styles.drinkMenuTitle}>Choose a drink</div>
+          <div className={styles.drinkMenuTitle}>পানীয় বেছে নাও</div>
           {drinkOptions.map(item=><button type="button" key={item.id} className={drink===item.id?styles.drinkActive:""} onClick={()=>chooseDrink(item.id)}>
             <span className={styles.drinkThumb}><img src={item.image} alt="" draggable={false}/></span>
             <span>{item.label}</span>
@@ -205,12 +205,12 @@ export default function TeacherDashboard(){
 
     {folderOpen&&<div className={styles.overlay} onMouseDown={event=>{if(event.currentTarget===event.target)setFolderOpen(false)}}>
       <section className={styles.folderPanel}>
-        <button className={styles.closeButton} onClick={()=>setFolderOpen(false)} aria-label="Close"><X/></button>
+        <button className={styles.closeButton} onClick={()=>setFolderOpen(false)} aria-label="বন্ধ করো"><X/></button>
         <header>
           <div className={styles.panelFolderIcon}><FolderOpen/></div>
           <div>
-            <p>Class {selectedClass} · NCTB 2026</p>
-            <h2>{selectedBook?selectedBook.title:`${booksForClass.length} textbooks`}</h2>
+            <p>শ্রেণি {selectedClass} · NCTB ২০২৬</p>
+            <h2>{selectedBook?selectedBook.title:`${booksForClass.length}টি পাঠ্যবই`}</h2>
           </div>
         </header>
 
@@ -219,7 +219,7 @@ export default function TeacherDashboard(){
             key={book.id}
             onClick={()=>setSelectedBook(book)}
             style={{"--accent":book.accent} as React.CSSProperties}
-            aria-label={`Open ${book.title}`}
+            aria-label={`${book.title} খোলো`}
           >
             <span className={styles.subjectTab}/>
             <FileText/>
@@ -230,13 +230,13 @@ export default function TeacherDashboard(){
             <ChevronRight/>
           </button>)}
         </div>:<>
-          <button className={styles.backButton} onClick={()=>setSelectedBook(null)}><ChevronLeft/> Books</button>
+          <button className={styles.backButton} onClick={()=>setSelectedBook(null)}><ChevronLeft/> বই</button>
           <div className={styles.subjectDetail}>
             <div className={styles.detailAccent} style={{background:selectedBook.accent}}/>
             <p>NCTB 2026 · {selectedBook.category}</p>
             <h3>{selectedBook.title}</h3>
             <div className={styles.detailStats}>
-              <span><b>Class {selectedClass}</b></span>
+              <span><b>শ্রেণি {selectedClass}</b></span>
               <span><b>{selectedBook.englishTitle}</b></span>
               <span><b>NCTB 2026</b></span>
             </div>
@@ -287,7 +287,7 @@ export default function TeacherDashboard(){
               ].map(chapter=><div key={chapter.number}><a href={`/science/class-8/chapter-${chapter.number}`}>অধ্যায় {chapter.number} · {chapter.title} →</a></div>)}
               <div><a href="/nctb/2026/class-8/science-chapter-1.pdf" target="_blank" rel="noopener noreferrer">মূল পাঠ্যবইয়ের অধ্যায় ১ খোলো →</a></div>
             </div>}
-            <button className={styles.keepSubject} onClick={()=>setFolderOpen(false)}>Keep this book on my desk</button>
+            <button className={styles.keepSubject} onClick={()=>setFolderOpen(false)}>এই বইটি ডেস্কে রাখো</button>
           </div>
         </>}
       </section>
@@ -295,11 +295,11 @@ export default function TeacherDashboard(){
 
     {noteOpen&&<div className={styles.overlay} onMouseDown={event=>{if(event.currentTarget===event.target)setNoteOpen(false)}}>
       <section className={styles.notePanel}>
-        <button className={styles.closeButton} onClick={()=>setNoteOpen(false)} aria-label="Close"><X/></button>
-        <p>Teacher notes</p>
-        <h2>Something to remember</h2>
-        <textarea value={note} onChange={e=>saveNote(e.target.value)} placeholder="Write a reminder, idea, or classroom note…" maxLength={500}/>
-        <small>{note.length}/500 · saved automatically on this device</small>
+        <button className={styles.closeButton} onClick={()=>setNoteOpen(false)} aria-label="বন্ধ করো"><X/></button>
+        <p>চাcher notes</p>
+        <h2>মনে রাখার মতো কিছু</h2>
+        <textarea value={note} onChange={e=>saveNote(e.target.value)} placeholder="কোনো মনে রাখার কথা, ধারণা বা শ্রেণিকক্ষের নোট লিখুন…" maxLength={500}/>
+        <small>{note.length}/500 · এই ডিভাইসে স্বয়ংক্রিয়ভাবে সংরক্ষিত</small>
       </section>
     </div>}
   </main>;
