@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-100 font-sans antialiased text-slate-800">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heredity / Gene Transfer Simulator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        p1: '#D65C5C',
+                        'p1-light': '#FDF2F2',
+                        'p1-border': '#F8B4B4',
+                        p2: '#3F78C5',
+                        'p2-light': '#EFF6FF',
+                        'p2-border': '#BFDBFE',
+                        dom: '#2563EB',
+                        rec: '#E11D48',
+                        bio: {
+                            50: '#F8FAFC',
+                            100: '#F1F5F9',
+                            200: '#E2E8F0',
+                            700: '#334155',
+                            800: '#1E293B',
+                            900: '#0F172A'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            user-select: none;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94A3B8;
+        }
+
+        /* SVG & Animation Styles */
+        .chromosome-pulse {
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { filter: drop-shadow(0 0 2px rgba(63, 120, 197, 0.3)); }
+            50% { filter: drop-shadow(0 0 8px rgba(63, 120, 197, 0.7)); }
+        }
+
+        .fertilize-anim {
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .dna-base-highlight {
+            transition: all 0.3s ease;
+        }
+        .dna-base-highlight:hover {
+            transform: scale(1.15);
+        }
+    
+        /* ============================================================
+           BUJHI THEME — Chapter 2 Heredity Lab
+           ============================================================ */
+        :root{
+            --bujhi-red:#990000;
+            --bujhi-red-dark:#6f1111;
+            --bujhi-red-soft:#f4dfdb;
+            --bujhi-cream:#f6efe3;
+            --bujhi-paper:#fffaf3;
+            --bujhi-paper-2:#f3e7d4;
+            --bujhi-ink:#362922;
+            --bujhi-muted:#6b584e;
+            --bujhi-border:#dfcfbb;
+            --bujhi-gold:#b8893f;
+        }
+        html{background:var(--bujhi-cream)!important}
+        body{
+            background-color:var(--bujhi-cream)!important;
+            background-image:radial-gradient(#e6dac8 1px,transparent 1px)!important;
+            background-size:23px 23px!important;
+            color:var(--bujhi-ink)!important;
+        }
+        body>header{
+            height:auto!important;min-height:64px;
+            background:rgba(255,250,243,.97)!important;
+            border-color:var(--bujhi-border)!important;
+            border-top:5px solid var(--bujhi-red)!important;
+            box-shadow:0 8px 24px rgba(73,45,30,.07)!important;
+        }
+        .bujhi-mark{
+            width:40px;height:40px;border-radius:13px;background:#fff;
+            border:1px solid #e5d4bf;display:grid;place-items:center;flex:none;
+            box-shadow:0 4px 12px rgba(92,47,35,.10);
+        }
+        .bujhi-mark img{width:30px;height:30px;object-fit:contain}
+        .bujhi-kicker{
+            color:var(--bujhi-red);font-size:9px;font-weight:900;
+            letter-spacing:.11em;line-height:1;margin-bottom:4px;
+        }
+        body>header h1{color:#571719!important}
+        body>header p{color:var(--bujhi-muted)!important}
+        body>nav{
+            height:auto!important;min-height:48px;
+            background:rgba(242,229,207,.97)!important;
+            border-color:#d7b996!important;
+        }
+        body>main>div:first-child{
+            background:rgba(255,250,243,.96)!important;
+        }
+        body>main>aside{
+            background:rgba(246,239,227,.98)!important;
+            border-color:var(--bujhi-border)!important;
+        }
+        .bg-white{background-color:var(--bujhi-paper)!important}
+        .bg-slate-50{background-color:#fbf4e9!important}
+        .bg-slate-100{background-color:#f2e5cf!important}
+        .bg-slate-200{background-color:#e9d7c1!important}
+        .border-slate-200,.border-slate-300{border-color:var(--bujhi-border)!important}
+        .text-slate-900,.text-slate-800,.text-slate-700{color:var(--bujhi-ink)!important}
+        .text-slate-600,.text-slate-500,.text-slate-400{color:var(--bujhi-muted)!important}
+        select{
+            background:#fffaf3!important;color:var(--bujhi-ink)!important;
+            border-color:var(--bujhi-border)!important;
+        }
+        #sound-btn{
+            background:#fff8ef!important;color:#6a5147!important;border-color:#dfcfbb!important
+        }
+        body>header button.bg-slate-800,
+        #guided-next,.mode-tab-btn.bg-white{
+            box-shadow:none!important;
+        }
+        body>header button.bg-slate-800{
+            background:var(--bujhi-red)!important
+        }
+        body>header button.bg-slate-800:hover{background:var(--bujhi-red-dark)!important}
+        body>header button.bg-emerald-600{
+            background:#765044!important
+        }
+        #mode-MENDELIAN.bg-white,
+        #mode-POLYGENIC.bg-white,
+        .mode-tab-btn.bg-slate-800{
+            background:var(--bujhi-red)!important;color:white!important;border-color:var(--bujhi-red)!important
+        }
+        .mode-tab-btn,.exp-tab-btn{border-radius:999px!important}
+        #guided-banner{
+            background:#fff1ec!important;border-color:#d9b0a5!important;color:#5c2d26!important
+        }
+        #guided-step-badge,#guided-next{
+            background:var(--bujhi-red)!important;color:white!important
+        }
+        #fertilize-btn{
+            background:linear-gradient(90deg,#b95d57,var(--bujhi-red),#5b7894)!important;
+            box-shadow:0 8px 18px rgba(153,0,0,.14)!important
+        }
+        input[type="range"]{accent-color:var(--bujhi-red)!important}
+        button:focus-visible,select:focus-visible,input:focus-visible{
+            outline:3px solid rgba(153,0,0,.20)!important;outline-offset:2px
+        }
+        .custom-scrollbar::-webkit-scrollbar-track{background:#f1e5d5!important}
+        .custom-scrollbar::-webkit-scrollbar-thumb{background:#cbb39c!important}
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover{background:#a98973!important}
+        /* Keep chromosome/allele colors and the molecular DNA panel distinct:
+           they encode biological categories rather than app chrome. */
+        .bg-slate-900.text-slate-100,
+        .bg-slate-800\/80,
+        .bg-slate-950{
+            color:inherit;
+        }
+        @media(max-width:760px){
+            body>header{padding:9px 10px!important;gap:8px;flex-wrap:wrap}
+            body>nav{padding:7px 9px!important;gap:7px;align-items:flex-start;flex-wrap:wrap}
+            body>nav>div{max-width:100%;overflow-x:auto;padding-bottom:2px}
+            body>main{overflow:visible!important}
+            body>main>div:first-child,body>main>aside{padding:12px!important}
+            .bujhi-mark{width:36px;height:36px;border-radius:11px}
+            .bujhi-mark img{width:27px;height:27px}
+            .bujhi-kicker{display:none}
+            #guided-banner{align-items:flex-start!important;gap:8px;flex-direction:column!important}
+        }
+
+    </style>
+</head>
+<body class="h-full flex flex-col bg-slate-100 text-slate-800">
+
+    <header class="h-16 bg-white border-b border-slate-200 px-6 flex items-center justify-between shrink-0 z-30 shadow-sm">
+        <div class="flex items-center space-x-3">
+            <div class="bujhi-mark"><img src="/bujhi-icon.png" alt="Bujhi"></div>
+            <div>
+                <div class="bujhi-kicker">BUJHI · CLASS 8 SCIENCE · CHAPTER 2 · LESSON 9</div>
+                <h1 class="text-base font-bold tracking-tight flex items-center gap-2">
+                    Heredity &amp; Gene Transfer
+                    <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full border" style="background:#f4dfdb;color:#990000;border-color:#d9b0a5">Inheritance Lab</span>
+                </h1>
+                <p class="text-xs font-medium hidden sm:block">Parent &rarr; Gamete &rarr; Fertilization &rarr; Offspring &rarr; Trait</p>
+            </div>
+        </div>
+
+        <!-- Scale & Pathway Breadcrumbs -->
+        <div class="hidden lg:flex items-center space-x-1 text-xs font-medium bg-slate-50 p-1.5 rounded-xl border border-slate-200">
+            <span class="px-2.5 py-1 rounded-lg bg-p1-light text-p1 font-semibold flex items-center gap-1.5 border border-p1-border">
+                <i class="fa-solid fa-user text-[10px]"></i> Parent Organism (2n)
+            </span>
+            <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+            <span class="px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-700 font-semibold flex items-center gap-1.5 border border-indigo-200">
+                <i class="fa-solid fa-vial text-[10px]"></i> Gametes (1n Meiosis)
+            </span>
+            <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+            <span class="px-2.5 py-1 rounded-lg bg-p2-light text-p2 font-semibold flex items-center gap-1.5 border border-p2-border">
+                <i class="fa-solid fa-burst text-[10px]"></i> Fertilization / Zygote
+            </span>
+            <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+            <span class="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 font-semibold flex items-center gap-1.5 border border-emerald-200">
+                <i class="fa-solid fa-baby text-[10px]"></i> Offspring Phenotype
+            </span>
+        </div>
+
+        <!-- Global Control Buttons -->
+        <div class="flex items-center space-x-2">
+            <button onclick="toggleSound()" id="sound-btn" class="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition border border-slate-200" title="Audio Toggle">
+                <i id="sound-icon" class="fa-solid fa-volume-high text-sm"></i>
+            </button>
+            <button onclick="openModal('build-modal')" class="px-3 py-2 text-xs font-semibold rounded-lg bg-slate-800 hover:bg-slate-700 text-white transition flex items-center gap-1.5 shadow-sm">
+                <i class="fa-solid fa-hands-holding-child"></i> <span class="hidden sm:inline">Build Offspring</span>
+            </button>
+            <button onclick="openModal('quiz-modal')" class="px-3 py-2 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition flex items-center gap-1.5 shadow-sm">
+                <i class="fa-solid fa-graduation-cap"></i> <span class="hidden sm:inline">Quiz & Myths</span>
+            </button>
+        </div>
+    </header>
+
+    <nav class="h-12 bg-slate-50 border-b border-slate-200 px-6 flex items-center justify-between shrink-0 z-20 text-xs">
+        <div class="flex items-center space-x-2">
+            <span class="text-slate-400 font-semibold uppercase text-[10px] tracking-wider mr-1 hidden md:inline">Mode:</span>
+            <button onclick="setSimMode('MENDELIAN')" id="mode-MENDELIAN" class="mode-tab-btn px-3 py-1.5 rounded-lg font-semibold transition flex items-center gap-2 bg-white text-slate-900 border border-slate-300 shadow-sm">
+                <i class="fa-solid fa-code-branch text-indigo-600"></i> Simple Mendelian (1 Locus)
+            </button>
+            <button onclick="setSimMode('POLYGENIC')" id="mode-POLYGENIC" class="mode-tab-btn px-3 py-1.5 rounded-lg font-medium text-slate-600 hover:bg-slate-200/60 transition flex items-center gap-2">
+                <i class="fa-solid fa-sliders text-emerald-600"></i> Polygenic + Environment
+            </button>
+        </div>
+
+        <div class="flex items-center space-x-3">
+            <button onclick="setExploreMode('FREE')" id="exp-FREE" class="exp-tab-btn px-2.5 py-1 rounded-md font-semibold bg-slate-200 text-slate-800 transition">
+                <i class="fa-solid fa-compass"></i> Free Explore
+            </button>
+            <button onclick="setExploreMode('GUIDED')" id="exp-GUIDED" class="exp-tab-btn px-2.5 py-1 rounded-md font-medium text-slate-500 hover:bg-slate-200 transition">
+                <i class="fa-solid fa-route"></i> Guided Journey
+            </button>
+        </div>
+    </nav>
+
+    <main class="flex-1 relative overflow-hidden flex flex-col lg:flex-row">
+        
+        <!-- LEFT SIMULATION CANVAS & CHROMOSOME VISUALIZER -->
+        <div class="flex-1 bg-white p-4 lg:p-6 flex flex-col justify-between overflow-y-auto custom-scrollbar relative">
+            
+            <!-- GUIDED JOURNEY STEP PROMPT BANNER (Hidden in Free Explore) -->
+            <div id="guided-banner" class="hidden mb-4 bg-indigo-50 border border-indigo-200 rounded-xl p-3 text-xs text-indigo-900 flex items-center justify-between shadow-sm">
+                <div class="flex items-center space-x-3">
+                    <span id="guided-step-badge" class="w-6 h-6 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center shrink-0">1</span>
+                    <div>
+                        <h4 id="guided-title" class="font-bold text-slate-900">Step 1: Select Parent Genotypes</h4>
+                        <p id="guided-desc" class="text-slate-600 text-[11px]">Choose genotypes for Parent 1 and Parent 2 to see how homologous chromosomes carry alleles.</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2 shrink-0">
+                    <button onclick="prevGuidedStep()" id="guided-prev" class="px-2.5 py-1 rounded bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 font-semibold disabled:opacity-40">Back</button>
+                    <button onclick="nextGuidedStep()" id="guided-next" class="px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white font-bold shadow-sm">Next Step &rarr;</button>
+                </div>
+            </div>
+
+            <!-- SIMULATION AREA: SINGLE LOCUS MENDELIAN MODE -->
+            <div id="view-MENDELIAN" class="flex-1 flex flex-col justify-around gap-6">
+                
+                <!-- PARENT 1 & PARENT 2 CARDS SECTION -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <!-- PARENT 1 CARD (CORAL #D65C5C) -->
+                    <div class="bg-p1-light/60 border-2 border-p1-border rounded-2xl p-4 flex flex-col justify-between shadow-sm relative">
+                        <div class="flex items-center justify-between border-b border-p1-border/60 pb-2 mb-3">
+                            <div class="flex items-center space-x-2">
+                                <span class="px-2 py-0.5 rounded-md bg-p1 text-white font-bold text-xs uppercase tracking-wider">Parent 1 (P1)</span>
+                                <span class="text-xs font-semibold text-slate-600">Maternal / P1 Organism</span>
+                            </div>
+                            <!-- Genotype Selector -->
+                            <div class="flex items-center space-x-1 bg-white rounded-lg p-1 border border-p1-border shadow-xs">
+                                <label class="text-[10px] font-bold text-slate-500 uppercase px-1">Genotype:</label>
+                                <select id="p1-genotype" onchange="updateMendelianState()" class="text-xs font-bold font-mono bg-transparent text-slate-800 focus:outline-none cursor-pointer">
+                                    <option value="AA">AA (Homozygous Dom)</option>
+                                    <option value="Aa" selected>Aa (Heterozygous)</option>
+                                    <option value="aa">aa (Homozygous Rec)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Parent 1 Diploid Chromosomes -->
+                        <div class="flex items-center justify-center space-x-8 py-2">
+                            <div class="flex flex-col items-center">
+                                <svg id="p1-chr-1" class="w-16 h-36" viewBox="0 0 60 140"></svg>
+                                <span id="p1-allele-1-tag" class="mt-1 font-mono font-bold text-sm text-p1">A</span>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <svg id="p1-chr-2" class="w-16 h-36" viewBox="0 0 60 140"></svg>
+                                <span id="p1-allele-2-tag" class="mt-1 font-mono font-bold text-sm text-p1">a</span>
+                            </div>
+                        </div>
+
+                        <!-- Gamete / Meiosis Selection -->
+                        <div class="mt-2 pt-2 border-t border-p1-border/60 flex items-center justify-between text-xs">
+                            <span class="font-semibold text-slate-600">Gamete Produced (1n):</span>
+                            <div class="flex items-center space-x-2">
+                                <button onclick="selectGamete('p1', 0)" id="p1-g0-btn" class="px-2.5 py-1 rounded-lg bg-white border border-p1-border font-mono font-bold text-p1 hover:bg-p1 hover:text-white transition shadow-xs">Allele 1</button>
+                                <button onclick="selectGamete('p1', 1)" id="p1-g1-btn" class="px-2.5 py-1 rounded-lg bg-white border border-p1-border font-mono font-bold text-p1 hover:bg-p1 hover:text-white transition shadow-xs">Allele 2</button>
+                                <button onclick="randomGamete('p1')" class="p-1.5 rounded-lg bg-white border border-p1-border text-slate-600 hover:bg-slate-100" title="Random Meiotic Segregation">
+                                    <i class="fa-solid fa-dice text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PARENT 2 CARD (MUTED BLUE #3F78C5) -->
+                    <div class="bg-p2-light/60 border-2 border-p2-border rounded-2xl p-4 flex flex-col justify-between shadow-sm relative">
+                        <div class="flex items-center justify-between border-b border-p2-border/60 pb-2 mb-3">
+                            <div class="flex items-center space-x-2">
+                                <span class="px-2 py-0.5 rounded-md bg-p2 text-white font-bold text-xs uppercase tracking-wider">Parent 2 (P2)</span>
+                                <span class="text-xs font-semibold text-slate-600">Paternal / P2 Organism</span>
+                            </div>
+                            <!-- Genotype Selector -->
+                            <div class="flex items-center space-x-1 bg-white rounded-lg p-1 border border-p2-border shadow-xs">
+                                <label class="text-[10px] font-bold text-slate-500 uppercase px-1">Genotype:</label>
+                                <select id="p2-genotype" onchange="updateMendelianState()" class="text-xs font-bold font-mono bg-transparent text-slate-800 focus:outline-none cursor-pointer">
+                                    <option value="AA">AA (Homozygous Dom)</option>
+                                    <option value="Aa" selected>Aa (Heterozygous)</option>
+                                    <option value="aa">aa (Homozygous Rec)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Parent 2 Diploid Chromosomes -->
+                        <div class="flex items-center justify-center space-x-8 py-2">
+                            <div class="flex flex-col items-center">
+                                <svg id="p2-chr-1" class="w-16 h-36" viewBox="0 0 60 140"></svg>
+                                <span id="p2-allele-1-tag" class="mt-1 font-mono font-bold text-sm text-p2">A</span>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <svg id="p2-chr-2" class="w-16 h-36" viewBox="0 0 60 140"></svg>
+                                <span id="p2-allele-2-tag" class="mt-1 font-mono font-bold text-sm text-p2">a</span>
+                            </div>
+                        </div>
+
+                        <!-- Gamete / Meiosis Selection -->
+                        <div class="mt-2 pt-2 border-t border-p2-border/60 flex items-center justify-between text-xs">
+                            <span class="font-semibold text-slate-600">Gamete Produced (1n):</span>
+                            <div class="flex items-center space-x-2">
+                                <button onclick="selectGamete('p2', 0)" id="p2-g0-btn" class="px-2.5 py-1 rounded-lg bg-white border border-p2-border font-mono font-bold text-p2 hover:bg-p2 hover:text-white transition shadow-xs">Allele 1</button>
+                                <button onclick="selectGamete('p2', 1)" id="p2-g1-btn" class="px-2.5 py-1 rounded-lg bg-white border border-p2-border font-mono font-bold text-p2 hover:bg-p2 hover:text-white transition shadow-xs">Allele 2</button>
+                                <button onclick="randomGamete('p2')" class="p-1.5 rounded-lg bg-white border border-p2-border text-slate-600 hover:bg-slate-100" title="Random Meiotic Segregation">
+                                    <i class="fa-solid fa-dice text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- FERTILIZATION ACTION CONTROLLER -->
+                <div class="flex items-center justify-center my-2">
+                    <button onclick="triggerFertilization()" id="fertilize-btn" class="px-6 py-3 rounded-xl bg-gradient-to-r from-p1 via-indigo-600 to-p2 text-white font-bold text-sm shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition flex items-center gap-2">
+                        <i class="fa-solid fa-burst text-base"></i> Perform Fertilization Fusion
+                    </button>
+                </div>
+
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-inner flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center space-x-3 bg-white p-3 rounded-xl border border-slate-200 shadow-xs">
+                            <div class="flex flex-col items-center">
+                                <svg id="offspring-chr-p1" class="w-14 h-32" viewBox="0 0 60 140"></svg>
+                                <span class="text-[10px] font-bold text-p1 uppercase mt-1">From P1</span>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <svg id="offspring-chr-p2" class="w-14 h-32" viewBox="0 0 60 140"></svg>
+                                <span class="text-[10px] font-bold text-p2 uppercase mt-1">From P2</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Offspring Genotype & Phenotype</span>
+                            <div class="flex items-baseline space-x-2 my-0.5">
+                                <h3 id="offspring-genotype-display" class="text-2xl font-black font-mono text-slate-900">Aa</h3>
+                                <span id="offspring-zygosity-display" class="text-xs font-semibold px-2 py-0.5 rounded bg-indigo-100 text-indigo-700">Heterozygous</span>
+                            </div>
+                            <p id="offspring-phenotype-display" class="text-xs font-medium text-slate-600">Exhibits Dominant Trait (Purple Flower Phenotype)</p>
+                        </div>
+                    </div>
+
+                    <!-- Phenotype Visual Avatar Icon -->
+                    <div class="flex flex-col items-center justify-center bg-white p-4 rounded-xl border border-slate-200 shadow-xs w-full md:w-48 text-center">
+                        <div id="phenotype-avatar" class="w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-sm mb-2 transition-transform duration-500">
+                            🌸
+                        </div>
+                        <span id="phenotype-avatar-label" class="text-xs font-bold text-slate-700">Purple Flower</span>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 text-slate-100 rounded-2xl p-4 shadow-md space-y-3">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                        <div class="flex items-center space-x-2">
+                            <i class="fa-solid fa-magnifying-glass text-cyan-400 text-xs"></i>
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-200">Gene Locus Molecular DNA Zoom View</h4>
+                        </div>
+                        <span class="text-[10px] font-mono text-cyan-400 bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-800/60">Scale: ~0.34 nm</span>
+                    </div>
+
+                    <!-- Molecular DNA Base Comparison -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+                        <!-- Dominant Allele A -->
+                        <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700/80 space-y-1.5">
+                            <div class="flex justify-between items-center">
+                                <span class="text-dom font-bold">Allele 'A' (Dominant)</span>
+                                <span class="text-[10px] text-slate-400">Functional Enzyme</span>
+                            </div>
+                            <div class="flex items-center space-x-1 tracking-widest text-sm bg-slate-950 p-2 rounded-lg border border-slate-800 text-center overflow-x-auto">
+                                <span class="text-slate-500">...A T G C</span>
+                                <span class="text-amber-400 font-bold underline px-1">C</span>
+                                <span class="text-slate-500">A T G G T C...</span>
+                            </div>
+                            <p class="text-[10px] text-slate-400 font-sans">Encodes active pigment synthesis protein.</p>
+                        </div>
+
+                        <!-- Recessive Allele a -->
+                        <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700/80 space-y-1.5">
+                            <div class="flex justify-between items-center">
+                                <span class="text-rec font-bold">Allele 'a' (Recessive)</span>
+                                <span class="text-[10px] text-slate-400">Point Mutation</span>
+                            </div>
+                            <div class="flex items-center space-x-1 tracking-widest text-sm bg-slate-950 p-2 rounded-lg border border-slate-800 text-center overflow-x-auto">
+                                <span class="text-slate-500">...A T G C</span>
+                                <span class="text-rose-400 font-bold underline px-1">T</span>
+                                <span class="text-slate-500">A T G G T C...</span>
+                            </div>
+                            <p class="text-[10px] text-slate-400 font-sans">Single base SNP mutation causes non-functional protein.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="view-POLYGENIC" class="flex-1 flex-col justify-between gap-6 hidden">
+                
+                <div class="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-4 text-xs text-slate-700 space-y-1">
+                    <h3 class="font-bold text-slate-900 text-sm flex items-center gap-1.5">
+                        <i class="fa-solid fa-dna text-emerald-600"></i> Complex Polygenic Traits & Environmental Influence
+                    </h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        Traits like human height or skin tone do not follow simple Mendelian 1-locus rules. They are influenced by multiple gene loci (Genes A, B, C, D) acting additively, along with continuous environmental variables (nutrition, sunlight).
+                    </p>
+                </div>
+
+                <!-- Multi-Gene Loci Controls -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <!-- Genetic Allele Loci (4 Loci) -->
+                    <div class="bg-white border border-slate-200 rounded-2xl p-4 space-y-4 shadow-sm">
+                        <h4 class="font-bold text-xs uppercase tracking-wider text-slate-500 border-b pb-2">Polygenic Allele Composition</h4>
+
+                        <!-- Gene A -->
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="font-bold text-slate-800 text-xs">Gene A Locus:</span>
+                                <span class="text-[11px] text-slate-500 block">Growth Factor Alpha</span>
+                            </div>
+                            <select id="poly-gene-a" onchange="updatePolygenicPhenotype()" class="font-mono text-xs font-bold border border-slate-300 rounded-lg p-1.5 bg-slate-50">
+                                <option value="2">AA (+2 Units)</option>
+                                <option value="1" selected>Aa (+1 Unit)</option>
+                                <option value="0">aa (0 Units)</option>
+                            </select>
+                        </div>
+
+                        <!-- Gene B -->
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="font-bold text-slate-800 text-xs">Gene B Locus:</span>
+                                <span class="text-[11px] text-slate-500 block">Bone Matrix Density</span>
+                            </div>
+                            <select id="poly-gene-b" onchange="updatePolygenicPhenotype()" class="font-mono text-xs font-bold border border-slate-300 rounded-lg p-1.5 bg-slate-50">
+                                <option value="2">BB (+2 Units)</option>
+                                <option value="1" selected>Bb (+1 Unit)</option>
+                                <option value="0">bb (0 Units)</option>
+                            </select>
+                        </div>
+
+                        <!-- Gene C -->
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="font-bold text-slate-800 text-xs">Gene C Locus:</span>
+                                <span class="text-[11px] text-slate-500 block">Hormonal Receptors</span>
+                            </div>
+                            <select id="poly-gene-c" onchange="updatePolygenicPhenotype()" class="font-mono text-xs font-bold border border-slate-300 rounded-lg p-1.5 bg-slate-50">
+                                <option value="2">CC (+2 Units)</option>
+                                <option value="1">Cc (+1 Unit)</option>
+                                <option value="0" selected>cc (0 Units)</option>
+                            </select>
+                        </div>
+
+                        <!-- Gene D -->
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="font-bold text-slate-800 text-xs">Gene D Locus:</span>
+                                <span class="text-[11px] text-slate-500 block">Metabolic Rate</span>
+                            </div>
+                            <select id="poly-gene-d" onchange="updatePolygenicPhenotype()" class="font-mono text-xs font-bold border border-slate-300 rounded-lg p-1.5 bg-slate-50">
+                                <option value="2">DD (+2 Units)</option>
+                                <option value="1">Dd (+1 Unit)</option>
+                                <option value="0" selected>dd (0 Units)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Environmental Sliders -->
+                    <div class="bg-white border border-slate-200 rounded-2xl p-4 space-y-5 shadow-sm">
+                        <h4 class="font-bold text-xs uppercase tracking-wider text-slate-500 border-b pb-2">Environmental Multipliers</h4>
+
+                        <!-- Slider 1: Nutrition Level -->
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="font-semibold text-slate-700"><i class="fa-solid fa-utensils text-amber-500"></i> Nutrition Quality</span>
+                                <span id="env-nutrition-val" class="font-mono font-bold text-slate-900">100% (Optimal)</span>
+                            </div>
+                            <input type="range" id="env-nutrition" min="50" max="150" value="100" oninput="updatePolygenicPhenotype()" class="w-full accent-emerald-600 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                            <span class="text-[10px] text-slate-400 block">Poor nutrition limits genetic potential realization.</span>
+                        </div>
+
+                        <!-- Slider 2: Sunlight / UV Exposure -->
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="font-semibold text-slate-700"><i class="fa-solid fa-sun text-amber-500"></i> Sunlight / UV Exposure</span>
+                                <span id="env-sun-val" class="font-mono font-bold text-slate-900">Medium</span>
+                            </div>
+                            <input type="range" id="env-sun" min="0" max="100" value="50" oninput="updatePolygenicPhenotype()" class="w-full accent-amber-500 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                            <span class="text-[10px] text-slate-400 block">Modulates melanin synthesis response continuously.</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Combined Phenotypic Expression Result Bar -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-xs uppercase tracking-wider text-slate-500">Combined Expression Outcome</span>
+                        <span id="poly-height-tag" class="font-mono font-bold text-sm text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">Calculated Height: 172 cm</span>
+                    </div>
+
+                    <!-- Visual Phenotype Spectrum Bar -->
+                    <div class="space-y-1">
+                        <div class="h-4 w-full bg-slate-100 rounded-full overflow-hidden p-0.5 border border-slate-200 relative">
+                            <div id="poly-bar-fill" class="h-full bg-gradient-to-r from-teal-500 via-emerald-500 to-amber-500 rounded-full transition-all duration-500" style="width: 55%;"></div>
+                        </div>
+                        <div class="flex justify-between text-[10px] font-mono text-slate-400">
+                            <span>140 cm (Short)</span>
+                            <span>170 cm (Average)</span>
+                            <span>200 cm (Tall)</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <aside class="w-full lg:w-96 bg-slate-50 border-t lg:border-t-0 lg:border-l border-slate-200 p-4 lg:p-6 flex flex-col justify-between overflow-y-auto custom-scrollbar shrink-0 space-y-6">
+            
+            <!-- PUNNETT SQUARE & PROBABILITY SECTION -->
+            <div class="space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+                    <h3 class="font-bold text-xs uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+                        <i class="fa-solid fa-table-cells text-indigo-600"></i> Punnett Square Matrix
+                    </h3>
+                    <span class="text-[10px] font-mono bg-slate-200 text-slate-700 px-2 py-0.5 rounded">1-Locus Monohybrid</span>
+                </div>
+
+                <!-- Interactive Punnett Grid -->
+                <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs flex flex-col items-center">
+                    <div class="grid grid-cols-3 gap-2 w-full max-w-[240px] text-center font-mono text-xs">
+                        <!-- Top Header Row -->
+                        <div class="p-2 font-bold text-slate-400">P1 \ P2</div>
+                        <div id="pun-p2-a1" class="p-2 font-bold text-p2 bg-p2-light rounded-lg border border-p2-border">A</div>
+                        <div id="pun-p2-a2" class="p-2 font-bold text-p2 bg-p2-light rounded-lg border border-p2-border">a</div>
+
+                        <!-- Row 1 -->
+                        <div id="pun-p1-a1" class="p-2 font-bold text-p1 bg-p1-light rounded-lg border border-p1-border flex items-center justify-center">A</div>
+                        <div id="pun-cell-0" class="p-3 font-bold text-slate-800 rounded-lg border border-slate-200 transition">AA</div>
+                        <div id="pun-cell-1" class="p-3 font-bold text-slate-800 rounded-lg border border-slate-200 transition">Aa</div>
+
+                        <!-- Row 2 -->
+                        <div id="pun-p1-a2" class="p-2 font-bold text-p1 bg-p1-light rounded-lg border border-p1-border flex items-center justify-center">a</div>
+                        <div id="pun-cell-2" class="p-3 font-bold text-slate-800 rounded-lg border border-slate-200 transition">Aa</div>
+                        <div id="pun-cell-3" class="p-3 font-bold text-slate-800 rounded-lg border border-slate-200 transition">aa</div>
+                    </div>
+                </div>
+
+                <!-- Theoretical vs Statistical Probabilities -->
+                <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+                    <h4 class="font-bold text-xs uppercase tracking-wider text-slate-500">Theoretical Ratio vs Sample Batch</h4>
+
+                    <div class="space-y-1.5 text-xs">
+                        <div class="flex justify-between">
+                            <span class="text-slate-600">Dominant Phenotype Ratio:</span>
+                            <span id="prob-dom-ratio" class="font-mono font-bold text-dom">75% (3/4)</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-600">Recessive Phenotype Ratio:</span>
+                            <span id="prob-rec-ratio" class="font-mono font-bold text-rec">25% (1/4)</span>
+                        </div>
+                    </div>
+
+                    <!-- Batch Trial Simulation Controls -->
+                    <div class="pt-2 border-t border-slate-100 space-y-2">
+                        <label class="text-[10px] font-bold text-slate-500 uppercase block">Simulate Offspring Batch (N):</label>
+                        <div class="grid grid-cols-4 gap-1.5">
+                            <button onclick="runBatchSimulation(1)" class="py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-mono text-xs font-bold text-slate-700 transition">N=1</button>
+                            <button onclick="runBatchSimulation(10)" class="py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-mono text-xs font-bold text-slate-700 transition">N=10</button>
+                            <button onclick="runBatchSimulation(50)" class="py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-mono text-xs font-bold text-slate-700 transition">N=50</button>
+                            <button onclick="runBatchSimulation(100)" class="py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 font-mono text-xs font-bold text-white transition shadow-xs">N=100</button>
+                        </div>
+                    </div>
+
+                    <!-- Batch Result Breakdown Bar -->
+                    <div id="batch-results-panel" class="hidden pt-2 space-y-1">
+                        <div class="flex justify-between text-[11px] font-mono">
+                            <span class="text-dom font-bold">Dom: <span id="batch-dom-cnt">0</span></span>
+                            <span class="text-rec font-bold">Rec: <span id="batch-rec-cnt">0</span></span>
+                        </div>
+                        <div class="h-2 w-full bg-slate-100 rounded-full overflow-hidden flex border border-slate-200">
+                            <div id="batch-dom-bar" class="bg-dom h-full" style="width: 50%;"></div>
+                            <div id="batch-rec-bar" class="bg-rec h-full" style="width: 50%;"></div>
+                        </div>
+                        <span class="text-[10px] text-slate-400 block text-center">Notice how larger N values converge toward theoretical 3:1 ratio!</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KEY SCIENTIFIC CONCEPTS QUICK SUMMARY -->
+            <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs space-y-2 text-xs">
+                <h4 class="font-bold text-slate-900 flex items-center gap-1.5">
+                    <i class="fa-solid fa-bookmark text-indigo-600"></i> Core Concept Reminders
+                </h4>
+                <ul class="space-y-1.5 text-slate-600 list-disc list-inside leading-normal text-[11px]">
+                    <li><strong>Homologous Pair:</strong> Offspring receive exactly 1 chromosome of each pair from P1 and 1 from P2.</li>
+                    <li><strong>Allele vs Gene:</strong> A gene is the sequence location (locus); alleles ($A, a$) are variations of that sequence.</li>
+                    <li><strong>Punnett Square:</strong> Predicts <em>probabilities</em> across many offspring, not guaranteed individual birth outcomes!</li>
+                </ul>
+            </div>
+
+        </aside>
+
+    </main>
+
+    <div id="build-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white max-w-xl w-full rounded-2xl border border-slate-200 shadow-2xl p-6 space-y-5">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                <div class="flex items-center space-x-2">
+                    <div class="p-2 rounded-lg bg-indigo-50 text-indigo-600 font-bold">
+                        <i class="fa-solid fa-hands-holding-child"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-base">Activity: Build Diploid Offspring Pair</h3>
+                </div>
+                <button onclick="closeModal('build-modal')" class="text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <p class="text-xs text-slate-600 leading-relaxed">
+                Select 1 haploid gamete chromosome from Parent 1 and 1 haploid gamete chromosome from Parent 2 to assemble the homologous chromosome pair for the offspring:
+            </p>
+
+            <div class="grid grid-cols-2 gap-4">
+                <!-- P1 Choice -->
+                <div class="bg-p1-light border border-p1-border p-4 rounded-xl text-center space-y-3">
+                    <span class="text-xs font-bold text-p1 uppercase">Choose Parent 1 Gamete</span>
+                    <div class="flex justify-center space-x-4">
+                        <button onclick="setBuildChoice('p1', 'A')" id="build-p1-A" class="px-4 py-2 bg-white border-2 border-p1 rounded-xl font-mono font-bold text-p1 text-sm hover:bg-p1 hover:text-white transition">Allele A</button>
+                        <button onclick="setBuildChoice('p1', 'a')" id="build-p1-a" class="px-4 py-2 bg-white border-2 border-p1 rounded-xl font-mono font-bold text-p1 text-sm hover:bg-p1 hover:text-white transition">Allele a</button>
+                    </div>
+                </div>
+
+                <!-- P2 Choice -->
+                <div class="bg-p2-light border border-p2-border p-4 rounded-xl text-center space-y-3">
+                    <span class="text-xs font-bold text-p2 uppercase">Choose Parent 2 Gamete</span>
+                    <div class="flex justify-center space-x-4">
+                        <button onclick="setBuildChoice('p2', 'A')" id="build-p2-A" class="px-4 py-2 bg-white border-2 border-p2 rounded-xl font-mono font-bold text-p2 text-sm hover:bg-p2 hover:text-white transition">Allele A</button>
+                        <button onclick="setBuildChoice('p2', 'a')" id="build-p2-a" class="px-4 py-2 bg-white border-2 border-p2 rounded-xl font-mono font-bold text-p2 text-sm hover:bg-p2 hover:text-white transition">Allele a</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Assembled Offspring Preview -->
+            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex items-center justify-between">
+                <div>
+                    <span class="text-[10px] font-bold text-slate-400 uppercase">Assembled Genotype</span>
+                    <h4 id="build-genotype-preview" class="text-xl font-mono font-bold text-slate-900">--</h4>
+                </div>
+                <div id="build-result-status" class="text-xs font-medium text-slate-500">
+                    Select gametes from both parents to complete fertilization.
+                </div>
+            </div>
+
+            <div class="flex justify-end space-x-3 border-t border-slate-100 pt-3">
+                <button onclick="closeModal('build-modal')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl transition">
+                    Close
+                </button>
+                <button onclick="applyBuiltOffspring()" id="apply-build-btn" disabled class="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl transition disabled:opacity-40">
+                    Apply to Main Simulation
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="quiz-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white max-w-lg w-full rounded-2xl border border-slate-200 shadow-2xl p-6 space-y-5">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                <div class="flex items-center space-x-2">
+                    <div class="p-2 rounded-lg bg-emerald-50 text-emerald-600 font-bold">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-base">Concept Quiz & Myth Check</h3>
+                </div>
+                <button onclick="closeModal('quiz-modal')" class="text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <div id="quiz-container" class="space-y-4 text-xs">
+                <!-- Question dynamically injected -->
+            </div>
+
+            <div class="flex justify-between items-center border-t border-slate-100 pt-3">
+                <span id="quiz-progress" class="text-xs text-slate-400 font-mono">Question 1 of 3</span>
+                <button id="quiz-submit-btn" onclick="submitQuizChoice()" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition shadow-sm">
+                    Submit Answer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * HEREDITY & GENE TRANSFER SIMULATOR
+         * Single-File Interactive Application Logic
+         */
+
+        // Audio Effects Synthesizer
+        let audioCtx = null;
+        let soundEnabled = true;
+
+        function initAudio() {
+            if (!audioCtx) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (AudioContext) audioCtx = new AudioContext();
+            }
+        }
+
+        function playSound(type) {
+            if (!soundEnabled) return;
+            initAudio();
+            if (!audioCtx) return;
+
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                if (type === 'click') {
+                    osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.08);
+                } else if (type === 'fertilize') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(220, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(660, audioCtx.currentTime + 0.3);
+                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.35);
+                } else if (type === 'correct') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+                    osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1); // E5
+                    gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.25);
+                }
+            } catch (e) { }
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            const icon = document.getElementById('sound-icon');
+            icon.className = soundEnabled ? "fa-solid fa-volume-high text-sm" : "fa-solid fa-volume-xmark text-sm text-slate-400";
+        }
+
+        // Global Simulation State
+        const state = {
+            mode: 'MENDELIAN', // 'MENDELIAN' or 'POLYGENIC'
+            exploreMode: 'FREE', // 'FREE' or 'GUIDED'
+            p1Genotype: 'Aa',
+            p2Genotype: 'Aa',
+            p1GameteIdx: 0, // 0 or 1
+            p2GameteIdx: 0, // 0 or 1
+            guidedStep: 0,
+            buildChoices: { p1: null, p2: null }
+        };
+
+        function generateChromosomeSVG(containerId, colorHex, alleleLetter, tag) {
+            const svg = document.getElementById(containerId);
+            if (!svg) return;
+
+            const isDominant = alleleLetter === alleleLetter.toUpperCase();
+
+            svg.innerHTML = `
+                <!-- Outer Chromatid Stalks -->
+                <path d="M 22,20 C 15,35 15,55 22,70 C 15,85 15,105 22,120 C 30,120 38,120 38,120 C 45,105 45,85 38,70 C 45,55 45,35 38,20 Z" 
+                      fill="${colorHex}" opacity="0.85" stroke="#1E293B" stroke-width="2" stroke-linejoin="round"/>
+                
+                <!-- Centromere Constriction -->
+                <circle cx="30" cy="70" r="7" fill="#0F172A" stroke="#FFFFFF" stroke-width="1.5" />
+
+                <!-- Gene Locus Marker Band -->
+                <rect x="18" y="42" width="24" height="10" rx="2" fill="${isDominant ? '#2563EB' : '#E11D48'}" stroke="#FFFFFF" stroke-width="1" />
+                
+                <!-- Allele Designation Label inside Locus -->
+                <text x="30" y="50" font-family="JetBrains Mono" font-size="9" font-weight="bold" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">${alleleLetter}</text>
+
+                <!-- Parental Origin Tag -->
+                <text x="30" y="132" font-family="Inter" font-size="8" font-weight="bold" fill="#64748B" text-anchor="middle">${tag || ''}</text>
+            `;
+        }
+
+        function updateMendelianState() {
+            state.p1Genotype = document.getElementById('p1-genotype').value;
+            state.p2Genotype = document.getElementById('p2-genotype').value;
+
+            const p1A1 = state.p1Genotype[0];
+            const p1A2 = state.p1Genotype[1];
+            const p2A1 = state.p2Genotype[0];
+            const p2A2 = state.p2Genotype[1];
+
+            // Render Parent 1 Chromosomes
+            generateChromosomeSVG('p1-chr-1', '#D65C5C', p1A1, 'P1-a1');
+            generateChromosomeSVG('p1-chr-2', '#D65C5C', p1A2, 'P1-a2');
+            document.getElementById('p1-allele-1-tag').innerText = p1A1;
+            document.getElementById('p1-allele-2-tag').innerText = p1A2;
+
+            // Render Parent 2 Chromosomes
+            generateChromosomeSVG('p2-chr-1', '#3F78C5', p2A1, 'P2-a1');
+            generateChromosomeSVG('p2-chr-2', '#3F78C5', p2A2, 'P2-a2');
+            document.getElementById('p2-allele-1-tag').innerText = p2A1;
+            document.getElementById('p2-allele-2-tag').innerText = p2A2;
+
+            // Highlight Selected Gametes
+            highlightGameteButtons();
+
+            // Update Offspring Result Display
+            updateOffspringDisplay();
+
+            // Update Punnett Square Labels
+            updatePunnettGrid();
+        }
+
+        function highlightGameteButtons() {
+            // P1 Gamete Buttons
+            document.getElementById('p1-g0-btn').className = state.p1GameteIdx === 0
+                ? "px-2.5 py-1 rounded-lg bg-p1 text-white font-mono font-bold shadow-xs"
+                : "px-2.5 py-1 rounded-lg bg-white border border-p1-border font-mono font-bold text-p1 hover:bg-p1 hover:text-white transition shadow-xs";
+            
+            document.getElementById('p1-g1-btn').className = state.p1GameteIdx === 1
+                ? "px-2.5 py-1 rounded-lg bg-p1 text-white font-mono font-bold shadow-xs"
+                : "px-2.5 py-1 rounded-lg bg-white border border-p1-border font-mono font-bold text-p1 hover:bg-p1 hover:text-white transition shadow-xs";
+
+            // P2 Gamete Buttons
+            document.getElementById('p2-g0-btn').className = state.p2GameteIdx === 0
+                ? "px-2.5 py-1 rounded-lg bg-p2 text-white font-mono font-bold shadow-xs"
+                : "px-2.5 py-1 rounded-lg bg-white border border-p2-border font-mono font-bold text-p2 hover:bg-p2 hover:text-white transition shadow-xs";
+            
+            document.getElementById('p2-g1-btn').className = state.p2GameteIdx === 1
+                ? "px-2.5 py-1 rounded-lg bg-p2 text-white font-mono font-bold shadow-xs"
+                : "px-2.5 py-1 rounded-lg bg-white border border-p2-border font-mono font-bold text-p2 hover:bg-p2 hover:text-white transition shadow-xs";
+        }
+
+        function selectGamete(parent, idx) {
+            playSound('click');
+            if (parent === 'p1') state.p1GameteIdx = idx;
+            if (parent === 'p2') state.p2GameteIdx = idx;
+            highlightGameteButtons();
+            updateOffspringDisplay();
+        }
+
+        function randomGamete(parent) {
+            const randIdx = Math.random() < 0.5 ? 0 : 1;
+            selectGamete(parent, randIdx);
+        }
+
+        function triggerFertilization() {
+            playSound('fertilize');
+            const btn = document.getElementById('fertilize-btn');
+            btn.classList.add('scale-110');
+            setTimeout(() => btn.classList.remove('scale-110'), 300);
+
+            // Randomly select gametes for both parents
+            state.p1GameteIdx = Math.random() < 0.5 ? 0 : 1;
+            state.p2GameteIdx = Math.random() < 0.5 ? 0 : 1;
+
+            highlightGameteButtons();
+            updateOffspringDisplay();
+        }
+
+        function updateOffspringDisplay() {
+            const p1Allele = state.p1Genotype[state.p1GameteIdx];
+            const p2Allele = state.p2Genotype[state.p2GameteIdx];
+
+            // Render Offspring Chromosomes (1 from P1 Coral, 1 from P2 Blue)
+            generateChromosomeSVG('offspring-chr-p1', '#D65C5C', p1Allele, 'P1');
+            generateChromosomeSVG('offspring-chr-p2', '#3F78C5', p2Allele, 'P2');
+
+            // Format Standard Genotype String (Dominant letter first e.g., 'Aa')
+            let combo = p1Allele + p2Allele;
+            if (combo === 'aA') combo = 'Aa';
+
+            document.getElementById('offspring-genotype-display').innerText = combo;
+
+            // Determine Zygosity & Phenotype
+            const zygosityTag = document.getElementById('offspring-zygosity-display');
+            const phenotypeDesc = document.getElementById('offspring-phenotype-display');
+            const avatar = document.getElementById('phenotype-avatar');
+            const avatarLabel = document.getElementById('phenotype-avatar-label');
+
+            if (combo === 'AA') {
+                zygosityTag.innerText = "Homozygous Dominant";
+                zygosityTag.className = "text-xs font-semibold px-2 py-0.5 rounded bg-blue-100 text-blue-700";
+                phenotypeDesc.innerText = "Exhibits Dominant Trait (Purple Flower Phenotype)";
+                avatar.innerText = "🌸";
+                avatar.className = "w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center text-3xl shadow-sm mb-2 scale-105 transition-transform";
+                avatarLabel.innerText = "Purple Flower";
+            } else if (combo === 'Aa') {
+                zygosityTag.innerText = "Heterozygous (Carrier)";
+                zygosityTag.className = "text-xs font-semibold px-2 py-0.5 rounded bg-indigo-100 text-indigo-700";
+                phenotypeDesc.innerText = "Exhibits Dominant Trait (Purple Flower Phenotype)";
+                avatar.innerText = "🌸";
+                avatar.className = "w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center text-3xl shadow-sm mb-2 transition-transform";
+                avatarLabel.innerText = "Purple Flower";
+            } else {
+                zygosityTag.innerText = "Homozygous Recessive";
+                zygosityTag.className = "text-xs font-semibold px-2 py-0.5 rounded bg-rose-100 text-rose-700";
+                phenotypeDesc.innerText = "Exhibits Recessive Trait (White Flower Phenotype)";
+                avatar.innerText = "💮";
+                avatar.className = "w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center text-3xl shadow-sm mb-2 scale-105 transition-transform";
+                avatarLabel.innerText = "White Flower";
+            }
+        }
+
+        function updatePunnettGrid() {
+            const p1A1 = state.p1Genotype[0];
+            const p1A2 = state.p1Genotype[1];
+            const p2A1 = state.p2Genotype[0];
+            const p2A2 = state.p2Genotype[1];
+
+            document.getElementById('pun-p1-a1').innerText = p1A1;
+            document.getElementById('pun-p1-a2').innerText = p1A2;
+            document.getElementById('pun-p2-a1').innerText = p2A1;
+            document.getElementById('pun-p2-a2').innerText = p2A2;
+
+            const cells = [
+                formatCombo(p1A1, p2A1),
+                formatCombo(p1A1, p2A2),
+                formatCombo(p1A2, p2A1),
+                formatCombo(p1A2, p2A2)
+            ];
+
+            let domCount = 0;
+            cells.forEach((c, idx) => {
+                const el = document.getElementById('pun-cell-' + idx);
+                el.innerText = c;
+                if (c.includes('A')) domCount++;
+            });
+
+            const domPct = (domCount / 4) * 100;
+            const recPct = 100 - domPct;
+
+            document.getElementById('prob-dom-ratio').innerText = `${domPct}% (${domCount}/4)`;
+            document.getElementById('prob-rec-ratio').innerText = `${recPct}% (${4 - domCount}/4)`;
+        }
+
+        function formatCombo(a, b) {
+            let res = a + b;
+            if (res === 'aA') res = 'Aa';
+            return res;
+        }
+
+        function runBatchSimulation(n) {
+            playSound('click');
+            let domCnt = 0;
+            let recCnt = 0;
+
+            const p1Alleles = [state.p1Genotype[0], state.p1Genotype[1]];
+            const p2Alleles = [state.p2Genotype[0], state.p2Genotype[1]];
+
+            for (let i = 0; i < n; i++) {
+                const a1 = p1Alleles[Math.floor(Math.random() * 2)];
+                const a2 = p2Alleles[Math.floor(Math.random() * 2)];
+                const combo = formatCombo(a1, a2);
+                if (combo.includes('A')) domCnt++;
+                else recCnt++;
+            }
+
+            document.getElementById('batch-results-panel').classList.remove('hidden');
+            document.getElementById('batch-dom-cnt').innerText = domCnt;
+            document.getElementById('batch-rec-cnt').innerText = recCnt;
+
+            const domPct = (domCnt / n) * 100;
+            const recPct = (recCnt / n) * 100;
+
+            document.getElementById('batch-dom-bar').style.width = domPct + '%';
+            document.getElementById('batch-rec-bar').style.width = recPct + '%';
+        }
+
+        function updatePolygenicPhenotype() {
+            const gA = parseInt(document.getElementById('poly-gene-a').value);
+            const gB = parseInt(document.getElementById('poly-gene-b').value);
+            const gC = parseInt(document.getElementById('poly-gene-c').value);
+            const gD = parseInt(document.getElementById('poly-gene-d').value);
+
+            const nutrition = parseInt(document.getElementById('env-nutrition').value);
+            const sun = parseInt(document.getElementById('env-sun').value);
+
+            document.getElementById('env-nutrition-val').innerText = nutrition + '%';
+            document.getElementById('env-sun-val').innerText = sun > 75 ? "High (UV Active)" : sun > 35 ? "Medium" : "Low";
+
+            // Base height formula: 140cm base + 5cm per additive dominant allele
+            const totalAdditiveAlleles = gA + gB + gC + gD; // Range 0 to 8
+            const baseHeight = 140 + (totalAdditiveAlleles * 5); // 140cm to 180cm
+
+            // Environmental Nutrition multiplier (80% to 110%)
+            const finalHeight = Math.round(baseHeight * (nutrition / 100));
+
+            document.getElementById('poly-height-tag').innerText = `Calculated Height: ${finalHeight} cm`;
+
+            // Bar Percentage Fill (Min 140cm, Max 200cm)
+            const fillPct = Math.min(100, Math.max(5, ((finalHeight - 130) / 70) * 100));
+            document.getElementById('poly-bar-fill').style.width = fillPct + '%';
+        }
+
+        function setSimMode(mode) {
+            playSound('click');
+            state.mode = mode;
+            document.querySelectorAll('.mode-tab-btn').forEach(btn => {
+                btn.className = "mode-tab-btn px-3 py-1.5 rounded-lg font-medium text-slate-600 hover:bg-slate-200/60 transition flex items-center gap-2";
+            });
+
+            if (mode === 'MENDELIAN') {
+                document.getElementById('mode-MENDELIAN').className = "mode-tab-btn px-3 py-1.5 rounded-lg font-semibold transition flex items-center gap-2 bg-white text-slate-900 border border-slate-300 shadow-sm";
+                document.getElementById('view-MENDELIAN').classList.remove('hidden');
+                document.getElementById('view-POLYGENIC').classList.add('hidden');
+            } else {
+                document.getElementById('mode-POLYGENIC').className = "mode-tab-btn px-3 py-1.5 rounded-lg font-semibold transition flex items-center gap-2 bg-white text-slate-900 border border-slate-300 shadow-sm";
+                document.getElementById('view-MENDELIAN').classList.add('hidden');
+                document.getElementById('view-POLYGENIC').classList.remove('hidden');
+                updatePolygenicPhenotype();
+            }
+        }
+
+        function setExploreMode(expMode) {
+            playSound('click');
+            state.exploreMode = expMode;
+            document.querySelectorAll('.exp-tab-btn').forEach(btn => {
+                btn.className = "exp-tab-btn px-2.5 py-1 rounded-md font-medium text-slate-500 hover:bg-slate-200 transition";
+            });
+
+            if (expMode === 'GUIDED') {
+                document.getElementById('exp-GUIDED').className = "exp-tab-btn px-2.5 py-1 rounded-md font-semibold bg-slate-200 text-slate-800 transition";
+                document.getElementById('guided-banner').classList.remove('hidden');
+                state.guidedStep = 0;
+                applyGuidedStep();
+            } else {
+                document.getElementById('exp-FREE').className = "exp-tab-btn px-2.5 py-1 rounded-md font-semibold bg-slate-200 text-slate-800 transition";
+                document.getElementById('guided-banner').classList.add('hidden');
+            }
+        }
+
+        // Guided Journey Sequence Definition
+        const GUIDED_STEPS = [
+            {
+                title: "Step 1: Parent Diploid Genotypes",
+                desc: "Notice how both Parent 1 and Parent 2 carry 2 alleles (a homologous chromosome pair). Change Parent 1 to 'AA' and Parent 2 to 'aa'."
+            },
+            {
+                title: "Step 2: Gamete Formation (Meiosis)",
+                desc: "Each parent passes exactly ONE allele into a gamete. Click 'Perform Fertilization' to observe gamete fusion."
+            },
+            {
+                title: "Step 3: Offspring Genotype Analysis",
+                desc: "Observe the offspring's genotype: 1 allele came from P1 (Coral) and 1 from P2 (Blue). Heterozygous 'Aa' displays the dominant phenotype."
+            },
+            {
+                title: "Step 4: Punnett Probability vs Sample Size",
+                desc: "Set both parents to 'Aa'. Run N=1 vs N=100 simulations to see how sample size affects Mendelian ratios."
+            }
+        ];
+
+        function applyGuidedStep() {
+            const step = GUIDED_STEPS[state.guidedStep];
+            document.getElementById('guided-step-badge').innerText = state.guidedStep + 1;
+            document.getElementById('guided-title').innerText = step.title;
+            document.getElementById('guided-desc').innerText = step.desc;
+            document.getElementById('guided-prev').disabled = state.guidedStep === 0;
+        }
+
+        function nextGuidedStep() {
+            if (state.guidedStep < GUIDED_STEPS.length - 1) {
+                state.guidedStep++;
+                applyGuidedStep();
+            } else {
+                openModal('quiz-modal');
+            }
+        }
+
+        function prevGuidedStep() {
+            if (state.guidedStep > 0) {
+                state.guidedStep--;
+                applyGuidedStep();
+            }
+        }
+
+        function setBuildChoice(parent, allele) {
+            playSound('click');
+            state.buildChoices[parent] = allele;
+
+            document.getElementById(`build-${parent}-A`).className = allele === 'A'
+                ? `px-4 py-2 bg-${parent} text-white rounded-xl font-mono font-bold text-sm shadow-sm`
+                : `px-4 py-2 bg-white border-2 border-${parent} rounded-xl font-mono font-bold text-${parent} text-sm`;
+
+            document.getElementById(`build-${parent}-a`).className = allele === 'a'
+                ? `px-4 py-2 bg-${parent} text-white rounded-xl font-mono font-bold text-sm shadow-sm`
+                : `px-4 py-2 bg-white border-2 border-${parent} rounded-xl font-mono font-bold text-${parent} text-sm`;
+
+            if (state.buildChoices.p1 && state.buildChoices.p2) {
+                const combo = formatCombo(state.buildChoices.p1, state.buildChoices.p2);
+                document.getElementById('build-genotype-preview').innerText = combo;
+                document.getElementById('build-result-status').innerText = "Fertilization pairing complete! Ready to apply.";
+                document.getElementById('apply-build-btn').disabled = false;
+            }
+        }
+
+        function applyBuiltOffspring() {
+            closeModal('build-modal');
+            playSound('correct');
+            state.p1GameteIdx = state.buildChoices.p1 === state.p1Genotype[0] ? 0 : 1;
+            state.p2GameteIdx = state.buildChoices.p2 === state.p2Genotype[0] ? 0 : 1;
+            highlightGameteButtons();
+            updateOffspringDisplay();
+        }
+
+        const quizQuestions = [
+            {
+                q: "Myth Check: Does a dominant allele 'destroy' or overwrite a recessive allele in heterozygous (Aa) offspring?",
+                opts: [
+                    "Yes, the recessive allele is physically deleted from the chromosome.",
+                    "No, both alleles remain intact on their respective chromosomes and can be passed to future generations.",
+                    "Yes, dominant alleles are always stronger and more common in populations."
+                ],
+                correct: 1,
+                explain: "Alleles retain their physical sequence integrity on chromosomes. Recessive alleles remain intact and can segregate into future gametes."
+            },
+            {
+                q: "If a Punnett Square predicts a 25% chance of white flowers (aa), what happens if a plant has 4 offspring?",
+                opts: [
+                    "Exactly 1 child will have white flowers.",
+                    "Each birth is an independent event with a 25% probability; sample randomness applies.",
+                    "All 4 children will have purple flowers."
+                ],
+                correct: 1,
+                explain: "Punnett squares predict statistical probabilities for large populations, not exact guaranteed outcomes for small single births."
+            },
+            {
+                q: "Why do complex human traits like height or skin color not fit simple 1-gene Mendelian ratios?",
+                opts: [
+                    "They are influenced by multiple gene loci (polygenic) plus environmental factors like nutrition.",
+                    "Human DNA does not follow genetics rules.",
+                    "Height is completely random and has no genetic basis."
+                ],
+                correct: 0,
+                explain: "Polygenic traits combine additive effects across multiple gene loci along with continuous environmental variables."
+            }
+        ];
+
+        let currentQuizIdx = 0;
+        let selectedQuizOpt = null;
+
+        function renderQuizQuestion() {
+            const q = quizQuestions[currentQuizIdx];
+            const container = document.getElementById('quiz-container');
+
+            container.innerHTML = `
+                <div class="space-y-3">
+                    <h4 class="font-bold text-sm text-slate-900">${currentQuizIdx + 1}. ${q.q}</h4>
+                    <div class="space-y-2">
+                        ${q.opts.map((opt, i) => `
+                            <label class="flex items-center space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-200 cursor-pointer hover:border-slate-300 transition">
+                                <input type="radio" name="quiz-opt" value="${i}" onchange="selectedQuizOpt=${i}" class="text-emerald-600 focus:ring-emerald-500">
+                                <span class="text-xs text-slate-700 font-medium">${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            document.getElementById('quiz-progress').innerText = `Question ${currentQuizIdx + 1} of ${quizQuestions.length}`;
+            selectedQuizOpt = null;
+        }
+
+        function submitQuizChoice() {
+            if (selectedQuizOpt === null) return;
+            const q = quizQuestions[currentQuizIdx];
+            if (selectedQuizOpt === q.correct) {
+                playSound('correct');
+                alert("Correct! " + q.explain);
+            } else {
+                alert("Incorrect. " + q.explain);
+            }
+
+            currentQuizIdx++;
+            if (currentQuizIdx < quizQuestions.length) {
+                renderQuizQuestion();
+            } else {
+                alert("Quiz Completed! You have mastered Chapter 2 Heredity Concepts!");
+                closeModal('quiz-modal');
+                currentQuizIdx = 0;
+            }
+        }
+
+        // Modal Utilities
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+            if (id === 'quiz-modal') renderQuizQuestion();
+            playSound('click');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+            playSound('click');
+        }
+
+        // Initialize Simulation on Load
+        window.onload = function() {
+            updateMendelianState();
+        };
+    </script>
+</body>
+</html>
