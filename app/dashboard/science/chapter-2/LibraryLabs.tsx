@@ -45,11 +45,11 @@ const PROVIDED_RESOURCES:Record<ResourceKind,ResourceTab[]>={
   meiosis:[
     {
       id:"sim",
-      label:"Interactive simulation",
-      url:"https://all-science-sims.vercel.app/#/biology/meiosis",
-      embed:"https://all-science-sims.vercel.app/#/biology/meiosis",
+      label:"Bujhi meiosis tracker",
+      url:"/simulations/class-8/meiosis.html",
+      embed:"/simulations/class-8/meiosis.html",
       kind:"site",
-      note:"The meiosis simulation supplied in your reference sheet."
+      note:"Track maternal and paternal chromosomes through Meiosis I and II in Bujhi."
     },
     {
       id:"video",
@@ -77,7 +77,7 @@ function ProvidedResourceLab({kind,focus}:{kind:ResourceKind;focus:string}){
   return <section className={styles.resourceLab}>
     <div className={styles.resourceHead}>
       <div>
-        <span>YOUR PROVIDED REFERENCES</span>
+        <span>{kind==="meiosis"?"BUJHI · LIVE LAB":"YOUR PROVIDED REFERENCES"}</span>
         <h3>{kind==="mitosis"?"Mitosis":"Meiosis"} · watch, control, compare</h3>
         <p>{focus}</p>
       </div>
@@ -103,7 +103,7 @@ function ProvidedResourceLab({kind,focus}:{kind:ResourceKind;focus:string}){
         :
         <iframe
           key={current.embed}
-          className={styles.resourceFrame}
+          className={styles.resourceFrame+(kind==="meiosis"&&current.kind==="site"?" "+styles.meiosisFrame:"")}
           src={current.embed}
           title={current.label}
           loading="lazy"
@@ -116,7 +116,7 @@ function ProvidedResourceLab({kind,focus}:{kind:ResourceKind;focus:string}){
     <div className={styles.resourceNote}>
       <span>{current.kind==="video"?"VIDEO":current.kind==="site"?"INTERACTIVE":"REFERENCE"}</span>
       <p>{current.note}</p>
-      {current.kind==="site"&&<small>If the embedded site blocks inside Bujhi, use “Open full screen” above—the original simulation will open directly.</small>}
+      {current.kind==="site"&&kind==="mitosis"&&<small>If the embedded site blocks inside Bujhi, use “Open full screen” above—the original simulation will open directly.</small>}
     </div>
   </section>;
 }
@@ -244,7 +244,7 @@ export default function LibraryLabs({lesson}:{lesson:number}){
   }
   if(lesson===5||lesson===6){
     const focus=lesson===5
-      ?"Use the supplied meiosis simulation and video to follow Meiosis I: homologous pairing, alignment, separation, and the 2n → n change."
+      ?"Use the Bujhi meiosis tracker and video to follow Meiosis I: homologous pairing, alignment, separation, and the 2n → n change."
       :"Continue through Meiosis II and track how two haploid cells become four haploid cells.";
     return <ProvidedResourceLab kind="meiosis" focus={focus}/>;
   }
