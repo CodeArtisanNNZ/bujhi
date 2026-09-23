@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hereditary Information Zoom Simulator</title>
+    <title>বংশগত তথ্য জুম সিমুলেটর</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
@@ -151,39 +151,39 @@
         <div class="flex items-center space-x-3">
             <div class="bujhi-mark"><img src="/bujhi-icon.png" alt="Bujhi"></div>
             <div>
-                <div class="bujhi-kicker">BUJHI · CLASS 8 SCIENCE · CHAPTER 2</div>
+                <div class="bujhi-kicker">বুঝি · অষ্টম শ্রেণি · বিজ্ঞান · অধ্যায় ২</div>
                 <h1 class="text-sm font-bold tracking-tight flex items-center gap-2">
                     Where Is Hereditary Information?
-                    <span class="text-[10px] font-mono px-2 py-0.5 rounded-full border" style="background:#f4dfdb;color:#990000;border-color:#d8aaa3">Continuous Zoom</span>
+                    <span class="text-[10px] font-mono px-2 py-0.5 rounded-full border" style="background:#f4dfdb;color:#990000;border-color:#d8aaa3">ধারাবাহিক জুম</span>
                 </h1>
-                <p class="text-[11px] font-medium hidden sm:block">Cell &rarr; Nucleus &rarr; Chromosome &rarr; Nucleosome &rarr; DNA &rarr; Gene</p>
+                <p class="text-[11px] font-medium hidden sm:block">কোষ &rarr; নিউক্লিয়াস &rarr; ক্রোমোজোম &rarr; নিউক্লিওসোম &rarr; DNA &rarr; জিন</p>
             </div>
         </div>
 
         <!-- Scale Pathway / Breadcrumbs -->
         <div id="scale-breadcrumbs" class="hidden lg:flex items-center space-x-1 text-xs font-semibold bg-slate-900/80 p-1 rounded-xl border border-slate-800">
             <button onclick="zoomToLevel(0)" id="bc-0" class="bc-btn px-2.5 py-1 rounded-lg transition-all flex items-center gap-1.5 hover:bg-slate-800 text-slate-400">
-                <span class="w-2 h-2 rounded-full bg-teal-500"></span>Cell <span class="text-[10px] font-mono text-slate-500">10µm</span>
+                <span class="w-2 h-2 rounded-full bg-teal-500"></span>কোষ <span class="text-[10px] font-mono text-slate-500">10µm</span>
             </button>
             <i class="fa-solid fa-chevron-right text-[9px] text-slate-600"></i>
             <button onclick="zoomToLevel(1)" id="bc-1" class="bc-btn px-2.5 py-1 rounded-lg transition-all flex items-center gap-1.5 hover:bg-slate-800 text-slate-400">
-                <span class="w-2 h-2 rounded-full bg-indigo-500"></span>Nucleus <span class="text-[10px] font-mono text-slate-500">6µm</span>
+                <span class="w-2 h-2 rounded-full bg-indigo-500"></span>নিউক্লিয়াস <span class="text-[10px] font-mono text-slate-500">6µm</span>
             </button>
             <i class="fa-solid fa-chevron-right text-[9px] text-slate-600"></i>
             <button onclick="zoomToLevel(2)" id="bc-2" class="bc-btn px-2.5 py-1 rounded-lg transition-all flex items-center gap-1.5 hover:bg-slate-800 text-slate-400">
-                <span class="w-2 h-2 rounded-full bg-purple-500"></span>Chromosome <span class="text-[10px] font-mono text-slate-500">1.4µm</span>
+                <span class="w-2 h-2 rounded-full bg-purple-500"></span>ক্রোমোজোম <span class="text-[10px] font-mono text-slate-500">1.4µm</span>
             </button>
             <i class="fa-solid fa-chevron-right text-[9px] text-slate-600"></i>
             <button onclick="zoomToLevel(2.5)" id="bc-2.5" class="bc-btn px-2.5 py-1 rounded-lg transition-all flex items-center gap-1.5 hover:bg-slate-800 text-slate-400">
-                <span class="w-2 h-2 rounded-full bg-amber-500"></span>Chromatin/Histone <span class="text-[10px] font-mono text-slate-500">11nm</span>
+                <span class="w-2 h-2 rounded-full bg-amber-500"></span>ক্রোমাটিন/হিস্টোন <span class="text-[10px] font-mono text-slate-500">11nm</span>
             </button>
             <i class="fa-solid fa-chevron-right text-[9px] text-slate-600"></i>
             <button onclick="zoomToLevel(3)" id="bc-3" class="bc-btn px-2.5 py-1 rounded-lg transition-all flex items-center gap-1.5 hover:bg-slate-800 text-slate-400">
-                <span class="w-2 h-2 rounded-full bg-cyan-400"></span>DNA Helix <span class="text-[10px] font-mono text-slate-500">2nm</span>
+                <span class="w-2 h-2 rounded-full bg-cyan-400"></span>DNA হেলিক্স <span class="text-[10px] font-mono text-slate-500">2nm</span>
             </button>
             <i class="fa-solid fa-chevron-right text-[9px] text-slate-600"></i>
             <button onclick="zoomToLevel(4)" id="bc-4" class="bc-btn px-2.5 py-1 rounded-lg transition-all flex items-center gap-1.5 hover:bg-slate-800 text-slate-400">
-                <span class="w-2 h-2 rounded-full bg-pink-500"></span>Gene <span class="text-[10px] font-mono text-slate-500">0.34nm</span>
+                <span class="w-2 h-2 rounded-full bg-pink-500"></span>জিন <span class="text-[10px] font-mono text-slate-500">0.34nm</span>
             </button>
         </div>
 
@@ -193,10 +193,10 @@
                 <i id="sound-icon" class="fa-solid fa-volume-high text-xs"></i>
             </button>
             <button id="label-btn" onclick="toggleLabels()" class="px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-teal-500/20 text-teal-300 border border-teal-500/30 hover:bg-teal-500/30 transition flex items-center gap-1.5">
-                <i class="fa-solid fa-tag"></i> <span class="hidden sm:inline">Labels:</span> <span id="label-status">ON</span>
+                <i class="fa-solid fa-tag"></i> <span class="hidden sm:inline">লেবেল:</span> <span id="label-status">ON</span>
             </button>
             <button onclick="openModal('build-modal')" class="px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white transition flex items-center gap-1.5 shadow-md">
-                <i class="fa-solid fa-cubes"></i> <span class="hidden sm:inline">Build Order</span>
+                <i class="fa-solid fa-cubes"></i> <span class="hidden sm:inline">ক্রম সাজাও</span>
             </button>
         </div>
     </header>
@@ -218,8 +218,8 @@
         <div class="flex items-center space-x-3 text-slate-400">
             <!-- Biological State Toggle -->
             <label class="flex items-center gap-2 cursor-pointer bg-slate-900/60 px-2.5 py-1 rounded-lg border border-slate-800 hover:border-slate-700 transition">
-                <input type="checkbox" id="condensed-toggle" onchange="toggleChromosomeCondensed(this.checked)" class="rounded bg-slate-800 border-slate-700 text-purple-600 focus:ring-purple-500">
-                <span class="text-[11px] font-medium text-slate-300">Condensed Chromosome (Cell Division)</span>
+                <input type="checkbox" id="condensed-toggle" onchange="toggleক্রোমোজোমঘনীভূত(this.checked)" class="rounded bg-slate-800 border-slate-700 text-purple-600 focus:ring-purple-500">
+                <span class="text-[11px] font-medium text-slate-300">ঘনীভূত ক্রোমোজোম (কোষ Division)</span>
             </label>
 
             <!-- Sequence Detail Toggle -->
@@ -238,8 +238,8 @@
         <!-- FLOATING OVERLAY 1: MAGNIFICATION & SCALE BAR (BOTTOM LEFT) -->
         <div class="absolute bottom-4 left-4 glass-panel p-3 rounded-xl border border-slate-800 space-y-2 pointer-events-auto z-10 w-64 shadow-2xl">
             <div class="flex items-center justify-between text-xs font-mono">
-                <span class="text-slate-400">Scale Field:</span>
-                <span id="scale-dimension" class="text-teal-400 font-bold">10 µm (Cell)</span>
+                <span class="text-slate-400">স্কেল:</span>
+                <span id="scale-dimension" class="text-teal-400 font-bold">10 µm (কোষ)</span>
             </div>
             
             <!-- Scale Bar Visual -->
@@ -257,8 +257,8 @@
 
             <!-- Zoom Level Numeric -->
             <div class="flex justify-between items-center text-[11px] font-mono pt-1 border-t border-slate-800/80 text-slate-400">
-                <span>Mag Index: <strong id="mag-value" class="text-slate-200">0.00x</strong></span>
-                <span id="biological-stage" class="px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 font-bold text-[10px]">CELL STATE</span>
+                <span>বিবর্ধন সূচক: <strong id="mag-value" class="text-slate-200">0.00x</strong></span>
+                <span id="biological-stage" class="px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 font-bold text-[10px]">কোষের অবস্থা</span>
             </div>
         </div>
 
@@ -284,7 +284,7 @@
             <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-2">
                 <div class="flex items-center space-x-2">
                     <span id="info-badge-dot" class="w-3 h-3 rounded-full bg-teal-500"></span>
-                    <h2 id="info-title" class="font-bold text-sm text-slate-100 tracking-tight">Eukaryotic Cell</h2>
+                    <h2 id="info-title" class="font-bold text-sm text-slate-100 tracking-tight">Eukaryotic কোষ</h2>
                 </div>
                 <span id="info-scale-tag" class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">~10–30 µm</span>
             </div>
@@ -299,14 +299,14 @@
                     <i class="fa-solid fa-lightbulb text-amber-400"></i> Key Concept
                 </div>
                 <div id="info-fact" class="text-slate-300 leading-normal">
-                    Genetic material is kept isolated in the nucleus to protect DNA from chemical damage.
+                    জিনtic material is kept isolated in the nucleus to protect DNA from chemical damage.
                 </div>
             </div>
 
             <!-- Guided Journey Prompt Controls -->
             <div id="guided-controls" class="mt-3 pt-3 border-t border-slate-800 hidden space-y-2">
                 <div class="flex justify-between items-center text-[11px] text-slate-400 font-mono">
-                    <span>Guided Step <strong id="guided-step-num" class="text-teal-400">1</strong> of 5</span>
+                    <span>নির্দেশিত ধাপ <strong id="guided-step-num" class="text-teal-400">1</strong> / ৫</span>
                     <span id="guided-progress-pct" class="text-slate-300">20%</span>
                 </div>
                 <div class="flex space-x-2">
@@ -322,14 +322,14 @@
             <!-- Find-It Mode Target Banner -->
             <div id="findit-banner" class="mt-3 pt-3 border-t border-slate-800 hidden space-y-2">
                 <div class="text-xs font-semibold text-amber-300 flex items-center gap-1.5">
-                    <i class="fa-solid fa-bullseye text-amber-400 animate-pulse"></i> Target: <span id="findit-target-name" class="underline">Cell Nucleus</span>
+                    <i class="fa-solid fa-bullseye text-amber-400 animate-pulse"></i> লক্ষ্য: <span id="findit-target-name" class="underline">কোষ নিউক্লিয়াস</span>
                 </div>
                 <p id="findit-hint" class="text-[11px] text-slate-400">
                     Zoom and pan until the requested organelle or molecular structure is centered!
                 </p>
                 <div class="flex items-center justify-between text-[11px] font-mono text-slate-400">
-                    <span>Score: <strong id="findit-score" class="text-teal-400">0</strong></span>
-                    <button onclick="skipFindItTarget()" class="text-slate-400 hover:text-slate-200 underline">Skip Target</button>
+                    <span>স্কোর: <strong id="findit-score" class="text-teal-400">0</strong></span>
+                    <button onclick="skipFindItTarget()" class="text-slate-400 hover:text-slate-200 underline">লক্ষ্য বাদ দাও</button>
                 </div>
             </div>
         </div>
@@ -341,28 +341,28 @@
             </div>
             <div class="space-y-1 text-xs">
                 <div id="tree-0" class="tree-node flex items-center justify-between p-1.5 rounded-lg border border-transparent transition cursor-pointer hover:bg-slate-800/60" onclick="zoomToLevel(0)">
-                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-teal-500"></span> Cell</span>
-                    <span class="text-[10px] font-mono text-slate-500">Organelle</span>
+                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-teal-500"></span> কোষ</span>
+                    <span class="text-[10px] font-mono text-slate-500">অঙ্গাণু</span>
                 </div>
                 <div id="tree-1" class="tree-node flex items-center justify-between p-1.5 rounded-lg border border-transparent transition cursor-pointer hover:bg-slate-800/60 pl-3" onclick="zoomToLevel(1)">
-                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-indigo-500"></span> Nucleus</span>
-                    <span class="text-[10px] font-mono text-slate-500">Envelope</span>
+                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-indigo-500"></span> নিউক্লিয়াস</span>
+                    <span class="text-[10px] font-mono text-slate-500">আবরণ</span>
                 </div>
                 <div id="tree-2" class="tree-node flex items-center justify-between p-1.5 rounded-lg border border-transparent transition cursor-pointer hover:bg-slate-800/60 pl-5" onclick="zoomToLevel(2)">
-                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-purple-500"></span> Chromosome</span>
-                    <span class="text-[10px] font-mono text-slate-500">Condensed</span>
+                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-purple-500"></span> ক্রোমোজোম</span>
+                    <span class="text-[10px] font-mono text-slate-500">ঘনীভূত</span>
                 </div>
                 <div id="tree-2.5" class="tree-node flex items-center justify-between p-1.5 rounded-lg border border-transparent transition cursor-pointer hover:bg-slate-800/60 pl-7" onclick="zoomToLevel(2.5)">
-                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-500"></span> Histone/Nucleosome</span>
+                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-500"></span> হিস্টোন/নিউক্লিওসোম</span>
                     <span class="text-[10px] font-mono text-slate-500">11nm</span>
                 </div>
                 <div id="tree-3" class="tree-node flex items-center justify-between p-1.5 rounded-lg border border-transparent transition cursor-pointer hover:bg-slate-800/60 pl-9" onclick="zoomToLevel(3)">
-                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-cyan-400"></span> DNA Helix</span>
+                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-cyan-400"></span> DNA হেলিক্স</span>
                     <span class="text-[10px] font-mono text-slate-500">2nm</span>
                 </div>
                 <div id="tree-4" class="tree-node flex items-center justify-between p-1.5 rounded-lg border border-transparent transition cursor-pointer hover:bg-slate-800/60 pl-11" onclick="zoomToLevel(4)">
-                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-pink-500"></span> Gene Locus</span>
-                    <span class="text-[10px] font-mono text-slate-500">Code Region</span>
+                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-pink-500"></span> জিন Locus</span>
+                    <span class="text-[10px] font-mono text-slate-500">তথ্যবাহী অঞ্চল</span>
                 </div>
             </div>
         </div>
@@ -375,7 +375,7 @@
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
                 <div class="flex items-center space-x-2">
                     <i class="fa-solid fa-layer-group text-teal-400 text-lg"></i>
-                    <h3 class="text-base font-bold text-slate-100">Build Biological Hierarchy</h3>
+                    <h3 class="text-base font-bold text-slate-100">জৈবিক স্তরবিন্যাস সাজাও</h3>
                 </div>
                 <button onclick="closeModal('build-modal')" class="text-slate-400 hover:text-slate-200">
                     <i class="fa-solid fa-xmark text-lg"></i>
@@ -383,7 +383,7 @@
             </div>
 
             <p class="text-xs text-slate-300">
-                Drag and reorder the biological structures from <strong>Largest Scale (Outer)</strong> down to <strong>Smallest Functional Sequence (Inner)</strong>:
+                Drag and reorder the biological structures from <strong>সবচেয়ে বড় স্তর (বাহির)</strong> থেকে <strong>সবচেয়ে ছোট কার্যকর অনুক্রম (ভিতর)</strong>:
             </p>
 
             <!-- Drag and Drop List Container -->
@@ -410,7 +410,7 @@
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
                 <div class="flex items-center space-x-2">
                     <i class="fa-solid fa-brain text-purple-400 text-lg"></i>
-                    <h3 class="text-base font-bold text-slate-100">Concept Checkpoint</h3>
+                    <h3 class="text-base font-bold text-slate-100">ধারণা যাচাই</h3>
                 </div>
                 <button onclick="closeModal('quiz-modal')" class="text-slate-400 hover:text-slate-200">
                     <i class="fa-solid fa-xmark text-lg"></i>
@@ -422,9 +422,9 @@
             </div>
 
             <div class="flex justify-between items-center border-t border-slate-800 pt-3">
-                <span id="quiz-progress" class="text-xs text-slate-400 font-mono">Question 1 of 3</span>
+                <span id="quiz-progress" class="text-xs text-slate-400 font-mono">প্রশ্ন ১ / ৩</span>
                 <button id="quiz-submit-btn" onclick="submitQuizAnswer()" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl transition shadow-md">
-                    Submit Answer
+                    উত্তর জমা দাও
                 </button>
             </div>
         </div>
@@ -474,7 +474,7 @@
 
         // Global Simulation State
         const state = {
-            zoomLevel: 0.0, // 0.0 (Cell) to 4.0 (Gene)
+            zoomLevel: 0.0, // 0.0 (কোষ) to 4.0 (জিন)
             targetZoom: 0.0,
             panX: 0,
             panY: 0,
@@ -484,12 +484,12 @@
             dragStartX: 0,
             dragStartY: 0,
             labelsVisible: true,
-            condensedChromosome: false,
+            condensedক্রোমোজোম: false,
             showBasePairs: true,
             appMode: 'EXPLORE', // 'EXPLORE', 'GUIDED', 'FIND_IT'
             guidedStep: 0,
             findItIndex: 0,
-            findItScore: 0,
+            findItস্কোর: 0,
             time: 0
         };
 
@@ -498,7 +498,7 @@
             {
                 level: 0,
                 name: 'CELL',
-                title: 'Eukaryotic Animal Cell',
+                title: 'Eukaryotic Animal কোষ',
                 dim: '10–30 µm',
                 color: '#0d9488',
                 desc: 'The fundamental unit of eukaryotic organisms. Enclosed by a lipid bilayer plasma membrane containing cytoplasm, organelles, and a defined nucleus.',
@@ -507,7 +507,7 @@
             {
                 level: 1,
                 name: 'NUCLEUS',
-                title: 'Cell Nucleus',
+                title: 'কোষ নিউক্লিয়াস',
                 dim: '5–10 µm',
                 color: '#6366f1',
                 desc: 'A double-membraned organelle containing nuclear pores. Houses the organism genome as diffuse chromatin threads.',
@@ -516,8 +516,8 @@
             {
                 level: 2,
                 name: 'CHROMOSOME',
-                title: 'Chromosome / Chromatin Structure',
-                dim: '1.4 µm (Condensed)',
+                title: 'ক্রোমোজোম / Chromatin Structure',
+                dim: '1.4 µm (ঘনীভূত)',
                 color: '#8b5cf6',
                 desc: 'A highly organized package of DNA and histone proteins. Normally exists as loose chromatin, condensing into discrete "X" shapes during cell division.',
                 fact: 'Humans have 23 pairs of homologous chromosomes (46 total) carrying maternal and paternal traits.'
@@ -534,7 +534,7 @@
             {
                 level: 3,
                 name: 'DNA_HELIX',
-                title: 'DNA Double Helix',
+                title: 'DNA ডাবল হেলিক্স',
                 dim: '2 nm',
                 color: '#06b6d4',
                 desc: 'Two antiparallel polynucleotide strands spiraling around a central axis with a sugar-phosphate backbone and complementary nitrogenous base pairs.',
@@ -543,7 +543,7 @@
             {
                 level: 4,
                 name: 'GENE',
-                title: 'Gene Locus (Functional Stretch)',
+                title: 'জিন Locus (Functional Stretch)',
                 dim: '0.34 nm per base pair',
                 color: '#ec4899',
                 desc: 'A specific continuous sequence region along the DNA molecule that encodes instructions for synthesizing a functional protein or RNA product.',
@@ -551,22 +551,22 @@
             }
         ];
 
-        // Guided Steps Configuration
+        // নির্দেশিত ধাপs Configuration
         const GUIDED_STEPS = [
             {
                 level: 0,
-                title: "1. The Eukaryotic Cell",
-                text: "Start at the macroscopic cellular level (~10µm). Notice the membrane enclosing the cell. Locate the central sphere: the Nucleus."
+                title: "1. The Eukaryotic কোষ",
+                text: "Start at the macroscopic cellular level (~10µm). Notice the membrane enclosing the cell. Locate the central sphere: the নিউক্লিয়াস."
             },
             {
                 level: 1,
-                title: "2. Into the Nucleus",
+                title: "2. Into the নিউক্লিয়াস",
                 text: "Zooming through nuclear pores into the nucleus. Here, DNA is stored safely away from the cytoplasm."
             },
             {
                 level: 2,
-                title: "3. Chromosomes & Chromatin",
-                text: "Inside the nucleus, DNA wraps into chromatin fibers. During division, these condense into distinct Chromosomes."
+                title: "3. ক্রোমোজোমs & Chromatin",
+                text: "Inside the nucleus, DNA wraps into chromatin fibers. During division, these condense into distinct ক্রোমোজোমs."
             },
             {
                 level: 2.5,
@@ -575,23 +575,23 @@
             },
             {
                 level: 3,
-                title: "5. The DNA Double Helix",
+                title: "5. The DNA ডাবল হেলিক্স",
                 text: "Uncoiling completely reveals the antiparallel double helix: sugar-phosphate backbone with paired A-T and G-C bases."
             },
             {
                 level: 4,
-                title: "6. The Gene Locus",
-                text: "A Gene is a CONTINUOUS functional stretch on this DNA backbone encoding a specific protein product!"
+                title: "6. The জিন Locus",
+                text: "A জিন is a CONTINUOUS functional stretch on this DNA backbone encoding a specific protein product!"
             }
         ];
 
         // Find-It Challenge Targets
         const FIND_IT_TARGETS = [
-            { name: "Cell Nucleus", level: 1, hint: "Look for the large indigo double-membrane sphere inside the cell." },
-            { name: "Condensed Chromosome", level: 2, hint: "Zoom deeper into the nucleus to spot the purple X-shaped structure." },
+            { name: "কোষ নিউক্লিয়াস", level: 1, hint: "Look for the large indigo double-membrane sphere inside the cell." },
+            { name: "ঘনীভূত ক্রোমোজোম", level: 2, hint: "Zoom deeper into the nucleus to spot the purple X-shaped structure." },
             { name: "Histone Octamer Core", level: 2.5, hint: "Unpack the chromatin fiber to find amber protein beads wrapped by DNA." },
-            { name: "DNA Double Helix", level: 3, hint: "Zoom in to see the cyan spiraling double backbone strand." },
-            { name: "Gene Stretch", level: 4, hint: "Find the highlighted pink continuous sequence region on the DNA backbone." }
+            { name: "DNA ডাবল হেলিক্স", level: 3, hint: "Zoom in to see the cyan spiraling double backbone strand." },
+            { name: "জিন Stretch", level: 4, hint: "Find the highlighted pink continuous sequence region on the DNA backbone." }
         ];
 
         // Canvas Setup & Resize Listener
@@ -712,8 +712,8 @@
             playTone(state.labelsVisible ? 500 : 350, 'triangle', 0.08);
         }
 
-        function toggleChromosomeCondensed(val) {
-            state.condensedChromosome = val;
+        function toggleক্রোমোজোমঘনীভূত(val) {
+            state.condensedক্রোমোজোম = val;
             playTone(val ? 520 : 420, 'sine', 0.1);
         }
 
@@ -824,22 +824,22 @@
             // Logarithmic scale factor: Scale exponentially with zoom level
             const baseScale = Math.pow(4, z);
 
-            // Layer 1: Eukaryotic Cell (Visible z: 0.0 to 1.5)
+            // Layer 1: Eukaryotic কোষ (Visible z: 0.0 to 1.5)
             if (z < 1.5) {
                 const opacity = Math.max(0, 1 - (z / 1.3));
-                drawCellLayer(baseScale, opacity);
+                drawকোষLayer(baseScale, opacity);
             }
 
-            // Layer 2: Nucleus & Organelles (Visible z: 0.2 to 2.3)
+            // Layer 2: নিউক্লিয়াস & অঙ্গাণুs (Visible z: 0.2 to 2.3)
             if (z >= 0.2 && z < 2.3) {
                 const opacity = z < 0.8 ? (z - 0.2) / 0.6 : Math.max(0, 1 - (z - 1.5) / 0.8);
-                drawNucleusLayer(baseScale, opacity);
+                drawনিউক্লিয়াসLayer(baseScale, opacity);
             }
 
-            // Layer 3: Chromosome / Chromatin Fiber (Visible z: 1.2 to 2.8)
+            // Layer 3: ক্রোমোজোম / Chromatin Fiber (Visible z: 1.2 to 2.8)
             if (z >= 1.2 && z < 2.8) {
                 const opacity = z < 1.8 ? (z - 1.2) / 0.6 : Math.max(0, 1 - (z - 2.3) / 0.5);
-                drawChromosomeLayer(baseScale, opacity);
+                drawক্রোমোজোমLayer(baseScale, opacity);
             }
 
             // Layer 4: Histone Octamers & Nucleosomes (Visible z: 2.1 to 3.4)
@@ -848,7 +848,7 @@
                 drawNucleosomeLayer(baseScale, opacity);
             }
 
-            // Layer 5: DNA Double Helix & Base Pairs (Visible z: 2.7 to 4.0)
+            // Layer 5: DNA ডাবল হেলিক্স & Base Pairs (Visible z: 2.7 to 4.0)
             if (z >= 2.7) {
                 const opacity = Math.min(1, (z - 2.7) / 0.5);
                 drawDnaHelixLayer(baseScale, opacity);
@@ -857,14 +857,14 @@
 
         
         // LAYER 0: CELL STRUCTURE
-        function drawCellLayer(scale, opacity) {
+        function drawকোষLayer(scale, opacity) {
             if (opacity <= 0) return;
             ctx.save();
             ctx.globalAlpha = opacity;
 
             const radius = 220 * scale;
 
-            // Cell Outer Membrane Blob
+            // কোষ Outer Membrane Blob
             ctx.beginPath();
             ctx.strokeStyle = '#0d9488';
             ctx.lineWidth = Math.max(2, 4 * scale);
@@ -882,11 +882,11 @@
             ctx.fill();
             ctx.stroke();
 
-            // Cytoplasm Organelles (Mitochondria, Endoplasmic Reticulum)
+            // Cytoplasm অঙ্গাণুs (Mitochondria, Endoplasmic Reticulum)
             if (scale > 0.4) {
                 // Mitochondria
-                drawOrganelle(-radius * 0.5, -radius * 0.4, 30 * scale, '#f59e0b');
-                drawOrganelle(radius * 0.6, radius * 0.3, 25 * scale, '#f59e0b');
+                drawঅঙ্গাণু(-radius * 0.5, -radius * 0.4, 30 * scale, '#f59e0b');
+                drawঅঙ্গাণু(radius * 0.6, radius * 0.3, 25 * scale, '#f59e0b');
                 // Ribosomes
                 for (let i = 0; i < 8; i++) {
                     const rx = Math.sin(i * 1.2) * radius * 0.7;
@@ -899,7 +899,7 @@
             }
 
             if (state.labelsVisible && scale > 0.5) {
-                drawLabel(0, -radius - 15, "Cell Membrane", "#0d9488");
+                drawLabel(0, -radius - 15, "কোষ Membrane", "#0d9488");
                 drawLabel(-radius * 0.5, -radius * 0.4 - 20, "Mitochondrion", "#f59e0b");
             }
 
@@ -907,14 +907,14 @@
         }
 
         // LAYER 1: NUCLEUS & NUCLEAR ENVELOPE
-        function drawNucleusLayer(scale, opacity) {
+        function drawনিউক্লিয়াসLayer(scale, opacity) {
             if (opacity <= 0) return;
             ctx.save();
             ctx.globalAlpha = opacity;
 
             const radius = 100 * scale;
 
-            // Outer Nuclear Envelope (Double Membrane)
+            // Outer Nuclear আবরণ (Double Membrane)
             ctx.beginPath();
             ctx.arc(0, 0, radius, 0, Math.PI * 2);
             ctx.fillStyle = 'rgba(99, 102, 241, 0.15)';
@@ -953,15 +953,15 @@
         }
 
         // LAYER 2: CHROMOSOME & CHROMATIN FIBER
-        function drawChromosomeLayer(scale, opacity) {
+        function drawক্রোমোজোমLayer(scale, opacity) {
             if (opacity <= 0) return;
             ctx.save();
             ctx.globalAlpha = opacity;
 
             const s = scale * 0.15;
 
-            if (state.condensedChromosome) {
-                // Condensed Metaphase Chromosome ("X" Shape)
+            if (state.condensedক্রোমোজোম) {
+                // ঘনীভূত Metaphase ক্রোমোজোম ("X" Shape)
                 ctx.strokeStyle = '#8b5cf6';
                 ctx.lineWidth = 28 * s;
                 ctx.lineCap = 'round';
@@ -1075,11 +1075,11 @@
             const startX = -(points * spacing) / 2;
             const amplitude = 55 * s;
 
-            // Gene Region Span (Indices 12 to 28)
+            // জিন Region Span (Indices 12 to 28)
             const geneStartIdx = 12;
             const geneEndIdx = 28;
 
-            // Highlight Gene Region Backdrop Bracket
+            // Highlight জিন Region Backdrop Bracket
             const geneX1 = startX + geneStartIdx * spacing;
             const geneX2 = startX + geneEndIdx * spacing;
 
@@ -1172,8 +1172,8 @@
             ctx.restore();
         }
 
-        // Helper Organelle Blob
-        function drawOrganelle(x, y, size, color) {
+        // Helper অঙ্গাণু Blob
+        function drawঅঙ্গাণু(x, y, size, color) {
             ctx.beginPath();
             ctx.ellipse(x, y, size, size * 0.5, 0.4, 0, Math.PI * 2);
             ctx.fillStyle = color;
@@ -1259,12 +1259,12 @@
         }
 
         const correctHierarchy = [
-            { id: 'cell', name: 'Eukaryotic Cell', scale: '10–30 µm' },
-            { id: 'nucleus', name: 'Cell Nucleus', scale: '5–10 µm' },
-            { id: 'chromosome', name: 'Chromosome', scale: '1.4 µm' },
-            { id: 'nucleosome', name: 'Nucleosome / Histone', scale: '11 nm' },
-            { id: 'dna', name: 'DNA Double Helix', scale: '2 nm' },
-            { id: 'gene', name: 'Gene (Continuous Locus)', scale: '0.34 nm' }
+            { id: 'cell', name: 'Eukaryotic কোষ', scale: '10–30 µm' },
+            { id: 'nucleus', name: 'কোষ নিউক্লিয়াস', scale: '5–10 µm' },
+            { id: 'chromosome', name: 'ক্রোমোজোম', scale: '1.4 µm' },
+            { id: 'nucleosome', name: 'নিউক্লিওসোম / হিস্টোন', scale: '11 nm' },
+            { id: 'dna', name: 'DNA ডাবল হেলিক্স', scale: '2 nm' },
+            { id: 'gene', name: 'জিন (Continuous Locus)', scale: '0.34 nm' }
         ];
 
         let currentDragOrder = [];
@@ -1343,48 +1343,48 @@
 
             if (isCorrect) {
                 fb.className = "p-3 rounded-lg bg-teal-500/20 border border-teal-500/40 text-teal-300 text-xs font-bold text-center";
-                fb.innerHTML = `<i class="fa-solid fa-circle-check text-base mb-1 block"></i> Perfect! You correctly ordered the biological hierarchy from Cell down to Gene!`;
+                fb.innerHTML = `<i class="fa-solid fa-circle-check text-base mb-1 block"></i> Perfect! You correctly ordered the biological hierarchy from কোষ থেকে জিন!`;
                 playTone(800, 'sine', 0.3);
             } else {
                 fb.className = "p-3 rounded-lg bg-rose-500/20 border border-rose-500/40 text-rose-300 text-xs font-medium text-center";
-                fb.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-base mb-1 block"></i> Order is incorrect. Remember: Genes are stretches on DNA, which coils around Histones into Chromosomes inside the Nucleus of a Cell.`;
+                fb.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-base mb-1 block"></i> Order is incorrect. Remember: জিনs are stretches on DNA, which coils around Histones into ক্রোমোজোমs inside the নিউক্লিয়াস of a কোষ.`;
                 playTone(300, 'triangle', 0.3);
             }
         }
 
         const quizQuestions = [
             {
-                q: "Where is hereditary information physically located?",
+                q: "বংশগত তথ্য ভৌতভাবে কোথায় থাকে?",
                 opts: [
-                    "Only floating in the cytoplasm",
-                    "Stored as DNA sequences in chromosomes inside the cell nucleus",
-                    "In separate floating protein balls called genes",
-                    "Outside the cell membrane"
+                    "শুধু সাইটোপ্লাজমে ভাসমান অবস্থায়",
+                    "কোষের নিউক্লিয়াসের ক্রোমোজোমে DNA অনুক্রম হিসেবে সংরক্ষিত",
+                    "জিন নামে আলাদা ভাসমান প্রোটিন বলের মধ্যে",
+                    "কোষঝিল্লির বাইরে"
                 ],
                 correct: 1,
-                explain: "DNA is packaged into chromosomes housed safely inside the cell nucleus."
+                explain: "DNA ক্রোমোজোমে সংগঠিত হয়ে কোষের নিউক্লিয়াসে থাকে।"
             },
             {
-                q: "What is a 'Gene' in physical terms?",
+                q: "What is a 'জিন' in physical terms?",
                 opts: [
-                    "A separate organelle inside the cytoplasm",
-                    "A continuous specific sequence region on the DNA double helix strand",
-                    "A histone protein ball",
-                    "The membrane surrounding the nucleus"
+                    "সাইটোপ্লাজমের ভেতরে আলাদা অঙ্গাণু",
+                    "DNA ডাবল হেলিক্সের একটি নির্দিষ্ট ধারাবাহিক অনুক্রম অঞ্চল",
+                    "একটি হিস্টোন প্রোটিন বল",
+                    "নিউক্লিয়াসকে ঘিরে থাকা ঝিল্লি"
                 ],
                 correct: 1,
-                explain: "MISCONCEPTION CHECK: A gene is NOT a separate bead—it is a continuous functional sequence on the DNA strand!"
+                explain: "ভুল ধারণা যাচাই: জিন আলাদা কোনো দানা নয়—এটি DNA সুতার একটি ধারাবাহিক কার্যকর অনুক্রম।"
             },
             {
-                q: "What is the role of Histone proteins in the nucleus?",
+                q: "নিউক্লিয়াসে হিস্টোন প্রোটিনের ভূমিকা কী?",
                 opts: [
-                    "They digest cellular waste",
-                    "They act as spools around which DNA coils to form nucleosomes and fit inside the nucleus",
-                    "They produce ATP energy",
-                    "They form the outer cell membrane"
+                    "এগুলো কোষীয় বর্জ্য হজম করে",
+                    "এগুলো স্পুলের মতো কাজ করে; DNA এগুলোর চারপাশে পেঁচিয়ে নিউক্লিওসোম গঠন করে এবং নিউক্লিয়াসে সুশৃঙ্খলভাবে থাকে",
+                    "এগুলো ATP শক্তি তৈরি করে",
+                    "এগুলো বাইরের কোষঝিল্লি তৈরি করে"
                 ],
                 correct: 1,
-                explain: "Histones serve as spool cores around which long DNA strands wrap tightly to fit within the microscopic nucleus."
+                explain: "হিস্টোন স্পুলের কেন্দ্রের মতো কাজ করে; দীর্ঘ DNA সুতা এর চারপাশে পেঁচিয়ে ক্ষুদ্র নিউক্লিয়াসের ভেতরে সুশৃঙ্খলভাবে থাকে।"
             }
         ];
 
@@ -1408,30 +1408,30 @@
                     </div>
                 </div>
             `;
-            document.getElementById('quiz-progress').innerText = `Question ${currentQuizIdx + 1} of ${quizQuestions.length}`;
+            document.getElementById('quiz-progress').innerText = `প্রশ্ন ${currentQuizIdx + 1} / ${quizQuestions.length}`;
             selectedQuizOpt = null;
         }
 
         function submitQuizAnswer() {
             if (selectedQuizOpt === null) {
-                alert("Please select an answer choice!");
+                alert("একটি উত্তর বেছে নাও।");
                 return;
             }
 
             const q = quizQuestions[currentQuizIdx];
             if (selectedQuizOpt === q.correct) {
                 playTone(750, 'sine', 0.2);
-                alert("Correct! " + q.explain);
+                alert("সঠিক! " + q.explain);
             } else {
                 playTone(320, 'triangle', 0.25);
-                alert("Incorrect. " + q.explain);
+                alert("ভুল। " + q.explain);
             }
 
             currentQuizIdx++;
             if (currentQuizIdx < quizQuestions.length) {
                 renderQuizQuestion();
             } else {
-                alert("Quiz Completed! You've mastered the Hereditary Information Hierarchy!");
+                alert("কুইজ সম্পন্ন। বংশগত তথ্যের স্তরবিন্যাস তুমি বুঝে ফেলেছ।");
                 closeModal('quiz-modal');
                 currentQuizIdx = 0;
             }
