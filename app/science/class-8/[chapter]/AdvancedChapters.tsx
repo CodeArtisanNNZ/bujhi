@@ -18,8 +18,8 @@ const chapters:Record<string,Chapter>={
 const steps:Step[]=["discover","explore","do","remember","check"];
 export function isAdvancedChapter(slug:string){return Boolean(chapters[slug])}
 export default function AdvancedChapters({slug,role}:{slug:string;role:"student"|"teacher"}){
- const ch=chapters[slug];const[lang,setLang]=useState<Lang>("bn"),[step,setStep]=useState<Step>("discover"),[answer,setAnswer]=useState<number|null>(null),[notes,setNotes]=useState(""),[reviewDates,setReviewDates]=useState<Record<string,string>>({});
- useEffect(()=>{try{setLang(localStorage.getItem("bujhi-language")==="en"?"en":"bn");setReviewDates(JSON.parse(localStorage.getItem("bujhi-science-review")||"{}"))}catch{}},[]);
+ const ch=chapters[slug];const lang:Lang="bn";const[step,setStep]=useState<Step>("discover"),[answer,setAnswer]=useState<number|null>(null),[notes,setNotes]=useState(""),[reviewDates,setReviewDates]=useState<Record<string,string>>({});
+ useEffect(()=>{try{setReviewDates(JSON.parse(localStorage.getItem("bujhi-science-review")||"{}"))}catch{}},[]);
  const[meter,setMeter]=useState<"series"|"parallel"|null>(null),[mystery,setMystery]=useState(0),[test,setTest]=useState<"red"|"blue"|null>(null),[chainOrder,setChainOrder]=useState([0,1,2,3,4]),[elevator,setElevator]=useState(0);
  const[num,setNum]=useState(5),[other,setOther]=useState(5),[mass,setMass]=useState(10),[planet,setPlanet]=useState<"earth"|"moon">("earth"),[switchOn,setSwitchOn]=useState(true),[parallel,setParallel]=useState(false),[bulbs,setBulbs]=useState(2),[choice,setChoice]=useState(0),[angle,setAngle]=useState(30),[speed,setSpeed]=useState(1),[playing,setPlaying]=useState(true),[showLabels,setShowLabels]=useState(true),[removed,setRemoved]=useState(false);
  const t=(p:Pair)=>p[lang==="bn"?0:1],l=(bn:string,en:string)=>lang==="bn"?bn:en;const back=role==="teacher"?"/teacher-dashboard":"/student-dashboard/books/8/science/learn";
