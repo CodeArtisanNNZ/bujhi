@@ -315,7 +315,7 @@ function Simulation({lesson}:{lesson:number}){ return <LibraryLabs lesson={lesso
 
 export default function ChapterTwo(){
  const[active,setActive]=useState(1);
- useEffect(()=>{const lessonNumber=Number(new URLSearchParams(window.location.search).get("lesson"));if(lessonNumber===5||lessonNumber===6)setActive(lessonNumber)},[]);
+ useEffect(()=>{const lessonNumber=Number(new URLSearchParams(window.location.search).get("lesson"));if(Number.isInteger(lessonNumber)&&lessonNumber>=1&&lessonNumber<=9)setActive(lessonNumber)},[]);
  const[answers,setAnswers]=useState<Record<number,number>>({});
  const[done,setDone]=useState<Record<number,boolean>>({});
  const lesson=lessons[active-1];
@@ -369,6 +369,7 @@ export default function ChapterTwo(){
     <section>
      <div className={styles.sectionLabel}><span>02</span><strong>চোখের সামনে দেখো</strong></div>
      <Simulation lesson={active}/>
+     {active===7&&<p style={{margin:"12px 0 0",fontSize:".82rem",color:"#6b584e"}}><strong style={{color:"#990000"}}>Teacher use:</strong> প্রথমে শিক্ষার্থীদের জিজ্ঞেস করুন বংশগত তথ্য কোথায় থাকে। তারপর continuous zoom-এ Cell → Nucleus → Chromosome → DNA → Gene অনুসরণ করিয়ে শেষে hierarchy মুখে বলতে বলুন।</p>}
      
     </section>
 
