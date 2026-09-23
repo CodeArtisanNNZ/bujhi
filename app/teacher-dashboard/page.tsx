@@ -35,7 +35,7 @@ const drinkOptions:{id:Drink;label:string;image:string}[]=[
   {id:"lemonade",label:"লেবুর শরবত",image:"/lemonade.png"}
 ];
 
-export default function চাcherDashboard(){
+export default function TeacherDashboard(){
   const[profile,setProfile]=useState<Profile>({});
   const[selectedClass,setSelectedClass]=useState(8);
   const[selectedBook,setSelectedBook]=useState<NctbBook|null>(null);
@@ -73,7 +73,7 @@ export default function চাcherDashboard(){
     }catch{}
   },[]);
 
-  const teacherName=profile.full_name?.trim().split(" ")[0]||"চাcher";
+  const teacherName=profile.full_name?.trim().split(" ")[0]||"শিক্ষক";
   const activeDrink=drinkOptions.find(item=>item.id===drink)||drinkOptions[2];
   const booksForClass=useMemo(
     ()=>studentBookCatalog[teacherClassKey(selectedClass)],
@@ -108,7 +108,7 @@ export default function চাcherDashboard(){
 
   return <main className={`${styles.page} ${lightOn?"":styles.pageDim}`}>
     <section className={styles.referenceDesk} aria-label="বুঝি শিক্ষক ডেস্ক">
-      <div className={styles.deskBrand}><a href="/" aria-label="বুঝি হোম"><img src="/bujhi-icon.png" alt=""/><strong>বুঝি</strong></a><span>চাcher desk</span></div>
+      <div className={styles.deskBrand}><a href="/" aria-label="বুঝি হোম"><img src="/bujhi-icon.png" alt=""/><strong>বুঝি</strong></a><span>শিক্ষক ডেস্ক</span></div>
 
       <div className={styles.teacherBadge}>
         <FolderOpen/><span>তোমার শ্রেণিগুলো</span>
@@ -159,8 +159,8 @@ export default function চাcherDashboard(){
 
       <div className={styles.teacherNotebook}>
         <div className={styles.notebookBinding}/>
-        <p>চাcher lesson desk</p>
-        <h1>{selectedBook?selectedBook.title:"Plan. চাch. Help them understand."}</h1>
+        <p>শিক্ষকের পাঠ ডেস্ক</p>
+        <h1>{selectedBook?selectedBook.title:"পরিকল্পনা করো। শেখাও। বুঝতে সাহায্য করো।"}</h1>
         <span>
           {selectedBook
             ?`শ্রেণি ${selectedClass} · ${selectedBook.title} · NCTB ২০২৬`
@@ -179,7 +179,7 @@ export default function চাcherDashboard(){
         {note&&<span>{note}</span>}
       </button>
 
-      <nav className={styles.actionHotspots} aria-label="চাcher tools">
+      <nav className={styles.actionHotspots} aria-label="শিক্ষকের সরঞ্জাম">
         <button type="button" onClick={()=>openClass(selectedClass)}><FolderOpen size={18}/>আমার শ্রেণিগুলো</button>
         <button type="button" onClick={()=>setFolderOpen(true)}><BookOpen size={18}/>পাঠসমূহ</button>
         <button type="button" onClick={()=>setNoteOpen(true)}><NotebookPen size={18}/>আমার নোট</button>
