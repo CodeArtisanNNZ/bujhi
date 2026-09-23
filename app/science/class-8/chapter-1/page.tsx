@@ -24,7 +24,7 @@ export default function AnimalExplorer(){
  const[score,setScore]=useState(0);
  const[flipped,setFlipped]=useState<string|null>(null);
  const[showAnswer,setShowAnswer]=useState(false);
- useEffect(()=>{try{setLang(localStorage.getItem("bujhi-language")==="en"?"en":"bn")}catch{};void (async()=>{try{const r=await fetch("/api/me",{cache:"no-store"});if(!r.ok){location.replace("/login");return}const d=await r.json() as {profile?:{role?:string;class_level?:string}};if(d.profile?.role==="teacher")setRole("teacher");else if(d.profile?.role==="student"&&["8",8].includes(d.profile.class_level as string))setRole("student");else location.replace("/student-dashboard")}catch{location.replace("/login")}})()},[]);
+ useEffect(()=>{void (async()=>{try{const r=await fetch("/api/me",{cache:"no-store"});if(!r.ok){location.replace("/login");return}const d=await r.json() as {profile?:{role?:string;class_level?:string}};if(d.profile?.role==="teacher")setRole("teacher");else if(d.profile?.role==="student"&&["8",8].includes(d.profile.class_level as string))setRole("student");else location.replace("/student-dashboard")}catch{location.replace("/login")}})()},[]);
  const t=(x:Localized)=>x[lang];
  const label=(bn:string,en:string)=>lang==="bn"?bn:en;
  const animal=useMemo(()=>groups.find(g=>g.id===mysteries[index])!,[index]);
@@ -35,7 +35,7 @@ export default function AnimalExplorer(){
  const branches=[{key:"invertebrate" as const,title:{bn:"অমেরুদণ্ডী",en:"Invertebrates"},note:{bn:"মেরুদণ্ড নেই · ৮টি পর্ব",en:"No backbone · 8 phyla"}},{key:"vertebrate" as const,title:{bn:"মেরুদণ্ডী",en:"Vertebrates"},note:{bn:"কর্ডাটা পর্ব · ৭টি শ্রেণি",en:"Chordata · 7 classes"}}];
  if(!role)return <main className={styles.page}><p className={styles.loading}>{label("পাঠ খুলছে…","Opening lesson…")}</p></main>;
  return <main className={styles.page}>
-  <header className={styles.header}><Link href={back} className={styles.back}>← {label("ডেস্কে ফিরি","Back to desk")}</Link><div className={styles.brand}><img src="/bujhi-icon.png" alt=""/> <strong>Bujhi</strong></div><button onClick={switchLang} className={styles.lang} aria-label="Change language">{lang==="bn"?"English":"বাংলা"}</button></header>
+  <header className={styles.header}><Link href={back} className={styles.back}>← {label("ডেস্কে ফিরি","Back to desk")}</Link><div className={styles.brand}><img src="/bujhi-icon.png" alt=""/> <strong>বুঝি</strong></div></header>
   <div className={styles.wrap}>
    <div className={styles.hero}><div><p>{label("অষ্টম শ্রেণি · বিজ্ঞান · ২০২৬ পাঠ্যবই · প্রথম অধ্যায়","Class 8 · Science · 2026 textbook · Chapter 1")}</p><h1>{t(chapterOne.title)}</h1><span>{label("দেখো → বৈশিষ্ট্য খুঁজে বের করো → কারণ বুঝে শ্রেণিবিন্যাস করো","Observe → find a feature → classify with a reason")}</span></div><a href="/nctb/2026/class-8/science-chapter-1.pdf" target="_blank" rel="noopener noreferrer" className={styles.book}>{label("মূল বই · পৃষ্ঠা ১–১২ ↗","Textbook · pages 1–12 ↗")}</a></div>
    {role==="teacher"&&<aside className={styles.teacher}><strong>{label("শিক্ষকের পাঠ পরিকল্পনা · ৪৫ মিনিট","Teacher guide · 45 minutes")}</strong><p>{label("৫ মিনিট পরিচিত প্রাণী দিয়ে শুরু → ১২ মিনিট শ্রেণিবিন্যাস বৃক্ষ → ১০ মিনিট বৈশিষ্ট্য ধরে শনাক্ত → ১০ মিনিট চ্যালেঞ্জ → ৮ মিনিট বইয়ের পৃষ্ঠা ১–১২ ও আলোচনা। প্রথমে শিক্ষার্থীদের অনুমান শুনুন, তারপর উদাহরণ দেখান।","5 min familiar animals → 12 min classification tree → 10 min identify by features → 10 min challenge → 8 min textbook pages 1–12 and discussion. Ask for a prediction before revealing the group.")}</p></aside>}
