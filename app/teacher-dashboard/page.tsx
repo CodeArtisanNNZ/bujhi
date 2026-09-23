@@ -241,40 +241,40 @@ export default function TeacherDashboard(){
               <span><b>NCTB 2026</b></span>
             </div>
             <div className={styles.choiceList}>
-              <strong>Textbook PDF</strong>
+              <strong>পাঠ্যবই PDF</strong>
               <div>{selectedBook.pdfPath.startsWith("https://drive.google.com/file/d/")||selectedClass===8&&selectedBook.id==="science"
-                ? <a href={selectedBook.pdfPath} target="_blank" rel="noopener noreferrer">Open the full textbook →</a>
-                : <span>PDF not connected yet</span>}</div>
+                ? <a href={selectedBook.pdfPath} target="_blank" rel="noopener noreferrer">সম্পূর্ণ পাঠ্যবই খোলো →</a>
+                : <span>PDF এখনো যুক্ত হয়নি</span>}</div>
             </div>
             {selectedClass===8&&selectedBook.id==="science"&&<div className={styles.choiceList}>
-              <strong>Chapter 4 · বীজ ও অঙ্কুরোদ্গম</strong>
-              <div><a href="/science/class-8/chapter-4?topic=seed">Open the seed germination practical and simulation →</a></div>
+              <strong>অধ্যায় ৪ · বীজ ও অঙ্কুরোদ্গম</strong>
+              <div><a href="/science/class-8/chapter-4?topic=seed">বীজ অঙ্কুরোদ্গমের ব্যবহারিক কাজ ও সিমুলেশন খোলো →</a></div>
             </div>}
             {selectedClass===8&&selectedBook.id==="science"&&<div className={styles.choiceList}>
-              <strong>Chapter 5 · প্রতিবর্ত ক্রিয়া ও স্নায়ু সংকেত</strong>
-              <div><a href="/science/class-8/chapter-5?topic=reflex">Open the neuron signal simulator →</a></div>
+              <strong>অধ্যায় ৫ · প্রতিবর্ত ক্রিয়া ও স্নায়ু সংকেত</strong>
+              <div><a href="/science/class-8/chapter-5?topic=reflex">স্নায়ু সংকেত সিমুলেটর খোলো →</a></div>
             </div>}
             {selectedClass===8&&selectedBook.id==="science"&&<div className={styles.choiceList}>
-              <strong>Chapter 2 · মিয়োসিস-I ও II</strong>
-              <div><a href="/dashboard/science/chapter-2?lesson=5">Open the interactive chromosome tracker →</a></div>
+              <strong>অধ্যায় ২ · মিয়োসিস-I ও II</strong>
+              <div><a href="/dashboard/science/chapter-2?lesson=5">ইন্টারেক্টিভ ক্রোমোজোম ট্র্যাকার খোলো →</a></div>
             </div>}
             {selectedClass===8&&selectedBook.id==="science"&&<div className={styles.choiceList}>
-              <strong>Chapter 2 · Cell → Nucleus → Chromosome → DNA → Gene</strong>
-              <div><a href="/dashboard/science/chapter-2?lesson=7">Open Lesson 7 continuous hereditary-information zoom →</a></div>
+              <strong>অধ্যায় ২ · কোষ → নিউক্লিয়াস → ক্রোমোজোম → DNA → জিন</strong>
+              <div><a href="/dashboard/science/chapter-2?lesson=7">পাঠ ৭-এর ধারাবাহিক বংশগত তথ্য জুম খোলো →</a></div>
             </div>}
             {selectedClass===8&&selectedBook.id==="science"&&<div className={styles.choiceList}>
-              <strong>Chapter 2 · বংশগতি ও Gene Transfer</strong>
-              <div><a href="/dashboard/science/chapter-2?lesson=9">Open Lesson 9 heredity & gene-transfer lab →</a></div>
+              <strong>অধ্যায় ২ · বংশগতি ও জিন সঞ্চারণ</strong>
+              <div><a href="/dashboard/science/chapter-2?lesson=9">পাঠ ৯-এর বংশগতি ও জিন সঞ্চারণ ল্যাব খোলো →</a></div>
             </div>}
             {selectedClass===8&&selectedBook.id==="science"&&<div className={styles.choiceList}>
-              <strong>Chapter 1 · প্রাণিজগতের শ্রেণিবিন্যাস</strong>
-              <div><a href="/science/class-8/chapter-1">Open the classification explorer and teacher guide →</a></div>
+              <strong>অধ্যায় ১ · প্রাণিজগতের শ্রেণিবিন্যাস</strong>
+              <div><a href="/science/class-8/chapter-1">শ্রেণিবিন্যাস অনুসন্ধান ও শিক্ষক নির্দেশিকা খোলো →</a></div>
               {[
                 {number:3,title:"ব্যাপন, অভিস্রবণ ও প্রস্বেদন"},
                 {number:4,title:"উদ্ভিদের বংশ বৃদ্ধি"},
                 {number:5,title:"সমন্বয় ও নিঃসরণ"},
                 {number:6,title:"পরমাণুর গঠন"}
-              ].map(chapter=><div key={chapter.number}><a href={`/science/class-8/chapter-${chapter.number}`}>Chapter {chapter.number} · {chapter.title} →</a></div>)}
+              ].map(chapter=><div key={chapter.number}><a href={`/science/class-8/chapter-${chapter.number}`}>অধ্যায় {chapter.number} · {chapter.title} →</a></div>)}
               {[
                 {number:7,title:"পৃথিবী ও মহাকর্ষ"},
                 {number:8,title:"রাসায়নিক বিক্রিয়া"},
@@ -284,8 +284,8 @@ export default function TeacherDashboard(){
                 {number:12,title:"মহাকাশ ও উপগ্রহ"},
                 {number:13,title:"খাদ্য ও পুষ্টি"},
                 {number:14,title:"পরিবেশ এবং বাস্তুতন্ত্র"}
-              ].map(chapter=><div key={chapter.number}><a href={`/science/class-8/chapter-${chapter.number}`}>Chapter {chapter.number} · {chapter.title} →</a></div>)}
-              <div><a href="/nctb/2026/class-8/science-chapter-1.pdf" target="_blank" rel="noopener noreferrer">Open the exact textbook at Chapter 1 →</a></div>
+              ].map(chapter=><div key={chapter.number}><a href={`/science/class-8/chapter-${chapter.number}`}>অধ্যায় {chapter.number} · {chapter.title} →</a></div>)}
+              <div><a href="/nctb/2026/class-8/science-chapter-1.pdf" target="_blank" rel="noopener noreferrer">মূল পাঠ্যবইয়ের অধ্যায় ১ খোলো →</a></div>
             </div>}
             <button className={styles.keepSubject} onClick={()=>setFolderOpen(false)}>Keep this book on my desk</button>
           </div>
