@@ -296,7 +296,7 @@ export default function TeacherDashboard(){
     {noteOpen&&<div className={styles.overlay} onMouseDown={event=>{if(event.currentTarget===event.target)setNoteOpen(false)}}>
       <section className={styles.notePanel}>
         <button className={styles.closeButton} onClick={()=>setNoteOpen(false)} aria-label="বন্ধ করো"><X/></button>
-        <p>চাcher notes</p>
+        <p>শিক্ষকের নোট</p>
         <h2>মনে রাখার মতো কিছু</h2>
         <textarea value={note} onChange={e=>saveNote(e.target.value)} placeholder="কোনো মনে রাখার কথা, ধারণা বা শ্রেণিকক্ষের নোট লিখুন…" maxLength={500}/>
         <small>{note.length}/500 · এই ডিভাইসে স্বয়ংক্রিয়ভাবে সংরক্ষিত</small>
