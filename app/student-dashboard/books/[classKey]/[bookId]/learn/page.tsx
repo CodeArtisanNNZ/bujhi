@@ -42,6 +42,13 @@ export default function LearnBookPage(){
 
   if(!ready)return <main className={styles.page}><div className={styles.loading}>Opening lesson mode…</div></main>;
 
+  if(classKey==="8"&&book.id==="science")return <main className={styles.page}>
+    <header className={styles.topbar}><Link className={styles.brand} href="/">বুঝি</Link><Link className={styles.back} href="/student-dashboard/books/8/science"><ArrowLeft/>Back to science book</Link></header>
+    <section className={styles.lessonPage}><div className={styles.lessonHero} style={{"--accent":book.accent} as React.CSSProperties}><p>Class 8 · Science · NCTB 2026</p><h1>বিজ্ঞান</h1><span>Open a chapter from your actual textbook.</span></div>
+    <div className={styles.lessonWorkspace}><Link className={styles.lessonCard} href="/science/class-8/chapter-1"><BookOpen/><strong>১. প্রাণিজগতের শ্রেণিবিন্যাস</strong><p>Explore the classification tree, identify animals and practise from printed pages 1–12.</p></Link><Link className={styles.lessonCard} href="/dashboard/science/chapter-2"><Play/><strong>২. জীবের বৃদ্ধি ও বংশগতি</strong><p>Explore cell division and the existing Chapter 2 simulations.</p></Link></div>
+    <p className={styles.lessonNotice}>Chapters 3–14 are listed in the textbook. Interactive lessons are being prepared; open the full PDF to read them.</p></section>
+  </main>;
+
   return <main className={styles.page}>
     <header className={styles.topbar}>
       <Link className={styles.brand} href="/">বুঝি</Link>

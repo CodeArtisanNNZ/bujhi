@@ -244,6 +244,11 @@ export default function TeacherDashboard(){
               <strong>Connected PDF path</strong>
               <div><span>{selectedBook.pdfPath}</span></div>
             </div>
+            {selectedClass===8&&selectedBook.id==="science"&&<div className={styles.choiceList}>
+              <strong>Chapter 1 · প্রাণিজগতের শ্রেণিবিন্যাস</strong>
+              <div><a href="/science/class-8/chapter-1">Open the classification explorer and teacher guide →</a></div>
+              <div><a href="/nctb/2026/class-8/science-chapter-1.pdf" target="_blank" rel="noopener noreferrer">Open the exact textbook at Chapter 1 →</a></div>
+            </div>}
             <button className={styles.keepSubject} onClick={()=>setFolderOpen(false)}>Keep this book on my desk</button>
           </div>
         </>}
