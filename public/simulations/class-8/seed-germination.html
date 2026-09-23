@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>বুঝি · বীজ অঙ্কুরোদ্গম পরীক্ষাগার</title>
+<style>
+:root{--red:#990000;--dark:#59191b;--ink:#392f28;--cream:#f3e7d3;--paper:#fffaf0;--line:#d9c5a9;--green:#436d49}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font:15px/1.5 system-ui,"Noto Sans Bengali",sans-serif}
+button,input,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #bb7635;outline-offset:2px}
+.topline{height:5px;background:repeating-linear-gradient(90deg,#990000 0 90px,#dbad76 90px 130px,#648260 130px 180px)}
+header{background:var(--paper);border-bottom:1px solid var(--line);padding:14px clamp(14px,3vw,34px);display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{display:flex;align-items:center;gap:12px}.mark{background:var(--red);color:#fff;border-radius:7px;padding:7px 9px;font-size:21px;font-weight:800;box-shadow:3px 3px #dbc098}
+h1,h2,h3,p{margin:0}h1{font-size:clamp(17px,2vw,23px);line-height:1.3;color:var(--dark)}.eyebrow{font-size:11px;font-weight:800;color:var(--red);letter-spacing:.09em}
+.header-actions{display:flex;gap:8px;flex-wrap:wrap}.pill{border:1px solid var(--line);background:#fff;padding:7px 10px;border-radius:8px;font-size:12px;font-weight:700;color:var(--dark)}
+.page{max-width:1450px;margin:auto;padding:17px;display:grid;grid-template-columns:minmax(245px,275px) minmax(350px,1fr) minmax(245px,295px);gap:15px;align-items:start}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:15px;box-shadow:0 9px 22px #65452915;overflow:hidden}
+.card-head{background:#f0dfc4;padding:12px 15px;border-bottom:1px solid var(--line);color:var(--dark);font-weight:800}.card-body{padding:15px}
+.control{margin-bottom:18px}.control:last-child{margin:0}.control label{display:block;font-size:12px;font-weight:800;color:var(--dark);margin-bottom:7px}
+.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.choices button,.preset button{border:1px solid #d6bf9f;border-radius:8px;background:#fff;min-height:37px;padding:7px;color:#493a31;font-size:12px;font-weight:700}
+.choices button[aria-pressed=true],.preset button.active{background:var(--red);border-color:var(--red);color:white}
+.control small{display:block;margin-top:6px;color:#68594c;font-size:11px}.slider{width:100%;accent-color:var(--red)}
+select{width:100%;border:1px solid var(--line);background:white;border-radius:8px;padding:9px;color:var(--ink)}
+.lab{background:#fff9ed}.lab-intro{display:flex;align-items:center;justify-content:space-between;padding:14px 17px;gap:10px}.lab-intro h2{font-size:17px;color:var(--dark)}.lab-intro small{color:#6a5c4e}
+.scene{height:360px;position:relative;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:radial-gradient(circle at 50% 30%,#fffef9,#e9dfc8)}
+.scene svg{width:100%;height:100%;display:block}.scene .day{position:absolute;left:15px;top:13px;background:#fffaf0e8;border:1px solid var(--line);border-radius:8px;padding:6px 11px;font-weight:800;color:var(--dark)}
+.scene .label{position:absolute;right:15px;top:13px;border-radius:8px;background:#fffaf0e8;border:1px solid var(--line);padding:6px 10px;color:#54453a;font-size:12px;font-weight:700}
+.soil{fill:#81634b}.cotyledon{fill:#c79256;stroke:#a7753e;stroke-width:3}.stem{fill:none;stroke:#537e4e;stroke-width:9;stroke-linecap:round}.leaf{fill:#6a995f;stroke:#447243;stroke-width:2}.root{fill:none;stroke:#e8d4a6;stroke-width:7;stroke-linecap:round}
+.water{fill:#6b98b5;opacity:.52}.seedcoat{fill:#8b572e;stroke:#5e3d29;stroke-width:4}
+.status-bar{padding:12px 16px;background:#f3e6cf;color:var(--dark);font-size:13px;min-height:63px}
+.status-bar strong{display:block}.controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:13px}
+.controls button,.action{border:1px solid var(--line);background:white;border-radius:8px;padding:9px 12px;font-weight:700;color:var(--dark);font-size:12px}
+.controls .primary,.action.primary{background:var(--red);border-color:var(--red);color:white}
+.controls input{flex:1;min-width:120px;accent-color:var(--red)}
+.stages{display:flex;gap:4px;margin:0 14px 15px;padding:0}.stages span{height:6px;flex:1;background:#decbb1;border-radius:8px}.stages span.on{background:var(--red)}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px}.metric{border:1px solid var(--line);border-radius:9px;padding:9px;background:#fff}.metric small{display:block;font-size:10px;color:#79685a}.metric b{font-size:13px;color:var(--dark)}
+.result{margin-top:12px;padding:11px;border-radius:9px;background:#f3e6d0;border:1px solid var(--line);font-size:12px}.result strong{color:var(--dark)}
+.preset{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.preset button{text-align:left;line-height:1.35}.preset small{display:block;font-weight:400}
+.trial{list-style:none;padding:0;margin:9px 0 0}.trial li{padding:8px 0;border-bottom:1px solid #dfcfb8;font-size:12px}
+.practical{max-width:1450px;margin:0 auto 30px;padding:0 17px}.practical .card-body{font-size:13px}.practical ol{margin:9px 0;padding-left:21px}.practical li{margin:5px 0}
+.notice{color:#6a584b;font-size:11px;margin-top:8px}.screenreader{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+@media(max-width:1080px){.page{grid-template-columns:245px minmax(340px,1fr)}.results{grid-column:1/-1}.results .card-body{display:grid;grid-template-columns:1fr 1fr;gap:14px}}
+@media(max-width:700px){header{align-items:flex-start;flex-direction:column}.page{display:flex;flex-direction:column;padding:10px;gap:10px}.page>.card{width:100%}.lab{order:0}.variables{order:1}.results{order:2}.results .card-body{display:block}.scene{height:330px}.practical{padding:0 10px}.controls{gap:6px}}
+</style>
+</head>
+<body>
+<div class="topline"></div>
+<header><div class="brand"><div class="mark" aria-hidden="true">বু</div><div><div class="eyebrow">BUJHI · অষ্টম শ্রেণি · বিজ্ঞান · অধ্যায় ৪</div><h1>বীজ অঙ্কুরোদ্গম পরীক্ষাগার</h1></div></div><div class="header-actions"><span class="pill">পানি + অক্সিজেন + তাপমাত্রা</span><button class="pill" id="reset" type="button">নতুন পরীক্ষা ↺</button></div></header>
+<div class="page">
+<aside class="card variables"><div class="card-head">১ · শর্ত বেছে নাও</div><div class="card-body">
+ <div class="control"><label>বীজের ধরন</label><div class="choices" data-key="seed"><button data-value="bean" type="button">শিমের বীজ</button><button data-value="gram" type="button">ছোলার বীজ</button></div></div>
+ <div class="control"><label>পানি</label><div class="choices" data-key="water"><button data-value="none" type="button">শুষ্ক</button><button data-value="low" type="button">কম</button><button data-value="adequate" type="button">পর্যাপ্ত</button><button data-value="excess" type="button">অতিরিক্ত</button></div><small>অতিরিক্ত পানিতে বীজের চারপাশে অক্সিজেন কমে যেতে পারে।</small></div>
+ <div class="control"><label>অক্সিজেন</label><div class="choices" data-key="oxygen"><button data-value="none" type="button">নেই</button><button data-value="low" type="button">কম</button><button data-value="normal" type="button">স্বাভাবিক</button></div></div>
+ <div class="control"><label for="temp">তাপমাত্রা: <output id="tempValue">২৫°C</output></label><input class="slider" id="temp" type="range" min="5" max="50" value="25"><small>৫°C → ধীর; ২০–৩৫°C → অনুকূল; ৪৫°C → ক্ষতিকর (এই সরল মডেলে)।</small></div>
+ <div class="control"><label for="prediction">তোমার অনুমান কী?</label><select id="prediction"><option value="">একটি উত্তর বেছে নাও</option><option value="normal">অঙ্কুর বের হবে</option><option value="slow">ধীরে অঙ্কুর বের হবে</option><option value="none">অঙ্কুর বের হবে না</option></select></div>
+ </div></aside>
+<main class="card lab"><div class="lab-intro"><div><div class="eyebrow">২ · পর্যবেক্ষণ করো</div><h2 id="sceneTitle">বীজের যাত্রা</h2></div><small>দিন ০ থেকে দিন ৭</small></div>
+ <div class="scene"><span class="day" id="dayTag">দিন ০</span><span class="label" id="chamberTag">২৫°C · পর্যাপ্ত পানি</span>
+ <svg viewBox="0 0 600 350" role="img" aria-label="বীজ অঙ্কুরোদ্গমের ধারণামূলক মডেল">
+  <defs><linearGradient id="soilShade" x2="0" y2="1"><stop stop-color="#997c5a"/><stop offset="1" stop-color="#66503d"/></linearGradient></defs>
+  <rect x="0" y="210" width="600" height="140" fill="url(#soilShade)"/><path d="M0 210 Q150 207 300 212 T600 210" fill="none" stroke="#543d2f" stroke-width="6"/>
+  <g id="plant" transform="translate(300 210)">
+   <path class="root" id="rootShape" d="M0 9 Q-5 25 -9 32" style="display:none"/>
+   <path class="stem" id="stemShape" d="M0 -5 Q-2 -28 2 -50" style="display:none"/>
+   <path class="leaf" id="leafLeft" d="M2 -48 Q-20 -69 -38 -55 Q-19 -39 2 -48" style="display:none"/>
+   <path class="leaf" id="leafRight" d="M2 -48 Q23 -73 39 -58 Q23 -38 2 -48" style="display:none"/>
+   <ellipse class="seedcoat" id="seedShell" cx="0" cy="-3" rx="30" ry="17"/>
+   <ellipse class="cotyledon" id="seedInside" cx="-5" cy="-5" rx="18" ry="12" style="display:none"/>
+  </g>
+  <g id="waterDrops" style="display:none"><circle class="water" cx="237" cy="178" r="7"/><circle class="water" cx="354" cy="174" r="7"/><circle class="water" cx="385" cy="216" r="7"/></g>
+ </svg></div>
+ <div class="status-bar" aria-live="polite"><strong id="statusTitle">শুষ্ক বীজ</strong><span id="statusText">শর্ত বেছে অনুমান করো, তারপর পরীক্ষা চালাও।</span></div>
+ <div class="controls"><button id="prev" type="button">← আগের দিন</button><button class="primary" id="play" type="button">▶ পরীক্ষা চালাও</button><button id="next" type="button">পরের দিন →</button><input id="daySlider" type="range" min="0" max="7" value="0" aria-label="দিন বেছে নাও"/></div>
+ <div class="stages" id="stages" aria-label="পরীক্ষার অগ্রগতি"></div>
+</main>
+<aside class="card results"><div class="card-head">৩ · ফল বোঝো ও তুলনা করো</div><div class="card-body">
+ <div><div class="metrics"><div class="metric"><small>বীজ</small><b id="metricSeed">শিম</b></div><div class="metric"><small>অবস্থা</small><b id="metricResult">পরীক্ষা শুরু হয়নি</b></div><div class="metric"><small>ভ্রূণমূল</small><b id="metricRoot">০ মিমি*</b></div><div class="metric"><small>দিন</small><b id="metricDay">০ / ৭</b></div></div>
+ <div class="result"><strong id="resultTitle">আগে অনুমান করো</strong><p id="resultText">পরীক্ষা শেষে তোমার অনুমান এবং মডেলের ফল এখানে মিলবে।</p><p class="notice">*দৈর্ঘ্য শুধু ধারণামূলক মডেলের মান, বাস্তব পরিমাপ নয়।</p></div></div>
+ <div><h3 style="font-size:13px;margin-bottom:8px">দ্রুত তুলনা: একটি শর্ত বদলাও</h3><div class="preset" id="presets"><button data-preset="control" type="button">A · নিয়ন্ত্রণ<small>সব অনুকূল</small></button><button data-preset="dry" type="button">B · পানি নেই<small>শুধু পানি বদলেছে</small></button><button data-preset="sealed" type="button">C · অক্সিজেন নেই<small>শুধু অক্সিজেন বদলেছে</small></button><button data-preset="cold" type="button">D · ঠান্ডা<small>শুধু তাপমাত্রা বদলেছে</small></button></div><button class="action" id="save" type="button" style="margin-top:10px">এই ফল সংরক্ষণ করো +</button><ul class="trial" id="trials"></ul></div>
+ </div></aside></div>
+<section class="practical"><div class="card"><div class="card-head">ক্লাসে বাস্তব পরীক্ষা · শিম বা ছোলা</div><div class="card-body"><p>এই মডেলটি পূর্বানুমান শেখায়; বাস্তব বীজের অঙ্কুরোদ্গম দিন ও জাতভেদে আলাদা হতে পারে।</p><ol><li>চারটি স্বচ্ছ পাত্রে সমান সংখ্যক সুস্থ বীজ ও তুলা রাখো। A-তে স্বাভাবিক পানি ও বাতাস; B শুষ্ক; C-তে পানিতে সম্পূর্ণ ডুবিয়ে অক্সিজেনের প্রাপ্যতা কমাও; D ঠান্ডা স্থানে রাখো।</li><li>পাত্রগুলো A–D চিহ্নিত করো; একই ধরনের বীজ ব্যবহার করো। প্রতিদিন বীজত্বক, ভ্রূণমূল ও অঙ্কুরের পরিবর্তন নোট করো।</li><li>শিক্ষকের তত্ত্বাবধানে জীবাণুমুক্ত পাত্র ব্যবহার করো। পচা বা ছত্রাকধরা বীজ হাতে নেওয়ার পর হাত ধুয়ে ফেলো।</li><li>বাস্তব ফলের সঙ্গে তোমার সিমুলেশনের ফল তুলনা করে লিখো কোন শর্ত বদলালে কী পার্থক্য হলো।</li></ol><p class="notice">ছবি বা অঙ্কন বাস্তব পর্যবেক্ষণের বিকল্প নয়। কোনো একক তাপমাত্রা সব বীজের জন্য সর্বোত্তম নয়।</p></div></div></section>
+<script>
+(()=>{
+const defaults={seed:"bean",water:"adequate",oxygen:"normal",temp:25,day:0,prediction:"",started:false,playing:false};
+const state={...defaults};let timer=null;const $=id=>document.getElementById(id);
+const bangla=n=>String(n).replace(/\d/g,d=>"০১২৩৪৫৬৭৮৯"[Number(d)]);
+function outcome(){
+ if(state.water==="none"||state.oxygen==="none"||state.temp>=43)return {kind:"none",start:99,why:state.water==="none"?"পানি না থাকলে বীজ পানি শোষণ করতে পারে না।":state.oxygen==="none"?"অঙ্কুরোদ্গমের শক্তি জোগাতে শ্বসনের জন্য অক্সিজেন প্রয়োজন।":"অতিরিক্ত তাপ এনজাইমের কার্যকারিতায় বাধা দেয়।"};
+ if(state.water==="excess"||state.oxygen==="low"||state.temp<14||state.water==="low"||state.temp>36)return {kind:"slow",start:state.temp<10?7:5,why:state.water==="excess"?"অতিরিক্ত পানিতে অক্সিজেনের প্রাপ্যতা কমতে পারে।":state.oxygen==="low"?"অক্সিজেন কম থাকলে শ্বসন ধীর হয়।":state.temp<14?"ঠান্ডায় প্রয়োজনীয় বিপাকীয় কাজ ধীর হয়।":state.water==="low"?"পানি কম হলে বীজের ফুলে ওঠা ও অঙ্কুরোদ্গম ধীর হয়।":"অতিরিক্ত উষ্ণতায় বৃদ্ধি ব্যাহত হতে পারে।"};
+ return {kind:"normal",start:2,why:"পর্যাপ্ত পানি, বাতাসের অক্সিজেন ও উপযোগী তাপমাত্রা অঙ্কুরোদ্গমে সাহায্য করে।"};
+}
+function stop(){clearInterval(timer);timer=null;state.playing=false}
+function setChoice(key,value){stop();Object.assign(state,{[key]:value,day:0,started:false,preset:null});render()}
+function stage(){const result=outcome();if(state.day<result.start)return state.day===0?0:1;return state.day>=result.start+3?4:state.day>=result.start+2?3:2}
+function show(id,yes){$(id).style.display=yes?"":"none"}
+function render(){
+ const result=outcome(),phase=stage(),progress=state.started?phase:0;
+ document.querySelectorAll(".choices").forEach(group=>group.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(state[group.dataset.key]===b.dataset.value))));
+ $("temp").value=state.temp;$("tempValue").textContent=bangla(state.temp)+"°C";$("daySlider").value=state.day;
+ $("dayTag").textContent="দিন "+bangla(state.day);$("metricDay").textContent=bangla(state.day)+" / ৭";
+ $("metricSeed").textContent=state.seed==="bean"?"শিম":"ছোলা";$("chamberTag").textContent=bangla(state.temp)+"°C · "+({none:"পানি নেই",low:"কম পানি",adequate:"পর্যাপ্ত পানি",excess:"অতিরিক্ত পানি"}[state.water]);
+ const names=["শুষ্ক বীজ","বীজ পানি শোষণ করছে","বীজত্বক ফেটে ভ্রূণমূল বের হচ্ছে","ভ্রূণমূল বড় হচ্ছে","নতুন অঙ্কুর"];const title=state.started?names[progress]:"পরীক্ষা শুরু করো";
+ $("statusTitle").textContent=title;
+ $("statusText").textContent=state.started?(result.kind==="none"?result.why:progress===1?"বীজের ভিতরে পানি ঢুকছে; এখনো অঙ্কুর বের হয়নি।":progress===0?"বীজের গঠন অপরিবর্তিত আছে।":progress>=2?"ভ্রূণমূল আগে বের হয়; পরে কাণ্ড ও পাতা বাড়ে।":result.why):"শর্ত বেছে অনুমান করো, তারপর পরীক্ষা চালাও।";
+ $("sceneTitle").textContent=state.seed==="bean"?"শিমের বীজের যাত্রা":"ছোলার বীজের যাত্রা";
+ show("waterDrops",state.started&&state.water!=="none");show("seedInside",progress>=2);show("rootShape",progress>=2);show("stemShape",progress>=3);show("leafLeft",progress>=4);show("leafRight",progress>=4);
+ $("seedShell").style.opacity=progress>=3?".25":"1";$("rootShape").style.transform="scaleY("+(progress===2?".48":"1")+")";$("stemShape").style.transform="scaleY("+(progress===3?".5":"1")+")";
+ $("metricRoot").textContent=bangla(progress<2?0:progress===2?3:progress===3?8:15)+" মিমি*";
+ $("metricResult").textContent=!state.started?"শুরু হয়নি":state.day===7&&result.kind==="none"?"অঙ্কুর নেই":state.day<result.start?"অপেক্ষা":result.kind==="slow"?"ধীরে অঙ্কুর":"অঙ্কুর বের হয়েছে";
+ $("play").textContent=state.playing?"❚❚ থামাও":state.day===7?"↻ আবার চালাও":"▶ পরীক্ষা চালাও";$("prev").disabled=state.day===0;$("next").disabled=state.day===7;
+ $("stages").innerHTML=Array.from({length:8},(_,i)=>'<span class="'+(i<=state.day&&state.started?"on":"")+'"></span>').join("");
+ const labels={normal:"অঙ্কুর বের হবে",slow:"ধীরে অঙ্কুর বের হবে",none:"অঙ্কুর বের হবে না"};
+ $("resultTitle").textContent=state.day===7?"ফল: "+labels[result.kind]:state.started?"পর্যবেক্ষণ চলছে":"আগে অনুমান করো";
+ $("resultText").textContent=state.day===7?(state.prediction?"তোমার অনুমান: "+labels[state.prediction]+" · মডেলের ফল: "+labels[result.kind]+". ":"অনুমান দেওয়া হয়নি। ")+result.why:"পরীক্ষা শেষে তোমার অনুমান এবং মডেলের ফল এখানে মিলবে।";
+ document.querySelectorAll("#presets button").forEach(b=>b.classList.toggle("active",state.preset===b.dataset.preset));
+}
+function setDay(day){stop();state.started=true;state.day=Math.max(0,Math.min(7,Number(day)));render()}
+function play(){if(state.playing){stop();render();return}if(state.day===7)state.day=0;state.started=true;state.playing=true;render();timer=setInterval(()=>{state.day=Math.min(7,state.day+1);if(state.day===7)stop();render()},850)}
+function renderTrials(){let rows=[];try{rows=JSON.parse(localStorage.getItem("bujhi-seed-trials")||"[]")}catch{}$("trials").innerHTML="";if(!rows.length){const li=document.createElement("li");li.textContent="এখনো কোনো ফল সংরক্ষিত হয়নি।";$("trials").append(li);return}for(const row of rows){const li=document.createElement("li");li.textContent=row;$("trials").append(li)}}
+document.querySelectorAll(".choices").forEach(group=>group.addEventListener("click",e=>{const b=e.target.closest("button");if(b)setChoice(group.dataset.key,b.dataset.value)}));
+$("temp").addEventListener("input",e=>setChoice("temp",Number(e.target.value)));
+$("prediction").addEventListener("change",e=>{state.prediction=e.target.value;render()});
+$("play").addEventListener("click",play);$("prev").addEventListener("click",()=>setDay(state.day-1));$("next").addEventListener("click",()=>setDay(state.day+1));$("daySlider").addEventListener("input",e=>setDay(e.target.value));
+$("reset").addEventListener("click",()=>{stop();delete state.preset;Object.assign(state,defaults);$("prediction").value="";render()});
+$("presets").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;stop();Object.assign(state,{...defaults,prediction:state.prediction,preset:b.dataset.preset});if(b.dataset.preset==="dry")state.water="none";if(b.dataset.preset==="sealed")state.oxygen="none";if(b.dataset.preset==="cold")state.temp=5;render()});
+$("save").addEventListener("click",()=>{if(state.day!==7){$("resultText").textContent="দিন ৭ পর্যন্ত পরীক্ষা চালিয়ে ফল সংরক্ষণ করো।";return}let rows=[];try{rows=JSON.parse(localStorage.getItem("bujhi-seed-trials")||"[]")}catch{}rows.unshift((state.seed==="bean"?"শিম":"ছোলা")+" · "+({none:"পানি নেই",low:"কম পানি",adequate:"পর্যাপ্ত পানি",excess:"অতিরিক্ত পানি"}[state.water])+" · "+bangla(state.temp)+"°C · "+({none:"অক্সিজেন নেই",low:"কম অক্সিজেন",normal:"স্বাভাবিক অক্সিজেন"}[state.oxygen])+" → "+({normal:"অঙ্কুর",slow:"ধীরে অঙ্কুর",none:"অঙ্কুর নেই"}[outcome().kind]));rows=rows.slice(0,6);try{localStorage.setItem("bujhi-seed-trials",JSON.stringify(rows))}catch{}renderTrials()});
+render();renderTrials();
+})();
+</script>
+</body>
+</html>
