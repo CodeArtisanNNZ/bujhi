@@ -247,6 +247,10 @@ export default function TeacherDashboard(){
                 : <span>PDF not connected yet</span>}</div>
             </div>
             {selectedClass===8&&selectedBook.id==="science"&&<div className={styles.choiceList}>
+              <strong>Chapter 2 · মিয়োসিস-I ও II</strong>
+              <div><a href="/dashboard/science/chapter-2?lesson=5">Open the interactive chromosome tracker →</a></div>
+            </div>}
+            {selectedClass===8&&selectedBook.id==="science"&&<div className={styles.choiceList}>
               <strong>Chapter 1 · প্রাণিজগতের শ্রেণিবিন্যাস</strong>
               <div><a href="/science/class-8/chapter-1">Open the classification explorer and teacher guide →</a></div>
               {[
