@@ -37,15 +37,15 @@ export default function LearnBookPage(){
   },[classKey,router]);
 
   if(!classKey||!book){
-    return <main className={styles.page}><section className={styles.error}><h1>Lesson not found</h1><Link href="/student-dashboard">Back to my desk</Link></section></main>;
+    return <main className={styles.page}><section className={styles.error}><h1>পাঠ পাওয়া যায়নি</h1><Link href="/student-dashboard">আমার ডেস্কে ফিরি</Link></section></main>;
   }
 
-  if(!ready)return <main className={styles.page}><div className={styles.loading}>Opening lesson mode…</div></main>;
+  if(!ready)return <main className={styles.page}><div className={styles.loading}>পাঠ খোলা হচ্ছে…</div></main>;
 
   if(classKey==="8"&&book.id==="science")return <main className={styles.page}>
     <header className={styles.topbar}><Link className={styles.brand} href="/">বুঝি</Link><Link className={styles.back} href="/student-dashboard/books/8/science"><ArrowLeft/>বিজ্ঞানের বইয়ে ফিরি</Link></header>
     <section className={styles.lessonPage}><div className={styles.lessonHero} style={{"--accent":book.accent} as React.CSSProperties}><p>অষ্টম শ্রেণি · বিজ্ঞান · NCTB ২০২৬</p><h1>বিজ্ঞান</h1><span>তোমার মূল পাঠ্যবই থেকে একটি অধ্যায় খোলো।</span></div>
-    <div className={styles.lessonWorkspace}><Link className={styles.lessonCard} href="/science/class-8/chapter-1"><BookOpen/><strong>১. প্রাণিজগতের শ্রেণিবিন্যাস</strong><p>শ্রেণিবিন্যাস বৃক্ষ দেখো, প্রাণী শনাক্ত করো এবং বইয়ের পৃষ্ঠা ১–১২ থেকে অনুশীলন করো।</p></Link><Link className={styles.lessonCard} href="/dashboard/science/chapter-2"><Play/><strong>২. জীবের বৃদ্ধি ও বংশগতি</strong><p>কোষ বিভাজন, মিয়োসিস-I ও II, ক্রোমোজোম, DNA, জিন এবং hereditary-information zoom—সব Chapter 2-এর ভিতরে।</p></Link></div>
+    <div className={styles.lessonWorkspace}><Link className={styles.lessonCard} href="/science/class-8/chapter-1"><BookOpen/><strong>১. প্রাণিজগতের শ্রেণিবিন্যাস</strong><p>শ্রেণিবিন্যাস বৃক্ষ দেখো, প্রাণী শনাক্ত করো এবং বইয়ের পৃষ্ঠা ১–১২ থেকে অনুশীলন করো।</p></Link><Link className={styles.lessonCard} href="/dashboard/science/chapter-2"><Play/><strong>২. জীবের বৃদ্ধি ও বংশগতি</strong><p>কোষ বিভাজন, মিয়োসিস-I ও II, ক্রোমোজোম, DNA, জিন এবং বংশগত তথ্যের ধারাবাহিক জুম—সবই অধ্যায় ২-এর ভিতরে।</p></Link></div>
     <div className={styles.lessonWorkspace}><Link className={styles.lessonCard} href="/science/class-8/chapter-4?topic=seed"><Play/><strong>অধ্যায় ৪ · বীজ অঙ্কুরোদ্গম পরীক্ষাগার</strong><p>পানি, অক্সিজেন ও তাপমাত্রা বদলে ফল দেখো এবং বাস্তব বীজের সঙ্গে তুলনা করো।</p></Link></div>
     <div className={styles.lessonWorkspace}>{[
       {number:3,title:"ব্যাপন, অভিস্রবণ ও প্রস্বেদন",detail:"ব্যাপন, অভিস্রবণ ও প্রস্বেদন"},
@@ -68,7 +68,7 @@ export default function LearnBookPage(){
   return <main className={styles.page}>
     <header className={styles.topbar}>
       <Link className={styles.brand} href="/">বুঝি</Link>
-      <Link className={styles.back} href={`/student-dashboard/books/${classKey}/${book.id}`}><ArrowLeft/>Back to book</Link>
+      <Link className={styles.back} href={`/student-dashboard/books/${classKey}/${book.id}`}><ArrowLeft/>বইয়ে ফিরি</Link>
     </header>
 
     <section className={styles.lessonPage}>
@@ -81,18 +81,18 @@ export default function LearnBookPage(){
       <div className={styles.lessonWorkspace}>
         <article className={styles.lessonCard}>
           <BookOpen/>
-          <strong>Understand</strong>
-          <p>The lesson explanation for the selected chapter will live here, based on the actual NCTB textbook.</p>
+          <strong>বোঝো</strong>
+          <p>নির্বাচিত অধ্যায়ের ব্যাখ্যা মূল NCTB পাঠ্যবই অনুসারে এখানে থাকবে।</p>
         </article>
         <article className={styles.lessonCard}>
           <Play/>
-          <strong>Learn visually</strong>
-          <p>Diagrams, simulations, examples and read-aloud material can attach to the same lesson.</p>
+          <strong>চিত্রে শেখো</strong>
+          <p>চিত্র, সিমুলেশন, উদাহরণ ও পাঠ-সহায়ক উপকরণ একই পাঠের সঙ্গে থাকবে।</p>
         </article>
         <article className={styles.lessonCard}>
           <PenLine/>
-          <strong>Practice</strong>
-          <p>Questions and understanding checks will follow the exact lesson instead of using made-up chapters.</p>
+          <strong>অনুশীলন</strong>
+          <p>প্রশ্ন ও বোঝাপড়া যাচাই মূল পাঠের সঙ্গে মিল রেখে থাকবে।</p>
         </article>
       </div>
 
