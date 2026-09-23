@@ -186,7 +186,7 @@
             </span>
             <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
             <span class="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 font-semibold flex items-center gap-1.5 border border-emerald-200">
-                <i class="fa-solid fa-scale-balanced text-[10px]"></i> Dynamic Equilibrium
+                <i class="fa-solid fa-scale-balanced text-[10px]"></i> গতিশীল সাম্যাবস্থা
             </span>
         </div>
 
@@ -249,7 +249,7 @@
                             <span class="block text-[10px] text-slate-400">বড় ৮০:২০</span> High &rarr; Low
                         </button>
                         <button onclick="applyPreset('medium')" class="px-2 py-1.5 text-xs font-semibold rounded-lg bg-white border border-slate-200 hover:bg-indigo-50 hover:text-indigo-700 transition text-left">
-                            <span class="block text-[10px] text-slate-400">মাঝারি ৬০:২০</span> Moderate
+                            <span class="block text-[10px] text-slate-400">মাঝারি ৬০:২০</span> মাঝারি
                         </button>
                         <button onclick="applyPreset('equal')" class="px-2 py-1.5 text-xs font-semibold rounded-lg bg-white border border-slate-200 hover:bg-indigo-50 hover:text-indigo-700 transition text-left">
                             <span class="block text-[10px] text-slate-400">সমান ৫০:৫০</span> Equilibrium
@@ -288,13 +288,13 @@
                         <span class="font-bold text-slate-700 flex items-center gap-1.5">
                             <i class="fa-solid fa-temperature-three-quarters text-rose-500 text-sm"></i> Temperature
                         </span>
-                        <span id="temp-val" class="font-mono font-bold text-rose-600">25°C (298 K)</span>
+                        <span id="temp-val" class="font-mono font-bold text-rose-600">২৫°C (২৯৮ K)</span>
                     </div>
                     <input type="range" id="slider-temp" min="5" max="60" value="25" oninput="onTemperatureChange()" class="w-full accent-rose-500 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer">
                     
                     <div class="flex items-center justify-between text-[11px] font-mono text-slate-500 bg-slate-50 p-1.5 rounded-lg border border-slate-200">
                         <span>RMS গতির মান:</span>
-                        <span id="speed-readout" class="font-bold text-slate-800">1.00x (Moderate)</span>
+                        <span id="speed-readout" class="font-bold text-slate-800">১.০০× (মাঝারি)</span>
                     </div>
                 </div>
 
@@ -369,10 +369,10 @@
                     <!-- Speed Multipliers -->
                     <div class="flex items-center space-x-1 bg-white p-1 rounded-lg border border-slate-200 text-xs">
                         <span class="text-[10px] font-bold text-slate-400 uppercase px-1">গতি:</span>
-                        <button onclick="setSpeed(0.5)" id="speed-0.5" class="speed-btn px-2 py-0.5 rounded font-mono font-bold text-slate-600 hover:bg-slate-100">0.5x</button>
-                        <button onclick="setSpeed(1)" id="speed-1" class="speed-btn px-2 py-0.5 rounded font-mono font-bold bg-indigo-100 text-indigo-700">1x</button>
-                        <button onclick="setSpeed(2)" id="speed-2" class="speed-btn px-2 py-0.5 rounded font-mono font-bold text-slate-600 hover:bg-slate-100">2x</button>
-                        <button onclick="setSpeed(4)" id="speed-4" class="speed-btn px-2 py-0.5 rounded font-mono font-bold text-slate-600 hover:bg-slate-100">4x</button>
+                        <button onclick="setSpeed(0.5)" id="speed-0.5" class="speed-btn px-2 py-0.5 rounded font-mono font-bold text-slate-600 hover:bg-slate-100">০.৫×</button>
+                        <button onclick="setSpeed(1)" id="speed-1" class="speed-btn px-2 py-0.5 rounded font-mono font-bold bg-indigo-100 text-indigo-700">১×</button>
+                        <button onclick="setSpeed(2)" id="speed-2" class="speed-btn px-2 py-0.5 rounded font-mono font-bold text-slate-600 hover:bg-slate-100">২×</button>
+                        <button onclick="setSpeed(4)" id="speed-4" class="speed-btn px-2 py-0.5 rounded font-mono font-bold text-slate-600 hover:bg-slate-100">৪×</button>
                     </div>
 
                     <!-- Net Diffusion State Badge -->
@@ -386,7 +386,7 @@
                 </div>
 
                 <!-- CANVAS CHAMBER CONTAINER -->
-                <div class="relative w-full h-[320px] md:h-[380px] bg-slate-900 rounded-2xl border-2 border-slate-300 shadow-inner overflow-hidden flex flex-col justify-between">
+                <div class="relative w-full h-[320px] md:h-[380px] bg-slate-900 rounded-২×l border-2 border-slate-300 shadow-inner overflow-hidden flex flex-col justify-between">
                     
                     <!-- Single Chamber Canvas -->
                     <canvas id="simCanvas" class="w-full h-full block cursor-crosshair"></canvas>
@@ -423,7 +423,7 @@
 
                 </div>
 
-                <!-- Dynamic Equilibrium Notice Banner -->
+                <!-- গতিশীল সাম্যাবস্থা Notice Banner -->
                 <div id="equilibrium-banner" class="hidden bg-emerald-50 border border-emerald-200 p-3 rounded-xl text-xs text-emerald-900 flex items-center justify-between">
                     <div class="flex items-center space-x-2">
                         <i class="fa-solid fa-scale-balanced text-emerald-600 text-base"></i>
@@ -450,16 +450,16 @@
                     <span class="text-[10px] font-mono bg-slate-200 text-slate-700 px-2 py-0.5 rounded">লাইভ গ্রাফ</span>
                 </div>
 
-                <div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-xs space-y-2">
+                <div class="bg-white p-3 rounded-২×l border border-slate-200 shadow-xs space-y-2">
                     <div class="h-44 w-full relative">
                         <canvas id="graphCanvas" class="w-full h-full block"></canvas>
                     </div>
 
                     <!-- Graph Legend -->
                     <div class="flex justify-around text-[10px] font-bold font-mono border-t border-slate-100 pt-2">
-                        <span class="text-blue-600 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-blue-600 inline-block"></span> Region A %</span>
-                        <span class="text-amber-600 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-600 inline-block"></span> Region B %</span>
-                        <span class="text-indigo-600 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-indigo-600 inline-block"></span> Conc Delta (&Delta;)</span>
+                        <span class="text-blue-600 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-blue-600 inline-block"></span> অঞ্চল A %</span>
+                        <span class="text-amber-600 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-600 inline-block"></span> অঞ্চল B %</span>
+                        <span class="text-indigo-600 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-indigo-600 inline-block"></span> ঘনত্বের পার্থক্য (&Delta;)</span>
                     </div>
                 </div>
             </div>
@@ -475,7 +475,7 @@
                     </button>
                 </div>
 
-                <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+                <div class="bg-white rounded-২×l border border-slate-200 shadow-xs overflow-hidden">
                     <table class="w-full text-left text-[11px] font-mono">
                         <thead class="bg-slate-100 text-slate-600 font-bold border-b border-slate-200">
                             <tr>
@@ -495,7 +495,7 @@
             </div>
 
             <!-- CORE SCIENTIFIC CONCEPT REMINDERS -->
-            <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs space-y-2 text-xs">
+            <div class="bg-white p-4 rounded-২×l border border-slate-200 shadow-xs space-y-2 text-xs">
                 <h4 class="font-bold text-slate-900 flex items-center gap-1.5">
                     <i class="fa-solid fa-graduation-cap text-indigo-600"></i> Chapter 3 Core Takeaways
                 </h4>
@@ -511,7 +511,7 @@
     </main>
 
     <div id="practical-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white max-w-2xl w-full rounded-2xl border border-slate-200 shadow-2xl p-6 space-y-5 max-h-[90vh] overflow-y-auto custom-scrollbar">
+        <div class="bg-white max-w-২×l w-full rounded-২×l border border-slate-200 shadow-২×l p-6 space-y-5 max-h-[90vh] overflow-y-auto custom-scrollbar">
             <div class="flex justify-between items-center border-b border-slate-100 pb-3">
                 <div class="flex items-center space-x-2">
                     <div class="p-2 rounded-lg bg-amber-50 text-amber-600 font-bold">
@@ -526,22 +526,22 @@
 
             <div class="space-y-4 text-xs leading-relaxed text-slate-600">
                 <div class="bg-amber-50 border border-amber-200 p-3.5 rounded-xl text-amber-900 space-y-1">
-                    <h4 class="font-bold text-sm flex items-center gap-1.5"><i class="fa-solid fa-circle-exclamation"></i> Convection vs. Pure Molecular Diffusion Warning!</h4>
-                    <p>In classroom beaker experiments (e.g. dropping potassium permanganate crystals into warm water), visual swirling is often dominated by <strong>thermal convection currents</strong> rather than pure random molecular diffusion!</p>
+                    <h4 class="font-bold text-sm flex items-center gap-1.5"><i class="fa-solid fa-circle-exclamation"></i> সংবহন বনাম বিশুদ্ধ আণবিক ব্যাপন—সতর্কতা!</h4>
+                    <p>শ্রেণিকক্ষের বিকার পরীক্ষায় (যেমন উষ্ণ পানিতে পটাশিয়াম পারম্যাঙ্গানেটের স্ফটিক ফেললে) যে ঘূর্ণায়মান চলাচল দেখা যায়, তা অনেক সময় প্রধানত <strong>তাপীয় সংবহন স্রোতের</strong> কারণে হয়—শুধু এলোমেলো আণবিক ব্যাপনের কারণে নয়।</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-2">
-                        <h5 class="font-bold text-slate-800 text-xs flex items-center gap-1.5"><i class="fa-solid fa-vial text-indigo-600"></i> Standard Agar Cube Practical</h5>
-                        <p>Phenolphthalein agar cubes placed in acid measure diffusion rates by calculating surface area-to-volume ratios (SA:V). Smaller organisms diffuse nutrients faster due to shorter diffusion distance.</p>
+                        <h5 class="font-bold text-slate-800 text-xs flex items-center gap-1.5"><i class="fa-solid fa-vial text-indigo-600"></i> আগার কিউব ব্যবহারিক পরীক্ষা</h5>
+                        <p>অ্যাসিডে রাখা ফেনলফথ্যালিনযুক্ত আগার কিউবের পৃষ্ঠতল-আয়তন অনুপাত (SA:V) ব্যবহার করে ব্যাপনের হার বোঝা যায়। ছোট আকারে ব্যাপনের দূরত্ব কম হওয়ায় পদার্থ তুলনামূলক দ্রুত ছড়িয়ে পড়ে।</p>
                     </div>
 
                     <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-2">
-                        <h5 class="font-bold text-slate-800 text-xs flex items-center gap-1.5"><i class="fa-solid fa-microscope text-emerald-600"></i> Simulation Model Assumptions</h5>
+                        <h5 class="font-bold text-slate-800 text-xs flex items-center gap-1.5"><i class="fa-solid fa-microscope text-emerald-600"></i> সিমুলেশন মডেলের অনুমান</h5>
                         <ul class="list-disc list-inside space-y-1 text-[11px]">
-                            <li>Elastic hard-sphere particle collisions.</li>
-                            <li>2D bounded chamber ignoring vertical gravity settling.</li>
-                            <li>Constant average temperature without spatial thermal gradients.</li>
+                            <li>কণাগুলোর সংঘর্ষকে স্থিতিস্থাপক কঠিন গোলকের মতো ধরা হয়েছে।</li>
+                            <li>এটি একটি ২-মাত্রিক সীমাবদ্ধ প্রকোষ্ঠ; অভিকর্ষের কারণে নিচে বসে যাওয়ার প্রভাব ধরা হয়নি।</li>
+                            <li>স্থানভেদে তাপমাত্রার পার্থক্য না ধরে একটি স্থির গড় তাপমাত্রা ধরা হয়েছে।</li>
                         </ul>
                     </div>
                 </div>
@@ -556,7 +556,7 @@
     </div>
 
     <div id="osmosis-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white max-w-2xl w-full rounded-2xl border border-slate-200 shadow-2xl p-6 space-y-5 max-h-[90vh] overflow-y-auto custom-scrollbar">
+        <div class="bg-white max-w-২×l w-full rounded-২×l border border-slate-200 shadow-২×l p-6 space-y-5 max-h-[90vh] overflow-y-auto custom-scrollbar">
             <div class="flex justify-between items-center border-b border-slate-100 pb-3">
                 <div class="flex items-center space-x-2">
                     <div class="p-2 rounded-lg bg-indigo-50 text-indigo-600 font-bold">
@@ -582,23 +582,23 @@
                         <tbody class="divide-y divide-slate-200 text-[11px]">
                             <tr>
                                 <td class="p-3 font-bold bg-slate-50">যে পদার্থ চলে</td>
-                                <td class="p-3">Solute molecules (Gas $O_2, CO_2$, glucose, dye)</td>
-                                <td class="p-3">Solvent molecules (Free Water $H_2O$)</td>
+                                <td class="p-3">দ্রব পদার্থের অণু (গ্যাস O₂, CO₂, গ্লুকোজ, রঞ্জক)</td>
+                                <td class="p-3">দ্রাবকের অণু (মুক্ত পানি H₂O)</td>
                             </tr>
                             <tr>
                                 <td class="p-3 font-bold bg-slate-50">ঘনত্ব/বিভবের দিক</td>
-                                <td class="p-3">High solute concentration &rarr; Low solute concentration</td>
-                                <td class="p-3">High water potential &rarr; Low water potential</td>
+                                <td class="p-3">উচ্চ দ্রব ঘনত্ব &rarr; নিম্ন দ্রব ঘনত্ব</td>
+                                <td class="p-3">উচ্চ পানি বিভব &rarr; নিম্ন পানি বিভব</td>
                             </tr>
                             <tr>
                                 <td class="p-3 font-bold bg-slate-50">ঝিল্লি দরকার?</td>
-                                <td class="p-3">Not required (occurs freely in air, liquids, solids)</td>
-                                <td class="p-3">Requires Selectively Permeable Membrane</td>
+                                <td class="p-3">প্রয়োজন নেই (বায়ু, তরল ও কঠিনে ঘটতে পারে)</td>
+                                <td class="p-3">নির্বাচনীভাবে ভেদ্য ঝিল্লি প্রয়োজন</td>
                             </tr>
                             <tr>
                                 <td class="p-3 font-bold bg-slate-50">জৈবিক উদাহরণ</td>
-                                <td class="p-3">Gas exchange in lung alveoli & leaf stomata</td>
-                                <td class="p-3">Water uptake by root hair cells in soil</td>
+                                <td class="p-3">ফুসফুসের অ্যালভিওলাই ও পাতার পত্ররন্ধ্রে গ্যাস বিনিময়</td>
+                                <td class="p-3">মাটি থেকে মূলরোম কোষে পানি গ্রহণ</td>
                             </tr>
                         </tbody>
                     </table>
@@ -614,7 +614,7 @@
     </div>
 
     <div id="predict-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white max-w-lg w-full rounded-2xl border border-slate-200 shadow-2xl p-6 space-y-5">
+        <div class="bg-white max-w-lg w-full rounded-২×l border border-slate-200 shadow-২×l p-6 space-y-5">
             <div class="flex justify-between items-center border-b border-slate-100 pb-3">
                 <div class="flex items-center space-x-2">
                     <div class="p-2 rounded-lg bg-amber-50 text-amber-600 font-bold">
@@ -1265,7 +1265,7 @@
                 desc: "Compare A->B vs B->A crossings in HUD. High concentration side simply produces MORE random crossing opportunities."
             },
             {
-                title: "Step 4: Dynamic Equilibrium Arrival",
+                title: "Step 4: গতিশীল সাম্যাবস্থা Arrival",
                 desc: "When concentrations balance (~50/50), particle transfer continues endlessly, but NET transport equals zero."
             }
         ];
