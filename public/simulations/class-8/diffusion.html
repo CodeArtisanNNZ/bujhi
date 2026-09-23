@@ -192,7 +192,7 @@
 
         <!-- Header Controls -->
         <div class="flex items-center space-x-2">
-            <button onclick="toggleSound()" id="sound-btn" class="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition border border-slate-200" title="Audio Sound Effects Toggle">
+            <button onclick="toggleSound()" id="sound-btn" class="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition border border-slate-200" title="শব্দ চালু/বন্ধ">
                 <i id="sound-icon" class="fa-solid fa-volume-high text-sm"></i>
             </button>
             <button onclick="openModal('practical-modal')" class="px-3 py-2 text-xs font-semibold rounded-lg bg-slate-800 hover:bg-slate-700 text-white transition flex items-center gap-1.5 shadow-sm">
@@ -314,7 +314,7 @@
                     <div class="flex items-center justify-between">
                         <span class="font-bold text-xs text-slate-800">ব্রাউনীয় পথ অনুসরণ</span>
                         <button onclick="toggleTrackMode()" id="track-btn" class="px-2.5 py-1 text-xs font-semibold rounded-lg bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition border border-indigo-200">
-                            <i class="fa-solid fa-route"></i> Track Single Particle
+                            <i class="fa-solid fa-route"></i> একটি কণা অনুসরণ করো
                         </button>
                     </div>
                     <p id="track-status" class="text-[10px] text-slate-500 leading-tight">
@@ -361,7 +361,7 @@
                         <button onclick="togglePlayPause()" id="play-btn" class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shadow-xs flex items-center gap-1.5">
                             <i id="play-icon" class="fa-solid fa-pause"></i> <span id="play-text">বিরতি</span>
                         </button>
-                        <button onclick="stepSim(5)" class="px-2.5 py-1.5 rounded-lg bg-white border border-slate-200 hover:bg-slate-100 font-bold text-xs text-slate-700 transition" title="Step +5 seconds forward">
+                        <button onclick="stepSim(5)" class="px-2.5 py-1.5 rounded-lg bg-white border border-slate-200 hover:bg-slate-100 font-bold text-xs text-slate-700 transition" title="৫ সেকেন্ড এগিয়ে নাও">
                             <i class="fa-solid fa-forward-step"></i> +5s
                         </button>
                     </div>
@@ -412,8 +412,8 @@
                         </div>
                         
                         <div class="hidden sm:flex items-center space-x-3 text-[11px]">
-                            <span class="text-emerald-400" title="Crossings Left to Right in last 5s"><i class="fa-solid fa-arrow-right"></i> A&rarr;B: <span id="hud-cross-ab">0</span></span>
-                            <span class="text-rose-400" title="Crossings Right to Left in last 5s"><i class="fa-solid fa-arrow-left"></i> B&rarr;A: <span id="hud-cross-ba">0</span></span>
+                            <span class="text-emerald-400" title="শেষ ৫ সেকেন্ডে বাম থেকে ডানে পার হওয়া"><i class="fa-solid fa-arrow-right"></i> A&rarr;B: <span id="hud-cross-ab">0</span></span>
+                            <span class="text-rose-400" title="শেষ ৫ সেকেন্ডে ডান থেকে বামে পার হওয়া"><i class="fa-solid fa-arrow-left"></i> B&rarr;A: <span id="hud-cross-ba">0</span></span>
                         </div>
 
                         <div class="text-slate-300 font-bold">
@@ -914,11 +914,11 @@
             const h = dualCanvas1.height;
             const divX = w / 2;
 
-            // Setup Chamber 1 (10°C) - 80 vs 20
+            // Setup প্রকোষ্ঠ ১ (১০°C) - 80 vs 20
             for (let i = 0; i < 80; i++) dualParticles1.push(new Particle(i, Math.random() * (divX - 20) + 10, Math.random() * (h - 20) + 10, 6, '#38BDF8'));
             for (let i = 0; i < 20; i++) dualParticles1.push(new Particle(i + 80, divX + 10 + Math.random() * (w - divX - 20), Math.random() * (h - 20) + 10, 6, '#FBBF24'));
 
-            // Setup Chamber 2 (50°C) - 80 vs 20
+            // Setup প্রকোষ্ঠ ২ (৫০°C) - 80 vs 20
             for (let i = 0; i < 80; i++) dualParticles2.push(new Particle(i, Math.random() * (divX - 20) + 10, Math.random() * (h - 20) + 10, 6, '#38BDF8'));
             for (let i = 0; i < 20; i++) dualParticles2.push(new Particle(i + 80, divX + 10 + Math.random() * (w - divX - 20), Math.random() * (h - 20) + 10, 6, '#FBBF24'));
         }
@@ -1003,8 +1003,8 @@
 
             } else {
                 // Render Dual Chambers
-                renderSingleDual(dualCtx1, dualCanvas1, dualParticles1, "Chamber 1 (10°C)");
-                renderSingleDual(dualCtx2, dualCanvas2, dualParticles2, "Chamber 2 (50°C)");
+                renderSingleDual(dualCtx1, dualCanvas1, dualParticles1, "প্রকোষ্ঠ ১ (১০°C)");
+                renderSingleDual(dualCtx2, dualCanvas2, dualParticles2, "প্রকোষ্ঠ ২ (৫০°C)");
             }
 
             renderGraphCanvas();
@@ -1253,20 +1253,20 @@
         // Guided Journey Sequence Definition
         const GUIDED_STEPS = [
             {
-                title: "Step 1: Observe Random Brownian Motion",
-                desc: "Notice how individual particles bounce in all directions randomly, rather than walking straight toward low concentration."
+                title: "ধাপ ১: এলোমেলো ব্রাউনীয় গতি পর্যবেক্ষণ করো",
+                desc: "দেখো, কণাগুলো নিম্ন ঘনত্বের দিকে সোজা না গিয়ে সবদিকে এলোমেলোভাবে চলাচল করে।"
             },
             {
-                title: "Step 2: Track an Individual Particle Path",
-                desc: "Enable 'Track Single Particle' to trace its zig-zag trajectory across the boundary line."
+                title: "ধাপ ২: একটি কণার পথ অনুসরণ করো",
+                desc: "‘একটি কণা অনুসরণ করো’ চালু করে সীমানা পার হওয়ার সময় কণাটির জিগজ্যাগ পথ দেখো।"
             },
             {
-                title: "Step 3: Boundary Crossing Rates",
-                desc: "Compare A->B vs B->A crossings in HUD. High concentration side simply produces MORE random crossing opportunities."
+                title: "ধাপ ৩: সীমানা পার হওয়ার হার",
+                desc: "A→B ও B→A পার হওয়ার সংখ্যা তুলনা করো। উচ্চ ঘনত্বের পাশে বেশি কণা থাকায় এলোমেলোভাবে পার হওয়ার সুযোগও বেশি।"
             },
             {
-                title: "Step 4: গতিশীল সাম্যাবস্থা Arrival",
-                desc: "When concentrations balance (~50/50), particle transfer continues endlessly, but NET transport equals zero."
+                title: "ধাপ ৪: গতিশীল সাম্যাবস্থায় পৌঁছানো",
+                desc: "ঘনত্ব প্রায় সমান (~৫০/৫০) হলেও কণার চলাচল চলতে থাকে; তবে নিট স্থানান্তর শূন্য হয়।"
             }
         ];
 
