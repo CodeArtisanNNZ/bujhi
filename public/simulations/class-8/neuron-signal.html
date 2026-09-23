@@ -43,6 +43,165 @@
         /* Custom UI Transitions */
         .stage-badge { transition: all 0.3s ease; }
         .stage-active { transform: scale(1.05); ring: 2px; }
+    
+        /* ============================================================
+           BUJHI THEME
+           Warm textbook-paper palette + Bujhi deep red
+           ============================================================ */
+        :root{
+            --bujhi-red:#990000;
+            --bujhi-red-dark:#6f1111;
+            --bujhi-red-soft:#f4dfdb;
+            --bujhi-cream:#f6efe3;
+            --bujhi-paper:#fffaf3;
+            --bujhi-paper-2:#faf4e8;
+            --bujhi-paper-3:#f2e5cf;
+            --bujhi-ink:#362922;
+            --bujhi-muted:#6b584e;
+            --bujhi-border:#dfcfbb;
+            --bujhi-gold:#c08c32;
+        }
+
+        html{background:var(--bujhi-cream)!important;}
+        body{
+            color:var(--bujhi-ink)!important;
+            background-color:var(--bujhi-cream)!important;
+            background-image:radial-gradient(#e6dac8 1px,transparent 1px)!important;
+            background-size:23px 23px!important;
+        }
+        body::before{
+            content:"";
+            position:fixed;inset:0;pointer-events:none;z-index:-1;
+            background:linear-gradient(180deg,rgba(255,250,243,.7),rgba(246,239,227,.3));
+        }
+
+        body>header{
+            background:rgba(255,250,243,.96)!important;
+            border-bottom:1px solid var(--bujhi-border)!important;
+            border-top:5px solid var(--bujhi-red)!important;
+            box-shadow:0 8px 24px rgba(73,45,30,.07)!important;
+        }
+        .bujhi-logo-wrap{
+            width:42px;height:42px;border-radius:13px;
+            display:flex;align-items:center;justify-content:center;
+            background:#fff;border:1px solid #e5d4bf;
+            box-shadow:0 4px 12px rgba(92,47,35,.10);
+            flex:none;
+        }
+        .bujhi-logo{width:32px;height:32px;object-fit:contain}
+        .bujhi-kicker{
+            color:var(--bujhi-red);font-size:10px;font-weight:900;
+            letter-spacing:.11em;line-height:1;margin-bottom:5px;
+        }
+        body>header h1{color:#571719!important;}
+        body>header p{color:var(--bujhi-muted)!important;}
+
+        body>nav{
+            background:rgba(242,229,207,.92)!important;
+            border-bottom:1px solid #d7b996!important;
+        }
+        #pathway-breadcrumb{
+            background:#f7efe2!important;
+            border-color:#e1d2c2!important;
+        }
+
+        main>section{
+            background:rgba(255,250,243,.98)!important;
+            border-color:var(--bujhi-border)!important;
+            border-radius:17px!important;
+            box-shadow:0 9px 24px rgba(59,41,17,.07)!important;
+        }
+        main>section>div.bg-slate-50\/50,
+        #canvas-banner{
+            background:#f7efe2!important;
+            border-color:var(--bujhi-border)!important;
+        }
+
+        .bg-white{background-color:var(--bujhi-paper)!important;}
+        .bg-slate-50{background-color:var(--bujhi-paper-2)!important;}
+        .bg-slate-100,.bg-slate-100\/80{background-color:#f2e5cf!important;}
+        .bg-slate-900{background-color:#4b2925!important;}
+        .bg-slate-800{background-color:#684139!important;}
+        .border-slate-100,.border-slate-200,.border-slate-300,
+        .border-slate-800{border-color:var(--bujhi-border)!important;}
+        .text-slate-900,.text-slate-800,.text-slate-700{color:var(--bujhi-ink)!important;}
+        .text-slate-600,.text-slate-500,.text-slate-400{color:var(--bujhi-muted)!important;}
+
+        .bg-blue-600{background-color:var(--bujhi-red)!important;}
+        .hover\:bg-blue-700:hover,.active\:bg-blue-700:active{background-color:var(--bujhi-red-dark)!important;}
+        .text-blue-700,.text-blue-600,.text-blue-500{color:var(--bujhi-red)!important;}
+        .border-blue-200,.border-blue-300{border-color:#dab3a8!important;}
+        .bg-blue-50,.hover\:bg-blue-50:hover{background-color:#fff1ec!important;}
+
+        .mode-tab{
+            border-radius:999px!important;
+            color:#684e45!important;
+        }
+        .mode-tab:hover{background:#fff8ed!important;color:#571719!important;}
+        .mode-tab.text-blue-700{
+            background:var(--bujhi-red)!important;
+            border-color:var(--bujhi-red)!important;
+            color:white!important;
+        }
+        .stage-badge{
+            border-color:#dfceba!important;
+            background:#fffaf3!important;
+            color:#684e45!important;
+        }
+        .stage-badge.stage-active{
+            background:var(--bujhi-red)!important;
+            color:white!important;
+            border-color:var(--bujhi-red)!important;
+            box-shadow:0 5px 13px rgba(153,0,0,.16)!important;
+        }
+
+        #trigger-btn{
+            background:var(--bujhi-red)!important;
+            border:1px solid var(--bujhi-red)!important;
+            box-shadow:0 7px 16px rgba(153,0,0,.15)!important;
+        }
+        #trigger-btn:hover{background:var(--bujhi-red-dark)!important;}
+        #intensity-slider{accent-color:var(--bujhi-red)!important;}
+        .speed-btn.bg-blue-600{background:var(--bujhi-red)!important;color:white!important;}
+        #play-pause-btn i{color:var(--bujhi-red)!important;}
+
+        #what-if-panel{
+            background:#fff5e4!important;
+            border-color:#dfc18a!important;
+        }
+        #what-if-panel>span{color:#6b3f24!important;}
+        #what-if-panel input{accent-color:var(--bujhi-red)!important;}
+
+        #canvas-banner{border-bottom:1px solid var(--bujhi-border)!important;}
+        #pathway-svg>rect:first-of-type{
+            fill:#fffaf3!important;
+            stroke:#dfcfbb!important;
+        }
+
+        input[type="range"]{accent-color:var(--bujhi-red)!important;}
+        button{transition:transform .16s ease,box-shadow .16s ease,background-color .16s ease!important;}
+        button:hover{transform:translateY(-1px);}
+        button:active{transform:translateY(0);}
+        button:focus-visible{outline:3px solid rgba(153,0,0,.18)!important;outline-offset:2px;}
+
+        .custom-scrollbar::-webkit-scrollbar-track{background:#f4eadb!important;}
+        .custom-scrollbar::-webkit-scrollbar-thumb{background:#cdb59d!important;}
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover{background:#aa8a73!important;}
+
+        /* Keep scientific pathway colors inside the actual diagram; only the app chrome uses Bujhi red. */
+        #pathway-svg .fill-blue-900,#pathway-svg .fill-purple-900,
+        #pathway-svg .fill-emerald-900{filter:none;}
+
+        @media(max-width:700px){
+            body>header{padding:10px!important;}
+            .bujhi-logo-wrap{width:36px;height:36px;border-radius:11px}
+            .bujhi-logo{width:27px;height:27px}
+            .bujhi-kicker{font-size:9px}
+            body>nav{padding-left:8px!important;padding-right:8px!important}
+            main{padding:9px!important;gap:10px!important;overflow:visible!important}
+            main>section{border-radius:14px!important}
+        }
+
     </style>
 </head>
 <body class="h-full flex flex-col text-slate-800 antialiased selection:bg-blue-100 selection:text-blue-900">
@@ -51,12 +210,13 @@
     <header class="bg-white border-b border-slate-200 px-4 py-3 shadow-sm shrink-0 z-20">
         <div class="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-3">
             <div class="flex items-center space-x-3">
-                <div class="bg-blue-600 text-white p-2 rounded-lg font-bold flex items-center justify-center w-10 h-10 shadow-sm">
-                    <i class="fa-solid fa-bolt text-lg"></i>
+                <div class="bujhi-logo-wrap">
+                    <img src="/bujhi-icon.png" alt="Bujhi" class="bujhi-logo">
                 </div>
                 <div>
+                    <div class="bujhi-kicker">BUJHI · CLASS 8 SCIENCE</div>
                     <h1 class="text-lg font-bold text-slate-900 tracking-tight leading-none">Neuron Signal Simulator</h1>
-                    <p class="text-xs text-slate-500 font-medium mt-0.5">Chapter 5: The Reflex Pathway &amp; Neural Transmission</p>
+                    <p class="text-xs text-slate-500 font-medium mt-0.5">Chapter 5 · Coordination &amp; Excretion · Reflex Pathway</p>
                 </div>
             </div>
 
