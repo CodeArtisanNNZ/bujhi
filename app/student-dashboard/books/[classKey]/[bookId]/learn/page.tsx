@@ -18,6 +18,10 @@ export default function LearnBookPage(){
   const bookId=Array.isArray(params.bookId)?params.bookId[0]:String(params.bookId||"");
   const classKey=validClasses.includes(classKeyRaw as StudentClassKey)?classKeyRaw as StudentClassKey:null;
   const book=useMemo(()=>classKey?findNctbBook(classKey,bookId):undefined,[classKey,bookId]);
+  const bookUsesEnglish=Boolean(book&&/^[A-Za-z]/.test(book.title));
+  const ui=(bn:string,en:string)=>bookUsesEnglish?en:bn;
+  const classLabelBn:Record<StudentClassKey,string>={"6":"ষষ্ঠ শ্রেণি","7":"সপ্তম শ্রেণি","8":"অষ্টম শ্রেণি","9-10":"নবম–দশম শ্রেণি"};
+  const classLabel=classKey?(bookUsesEnglish?studentClassLabels[classKey]:classLabelBn[classKey]):"";
   const[ready,setReady]=useState(false);
 
   useEffect(()=>{
@@ -37,10 +41,10 @@ export default function LearnBookPage(){
   },[classKey,router]);
 
   if(!classKey||!book){
-    return <main className={styles.page}><section className={styles.error}><h1>পাঠ পাওয়া যায়নি</h1><Link href="/student-dashboard">আমার ডেস্কে ফিরি</Link></section></main>;
+    return <main className={styles.page}><section className={styles.error}><h1>{ui("পাঠ পাওয়া যায়নি","Lesson not found")}</h1><Link href="/student-dashboard">{ui("আমার ডেস্কে ফিরি","Back to my desk")}</Link></section></main>;
   }
 
-  if(!ready)return <main className={styles.page}><div className={styles.loading}>পাঠ খোলা হচ্ছে…</div></main>;
+  if(!ready)return <main className={styles.page}><div className={styles.loading}>{ui("পাঠ খোলা হচ্ছে…","Opening lesson…")}</div></main>;
 
   if(classKey==="8"&&book.id==="science")return <main className={styles.page}>
     <header className={styles.topbar}><Link className={styles.brand} href="/">বুঝি</Link><Link className={styles.back} href="/student-dashboard/books/8/science"><ArrowLeft/>বিজ্ঞানের বইয়ে ফিরি</Link></header>
@@ -68,12 +72,12 @@ export default function LearnBookPage(){
   return <main className={styles.page}>
     <header className={styles.topbar}>
       <Link className={styles.brand} href="/">বুঝি</Link>
-      <Link className={styles.back} href={`/student-dashboard/books/${classKey}/${book.id}`}><ArrowLeft/>বইয়ে ফিরি</Link>
+      <Link className={styles.back} href={`/student-dashboard/books/${classKey}/${book.id}`}><ArrowLeft/>{ui("বইয়ে ফিরি","Back to book")}</Link>
     </header>
 
     <section className={styles.lessonPage}>
       <div className={styles.lessonHero} style={{"--accent":book.accent} as React.CSSProperties}>
-        <p>{studentClassLabels[classKey]} · Learn Lesson</p>
+        <p>{classLabel} · {ui("পাঠ শিখি","Learn Lesson")}</p>
         <h1>{book.title}</h1>
         <span>{book.englishTitle}</span>
       </div>
@@ -81,23 +85,23 @@ export default function LearnBookPage(){
       <div className={styles.lessonWorkspace}>
         <article className={styles.lessonCard}>
           <BookOpen/>
-          <strong>বোঝো</strong>
-          <p>নির্বাচিত অধ্যায়ের ব্যাখ্যা মূল NCTB পাঠ্যবই অনুসারে এখানে থাকবে।</p>
+          <strong>{ui("বোঝো","Understand")}</strong>
+          <p>{ui("নির্বাচিত অধ্যায়ের ব্যাখ্যা মূল NCTB পাঠ্যবই অনুসারে এখানে থাকবে।","The lesson explanation for the selected chapter will follow the actual NCTB textbook.")}</p>
         </article>
         <article className={styles.lessonCard}>
           <Play/>
-          <strong>চিত্রে শেখো</strong>
-          <p>চিত্র, সিমুলেশন, উদাহরণ ও পাঠ-সহায়ক উপকরণ একই পাঠের সঙ্গে থাকবে।</p>
+          <strong>{ui("চিত্রে শেখো","Learn visually")}</strong>
+          <p>{ui("চিত্র, সিমুলেশন, উদাহরণ ও পাঠ-সহায়ক উপকরণ একই পাঠের সঙ্গে থাকবে।","Diagrams, simulations, examples and reading support will stay attached to the same lesson.")}</p>
         </article>
         <article className={styles.lessonCard}>
           <PenLine/>
-          <strong>অনুশীলন</strong>
-          <p>প্রশ্ন ও বোঝাপড়া যাচাই মূল পাঠের সঙ্গে মিল রেখে থাকবে।</p>
+          <strong>{ui("অনুশীলন","Practice")}</strong>
+          <p>{ui("প্রশ্ন ও বোঝাপড়া যাচাই মূল পাঠের সঙ্গে মিল রেখে থাকবে।","Questions and understanding checks will follow the exact lesson.")}</p>
         </article>
       </div>
 
       <div className={styles.lessonNotice}>
-        This lesson route is ready for this exact book. I have intentionally not inserted fake chapter names. When the real PDF/content is uploaded, its real chapter and lesson structure can be connected here.
+        {ui("এই বইয়ের জন্য পাঠের জায়গা প্রস্তুত। মূল PDF/বিষয়বস্তু যুক্ত হলে বইয়ের আসল অধ্যায় ও পাঠের কাঠামো এখানেই যুক্ত হবে।","This lesson route is ready for this exact book. When the real PDF/content is available, its real chapter and lesson structure can be connected here.")}
       </div>
     </section>
   </main>;
