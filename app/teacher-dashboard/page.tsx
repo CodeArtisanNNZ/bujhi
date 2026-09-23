@@ -263,6 +263,10 @@ export default function TeacherDashboard(){
               <div><a href="/dashboard/science/chapter-2?lesson=7">Open Lesson 7 continuous hereditary-information zoom →</a></div>
             </div>}
             {selectedClass===8&&selectedBook.id==="science"&&<div className={styles.choiceList}>
+              <strong>Chapter 2 · বংশগতি ও Gene Transfer</strong>
+              <div><a href="/dashboard/science/chapter-2?lesson=9">Open Lesson 9 heredity & gene-transfer lab →</a></div>
+            </div>}
+            {selectedClass===8&&selectedBook.id==="science"&&<div className={styles.choiceList}>
               <strong>Chapter 1 · প্রাণিজগতের শ্রেণিবিন্যাস</strong>
               <div><a href="/science/class-8/chapter-1">Open the classification explorer and teacher guide →</a></div>
               {[
