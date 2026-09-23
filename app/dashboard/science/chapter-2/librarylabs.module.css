@@ -61,3 +61,6 @@
 .resourceNote small{grid-column:2;color:#917a6f;font-size:.61rem;line-height:1.4}
 @media(max-width:700px){.resourceHead{padding:17px;flex-direction:column}.resourceHead>a{align-self:flex-start}.resourceFrameWrap,.referencePanel{min-height:480px}.resourceFrame{height:480px}.stageMini{grid-template-columns:1fr 1fr}.resourceNote{grid-template-columns:1fr}.resourceNote small{grid-column:1}}
 @media(max-width:440px){.stageMini{grid-template-columns:1fr}.resourceFrameWrap,.referencePanel{min-height:430px}.resourceFrame{height:430px}}
+
+.meiosisFrame{height:760px}
+@media(max-width:700px){.meiosisFrame{height:840px}}
