@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import {useState} from "react";
+import {useEffect,useState} from "react";
 import {
  ArrowLeft,ArrowRight,Atom,BookOpen,CheckCircle2,ChevronLeft,ChevronRight,
  CircleHelp,Dna,FlaskConical,GitBranch,GraduationCap,Lightbulb,
@@ -315,6 +315,7 @@ function Simulation({lesson}:{lesson:number}){ return <LibraryLabs lesson={lesso
 
 export default function ChapterTwo(){
  const[active,setActive]=useState(1);
+ useEffect(()=>{const lessonNumber=Number(new URLSearchParams(window.location.search).get("lesson"));if(lessonNumber===5||lessonNumber===6)setActive(lessonNumber)},[]);
  const[answers,setAnswers]=useState<Record<number,number>>({});
  const[done,setDone]=useState<Record<number,boolean>>({});
  const lesson=lessons[active-1];
@@ -368,6 +369,13 @@ export default function ChapterTwo(){
     <section>
      <div className={styles.sectionLabel}><span>02</span><strong>চোখের সামনে দেখো</strong></div>
      <Simulation lesson={active}/>
+     {(active===5||active===6)&&<div className={styles.meiosisEmbed}>
+      <div className={styles.meiosisEmbedHeader}>
+       <div><span>BUJHI · LIVE LAB</span><h3>মিয়োসিস-I ও II ক্রোমোজোম ট্র্যাকার</h3><p>লাল ও নীল ক্রোমোজোম অনুসরণ করো, জোড়ের দিক বদলাও, তারপর 2n থেকে ৪ × n কীভাবে হয় তা পরীক্ষা করো।</p></div>
+       <a href="/simulations/class-8/meiosis.html" target="_blank" rel="noopener noreferrer">বড় করে দেখো ↗</a>
+      </div>
+      <iframe src="/simulations/class-8/meiosis.html" title="অষ্টম শ্রেণির মিয়োসিস-I ও II ইন্টারেক্টিভ সিমুলেশন" loading="lazy"/>
+     </div>}
     </section>
 
     <section className={styles.twoCols}>
