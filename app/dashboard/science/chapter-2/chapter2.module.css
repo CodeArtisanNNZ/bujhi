@@ -47,3 +47,12 @@
   .navFoot>button{padding:10px 11px;font-size:.72rem}
   .compareTable{-webkit-overflow-scrolling:touch}
 }
+
+.meiosisEmbed{margin-top:22px;border:1px solid #d8b998;border-radius:18px;background:#fff8ec;overflow:hidden;box-shadow:0 12px 32px #6f352018}
+.meiosisEmbedHeader{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:17px 20px;background:#f5e6cf;border-bottom:1px solid #d8b998}
+.meiosisEmbedHeader span{font:700 .67rem/1.2 sans-serif;letter-spacing:.13em;color:#990000}
+.meiosisEmbedHeader h3{margin:5px 0;font-size:1.1rem;color:#5b1819}
+.meiosisEmbedHeader p{margin:0;font-size:.85rem;line-height:1.5;color:#5b4d42}
+.meiosisEmbedHeader a{display:inline-block;flex:none;border-radius:7px;background:#990000;color:#fff;padding:9px 13px;text-decoration:none;font-weight:700;font-size:.78rem}
+.meiosisEmbed iframe{display:block;width:100%;height:760px;border:0;background:#f6ead4}
+@media(max-width:700px){.meiosisEmbedHeader{display:block;padding:15px}.meiosisEmbedHeader a{margin-top:12px}.meiosisEmbed iframe{height:840px}}
