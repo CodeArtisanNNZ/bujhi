@@ -369,8 +369,8 @@ export default function ChapterTwo(){
     <section>
      <div className={styles.sectionLabel}><span>02</span><strong>চোখের সামনে দেখো</strong></div>
      <Simulation lesson={active}/>
-     {active===7&&<p style={{margin:"12px 0 0",fontSize:".82rem",color:"#6b584e"}}><strong style={{color:"#990000"}}>Teacher use:</strong> প্রথমে শিক্ষার্থীদের জিজ্ঞেস করুন বংশগত তথ্য কোথায় থাকে। তারপর continuous zoom-এ Cell → Nucleus → Chromosome → DNA → Gene অনুসরণ করিয়ে শেষে hierarchy মুখে বলতে বলুন।</p>}
-     {active===9&&<p style={{margin:"12px 0 0",fontSize:".82rem",color:"#6b584e"}}><strong style={{color:"#990000"}}>Teacher use:</strong> Parent genotype বেছে শুরু করুন → কোন allele গ্যামেটে গেল তা অনুসরণ করুন → fertilization করান → offspring genotype/phenotype দেখান → শেষে Punnett probability আর বাস্তব sample outcome-এর পার্থক্য আলোচনা করুন।</p>}
+     {active===7&&<p style={{margin:"12px 0 0",fontSize:".82rem",color:"#6b584e"}}><strong style={{color:"#990000"}}>শিক্ষকের ব্যবহার:</strong> প্রথমে শিক্ষার্থীদের জিজ্ঞেস করুন বংশগত তথ্য কোথায় থাকে। তারপর ধারাবাহিক জুমে কোষ → নিউক্লিয়াস → ক্রোমোজোম → DNA → জিন অনুসরণ করিয়ে শেষে ধাপগুলো মুখে বলতে বলুন।</p>}
+     {active===9&&<p style={{margin:"12px 0 0",fontSize:".82rem",color:"#6b584e"}}><strong style={{color:"#990000"}}>শিক্ষকের ব্যবহার:</strong> পিতামাতার জিনোটাইপ বেছে শুরু করুন → কোন অ্যালিল গ্যামেটে গেল তা অনুসরণ করুন → নিষেক করান → সন্তানের জিনোটাইপ ও ফিনোটাইপ দেখান → শেষে পানেট স্কোয়ারের সম্ভাবনা ও বাস্তব নমুনা-ফলাফলের পার্থক্য আলোচনা করুন।</p>}
      
     </section>
 
