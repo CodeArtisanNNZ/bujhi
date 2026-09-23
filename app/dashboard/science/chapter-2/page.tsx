@@ -369,13 +369,7 @@ export default function ChapterTwo(){
     <section>
      <div className={styles.sectionLabel}><span>02</span><strong>চোখের সামনে দেখো</strong></div>
      <Simulation lesson={active}/>
-     {(active===5||active===6)&&<div className={styles.meiosisEmbed}>
-      <div className={styles.meiosisEmbedHeader}>
-       <div><span>BUJHI · LIVE LAB</span><h3>মিয়োসিস-I ও II ক্রোমোজোম ট্র্যাকার</h3><p>লাল ও নীল ক্রোমোজোম অনুসরণ করো, জোড়ের দিক বদলাও, তারপর 2n থেকে ৪ × n কীভাবে হয় তা পরীক্ষা করো।</p></div>
-       <a href="/simulations/class-8/meiosis.html" target="_blank" rel="noopener noreferrer">বড় করে দেখো ↗</a>
-      </div>
-      <iframe src="/simulations/class-8/meiosis.html" title="অষ্টম শ্রেণির মিয়োসিস-I ও II ইন্টারেক্টিভ সিমুলেশন" loading="lazy"/>
-     </div>}
+     
     </section>
 
     <section className={styles.twoCols}>
