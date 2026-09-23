@@ -81,7 +81,7 @@
         }
     
         /* ============================================================
-           BUJHI THEME — Chapter 2 Heredity Lab
+           BUJHI THEME — visual-only restyle
            ============================================================ */
         :root{
             --bujhi-red:#990000;
@@ -126,68 +126,59 @@
             background:rgba(242,229,207,.97)!important;
             border-color:#d7b996!important;
         }
-        body>main>div:first-child{
-            background:rgba(255,250,243,.96)!important;
-        }
-        body>main>aside{
-            background:rgba(246,239,227,.98)!important;
-            border-color:var(--bujhi-border)!important;
-        }
         .bg-white{background-color:var(--bujhi-paper)!important}
         .bg-slate-50{background-color:#fbf4e9!important}
         .bg-slate-100{background-color:#f2e5cf!important}
-        .bg-slate-200{background-color:#e9d7c1!important}
-        .border-slate-200,.border-slate-300{border-color:var(--bujhi-border)!important}
+        .bg-slate-200{background-color:#eadbc8!important}
+        .border-slate-100,.border-slate-200,.border-slate-300{border-color:var(--bujhi-border)!important}
         .text-slate-900,.text-slate-800,.text-slate-700{color:var(--bujhi-ink)!important}
         .text-slate-600,.text-slate-500,.text-slate-400{color:var(--bujhi-muted)!important}
-        select{
-            background:#fffaf3!important;color:var(--bujhi-ink)!important;
-            border-color:var(--bujhi-border)!important;
+        .bg-indigo-600{background-color:var(--bujhi-red)!important}
+        .hover\:bg-indigo-500:hover{background-color:var(--bujhi-red-dark)!important}
+        .text-indigo-700,.text-indigo-600{color:var(--bujhi-red)!important}
+        .bg-indigo-50{background-color:#fff1ec!important}
+        .bg-indigo-100{background-color:#f4dfdb!important}
+        .border-indigo-200,.border-indigo-300{border-color:#d9b0a5!important}
+        body>header .bg-slate-800{background:var(--bujhi-red)!important}
+        body>header .hover\:bg-slate-700:hover{background:var(--bujhi-red-dark)!important}
+        body>header .bg-emerald-600{background:#765044!important}
+        .mode-tab-btn,.exp-tab-btn{border-radius:999px!important}
+        .mode-tab-btn.bg-white{
+            background:var(--bujhi-red)!important;
+            color:white!important;
+            border-color:var(--bujhi-red)!important;
         }
         #sound-btn{
-            background:#fff8ef!important;color:#6a5147!important;border-color:#dfcfbb!important
+            background:#fff8ef!important;
+            border-color:var(--bujhi-border)!important;
+            color:#674d43!important;
         }
-        body>header button.bg-slate-800,
-        #guided-next,.mode-tab-btn.bg-white{
-            box-shadow:none!important;
-        }
-        body>header button.bg-slate-800{
-            background:var(--bujhi-red)!important
-        }
-        body>header button.bg-slate-800:hover{background:var(--bujhi-red-dark)!important}
-        body>header button.bg-emerald-600{
-            background:#765044!important
-        }
-        #mode-MENDELIAN.bg-white,
-        #mode-POLYGENIC.bg-white,
-        .mode-tab-btn.bg-slate-800{
-            background:var(--bujhi-red)!important;color:white!important;border-color:var(--bujhi-red)!important
-        }
-        .mode-tab-btn,.exp-tab-btn{border-radius:999px!important}
         #guided-banner{
-            background:#fff1ec!important;border-color:#d9b0a5!important;color:#5c2d26!important
+            background:#fff1ec!important;
+            border-color:#d9b0a5!important;
+            color:#5c2d26!important;
         }
         #guided-step-badge,#guided-next{
-            background:var(--bujhi-red)!important;color:white!important
+            background:var(--bujhi-red)!important;
+            color:white!important;
         }
         #fertilize-btn{
             background:linear-gradient(90deg,#b95d57,var(--bujhi-red),#5b7894)!important;
-            box-shadow:0 8px 18px rgba(153,0,0,.14)!important
+            box-shadow:0 8px 18px rgba(153,0,0,.14)!important;
+        }
+        select{
+            background:var(--bujhi-paper)!important;
+            color:var(--bujhi-ink)!important;
+            border-color:var(--bujhi-border)!important;
         }
         input[type="range"]{accent-color:var(--bujhi-red)!important}
         button:focus-visible,select:focus-visible,input:focus-visible{
-            outline:3px solid rgba(153,0,0,.20)!important;outline-offset:2px
+            outline:3px solid rgba(153,0,0,.20)!important;
+            outline-offset:2px;
         }
         .custom-scrollbar::-webkit-scrollbar-track{background:#f1e5d5!important}
         .custom-scrollbar::-webkit-scrollbar-thumb{background:#cbb39c!important}
         .custom-scrollbar::-webkit-scrollbar-thumb:hover{background:#a98973!important}
-        /* Keep chromosome/allele colors and the molecular DNA panel distinct:
-           they encode biological categories rather than app chrome. */
-        .bg-slate-900.text-slate-100,
-        .bg-slate-800\/80,
-        .bg-slate-950{
-            color:inherit;
-        }
         @media(max-width:760px){
             body>header{padding:9px 10px!important;gap:8px;flex-wrap:wrap}
             body>nav{padding:7px 9px!important;gap:7px;align-items:flex-start;flex-wrap:wrap}
