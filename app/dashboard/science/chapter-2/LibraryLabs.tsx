@@ -262,6 +262,20 @@ export default function LibraryLabs({lesson}:{lesson:number}){
     </div>
   </div>;
 
+  if(lesson===9)return <div className={styles.frameShell}>
+    <iframe
+      className={styles.frame}
+      title="Bujhi heredity and gene transfer simulator"
+      src="/simulations/class-8/heredity-gene-transfer.html"
+      loading="lazy"
+      allow="fullscreen"
+      allowFullScreen
+    />
+    <div className={styles.sourceNote}>
+      BUJHI · Chapter 2 · Lesson 9 · Parent → Gamete → Fertilization → Offspring → Trait · <a href="/simulations/class-8/heredity-gene-transfer.html" target="_blank" rel="noreferrer">Open full screen ↗</a>
+    </div>
+  </div>;
+
   return <div className={styles.frameShell}>
     <iframe
       key={lesson}
@@ -270,6 +284,6 @@ export default function LibraryLabs({lesson}:{lesson:number}){
       sandbox="allow-scripts"
       srcDoc={getDoc(lesson)}
     />
-    <div className={styles.sourceNote}>Lessons 8–9 use free/open-source learning libraries; Lesson 7 now uses the supplied Bujhi continuous zoom simulator.</div>
+    <div className={styles.sourceNote}>Lesson 8 uses the DNA learning viewer; Lessons 7 and 9 use the supplied Bujhi simulations.</div>
   </div>;
 }
