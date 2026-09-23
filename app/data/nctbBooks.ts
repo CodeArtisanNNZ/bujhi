@@ -31,6 +31,32 @@ function makeBooks(
   }));
 }
 
+// Public, read-only PDFs in the Bujhi team share.
+const class6PdfLinks:Record<string,string>={
+  "charupath":"https://drive.google.com/file/d/144rmgBY3xu657D5yUTXkAArm7Yi91GXb/view?usp=drivesdk",
+  "anandapath":"https://drive.google.com/file/d/1paAfrGovgrxEHWYK17-nk7NWMLPfFq92/view?usp=drivesdk",
+  "bangla-grammar":"https://drive.google.com/file/d/1UM0fFLCYLPHbZRZ8pIniyqLpXuWb8rV5/view?usp=drivesdk",
+  "english-for-today":"https://drive.google.com/file/d/1SJ_yZzoJckOFoHV5C7CDn1WAx7qResFZ/view?usp=drivesdk",
+  "english-grammar":"https://drive.google.com/file/d/1g7pfZywDEbd5kpzV9Q_y-YP7DbQoTLm1/view?usp=drivesdk",
+  "mathematics":"https://drive.google.com/file/d/1ae_2zPG-JyD6wmQnALD3d91Ic7ig24Fo/view?usp=drivesdk",
+  "ict":"https://drive.google.com/file/d/1e0CM2eDN76QRXctG_sJ92NKDiWzgKhgT/view?usp=drivesdk",
+  "bangladesh-global-studies":"https://drive.google.com/file/d/19sIvM9Q1p8w1EOdDORzxN8jbz-bHOkNC/view?usp=drivesdk",
+  "science":"https://drive.google.com/file/d/18gqCrzC0GEHiq6wHBWJgwVG8vym8jPgt/view?usp=drivesdk",
+  "physical-education-health":"https://drive.google.com/file/d/1-hpynKV8mFFJFrZlkONIgJxZsCvUuAXW/view?usp=drivesdk",
+  "work-life-education":"https://drive.google.com/file/d/1ifXsYhEMLftjXzUrStAYeViFdEVrXyiH/view?usp=drivesdk",
+  "agriculture-studies":"https://drive.google.com/file/d/1eTWQxRjcpEIrJbdm3DrUU-GrzgRSG4WA/view?usp=drivesdk",
+  "home-science":"https://drive.google.com/file/d/1L6mnps1yknapDBMCwYnfuw9cxqA4wrEB/view?usp=drivesdk",
+  "arts-crafts":"https://drive.google.com/file/d/1kr62LYBZ1FZ7ar-NWU_wcXgz5Jy3bHBq/view?usp=drivesdk",
+  "islamic-studies":"https://drive.google.com/file/d/1DwhVg2M_RA98MWpgaI9sLLDYfFkmjtJo/view?usp=drivesdk",
+  "hindu-religion":"https://drive.google.com/file/d/1Q72B-wc2OXrF0zvJccyg9Af2qTzYiXX1/view?usp=drivesdk",
+  "christian-religion":"https://drive.google.com/file/d/1MfcBrerFaTN8Z0QLXjzzOq1jxcHe8nLH/view?usp=drivesdk",
+  "buddhist-religion":"https://drive.google.com/file/d/1wERugrZyDORBn205A3pu9R91FzSVV9dU/view?usp=drivesdk",
+  "arabic":"https://drive.google.com/file/d/1grmtL9twHlq7kNR3EcwTOHN-AiMLdk3N/view?usp=drivesdk",
+  "sanskrit":"https://drive.google.com/file/d/1vWTPHX-ipDSfHfcOtbv7SZnD8hk6cl7I/view?usp=drivesdk",
+  "pali":"https://drive.google.com/file/d/13SoN3pZobHQCr6FgYwmUEVvskX27I1Vg/view?usp=drivesdk",
+  "music":"https://drive.google.com/file/d/1e3gFxZbMv3aSYhwq88A4eSjsDrw31x_z/view?usp=drivesdk"
+};
+
 const class6=makeBooks("6",[
   ["charupath","চারুপাঠ","Charupath","core"],
   ["anandapath","আনন্দপাঠ","Anandapath","core"],
@@ -53,9 +79,8 @@ const class6=makeBooks("6",[
   ["arabic","সচিত্র আরবি পাঠ","Illustrated Arabic","language"],
   ["sanskrit","সংস্কৃত","Sanskrit","language"],
   ["pali","পালি","Pali","language"],
-  ["music","সংগীত","Music","arts"],
-  ["minority-language-culture","ক্ষুদ্র নৃগোষ্ঠীর ভাষা ও সংস্কৃতি","Minority Language and Culture","language"]
-]);
+  ["music","সংগীত","Music","arts"]
+]).map(book=>({...book,pdfPath:class6PdfLinks[book.id]}));
 
 const class7=makeBooks("7",[
   ["saptabarna","সপ্তবর্ণা","Saptabarna","core"],
