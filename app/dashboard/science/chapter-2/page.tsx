@@ -218,14 +218,14 @@ function MeiosisLab(){
  </div>
 }
 
-function ChromosomeExplorer(){
+function ক্রোমোজোমExplorer(){
  const[level,setLevel]=useState(0);
  const levels=[
   {name:"কোষ",big:"Cell",copy:"কোষের ভিতরে নিউক্লিয়াস থাকে।"},
   {name:"নিউক্লিয়াস",big:"Nucleus",copy:"নিউক্লিয়াসে ক্রোমোজোম থাকে।"},
-  {name:"ক্রোমোজোম",big:"Chromosome",copy:"ক্রোমোজোম DNA ও প্রোটিন দিয়ে গঠিত সংগঠিত কাঠামো।"},
+  {name:"ক্রোমোজোম",big:"ক্রোমোজোম",copy:"ক্রোমোজোম DNA ও প্রোটিন দিয়ে গঠিত সংগঠিত কাঠামো।"},
   {name:"DNA",big:"DNA",copy:"DNA-তে বংশগত তথ্য সংরক্ষিত থাকে।"},
-  {name:"জিন",big:"Gene",copy:"জিন হলো DNA-এর নির্দিষ্ট কার্যকর অংশ।"}
+  {name:"জিন",big:"জিন",copy:"জিন হলো DNA-এর নির্দিষ্ট কার্যকর অংশ।"}
  ];
  return <div className={styles.simCard}>
   <div className={styles.simHead}><div><span>জুম ইন</span><strong>কোষ থেকে জিন পর্যন্ত</strong></div><Dna/></div>
@@ -234,7 +234,7 @@ function ChromosomeExplorer(){
    <div className={styles.zoomVisual+" "+styles["zoom"+level]}>
     <div className={styles.cellShell}/><div className={styles.nucleusShell}/><div className={styles.xChrom}>X</div>
     <div className={styles.dnaHelix}>{Array.from({length:9},(_,i)=><i key={i}/>)}</div>
-    <div className={styles.geneMark}>GENE</div>
+    <div className={styles.geneMark}>জিন</div>
    </div>
    <div><span>স্তর {level+1}</span><strong>{levels[level].big}</strong><p>{levels[level].copy}</p></div>
   </div>
@@ -246,14 +246,14 @@ function DnaLab(){
  const comp=(b:string)=>({A:"T",T:"A",G:"C",C:"G"} as Record<string,string>)[b]||"?";
  function randomize(){const b=["A","T","G","C"];setBases(Array.from({length:6},()=>b[Math.floor(Math.random()*4)]))}
  return <div className={styles.simCard}>
-  <div className={styles.simHead}><div><span>বেস-পেয়ার ল্যাব</span><strong>DNA-এর অপর strand পূরণ করো</strong></div><Dna/></div>
+  <div className={styles.simHead}><div><span>বেস-পেয়ার ল্যাব</span><strong>DNA-এর অপর সূত্র পূরণ করো</strong></div><Dna/></div>
   <div className={styles.basePairs}>
    <div>{bases.map((b,i)=><span key={i} className={styles["base"+b]}>{b}</span>)}</div>
    <div className={styles.pairLines}>{bases.map((_,i)=><i key={i}/>)}</div>
    <div>{bases.map((b,i)=><span key={i} className={styles["base"+comp(b)]}>{comp(b)}</span>)}</div>
   </div>
   <div className={styles.ruleRow}><b>A ↔ T</b><b>G ↔ C</b><button onClick={randomize}><RefreshCcw/>নতুন উদাহরণ</button></div>
-  <p className={styles.simFoot}>এটি base pairing বোঝানোর সরল শিক্ষণ-চিত্র; DNA-এর প্রকৃত ত্রিমাত্রিক গঠন আরও জটিল।</p>
+  <p className={styles.simFoot}>এটি বেস জোড় বাঁধা বোঝানোর সরল শিক্ষণ-চিত্র; DNA-এর প্রকৃত ত্রিমাত্রিক গঠন আরও জটিল।</p>
  </div>
 }
 
@@ -285,7 +285,7 @@ function DetailBox({lesson}:{lesson:number}){
   <div><span>কোথায় সাধারণত হয় না?</span><p>পাঠ্যবইয়ের উদাহরণ: পরিণত স্নায়ুকোষ, স্তন্যপায়ী প্রাণীর পরিণত লোহিত রক্তকণিকা ও অনুচক্রিকা এবং উদ্ভিদের অনেক স্থায়ী টিস্যু।</p></div>
  </div>;
  if(lesson===3)return <div className={styles.phaseStrip}><div><b>প্রো-মেটাফেজ</b><span>পর্দা বিলুপ্ত · স্পিন্ডল তৈরি</span></div><i>→</i><div><b>মেটাফেজ</b><span>মাঝখানে সারি</span></div><i>→</i><div><b>অ্যানাফেজ</b><span>ক্রোমাটিড দুই মেরুতে</span></div></div>;
- if(lesson===4)return <div className={styles.compareBox}><div><strong>উদ্ভিদকোষ</strong><p>মাঝখানে কোষপ্লেট তৈরি হয় → প্লেট বড় হয়ে নতুন বিভাজক প্রাচীর গঠন করে।</p></div><div><strong>প্রাণিকোষ</strong><p>কোষপর্দায় cleavage furrow বা খাঁজ তৈরি হয় → ভিতরের দিকে এগিয়ে দুই কোষ আলাদা করে।</p></div></div>;
+ if(lesson===4)return <div className={styles.compareBox}><div><strong>উদ্ভিদকোষ</strong><p>মাঝখানে কোষপ্লেট তৈরি হয় → প্লেট বড় হয়ে নতুন বিভাজক প্রাচীর গঠন করে।</p></div><div><strong>প্রাণিকোষ</strong><p>কোষপর্দায় ক্লিভেজ ফারো বা খাঁজ তৈরি হয় → ভিতরের দিকে এগিয়ে দুই কোষ আলাদা করে।</p></div></div>;
  if(lesson===5)return <div className={styles.detailSplit}>
   <div><span>মিয়োসিস কোথায় ঘটে?</span><p>জনন মাতৃকোষে। সপুষ্পক উদ্ভিদের পরাগধানী ও ডিম্বকে এবং উন্নত প্রাণীর শুক্রাশয় ও ডিম্বাশয়ে জননকোষ তৈরির সঙ্গে সম্পর্কিত।</p></div>
   <div><span>কেন দরকার?</span><p>গ্যামেটে n ক্রোমোজোম রাখে, যাতে নিষেকের সময় n+n = 2n হয়ে প্রজাতির স্বাভাবিক ক্রোমোজোম সংখ্যা বজায় থাকে।</p></div>
@@ -301,9 +301,9 @@ function DetailBox({lesson}:{lesson:number}){
   <div><span>মানুষের দেহকোষ</span><strong>46 = 23 জোড়া</strong><small>ডিপ্লয়েড (2n)</small></div><div className={styles.mathArrow}>→ মিয়োসিস →</div><div><span>মানুষের গ্যামেট</span><strong>23</strong><small>হ্যাপ্লয়েড (n)</small></div><div className={styles.mathArrow}>+ 23 →</div><div><span>জাইগোট</span><strong>46</strong><small>আবার 2n</small></div>
  </div>;
  if(lesson===8)return <div className={styles.detailGrid}>
-  <div><strong>Chromosome</strong><span>প্যাকেজ</span><p>DNA-কে সংগঠিতভাবে বহন করে।</p></div>
+  <div><strong>ক্রোমোজোম</strong><span>প্যাকেজ</span><p>DNA-কে সংগঠিতভাবে বহন করে।</p></div>
   <div><strong>DNA</strong><span>তথ্যের অণু</span><p>বংশগত তথ্য সংরক্ষণ করে এবং প্রতিলিপি করতে পারে।</p></div>
-  <div><strong>Gene</strong><span>DNA-এর অংশ</span><p>নির্দিষ্ট কার্যকর তথ্য বহন করে; অনেক জিন মিলে বৈশিষ্ট্যে অবদান রাখতে পারে।</p></div>
+  <div><strong>জিন</strong><span>DNA-এর অংশ</span><p>নির্দিষ্ট কার্যকর তথ্য বহন করে; অনেক জিন মিলে বৈশিষ্ট্যে অবদান রাখতে পারে।</p></div>
  </div>;
  return <div className={styles.detailSplit}>
   <div><span>মেন্ডেল কেন গুরুত্বপূর্ণ?</span><p>গ্রেগর জোহান মেন্ডেল বৈশিষ্ট্য প্রজন্মে কীভাবে সঞ্চারিত হয় তা পরীক্ষার মাধ্যমে ব্যাখ্যার ভিত্তি তৈরি করেন; তাই তাকে জিনতত্ত্বের জনক বলা হয়।</p></div>
@@ -329,13 +329,13 @@ export default function ChapterTwo(){
  return <main className={styles.page}>
   <header className={styles.topbar}>
    <Link href="/dashboard" className={styles.back}><ArrowLeft/>ডেস্কে ফিরি</Link>
-   <Link href="/" className={styles.brand}><img src="/bujhi-icon.png" alt=""/>Bujhi</Link>
+   <Link href="/" className={styles.brand}><img src="/bujhi-icon.png" alt=""/>বুঝি</Link>
    <div className={styles.progressMini}><span>{score}/9 সম্পন্ন</span><i><b style={{width:progress+"%"}}/></i></div>
   </header>
 
   <section className={styles.hero}>
    <div>
-    <p>Class 8 · Science · Chapter 2</p>
+    <p>অষ্টম শ্রেণি · বিজ্ঞান · অধ্যায় ২</p>
     <h1>জীবের বৃদ্ধি<br/><em>ও বংশগতি</em></h1>
     <span>পাঠ ১–৯ · শিক্ষক-স্টাইল ব্যাখ্যা · অ্যানিমেশন · সিমুলেশন · নিজেকে যাচাই</span>
    </div>
@@ -346,7 +346,7 @@ export default function ChapterTwo(){
    <aside className={styles.sidebar}>
     <div className={styles.sideTitle}><BookOpen/><div><span>অধ্যায়ের মানচিত্র</span><strong>৯টি পাঠ</strong></div></div>
     <nav>{lessons.map(l=><button key={l.id} onClick={()=>setActive(l.id)} className={active===l.id?styles.activeLesson:""}><b>{String(l.id).padStart(2,"0")}</b><span><strong>{l.title}</strong><small>{l.short}</small></span>{done[l.id]&&<CheckCircle2/>}</button>)}</nav>
-    <div className={styles.sideTip}><Target/><p><strong>শুধু মুখস্থ নয়</strong>প্রতিটি animation-এ কী বদলাচ্ছে তা নিজের ভাষায় বলার চেষ্টা করো।</p></div>
+    <div className={styles.sideTip}><Target/><p><strong>শুধু মুখস্থ নয়</strong>প্রতিটি অ্যানিমেশনে কী বদলাচ্ছে তা নিজের ভাষায় বলার চেষ্টা করো।</p></div>
    </aside>
 
    <article className={styles.lesson}>
@@ -356,7 +356,7 @@ export default function ChapterTwo(){
     </div>
 
     <section className={styles.teacherCard}>
-     <div className={styles.teacherBadge}><GraduationCap/><span>Teacher বলছে</span></div>
+     <div className={styles.teacherBadge}><GraduationCap/><span>শিক্ষক নির্দেশনা</span></div>
      <p>{lesson.hook}</p>
     </section>
 
@@ -392,7 +392,7 @@ export default function ChapterTwo(){
     </section>
 
     {active===9&&<section className={styles.chapterSummary}>
-     <Sparkles/><div><span>Chapter complete</span><h3>পুরো অধ্যায়টি একসাথে</h3><p><b>বৃদ্ধি:</b> মাইটোসিসে কোষের সংখ্যা বাড়ে। <b>জনন:</b> মিয়োসিসে গ্যামেটের ক্রোমোজোম সংখ্যা অর্ধেক হয়। <b>বংশগতি:</b> ক্রোমোজোম DNA ও জিন বহন করে; RNA জিনের তথ্য ব্যবহারের প্রক্রিয়ায় গুরুত্বপূর্ণ।</p></div>
+     <Sparkles/><div><span>অধ্যায় সম্পন্ন</span><h3>পুরো অধ্যায়টি একসাথে</h3><p><b>বৃদ্ধি:</b> মাইটোসিসে কোষের সংখ্যা বাড়ে। <b>জনন:</b> মিয়োসিসে গ্যামেটের ক্রোমোজোম সংখ্যা অর্ধেক হয়। <b>বংশগতি:</b> ক্রোমোজোম DNA ও জিন বহন করে; RNA জিনের তথ্য ব্যবহারের প্রক্রিয়ায় গুরুত্বপূর্ণ।</p></div>
     </section>}
 
     <footer className={styles.navFoot}>
