@@ -40,6 +40,10 @@ export default function StudentBookPage(){
 
   async function openPdf(){
     if(!book)return;
+    if(book.pdfPath.startsWith("https://drive.google.com/file/d/")){
+      window.open(book.pdfPath,"_blank","noopener,noreferrer");
+      return;
+    }
     setCheckingPdf(true);
     setPdfStatus("");
     const target=window.open("about:blank","_blank");
@@ -100,7 +104,7 @@ export default function StudentBookPage(){
 
         <div className={styles.status}>{pdfStatus}</div>
         <div className={styles.filePath}>
-          PDF upload slot
+          {book.pdfPath.startsWith("https://")?"PDF source":"PDF upload slot"}
           <code>{book.pdfPath}</code>
         </div>
       </article>
