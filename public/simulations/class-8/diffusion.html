@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="bn" class="h-full bg-slate-100 font-sans antialiased text-slate-800">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ব্যাপন কণা সিমুলেটর - অধ্যায় ৩</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        regionA: '#2563EB', // Blue for Left/A
+                        regionB: '#D97706', // Amber for Right/B
+                        bio: {
+                            50: '#F8FAFC',
+                            100: '#F1F5F9',
+                            200: '#E2E8F0',
+                            700: '#334155',
+                            800: '#1E293B',
+                            900: '#0F172A'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            user-select: none;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94A3B8;
+        }
+    
+        /* ============================================================
+           BUJHI THEME + HIGH-VISIBILITY PARTICLES
+           ============================================================ */
+        :root{
+            --bujhi-red:#990000;
+            --bujhi-red-dark:#6f1111;
+            --bujhi-red-soft:#f4dfdb;
+            --bujhi-cream:#f6efe3;
+            --bujhi-paper:#fffaf3;
+            --bujhi-paper-2:#f3e7d4;
+            --bujhi-ink:#362922;
+            --bujhi-muted:#6b584e;
+            --bujhi-border:#dfcfbb;
+        }
+
+        html{background:var(--bujhi-cream)!important}
+        body{
+            font-family:'Noto Sans Bengali','Inter',sans-serif!important;
+            background-color:var(--bujhi-cream)!important;
+            background-image:radial-gradient(#e6dac8 1px,transparent 1px)!important;
+            background-size:23px 23px!important;
+            color:var(--bujhi-ink)!important;
+        }
+        body>header{
+            height:auto!important;min-height:64px;
+            background:rgba(255,250,243,.98)!important;
+            border-color:var(--bujhi-border)!important;
+            border-top:5px solid var(--bujhi-red)!important;
+            box-shadow:0 8px 24px rgba(73,45,30,.08)!important;
+        }
+        .bujhi-logo-wrap{
+            width:42px;height:42px;border-radius:13px;background:#fff;
+            border:1px solid #e4d2bd;display:grid;place-items:center;flex:none;
+            box-shadow:0 4px 12px rgba(92,47,35,.10);
+        }
+        .bujhi-logo{width:31px;height:31px;object-fit:contain}
+        .bujhi-kicker{
+            color:var(--bujhi-red);font-size:9px;font-weight:900;
+            letter-spacing:.08em;line-height:1;margin-bottom:4px;
+        }
+        body>header h1{color:#571719!important}
+        body>header p{color:var(--bujhi-muted)!important}
+        body>nav{
+            height:auto!important;min-height:48px;
+            background:rgba(242,229,207,.98)!important;
+            border-color:#d7b996!important;
+        }
+        .bg-white{background-color:var(--bujhi-paper)!important}
+        .bg-slate-50{background-color:#fbf4e9!important}
+        .bg-slate-100{background-color:#f2e5cf!important}
+        .bg-slate-200{background-color:#eadbc8!important}
+        .border-slate-100,.border-slate-200,.border-slate-300{border-color:var(--bujhi-border)!important}
+        .text-slate-900,.text-slate-800,.text-slate-700{color:var(--bujhi-ink)!important}
+        .text-slate-600,.text-slate-500,.text-slate-400{color:var(--bujhi-muted)!important}
+        .bg-indigo-600{background-color:var(--bujhi-red)!important}
+        .hover\:bg-indigo-500:hover{background-color:var(--bujhi-red-dark)!important}
+        .text-indigo-700,.text-indigo-600{color:var(--bujhi-red)!important}
+        .bg-indigo-50{background-color:#fff1ec!important}
+        .bg-indigo-100{background-color:#f4dfdb!important}
+        .border-indigo-200,.border-indigo-300{border-color:#d9b0a5!important}
+        body>header .bg-slate-800{background:var(--bujhi-red)!important}
+        body>header .hover\:bg-slate-700:hover{background:var(--bujhi-red-dark)!important}
+        .mode-tab-btn,.exp-tab-btn{border-radius:999px!important}
+        .mode-tab-btn.bg-white{
+            background:var(--bujhi-red)!important;color:white!important;border-color:var(--bujhi-red)!important
+        }
+        #sound-btn{background:#fff8ef!important;border-color:var(--bujhi-border)!important;color:#674d43!important}
+        #guided-banner{background:#fff1ec!important;border-color:#d9b0a5!important;color:#5c2d26!important}
+        #guided-step-badge,#guided-next,#play-btn{background:var(--bujhi-red)!important;color:white!important}
+        select{background:var(--bujhi-paper)!important;color:var(--bujhi-ink)!important;border-color:var(--bujhi-border)!important}
+        input[type="range"]{accent-color:var(--bujhi-red)}
+        button:focus-visible,select:focus-visible,input:focus-visible{
+            outline:3px solid rgba(153,0,0,.20)!important;outline-offset:2px
+        }
+        .custom-scrollbar::-webkit-scrollbar-track{background:#f1e5d5!important}
+        .custom-scrollbar::-webkit-scrollbar-thumb{background:#cbb39c!important}
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover{background:#a98973!important}
+
+        /* High-contrast simulation chamber */
+        #simCanvas,#dualCanvas1,#dualCanvas2{
+            background:#111827!important;
+        }
+        #single-hud{
+            background:rgba(17,24,39,.92)!important;
+            border-color:rgba(255,255,255,.20)!important;
+        }
+
+        @media(max-width:760px){
+            body>header{padding:9px 10px!important;gap:8px;flex-wrap:wrap}
+            body>nav{padding:7px 9px!important;gap:7px;align-items:flex-start;flex-wrap:wrap}
+            body>nav>div{max-width:100%;overflow-x:auto;padding-bottom:2px}
+            body>main{overflow:visible!important}
+            body>main>aside,body>main>div{padding:12px!important}
+            .bujhi-logo-wrap{width:36px;height:36px;border-radius:11px}
+            .bujhi-logo{width:27px;height:27px}
+            .bujhi-kicker{display:none}
+            #guided-banner{align-items:flex-start!important;gap:8px;flex-direction:column!important}
+        }
+
+    </style>
+</head>
+<body class="h-full flex flex-col bg-slate-100 text-slate-800 overflow-x-hidden">
+
+    <header class="h-16 bg-white border-b border-slate-200 px-4 md:px-6 flex items-center justify-between shrink-0 z-30 shadow-sm">
+        <div class="flex items-center space-x-3">
+            <div class="bujhi-logo-wrap">
+                <img src="/bujhi-icon.png" alt="বুঝি" class="bujhi-logo">
+            </div>
+            <div>
+                <div class="bujhi-kicker">বুঝি · অষ্টম শ্রেণি · বিজ্ঞান · অধ্যায় ৩</div>
+                <h1 class="text-sm md:text-base font-bold tracking-tight flex items-center gap-2">
+                    ব্যাপন কণা সিমুলেটর
+                    <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full border" style="background:#f4dfdb;color:#990000;border-color:#d9b0a5">ব্যাপন ল্যাব</span>
+                </h1>
+                <p class="text-xs font-medium hidden sm:block">উচ্চ ঘনত্ব &rarr; নিম্ন ঘনত্ব · ব্রাউনীয় গতি · গতিশীল সাম্যাবস্থা</p>
+            </div>
+        </div>
+
+        <!-- Scale & Pathway Breadcrumbs -->
+        <div class="hidden lg:flex items-center space-x-1 text-xs font-medium bg-slate-50 p-1.5 rounded-xl border border-slate-200">
+            <span class="px-2.5 py-1 rounded-lg bg-blue-50 text-blue-700 font-semibold flex items-center gap-1.5 border border-blue-200">
+                <i class="fa-solid fa-layer-group text-[10px]"></i> Region A (High Conc)
+            </span>
+            <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+            <span class="px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-700 font-semibold flex items-center gap-1.5 border border-indigo-200">
+                <i class="fa-solid fa-arrows-split-up-and-left text-[10px]"></i> Random Brownian Flux
+            </span>
+            <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+            <span class="px-2.5 py-1 rounded-lg bg-amber-50 text-amber-700 font-semibold flex items-center gap-1.5 border border-amber-200">
+                <i class="fa-solid fa-layer-group text-[10px]"></i> Region B (Low Conc)
+            </span>
+            <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+            <span class="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 font-semibold flex items-center gap-1.5 border border-emerald-200">
+                <i class="fa-solid fa-scale-balanced text-[10px]"></i> Dynamic Equilibrium
+            </span>
+        </div>
+
+        <!-- Header Controls -->
+        <div class="flex items-center space-x-2">
+            <button onclick="toggleSound()" id="sound-btn" class="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition border border-slate-200" title="Audio Sound Effects Toggle">
+                <i id="sound-icon" class="fa-solid fa-volume-high text-sm"></i>
+            </button>
+            <button onclick="openModal('practical-modal')" class="px-3 py-2 text-xs font-semibold rounded-lg bg-slate-800 hover:bg-slate-700 text-white transition flex items-center gap-1.5 shadow-sm">
+                <i class="fa-solid fa-flask text-amber-400"></i> <span class="hidden sm:inline">বাস্তব ল্যাব</span>
+            </button>
+            <button onclick="openModal('osmosis-modal')" class="px-3 py-2 text-xs font-semibold rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white transition flex items-center gap-1.5 shadow-sm">
+                <i class="fa-solid fa-book-open"></i> <span class="hidden sm:inline">ব্যাপন বনাম অভিস্রবণ</span>
+            </button>
+        </div>
+    </header>
+
+    <nav class="h-12 bg-slate-50 border-b border-slate-200 px-4 md:px-6 flex items-center justify-between shrink-0 z-20 text-xs overflow-x-auto custom-scrollbar">
+        <div class="flex items-center space-x-2 shrink-0">
+            <span class="text-slate-400 font-semibold uppercase text-[10px] tracking-wider mr-1 hidden md:inline">মোড:</span>
+            <button onclick="setSimMode('SINGLE')" id="mode-SINGLE" class="mode-tab-btn px-3 py-1.5 rounded-lg font-semibold transition flex items-center gap-1.5 bg-white text-slate-900 border border-slate-300 shadow-sm">
+                <i class="fa-solid fa-box text-indigo-600"></i> Single Chamber
+            </button>
+            <button onclick="setSimMode('DUAL')" id="mode-DUAL" class="mode-tab-btn px-3 py-1.5 rounded-lg font-medium text-slate-600 hover:bg-slate-200/60 transition flex items-center gap-1.5">
+                <i class="fa-solid fa-table-columns text-emerald-600"></i> Dual-Chamber Fair Test
+            </button>
+        </div>
+
+        <div class="flex items-center space-x-2 shrink-0">
+            <button onclick="setExploreMode('FREE')" id="exp-FREE" class="exp-tab-btn px-2.5 py-1 rounded-md font-semibold bg-slate-200 text-slate-800 transition">
+                <i class="fa-solid fa-compass"></i> Free Explore
+            </button>
+            <button onclick="setExploreMode('GUIDED')" id="exp-GUIDED" class="exp-tab-btn px-2.5 py-1 rounded-md font-medium text-slate-500 hover:bg-slate-200 transition">
+                <i class="fa-solid fa-route"></i> Guided Journey
+            </button>
+            <button onclick="openModal('predict-modal')" class="px-2.5 py-1 rounded-md font-medium text-amber-700 bg-amber-50 border border-amber-200 hover:bg-amber-100 transition flex items-center gap-1">
+                <i class="fa-solid fa-lightbulb text-amber-500"></i> Predict Outcome
+            </button>
+        </div>
+    </nav>
+
+    <main class="flex-1 relative overflow-hidden flex flex-col lg:flex-row">
+
+        <!-- LEFT CONTROLS PANEL -->
+        <aside class="w-full lg:w-80 bg-slate-50 border-b lg:border-b-0 lg:border-r border-slate-200 p-4 flex flex-col justify-between overflow-y-auto custom-scrollbar shrink-0 space-y-5">
+            
+            <div class="space-y-4">
+                <div class="border-b border-slate-200 pb-2 flex items-center justify-between">
+                    <h3 class="font-bold text-xs uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+                        <i class="fa-solid fa-sliders text-indigo-600"></i> Variable Controls
+                    </h3>
+                    <span class="text-[10px] font-mono bg-slate-200 text-slate-700 px-2 py-0.5 rounded">প্রস্তুতি</span>
+                </div>
+
+                <!-- Gradient Presets -->
+                <div class="space-y-1.5">
+                    <label class="text-[11px] font-bold text-slate-500 uppercase block">প্রস্তুত ঘনত্ব পার্থক্য</label>
+                    <div class="grid grid-cols-2 gap-1.5">
+                        <button onclick="applyPreset('large')" class="px-2 py-1.5 text-xs font-semibold rounded-lg bg-white border border-slate-200 hover:bg-indigo-50 hover:text-indigo-700 transition text-left">
+                            <span class="block text-[10px] text-slate-400">বড় ৮০:২০</span> High &rarr; Low
+                        </button>
+                        <button onclick="applyPreset('medium')" class="px-2 py-1.5 text-xs font-semibold rounded-lg bg-white border border-slate-200 hover:bg-indigo-50 hover:text-indigo-700 transition text-left">
+                            <span class="block text-[10px] text-slate-400">মাঝারি ৬০:২০</span> Moderate
+                        </button>
+                        <button onclick="applyPreset('equal')" class="px-2 py-1.5 text-xs font-semibold rounded-lg bg-white border border-slate-200 hover:bg-indigo-50 hover:text-indigo-700 transition text-left">
+                            <span class="block text-[10px] text-slate-400">সমান ৫০:৫০</span> Equilibrium
+                        </button>
+                        <button onclick="applyPreset('reverse')" class="px-2 py-1.5 text-xs font-semibold rounded-lg bg-white border border-slate-200 hover:bg-indigo-50 hover:text-indigo-700 transition text-left">
+                            <span class="block text-[10px] text-slate-400">বিপরীত ২০:৮০</span> Low &larr; High
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Slider 1: Region A Concentration -->
+                <div class="space-y-1.5 bg-white p-3 rounded-xl border border-slate-200 shadow-xs">
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="font-bold text-blue-700 flex items-center gap-1">
+                            <span class="w-2.5 h-2.5 rounded-full bg-blue-600 inline-block"></span> Region A (Left)
+                        </span>
+                        <span id="slider-conc-a-val" class="font-mono font-bold text-slate-800">৮০টি কণা</span>
+                    </div>
+                    <input type="range" id="slider-conc-a" min="0" max="120" value="80" oninput="onConcentrationChange()" class="w-full accent-blue-600 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                </div>
+
+                <!-- Slider 2: Region B Concentration -->
+                <div class="space-y-1.5 bg-white p-3 rounded-xl border border-slate-200 shadow-xs">
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="font-bold text-amber-700 flex items-center gap-1">
+                            <span class="w-2.5 h-2.5 rounded-full bg-amber-600 inline-block"></span> Region B (Right)
+                        </span>
+                        <span id="slider-conc-b-val" class="font-mono font-bold text-slate-800">২০টি কণা</span>
+                    </div>
+                    <input type="range" id="slider-conc-b" min="0" max="120" value="20" oninput="onConcentrationChange()" class="w-full accent-amber-600 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                </div>
+
+                <!-- Temperature Slider & Thermometer Readout -->
+                <div class="space-y-2 bg-white p-3 rounded-xl border border-slate-200 shadow-xs">
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="font-bold text-slate-700 flex items-center gap-1.5">
+                            <i class="fa-solid fa-temperature-three-quarters text-rose-500 text-sm"></i> Temperature
+                        </span>
+                        <span id="temp-val" class="font-mono font-bold text-rose-600">25°C (298 K)</span>
+                    </div>
+                    <input type="range" id="slider-temp" min="5" max="60" value="25" oninput="onTemperatureChange()" class="w-full accent-rose-500 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                    
+                    <div class="flex items-center justify-between text-[11px] font-mono text-slate-500 bg-slate-50 p-1.5 rounded-lg border border-slate-200">
+                        <span>RMS গতির মান:</span>
+                        <span id="speed-readout" class="font-bold text-slate-800">1.00x (Moderate)</span>
+                    </div>
+                </div>
+
+                <!-- Physical Barrier Switch -->
+                <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-xs flex items-center justify-between">
+                    <div>
+                        <span class="font-bold text-xs text-slate-800 block">কঠিন সীমানা বাধা</span>
+                        <span class="text-[10px] text-slate-500">সরানো না পর্যন্ত কণা পার হতে পারবে না</span>
+                    </div>
+                    <button onclick="toggleBarrier()" id="barrier-btn" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition border border-slate-300 flex items-center gap-1">
+                        <i class="fa-solid fa-border-none"></i> Insert Barrier
+                    </button>
+                </div>
+
+                <!-- Particle Path Tracking Toggle -->
+                <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-xs space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-xs text-slate-800">ব্রাউনীয় পথ অনুসরণ</span>
+                        <button onclick="toggleTrackMode()" id="track-btn" class="px-2.5 py-1 text-xs font-semibold rounded-lg bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition border border-indigo-200">
+                            <i class="fa-solid fa-route"></i> Track Single Particle
+                        </button>
+                    </div>
+                    <p id="track-status" class="text-[10px] text-slate-500 leading-tight">
+                        ক্যানভাসের একটি কণায় ক্লিক করো অথবা উপরের বোতাম চাপো—তার এলোমেলো জিগজ্যাগ পথ দেখা যাবে।
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Global Action Bar -->
+            <div class="pt-2 border-t border-slate-200 space-y-2">
+                <button onclick="resetSimulation()" class="w-full py-2 bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold text-xs rounded-xl transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-rotate-left"></i> Reset Simulation
+                </button>
+            </div>
+
+        </aside>
+
+        <div class="flex-1 bg-white p-4 lg:p-6 flex flex-col justify-between overflow-y-auto custom-scrollbar relative space-y-4">
+
+            <!-- GUIDED BANNER (Hidden in Free Explore) -->
+            <div id="guided-banner" class="hidden bg-indigo-50 border border-indigo-200 rounded-xl p-3 text-xs text-indigo-900 flex items-center justify-between shadow-sm shrink-0">
+                <div class="flex items-center space-x-3">
+                    <span id="guided-step-badge" class="w-6 h-6 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center shrink-0">1</span>
+                    <div>
+                        <h4 id="guided-title" class="font-bold text-slate-900">ধাপ ১: এলোমেলো ব্রাউনীয় গতি দেখো</h4>
+                        <p id="guided-desc" class="text-slate-600 text-[11px]">দেখো, কণাগুলো সোজা একদিকে না গিয়ে সবদিকে এলোমেলোভাবে চলাচল করে।</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2 shrink-0">
+                    <button onclick="prevGuidedStep()" id="guided-prev" class="px-2.5 py-1 rounded bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 font-semibold disabled:opacity-40">পেছনে</button>
+                    <button onclick="nextGuidedStep()" id="guided-next" class="px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white font-bold shadow-sm">পরের ধাপ &rarr;</button>
+                </div>
+            </div>
+
+            <!-- MAIN SIMULATION CHAMBER & HUD COUNTERS -->
+            <div class="flex-1 flex flex-col justify-between space-y-3">
+                
+                <!-- CHAMBER TOP CONTROL TOOLBAR -->
+                <div class="flex flex-wrap items-center justify-between gap-2 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                    
+                    <!-- Play/Pause & Step Controls -->
+                    <div class="flex items-center space-x-1.5">
+                        <button onclick="togglePlayPause()" id="play-btn" class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shadow-xs flex items-center gap-1.5">
+                            <i id="play-icon" class="fa-solid fa-pause"></i> <span id="play-text">বিরতি</span>
+                        </button>
+                        <button onclick="stepSim(5)" class="px-2.5 py-1.5 rounded-lg bg-white border border-slate-200 hover:bg-slate-100 font-bold text-xs text-slate-700 transition" title="Step +5 seconds forward">
+                            <i class="fa-solid fa-forward-step"></i> +5s
+                        </button>
+                    </div>
+
+                    <!-- Speed Multipliers -->
+                    <div class="flex items-center space-x-1 bg-white p-1 rounded-lg border border-slate-200 text-xs">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase px-1">গতি:</span>
+                        <button onclick="setSpeed(0.5)" id="speed-0.5" class="speed-btn px-2 py-0.5 rounded font-mono font-bold text-slate-600 hover:bg-slate-100">0.5x</button>
+                        <button onclick="setSpeed(1)" id="speed-1" class="speed-btn px-2 py-0.5 rounded font-mono font-bold bg-indigo-100 text-indigo-700">1x</button>
+                        <button onclick="setSpeed(2)" id="speed-2" class="speed-btn px-2 py-0.5 rounded font-mono font-bold text-slate-600 hover:bg-slate-100">2x</button>
+                        <button onclick="setSpeed(4)" id="speed-4" class="speed-btn px-2 py-0.5 rounded font-mono font-bold text-slate-600 hover:bg-slate-100">4x</button>
+                    </div>
+
+                    <!-- Net Diffusion State Badge -->
+                    <div class="flex items-center space-x-2 bg-white px-3 py-1 rounded-lg border border-slate-200">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">নিট চলাচল:</span>
+                        <span id="net-flux-indicator" class="font-bold text-xs text-blue-600 flex items-center gap-1">
+                            <i class="fa-solid fa-right-long"></i> অঞ্চল A &rarr; অঞ্চল B
+                        </span>
+                    </div>
+
+                </div>
+
+                <!-- CANVAS CHAMBER CONTAINER -->
+                <div class="relative w-full h-[320px] md:h-[380px] bg-slate-900 rounded-2xl border-2 border-slate-300 shadow-inner overflow-hidden flex flex-col justify-between">
+                    
+                    <!-- Single Chamber Canvas -->
+                    <canvas id="simCanvas" class="w-full h-full block cursor-crosshair"></canvas>
+
+                    <!-- Dual Chamber Container (Hidden by default) -->
+                    <div id="dualCanvasContainer" class="hidden absolute inset-0 bg-slate-900 flex divide-x-2 divide-slate-700">
+                        <div class="w-1/2 h-full relative p-2">
+                            <span class="absolute top-2 left-2 text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-blue-900/80 text-blue-200 border border-blue-700">প্রকোষ্ঠ ১: কম তাপমাত্রা (১০°C)</span>
+                            <canvas id="dualCanvas1" class="w-full h-full block"></canvas>
+                        </div>
+                        <div class="w-1/2 h-full relative p-2">
+                            <span class="absolute top-2 left-2 text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-rose-900/80 text-rose-200 border border-rose-700">প্রকোষ্ঠ ২: বেশি তাপমাত্রা (৫০°C)</span>
+                            <canvas id="dualCanvas2" class="w-full h-full block"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Overlay Live Crossing Counter Box -->
+                    <div id="single-hud" class="absolute bottom-3 left-3 right-3 bg-slate-900/85 backdrop-blur-sm border border-slate-700/80 rounded-xl p-2.5 px-4 text-white flex justify-between items-center text-xs font-mono">
+                        <div class="flex items-center space-x-2">
+                            <span class="text-blue-400 font-bold">অঞ্চল A: <span id="hud-conc-a">80</span></span>
+                            <span class="text-slate-500">|</span>
+                            <span class="text-amber-400 font-bold">অঞ্চল B: <span id="hud-conc-b">20</span></span>
+                        </div>
+                        
+                        <div class="hidden sm:flex items-center space-x-3 text-[11px]">
+                            <span class="text-emerald-400" title="Crossings Left to Right in last 5s"><i class="fa-solid fa-arrow-right"></i> A&rarr;B: <span id="hud-cross-ab">0</span></span>
+                            <span class="text-rose-400" title="Crossings Right to Left in last 5s"><i class="fa-solid fa-arrow-left"></i> B&rarr;A: <span id="hud-cross-ba">0</span></span>
+                        </div>
+
+                        <div class="text-slate-300 font-bold">
+                            Elapsed: <span id="hud-timer">00:00s</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Dynamic Equilibrium Notice Banner -->
+                <div id="equilibrium-banner" class="hidden bg-emerald-50 border border-emerald-200 p-3 rounded-xl text-xs text-emerald-900 flex items-center justify-between">
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-scale-balanced text-emerald-600 text-base"></i>
+                        <div>
+                            <strong class="font-bold">গতিশীল সাম্যাবস্থা অর্জিত হয়েছে!</strong>
+                            <p class="text-[11px] text-emerald-700">ঘনত্ব প্রায় সমান (~৫০/৫০), কিন্তু কণাগুলো দুই দিকেই এলোমেলোভাবে চলতে থাকে (নিট স্থানান্তর = ০)।</p>
+                        </div>
+                    </div>
+                    <span class="font-mono text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-1 rounded">নিট প্রবাহ = ০</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <aside class="w-full lg:w-96 bg-slate-50 border-t lg:border-t-0 lg:border-l border-slate-200 p-4 lg:p-6 flex flex-col justify-between overflow-y-auto custom-scrollbar shrink-0 space-y-5">
+
+            <!-- REAL-TIME CONCENTRATION TIME CHART -->
+            <div class="space-y-3">
+                <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+                    <h3 class="font-bold text-xs uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+                        <i class="fa-solid fa-chart-line text-indigo-600"></i> Real-Time Concentration Curve
+                    </h3>
+                    <span class="text-[10px] font-mono bg-slate-200 text-slate-700 px-2 py-0.5 rounded">লাইভ গ্রাফ</span>
+                </div>
+
+                <div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-xs space-y-2">
+                    <div class="h-44 w-full relative">
+                        <canvas id="graphCanvas" class="w-full h-full block"></canvas>
+                    </div>
+
+                    <!-- Graph Legend -->
+                    <div class="flex justify-around text-[10px] font-bold font-mono border-t border-slate-100 pt-2">
+                        <span class="text-blue-600 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-blue-600 inline-block"></span> Region A %</span>
+                        <span class="text-amber-600 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-600 inline-block"></span> Region B %</span>
+                        <span class="text-indigo-600 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-indigo-600 inline-block"></span> Conc Delta (&Delta;)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TRIAL HISTORY LOGGER -->
+            <div class="space-y-3">
+                <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+                    <h3 class="font-bold text-xs uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+                        <i class="fa-solid fa-table text-indigo-600"></i> Trial History Log
+                    </h3>
+                    <button onclick="logCurrentTrial()" class="text-[10px] font-bold bg-indigo-50 hover:bg-indigo-100 text-indigo-700 px-2 py-1 rounded border border-indigo-200 transition">
+                        <i class="fa-solid fa-plus"></i> Log Trial
+                    </button>
+                </div>
+
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+                    <table class="w-full text-left text-[11px] font-mono">
+                        <thead class="bg-slate-100 text-slate-600 font-bold border-b border-slate-200">
+                            <tr>
+                                <th class="p-2">#</th>
+                                <th class="p-2">তাপমাত্রা</th>
+                                <th class="p-2">শুরুর A:B</th>
+                                <th class="p-2">সাম্য সময়</th>
+                            </tr>
+                        </thead>
+                        <tbody id="trial-log-body" class="divide-y divide-slate-100 text-slate-700">
+                            <tr>
+                                <td colspan="4" class="p-3 text-center text-slate-400 font-sans italic">এখনও কোনো পরীক্ষা সংরক্ষণ করা হয়নি। ‘পরীক্ষা সংরক্ষণ’ চাপো অথবা সাম্যাবস্থা হওয়া পর্যন্ত অপেক্ষা করো।</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- CORE SCIENTIFIC CONCEPT REMINDERS -->
+            <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs space-y-2 text-xs">
+                <h4 class="font-bold text-slate-900 flex items-center gap-1.5">
+                    <i class="fa-solid fa-graduation-cap text-indigo-600"></i> Chapter 3 Core Takeaways
+                </h4>
+                <ul class="space-y-1.5 text-slate-600 list-disc list-inside leading-normal text-[11px]">
+                    <li><strong>নিষ্ক্রিয় প্রক্রিয়া:</strong> ব্যাপনের জন্য বাইরে থেকে ATP শক্তি লাগে না; তাপজনিত গতিশক্তিই কণার চলাচল ঘটায়।</li>
+                    <li><strong>পরিসংখ্যানগত নিট প্রবাহ:</strong> কণাগুলো সব দিকেই এলোমেলোভাবে চলে। উচ্চ ঘনত্বের অঞ্চলে কণা বেশি থাকায় সেখান থেকে পার হওয়ার সুযোগও বেশি।</li>
+                    <li><strong>গতিশীল সাম্যাবস্থা:</strong> সমান ঘনত্ব মানে চলাচল বন্ধ নয়; দুই দিকের স্থানান্তরের হার সমান হয়।</li>
+                </ul>
+            </div>
+
+        </aside>
+
+    </main>
+
+    <div id="practical-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white max-w-2xl w-full rounded-2xl border border-slate-200 shadow-2xl p-6 space-y-5 max-h-[90vh] overflow-y-auto custom-scrollbar">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                <div class="flex items-center space-x-2">
+                    <div class="p-2 rounded-lg bg-amber-50 text-amber-600 font-bold">
+                        <i class="fa-solid fa-flask"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-base">বাস্তব ল্যাব ও মডেলের সীমাবদ্ধতা</h3>
+                </div>
+                <button onclick="closeModal('practical-modal')" class="text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <div class="space-y-4 text-xs leading-relaxed text-slate-600">
+                <div class="bg-amber-50 border border-amber-200 p-3.5 rounded-xl text-amber-900 space-y-1">
+                    <h4 class="font-bold text-sm flex items-center gap-1.5"><i class="fa-solid fa-circle-exclamation"></i> Convection vs. Pure Molecular Diffusion Warning!</h4>
+                    <p>In classroom beaker experiments (e.g. dropping potassium permanganate crystals into warm water), visual swirling is often dominated by <strong>thermal convection currents</strong> rather than pure random molecular diffusion!</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-2">
+                        <h5 class="font-bold text-slate-800 text-xs flex items-center gap-1.5"><i class="fa-solid fa-vial text-indigo-600"></i> Standard Agar Cube Practical</h5>
+                        <p>Phenolphthalein agar cubes placed in acid measure diffusion rates by calculating surface area-to-volume ratios (SA:V). Smaller organisms diffuse nutrients faster due to shorter diffusion distance.</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-2">
+                        <h5 class="font-bold text-slate-800 text-xs flex items-center gap-1.5"><i class="fa-solid fa-microscope text-emerald-600"></i> Simulation Model Assumptions</h5>
+                        <ul class="list-disc list-inside space-y-1 text-[11px]">
+                            <li>Elastic hard-sphere particle collisions.</li>
+                            <li>2D bounded chamber ignoring vertical gravity settling.</li>
+                            <li>Constant average temperature without spatial thermal gradients.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-end border-t border-slate-100 pt-3">
+                <button onclick="closeModal('practical-modal')" class="px-5 py-2 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs rounded-xl transition">
+                    Got It
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="osmosis-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white max-w-2xl w-full rounded-2xl border border-slate-200 shadow-2xl p-6 space-y-5 max-h-[90vh] overflow-y-auto custom-scrollbar">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                <div class="flex items-center space-x-2">
+                    <div class="p-2 rounded-lg bg-indigo-50 text-indigo-600 font-bold">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-base">দ্রবের ব্যাপন বনাম অভিস্রবণ</h3>
+                </div>
+                <button onclick="closeModal('osmosis-modal')" class="text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <div class="space-y-4 text-xs text-slate-700">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse border border-slate-200 rounded-xl overflow-hidden">
+                        <thead class="bg-slate-100 font-bold text-slate-800">
+                            <tr>
+                                <th class="p-3 border-b border-slate-200">বৈশিষ্ট্য</th>
+                                <th class="p-3 border-b border-slate-200 text-blue-700">দ্রবের ব্যাপন</th>
+                                <th class="p-3 border-b border-slate-200 text-indigo-700">অভিস্রবণ</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-[11px]">
+                            <tr>
+                                <td class="p-3 font-bold bg-slate-50">যে পদার্থ চলে</td>
+                                <td class="p-3">Solute molecules (Gas $O_2, CO_2$, glucose, dye)</td>
+                                <td class="p-3">Solvent molecules (Free Water $H_2O$)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold bg-slate-50">ঘনত্ব/বিভবের দিক</td>
+                                <td class="p-3">High solute concentration &rarr; Low solute concentration</td>
+                                <td class="p-3">High water potential &rarr; Low water potential</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold bg-slate-50">ঝিল্লি দরকার?</td>
+                                <td class="p-3">Not required (occurs freely in air, liquids, solids)</td>
+                                <td class="p-3">Requires Selectively Permeable Membrane</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold bg-slate-50">জৈবিক উদাহরণ</td>
+                                <td class="p-3">Gas exchange in lung alveoli & leaf stomata</td>
+                                <td class="p-3">Water uptake by root hair cells in soil</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="flex justify-end border-t border-slate-100 pt-3">
+                <button onclick="closeModal('osmosis-modal')" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl transition">
+                    Close Guide
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="predict-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white max-w-lg w-full rounded-2xl border border-slate-200 shadow-2xl p-6 space-y-5">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                <div class="flex items-center space-x-2">
+                    <div class="p-2 rounded-lg bg-amber-50 text-amber-600 font-bold">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-base">অনুমান ও পূর্বাভাস</h3>
+                </div>
+                <button onclick="closeModal('predict-modal')" class="text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <div class="space-y-3 text-xs">
+                <label class="font-bold text-slate-800 block">প্রশ্ন: তাপমাত্রা ১০°C থেকে ৫০°C হলে কণার নিট স্থানান্তরে কী পরিবর্তন হবে?</label>
+                
+                <div class="space-y-2">
+                    <label class="flex items-center space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-200 cursor-pointer hover:border-slate-300">
+                        <input type="radio" name="pred-choice" value="0" class="text-indigo-600">
+                        <span>উচ্চ তাপমাত্রায় গতিশক্তি বাড়ে, তাই ব্যাপনের গতি বাড়ে।</span>
+                    </label>
+                    <label class="flex items-center space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-200 cursor-pointer hover:border-slate-300">
+                        <input type="radio" name="pred-choice" value="1" class="text-indigo-600">
+                        <span>সাম্যাবস্থা হলে কণাগুলো চলা বন্ধ করবে।</span>
+                    </label>
+                    <label class="flex items-center space-x-3 p-3 rounded-xl bg-slate-50 border border-slate-200 cursor-pointer hover:border-slate-300">
+                        <input type="radio" name="pred-choice" value="2" class="text-indigo-600">
+                        <span>কণাগুলো শুধু বাম থেকে ডানে যাবে; ডান থেকে বামে যাওয়া সম্ভব নয়।</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="flex justify-end border-t border-slate-100 pt-3">
+                <button onclick="submitPrediction()" class="px-5 py-2 bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs rounded-xl transition">
+                    Test Hypothesis Now
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * DIFFUSION PARTICLE SIMULATOR ENGINE (CHAPTER 3)
+         * Author: Senior Biological Simulation Architect
+         */
+
+        // Audio Effects Synthesizer
+        let audioCtx = null;
+        let soundEnabled = true;
+
+        function initAudio() {
+            if (!audioCtx) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (AudioContext) audioCtx = new AudioContext();
+            }
+        }
+
+        function playSound(type) {
+            if (!soundEnabled) return;
+            initAudio();
+            if (!audioCtx) return;
+
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                if (type === 'click') {
+                    osc.frequency.setValueAtTime(450, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.06);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.06);
+                } else if (type === 'cross') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(600, audioCtx.currentTime + 0.08);
+                    gain.gain.setValueAtTime(0.02, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.08);
+                } else if (type === 'equil') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
+                    osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.12);
+                    gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.3);
+                }
+            } catch (e) {}
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            const icon = document.getElementById('sound-icon');
+            icon.className = soundEnabled ? "fa-solid fa-volume-high text-sm" : "fa-solid fa-volume-xmark text-sm text-slate-400";
+        }
+
+        // Global Simulation State
+        const state = {
+            mode: 'SINGLE', // 'SINGLE' or 'DUAL'
+            exploreMode: 'FREE', // 'FREE' or 'GUIDED'
+            isPlaying: true,
+            simSpeed: 1.0,
+            temp: 25, // Celsius
+            concA: 80,
+            concB: 20,
+            hasBarrier: false,
+            trackSingle: false,
+            trackedParticleId: null,
+            guidedStep: 0,
+            elapsedSeconds: 0,
+            crossingsAB: 0,
+            crossingsBA: 0,
+            trialCount: 0,
+            equilReachedLogged: false
+        };
+
+        // Canvas Context References
+        let simCanvas, simCtx;
+        let dualCanvas1, dualCtx1;
+        let dualCanvas2, dualCtx2;
+        let graphCanvas, graphCtx;
+
+        // Particle Class definition for stochastic Brownian motion
+        class Particle {
+            constructor(id, x, y, radius, colorHex) {
+                this.id = id;
+                this.x = x;
+                this.y = y;
+                this.radius = radius;
+                this.colorHex = colorHex;
+                
+                // Random velocity vector based on Maxwell-Boltzmann-like direction distribution
+                const angle = Math.random() * Math.PI * 2;
+                this.vx = Math.cos(angle);
+                this.vy = Math.sin(angle);
+                
+                this.pathHistory = [];
+                this.maxHistory = 80;
+            }
+
+            update(width, height, speedMult, hasBarrier, dividerX) {
+                // Brownian Random Jitter (Stochastic angle perturbations)
+                const jitterAngle = (Math.random() - 0.5) * 0.45;
+                const cosJ = Math.cos(jitterAngle);
+                const sinJ = Math.sin(jitterAngle);
+
+                let nVx = this.vx * cosJ - this.vy * sinJ;
+                let nVy = this.vx * sinJ + this.vy * cosJ;
+
+                // Normalize velocity to maintain constant kinetic speed per temp
+                const mag = Math.hypot(nVx, nVy) || 1;
+                this.vx = (nVx / mag);
+                this.vy = (nVy / mag);
+
+                const stepX = this.vx * speedMult;
+                const stepY = this.vy * speedMult;
+
+                const prevRegion = this.x < dividerX ? 'A' : 'B';
+
+                // Physical Barrier Collision Logic
+                if (hasBarrier) {
+                    if (this.x < dividerX && (this.x + stepX) >= dividerX - this.radius) {
+                        this.vx = -Math.abs(this.vx);
+                    } else if (this.x > dividerX && (this.x + stepX) <= dividerX + this.radius) {
+                        this.vx = Math.abs(this.vx);
+                    }
+                }
+
+                // Wall Collisions (Elastic Bounce)
+                if (this.x + stepX < this.radius) {
+                    this.x = this.radius;
+                    this.vx = Math.abs(this.vx);
+                } else if (this.x + stepX > width - this.radius) {
+                    this.x = width - this.radius;
+                    this.vx = -Math.abs(this.vx);
+                } else {
+                    this.x += stepX;
+                }
+
+                if (this.y + stepY < this.radius) {
+                    this.y = this.radius;
+                    this.vy = Math.abs(this.vy);
+                } else if (this.y + stepY > height - this.radius) {
+                    this.y = height - this.radius;
+                    this.vy = -Math.abs(this.vy);
+                } else {
+                    this.y += stepY;
+                }
+
+                const newRegion = this.x < dividerX ? 'A' : 'B';
+
+                // Log Boundary Crossing Events
+                if (prevRegion === 'A' && newRegion === 'B') {
+                    state.crossingsAB++;
+                    playSound('cross');
+                } else if (prevRegion === 'B' && newRegion === 'A') {
+                    state.crossingsBA++;
+                    playSound('cross');
+                }
+
+                // Append Path Trail History
+                this.pathHistory.push({ x: this.x, y: this.y });
+                if (this.pathHistory.length > this.maxHistory) {
+                    this.pathHistory.shift();
+                }
+            }
+
+            draw(ctx, isTracked) {
+                // Draw Path Trail if tracked
+                if (isTracked && this.pathHistory.length > 1) {
+                    ctx.beginPath();
+                    ctx.moveTo(this.pathHistory[0].x, this.pathHistory[0].y);
+                    for (let i = 1; i < this.pathHistory.length; i++) {
+                        ctx.lineTo(this.pathHistory[i].x, this.pathHistory[i].y);
+                    }
+                    ctx.strokeStyle = '#F59E0B';
+                    ctx.lineWidth = 2.5;
+                    ctx.stroke();
+                }
+
+                // Draw Particle Sphere
+                ctx.save();
+                ctx.shadowColor = this.colorHex;
+                ctx.shadowBlur = 12;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.colorHex;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+                ctx.lineWidth = 1.8;
+                ctx.strokeStyle = 'rgba(255,255,255,0.92)';
+                ctx.stroke();
+                ctx.restore();
+
+                if (isTracked) {
+                    ctx.lineWidth = 2.5;
+                    ctx.strokeStyle = '#FFFFFF';
+                    ctx.stroke();
+
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius + 4, 0, Math.PI * 2);
+                    ctx.strokeStyle = '#F59E0B';
+                    ctx.lineWidth = 1.5;
+                    ctx.stroke();
+                }
+            }
+        }
+
+        let particles = [];
+        let dualParticles1 = [];
+        let dualParticles2 = [];
+        let graphHistory = []; // { time, concA, concB }
+
+        function initChamberParticles() {
+            particles = [];
+            const width = simCanvas.width;
+            const height = simCanvas.height;
+            const dividerX = width / 2;
+
+            let pId = 0;
+
+            // Region A Particles (Left)
+            for (let i = 0; i < state.concA; i++) {
+                const rx = Math.random() * (dividerX - 20) + 10;
+                const ry = Math.random() * (height - 20) + 10;
+                particles.push(new Particle(pId++, rx, ry, 7, '#38BDF8'));
+            }
+
+            // Region B Particles (Right)
+            for (let i = 0; i < state.concB; i++) {
+                const rx = dividerX + 10 + Math.random() * (width - dividerX - 20);
+                const ry = Math.random() * (height - 20) + 10;
+                particles.push(new Particle(pId++, rx, ry, 7, '#FBBF24'));
+            }
+
+            // Auto-select first particle if tracking enabled
+            if (particles.length > 0) {
+                state.trackedParticleId = particles[0].id;
+            }
+
+            graphHistory = [{ time: 0, concA: state.concA, concB: state.concB }];
+            state.elapsedSeconds = 0;
+            state.crossingsAB = 0;
+            state.crossingsBA = 0;
+            state.equilReachedLogged = false;
+            document.getElementById('equilibrium-banner').classList.add('hidden');
+        }
+
+        function initDualParticles() {
+            dualParticles1 = [];
+            dualParticles2 = [];
+
+            const w = dualCanvas1.width;
+            const h = dualCanvas1.height;
+            const divX = w / 2;
+
+            // Setup Chamber 1 (10°C) - 80 vs 20
+            for (let i = 0; i < 80; i++) dualParticles1.push(new Particle(i, Math.random() * (divX - 20) + 10, Math.random() * (h - 20) + 10, 6, '#38BDF8'));
+            for (let i = 0; i < 20; i++) dualParticles1.push(new Particle(i + 80, divX + 10 + Math.random() * (w - divX - 20), Math.random() * (h - 20) + 10, 6, '#FBBF24'));
+
+            // Setup Chamber 2 (50°C) - 80 vs 20
+            for (let i = 0; i < 80; i++) dualParticles2.push(new Particle(i, Math.random() * (divX - 20) + 10, Math.random() * (h - 20) + 10, 6, '#38BDF8'));
+            for (let i = 0; i < 20; i++) dualParticles2.push(new Particle(i + 80, divX + 10 + Math.random() * (w - divX - 20), Math.random() * (h - 20) + 10, 6, '#FBBF24'));
+        }
+
+        // Kinetic Velocity calculation from temperature
+        function getKineticSpeed(tempCelsius) {
+            // Root-Mean-Square velocity scaling (Temp in Kelvin = C + 273)
+            const tempK = tempCelsius + 273.15;
+            return Math.sqrt(tempK / 298.15) * 1.8;
+        }
+
+        let lastTimestamp = 0;
+        let secondTimer = 0;
+
+        function animate(timestamp) {
+            if (!lastTimestamp) lastTimestamp = timestamp;
+            const dt = (timestamp - lastTimestamp) / 1000;
+            lastTimestamp = timestamp;
+
+            if (state.isPlaying) {
+                secondTimer += dt * state.simSpeed;
+                if (secondTimer >= 1.0) {
+                    state.elapsedSeconds += Math.floor(secondTimer);
+                    secondTimer %= 1.0;
+                    updateHUDStats();
+                }
+
+                const speedBase = getKineticSpeed(state.temp) * state.simSpeed;
+
+                if (state.mode === 'SINGLE') {
+                    const dividerX = simCanvas.width / 2;
+                    particles.forEach(p => p.update(simCanvas.width, simCanvas.height, speedBase, state.hasBarrier, dividerX));
+                } else {
+                    const divX1 = dualCanvas1.width / 2;
+                    const speed1 = getKineticSpeed(10) * state.simSpeed;
+                    const speed2 = getKineticSpeed(50) * state.simSpeed;
+                    dualParticles1.forEach(p => p.update(dualCanvas1.width, dualCanvas1.height, speed1, false, divX1));
+                    dualParticles2.forEach(p => p.update(dualCanvas2.width, dualCanvas2.height, speed2, false, divX1));
+                }
+            }
+
+            renderCanvases();
+            requestAnimationFrame(animate);
+        }
+
+        function renderCanvases() {
+            if (state.mode === 'SINGLE') {
+                simCtx.clearRect(0, 0, simCanvas.width, simCanvas.height);
+                
+                const width = simCanvas.width;
+                const height = simCanvas.height;
+                const dividerX = width / 2;
+
+                // Render Background Regions
+                simCtx.fillStyle = 'rgba(37, 99, 235, 0.05)';
+                simCtx.fillRect(0, 0, dividerX, height);
+                simCtx.fillStyle = 'rgba(217, 119, 6, 0.05)';
+                simCtx.fillRect(dividerX, 0, width - dividerX, height);
+
+                // Render Center Boundary Divider
+                simCtx.save();
+                if (state.hasBarrier) {
+                    simCtx.strokeStyle = '#EF4444';
+                    simCtx.lineWidth = 6;
+                    simCtx.beginPath();
+                    simCtx.moveTo(dividerX, 0);
+                    simCtx.lineTo(dividerX, height);
+                    simCtx.stroke();
+                } else {
+                    simCtx.strokeStyle = '#CBD5E1';
+                    simCtx.lineWidth = 2.5;
+                    simCtx.setLineDash([8, 8]);
+                    simCtx.beginPath();
+                    simCtx.moveTo(dividerX, 0);
+                    simCtx.lineTo(dividerX, height);
+                    simCtx.stroke();
+                }
+                simCtx.restore();
+
+                // Draw Particles
+                particles.forEach(p => p.draw(simCtx, state.trackSingle && p.id === state.trackedParticleId));
+
+            } else {
+                // Render Dual Chambers
+                renderSingleDual(dualCtx1, dualCanvas1, dualParticles1, "Chamber 1 (10°C)");
+                renderSingleDual(dualCtx2, dualCanvas2, dualParticles2, "Chamber 2 (50°C)");
+            }
+
+            renderGraphCanvas();
+        }
+
+        function renderSingleDual(ctx, canvas, pList, label) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const w = canvas.width;
+            const h = canvas.height;
+            const divX = w / 2;
+
+            ctx.strokeStyle = '#64748B';
+            ctx.lineWidth = 1.5;
+            ctx.setLineDash([6, 6]);
+            ctx.beginPath();
+            ctx.moveTo(divX, 0);
+            ctx.lineTo(divX, h);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            pList.forEach(p => p.draw(ctx, false));
+        }
+
+        function renderGraphCanvas() {
+            graphCtx.clearRect(0, 0, graphCanvas.width, graphCanvas.height);
+            const gw = graphCanvas.width;
+            const gh = graphCanvas.height;
+
+            // Draw Background Grid
+            graphCtx.strokeStyle = '#F1F5F9';
+            graphCtx.lineWidth = 1;
+            for (let y = 0; y <= gh; y += gh / 4) {
+                graphCtx.beginPath();
+                graphCtx.moveTo(0, y);
+                graphCtx.lineTo(gw, y);
+                graphCtx.stroke();
+            }
+
+            if (graphHistory.length < 2) return;
+
+            const totalP = state.concA + state.concB || 100;
+            const maxPoints = 60;
+            const sliceHistory = graphHistory.slice(-maxPoints);
+
+            const dx = gw / (maxPoints - 1);
+
+            // Function to plot curve line
+            function plotLine(colorHex, keyVal) {
+                graphCtx.beginPath();
+                graphCtx.strokeStyle = colorHex;
+                graphCtx.lineWidth = 2;
+
+                sliceHistory.forEach((pt, i) => {
+                    const x = i * dx;
+                    let valPct = 0;
+                    if (keyVal === 'delta') {
+                        valPct = Math.abs(pt.concA - pt.concB) / totalP;
+                    } else {
+                        valPct = pt[keyVal] / totalP;
+                    }
+                    const y = gh - (valPct * gh * 0.85) - (gh * 0.05);
+
+                    if (i === 0) graphCtx.moveTo(x, y);
+                    else graphCtx.lineTo(x, y);
+                });
+                graphCtx.stroke();
+            }
+
+            plotLine('#2563EB', 'concA');
+            plotLine('#D97706', 'concB');
+            plotLine('#4F46E5', 'delta');
+        }
+
+        // Update Stats Readout & HUD
+        function updateHUDStats() {
+            if (state.mode === 'SINGLE') {
+                const dividerX = simCanvas.width / 2;
+                let curA = 0;
+                let curB = 0;
+
+                particles.forEach(p => {
+                    if (p.x < dividerX) curA++;
+                    else curB++;
+                });
+
+                document.getElementById('hud-conc-a').innerText = curA;
+                document.getElementById('hud-conc-b').innerText = curB;
+                document.getElementById('hud-cross-ab').innerText = state.crossingsAB;
+                document.getElementById('hud-cross-ba').innerText = state.crossingsBA;
+
+                const mins = String(Math.floor(state.elapsedSeconds / 60)).padStart(2, '0');
+                const secs = String(state.elapsedSeconds % 60).padStart(2, '0');
+                document.getElementById('hud-timer').innerText = `${mins}:${secs}s`;
+
+                graphHistory.push({ time: state.elapsedSeconds, concA: curA, concB: curB });
+
+                // Update Net Flux Direction Indicator
+                const diff = curA - curB;
+                const fluxIndicator = document.getElementById('net-flux-indicator');
+
+                if (Math.abs(diff) <= 6) {
+                    fluxIndicator.className = "font-bold text-xs text-emerald-600 flex items-center gap-1";
+                    fluxIndicator.innerHTML = `<i class="fa-solid fa-scale-balanced"></i> গতিশীল সাম্যাবস্থা`;
+                    document.getElementById('equilibrium-banner').classList.remove('hidden');
+
+                    if (!state.equilReachedLogged && state.elapsedSeconds > 3) {
+                        state.equilReachedLogged = true;
+                        playSound('equil');
+                        logCurrentTrial();
+                    }
+                } else if (diff > 0) {
+                    fluxIndicator.className = "font-bold text-xs text-blue-600 flex items-center gap-1";
+                    fluxIndicator.innerHTML = `<i class="fa-solid fa-right-long"></i> অঞ্চল A &rarr; অঞ্চল B`;
+                    document.getElementById('equilibrium-banner').classList.add('hidden');
+                } else {
+                    fluxIndicator.className = "font-bold text-xs text-amber-600 flex items-center gap-1";
+                    fluxIndicator.innerHTML = `<i class="fa-solid fa-left-long"></i> অঞ্চল B &rarr; অঞ্চল A`;
+                    document.getElementById('equilibrium-banner').classList.add('hidden');
+                }
+            }
+        }
+
+        function onConcentrationChange() {
+            state.concA = parseInt(document.getElementById('slider-conc-a').value);
+            state.concB = parseInt(document.getElementById('slider-conc-b').value);
+            document.getElementById('slider-conc-a-val').innerText = `${state.concA}টি কণা`;
+            document.getElementById('slider-conc-b-val').innerText = `${state.concB}টি কণা`;
+            initChamberParticles();
+        }
+
+        function onTemperatureChange() {
+            state.temp = parseInt(document.getElementById('slider-temp').value);
+            document.getElementById('temp-val').innerText = `${state.temp}°C (${state.temp + 273} K)`;
+            
+            const rmsSpeed = (getKineticSpeed(state.temp) / 1.8).toFixed(2);
+            document.getElementById('speed-readout').innerText = `${rmsSpeed}× (${state.temp > 35 ? 'দ্রুত' : state.temp < 15 ? 'ধীর' : 'মাঝারি'})`;
+        }
+
+        function applyPreset(type) {
+            playSound('click');
+            if (type === 'large') { state.concA = 80; state.concB = 20; }
+            else if (type === 'medium') { state.concA = 60; state.concB = 20; }
+            else if (type === 'equal') { state.concA = 50; state.concB = 50; }
+            else if (type === 'reverse') { state.concA = 20; state.concB = 80; }
+
+            document.getElementById('slider-conc-a').value = state.concA;
+            document.getElementById('slider-conc-b').value = state.concB;
+            onConcentrationChange();
+        }
+
+        function toggleBarrier() {
+            playSound('click');
+            state.hasBarrier = !state.hasBarrier;
+            const btn = document.getElementById('barrier-btn');
+            if (state.hasBarrier) {
+                btn.className = "px-3 py-1.5 text-xs font-bold rounded-lg bg-rose-600 text-white hover:bg-rose-500 transition border border-rose-700 flex items-center gap-1";
+                btn.innerHTML = `<i class="fa-solid fa-ban"></i> বাধা সরাও`;
+            } else {
+                btn.className = "px-3 py-1.5 text-xs font-bold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition border border-slate-300 flex items-center gap-1";
+                btn.innerHTML = `<i class="fa-solid fa-border-none"></i> বাধা বসাও`;
+            }
+        }
+
+        function toggleTrackMode() {
+            playSound('click');
+            state.trackSingle = !state.trackSingle;
+            const btn = document.getElementById('track-btn');
+            if (state.trackSingle) {
+                btn.className = "px-2.5 py-1 text-xs font-semibold rounded-lg bg-indigo-600 text-white hover:bg-indigo-500 transition shadow-xs";
+                if (particles.length > 0) state.trackedParticleId = particles[0].id;
+            } else {
+                btn.className = "px-2.5 py-1 text-xs font-semibold rounded-lg bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition border border-indigo-200";
+            }
+        }
+
+        function togglePlayPause() {
+            playSound('click');
+            state.isPlaying = !state.isPlaying;
+            document.getElementById('play-icon').className = state.isPlaying ? "fa-solid fa-pause" : "fa-solid fa-play";
+            document.getElementById('play-text').innerText = state.isPlaying ? "Pause" : "Play";
+        }
+
+        function stepSim(seconds) {
+            playSound('click');
+            state.elapsedSeconds += seconds;
+            updateHUDStats();
+        }
+
+        function setSpeed(sp) {
+            playSound('click');
+            state.simSpeed = sp;
+            document.querySelectorAll('.speed-btn').forEach(btn => {
+                btn.className = "speed-btn px-2 py-0.5 rounded font-mono font-bold text-slate-600 hover:bg-slate-100";
+            });
+            document.getElementById(`speed-${sp}`).className = "speed-btn px-2 py-0.5 rounded font-mono font-bold bg-indigo-100 text-indigo-700";
+        }
+
+        function resetSimulation() {
+            playSound('click');
+            state.elapsedSeconds = 0;
+            state.crossingsAB = 0;
+            state.crossingsBA = 0;
+            initChamberParticles();
+            updateHUDStats();
+        }
+
+        function setSimMode(mode) {
+            playSound('click');
+            state.mode = mode;
+            document.querySelectorAll('.mode-tab-btn').forEach(b => {
+                b.className = "mode-tab-btn px-3 py-1.5 rounded-lg font-medium text-slate-600 hover:bg-slate-200/60 transition flex items-center gap-1.5";
+            });
+
+            if (mode === 'SINGLE') {
+                document.getElementById('mode-SINGLE').className = "mode-tab-btn px-3 py-1.5 rounded-lg font-semibold transition flex items-center gap-1.5 bg-white text-slate-900 border border-slate-300 shadow-sm";
+                document.getElementById('simCanvas').classList.remove('hidden');
+                document.getElementById('dualCanvasContainer').classList.add('hidden');
+                document.getElementById('single-hud').classList.remove('hidden');
+            } else {
+                document.getElementById('mode-DUAL').className = "mode-tab-btn px-3 py-1.5 rounded-lg font-semibold transition flex items-center gap-1.5 bg-white text-slate-900 border border-slate-300 shadow-sm";
+                document.getElementById('simCanvas').classList.add('hidden');
+                document.getElementById('dualCanvasContainer').classList.remove('hidden');
+                document.getElementById('single-hud').classList.add('hidden');
+                initDualParticles();
+            }
+        }
+
+        function setExploreMode(expMode) {
+            playSound('click');
+            state.exploreMode = expMode;
+            document.querySelectorAll('.exp-tab-btn').forEach(b => {
+                b.className = "exp-tab-btn px-2.5 py-1 rounded-md font-medium text-slate-500 hover:bg-slate-200 transition";
+            });
+
+            if (expMode === 'GUIDED') {
+                document.getElementById('exp-GUIDED').className = "exp-tab-btn px-2.5 py-1 rounded-md font-semibold bg-slate-200 text-slate-800 transition";
+                document.getElementById('guided-banner').classList.remove('hidden');
+                state.guidedStep = 0;
+                applyGuidedStep();
+            } else {
+                document.getElementById('exp-FREE').className = "exp-tab-btn px-2.5 py-1 rounded-md font-semibold bg-slate-200 text-slate-800 transition";
+                document.getElementById('guided-banner').classList.add('hidden');
+            }
+        }
+
+        // Guided Journey Sequence Definition
+        const GUIDED_STEPS = [
+            {
+                title: "Step 1: Observe Random Brownian Motion",
+                desc: "Notice how individual particles bounce in all directions randomly, rather than walking straight toward low concentration."
+            },
+            {
+                title: "Step 2: Track an Individual Particle Path",
+                desc: "Enable 'Track Single Particle' to trace its zig-zag trajectory across the boundary line."
+            },
+            {
+                title: "Step 3: Boundary Crossing Rates",
+                desc: "Compare A->B vs B->A crossings in HUD. High concentration side simply produces MORE random crossing opportunities."
+            },
+            {
+                title: "Step 4: Dynamic Equilibrium Arrival",
+                desc: "When concentrations balance (~50/50), particle transfer continues endlessly, but NET transport equals zero."
+            }
+        ];
+
+        function applyGuidedStep() {
+            const step = GUIDED_STEPS[state.guidedStep];
+            document.getElementById('guided-step-badge').innerText = state.guidedStep + 1;
+            document.getElementById('guided-title').innerText = step.title;
+            document.getElementById('guided-desc').innerText = step.desc;
+            document.getElementById('guided-prev').disabled = state.guidedStep === 0;
+        }
+
+        function nextGuidedStep() {
+            if (state.guidedStep < GUIDED_STEPS.length - 1) {
+                state.guidedStep++;
+                applyGuidedStep();
+            } else {
+                setExploreMode('FREE');
+            }
+        }
+
+        function prevGuidedStep() {
+            if (state.guidedStep > 0) {
+                state.guidedStep--;
+                applyGuidedStep();
+            }
+        }
+
+        function logCurrentTrial() {
+            state.trialCount++;
+            const tbody = document.getElementById('trial-log-body');
+            
+            if (state.trialCount === 1) tbody.innerHTML = '';
+
+            const row = document.createElement('tr');
+            row.className = "hover:bg-slate-50 transition";
+            row.innerHTML = `
+                <td class="p-2 font-bold">${state.trialCount}</td>
+                <td class="p-2">${state.temp}°C</td>
+                <td class="p-2">${state.concA}:${state.concB}</td>
+                <td class="p-2 text-indigo-700 font-bold">${state.elapsedSeconds}s</td>
+            `;
+            tbody.appendChild(row);
+        }
+
+        function submitPrediction() {
+            closeModal('predict-modal');
+            playSound('click');
+            applyPreset('large');
+            document.getElementById('slider-temp').value = 50;
+            onTemperatureChange();
+        }
+
+        // Modal Utilities
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+            playSound('click');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+            playSound('click');
+        }
+
+        function setupCanvasSizes() {
+            simCanvas = document.getElementById('simCanvas');
+            simCtx = simCanvas.getContext('2d');
+
+            dualCanvas1 = document.getElementById('dualCanvas1');
+            dualCtx1 = dualCanvas1.getContext('2d');
+
+            dualCanvas2 = document.getElementById('dualCanvas2');
+            dualCtx2 = dualCanvas2.getContext('2d');
+
+            graphCanvas = document.getElementById('graphCanvas');
+            graphCtx = graphCanvas.getContext('2d');
+
+            // Responsive high-DPI scaling
+            const pContainer = simCanvas.parentElement;
+            simCanvas.width = pContainer.clientWidth;
+            simCanvas.height = pContainer.clientHeight;
+
+            dualCanvas1.width = pContainer.clientWidth / 2;
+            dualCanvas1.height = pContainer.clientHeight;
+
+            dualCanvas2.width = pContainer.clientWidth / 2;
+            dualCanvas2.height = pContainer.clientHeight;
+
+            const gContainer = graphCanvas.parentElement;
+            graphCanvas.width = gContainer.clientWidth;
+            graphCanvas.height = gContainer.clientHeight;
+
+            // Canvas Click Listener for Particle Selection
+            simCanvas.addEventListener('click', (e) => {
+                const rect = simCanvas.getBoundingClientRect();
+                const clickX = e.clientX - rect.left;
+                const clickY = e.clientY - rect.top;
+
+                particles.forEach(p => {
+                    const dist = Math.hypot(p.x - clickX, p.y - clickY);
+                    if (dist < 15) {
+                        state.trackedParticleId = p.id;
+                        state.trackSingle = true;
+                        playSound('click');
+                    }
+                });
+            });
+        }
+
+        window.onload = function() {
+            setupCanvasSizes();
+            initChamberParticles();
+            requestAnimationFrame(animate);
+
+            window.addEventListener('resize', () => {
+                setupCanvasSizes();
+                initChamberParticles();
+            });
+        };
+    </script>
+</body>
+</html>
