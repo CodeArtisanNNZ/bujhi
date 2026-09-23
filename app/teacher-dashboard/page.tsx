@@ -241,8 +241,10 @@ export default function TeacherDashboard(){
               <span><b>NCTB 2026</b></span>
             </div>
             <div className={styles.choiceList}>
-              <strong>Connected PDF path</strong>
-              <div><span>{selectedBook.pdfPath}</span></div>
+              <strong>Textbook PDF</strong>
+              <div>{selectedBook.pdfPath.startsWith("https://drive.google.com/file/d/")||selectedClass===8&&selectedBook.id==="science"
+                ? <a href={selectedBook.pdfPath} target="_blank" rel="noopener noreferrer">Open the full textbook →</a>
+                : <span>PDF not connected yet</span>}</div>
             </div>
             {selectedClass===8&&selectedBook.id==="science"&&<div className={styles.choiceList}>
               <strong>Chapter 1 · প্রাণিজগতের শ্রেণিবিন্যাস</strong>
