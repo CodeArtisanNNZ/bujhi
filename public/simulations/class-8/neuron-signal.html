@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neuron Signal Simulator - Chapter 5</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        stimulus: '#d97706',
+                        receptor: '#ca8a04',
+                        sensory: '#2563eb',
+                        cns: '#7c3aed',
+                        motor: '#059669',
+                        effector: '#dc2626',
+                        response: '#0284c7',
+                        signalPulse: '#fef08a'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        /* SVG & Pathway Custom Styles */
+        .neuron-path { stroke-dasharray: 6 3; }
+        .pulse-wave { stroke-linecap: round; transition: all 0.1s linear; }
+        .synapse-gap { animation: pulseGap 1.5s infinite alternate; }
+        @keyframes pulseGap { 0% { opacity: 0.4; } 100% { opacity: 0.9; } }
+        
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        /* Custom UI Transitions */
+        .stage-badge { transition: all 0.3s ease; }
+        .stage-active { transform: scale(1.05); ring: 2px; }
+    </style>
+</head>
+<body class="h-full flex flex-col text-slate-800 antialiased selection:bg-blue-100 selection:text-blue-900">
+
+    <!-- HEADER & BREADCRUMB MAP -->
+    <header class="bg-white border-b border-slate-200 px-4 py-3 shadow-sm shrink-0 z-20">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+            <div class="flex items-center space-x-3">
+                <div class="bg-blue-600 text-white p-2 rounded-lg font-bold flex items-center justify-center w-10 h-10 shadow-sm">
+                    <i class="fa-solid fa-bolt text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-slate-900 tracking-tight leading-none">Neuron Signal Simulator</h1>
+                    <p class="text-xs text-slate-500 font-medium mt-0.5">Chapter 5: The Reflex Pathway &amp; Neural Transmission</p>
+                </div>
+            </div>
+
+            <!-- Pathway Map Breadcrumb -->
+            <div id="pathway-breadcrumb" class="flex items-center overflow-x-auto py-1 custom-scrollbar text-xs font-semibold gap-1.5 bg-slate-100/80 p-1.5 rounded-xl border border-slate-200/80">
+                <div data-stage="STIMULUS" class="stage-badge flex items-center px-2.5 py-1 rounded-lg bg-white text-slate-600 border border-slate-200 shadow-2xs">
+                    <span class="w-2 h-2 rounded-full bg-amber-500 mr-1.5"></span>1. Stimulus
+                </div>
+                <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+                <div data-stage="RECEPTOR" class="stage-badge flex items-center px-2.5 py-1 rounded-lg bg-white text-slate-600 border border-slate-200 shadow-2xs">
+                    <span class="w-2 h-2 rounded-full bg-yellow-500 mr-1.5"></span>2. Receptor
+                </div>
+                <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+                <div data-stage="SENSORY" class="stage-badge flex items-center px-2.5 py-1 rounded-lg bg-white text-slate-600 border border-slate-200 shadow-2xs">
+                    <span class="w-2 h-2 rounded-full bg-blue-600 mr-1.5"></span>3. Sensory Neuron
+                </div>
+                <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+                <div data-stage="CNS" class="stage-badge flex items-center px-2.5 py-1 rounded-lg bg-white text-slate-600 border border-slate-200 shadow-2xs">
+                    <span class="w-2 h-2 rounded-full bg-purple-600 mr-1.5"></span>4. CNS
+                </div>
+                <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+                <div data-stage="MOTOR" class="stage-badge flex items-center px-2.5 py-1 rounded-lg bg-white text-slate-600 border border-slate-200 shadow-2xs">
+                    <span class="w-2 h-2 rounded-full bg-emerald-600 mr-1.5"></span>5. Motor Neuron
+                </div>
+                <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+                <div data-stage="EFFECTOR" class="stage-badge flex items-center px-2.5 py-1 rounded-lg bg-white text-slate-600 border border-slate-200 shadow-2xs">
+                    <span class="w-2 h-2 rounded-full bg-red-600 mr-1.5"></span>6. Effector
+                </div>
+                <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+                <div data-stage="RESPONSE" class="stage-badge flex items-center px-2.5 py-1 rounded-lg bg-white text-slate-600 border border-slate-200 shadow-2xs">
+                    <span class="w-2 h-2 rounded-full bg-sky-600 mr-1.5"></span>7. Response
+                </div>
+            </div>
+
+            <!-- Global Action Controls -->
+            <div class="flex items-center space-x-2">
+                <button id="toggle-labels-btn" onclick="toggleLabels()" class="px-3 py-1.5 text-xs font-medium rounded-lg border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 transition flex items-center gap-1.5 shadow-2xs">
+                    <i class="fa-solid fa-tag"></i> <span id="label-toggle-text">Hide Labels</span>
+                </button>
+                <button onclick="openModal('comparison-modal')" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-white hover:bg-slate-900 transition flex items-center gap-1.5 shadow-2xs">
+                    <i class="fa-solid fa-code-compare"></i> Compare Neurons
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- VIEW MODE SELECTION BAR -->
+    <nav class="bg-slate-100 border-b border-slate-200 px-4 py-2 shrink-0">
+        <div class="max-w-7xl mx-auto flex items-center justify-between overflow-x-auto gap-2 custom-scrollbar">
+            <div class="flex items-center space-x-1 min-w-max">
+                <button onclick="setViewMode('SIMPLE')" id="mode-btn-SIMPLE" class="mode-tab px-3 py-1.5 text-xs font-semibold rounded-md transition bg-white text-blue-700 shadow-2xs border border-slate-200">
+                    <i class="fa-solid fa-eye mr-1"></i> Simple View
+                </button>
+                <button onclick="setViewMode('DETAILED')" id="mode-btn-DETAILED" class="mode-tab px-3 py-1.5 text-xs font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition">
+                    <i class="fa-solid fa-microscope mr-1"></i> Detailed View
+                </button>
+                <button onclick="setViewMode('TRACE')" id="mode-btn-TRACE" class="mode-tab px-3 py-1.5 text-xs font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition">
+                    <i class="fa-solid fa-route mr-1"></i> Trace Signal Mode
+                </button>
+                <button onclick="setViewMode('BUILD')" id="mode-btn-BUILD" class="mode-tab px-3 py-1.5 text-xs font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition">
+                    <i class="fa-solid fa-puzzle-piece mr-1"></i> Build Pathway
+                </button>
+                <button onclick="setViewMode('WHAT_IF')" id="mode-btn-WHAT_IF" class="mode-tab px-3 py-1.5 text-xs font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition">
+                    <i class="fa-solid fa-flask-vial mr-1"></i> What-If Lab
+                </button>
+            </div>
+            
+            <div class="flex items-center space-x-2 text-xs text-slate-500 font-medium min-w-max">
+                <span class="flex items-center gap-1"><i class="fa-solid fa-circle-info text-blue-500"></i> Mode: <strong id="current-mode-label" class="text-slate-800">Standard Simulation</strong></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-1 max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4 p-4 overflow-hidden">
+        
+        <!-- LEFT PANEL: CONTROLS & STIMULUS PARAMETERS -->
+        <section class="lg:col-span-3 bg-white rounded-xl border border-slate-200 p-4 shadow-2xs flex flex-col justify-between overflow-y-auto custom-scrollbar gap-4">
+            <div class="space-y-4">
+                <div class="border-b border-slate-100 pb-2">
+                    <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center justify-between">
+                        <span><i class="fa-solid fa-sliders text-amber-500 mr-1.5"></i> Experiment Controls</span>
+                        <span id="experiment-status-badge" class="px-2 py-0.5 text-[10px] font-semibold bg-slate-100 text-slate-600 rounded-full border border-slate-200">IDLE</span>
+                    </h2>
+                </div>
+
+                <!-- Primary Action Trigger -->
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold text-slate-700">Trigger Stimulus</label>
+                    <button id="trigger-btn" onclick="triggerStimulus()" class="w-full py-3 px-4 bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-white font-bold text-sm rounded-lg shadow-md hover:shadow-lg transition flex items-center justify-center space-x-2 group">
+                        <i class="fa-solid fa-fire text-lg group-hover:scale-110 transition-transform"></i>
+                        <span>Touch Hot Surface</span>
+                    </button>
+                    <p class="text-[11px] text-slate-500 leading-tight">Simulates a finger making contact with a high-temperature heat source.</p>
+                </div>
+
+                <!-- Stimulus Intensity Slider -->
+                <div class="space-y-2 bg-slate-50 p-3 rounded-lg border border-slate-200">
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="font-bold text-slate-700">Stimulus Intensity</span>
+                        <span id="intensity-val" class="font-mono font-semibold text-amber-600">Moderate (60°C)</span>
+                    </div>
+                    <input type="range" id="intensity-slider" min="10" max="100" value="60" oninput="updateIntensity(this.value)" class="w-full accent-amber-500 h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                    <div class="flex justify-between text-[10px] text-slate-400 font-mono">
+                        <span>Sub-threshold</span>
+                        <span>Threshold</span>
+                        <span>High</span>
+                    </div>
+                    <div id="frequency-indicator" class="mt-2 text-[11px] text-slate-600 bg-white p-2 rounded border border-slate-200 flex items-center gap-2">
+                        <i class="fa-solid fa-wave-square text-blue-500"></i>
+                        <span>Impulse Frequency: <strong id="freq-text" class="font-mono text-slate-800">30 Hz</strong></span>
+                    </div>
+                </div>
+
+                <!-- Execution Player Controls -->
+                <div class="space-y-2 bg-slate-50 p-3 rounded-lg border border-slate-200">
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Playback Controls</label>
+                    <div class="grid grid-cols-4 gap-1">
+                        <button id="play-pause-btn" onclick="togglePlayPause()" class="p-2 bg-white border border-slate-200 hover:bg-slate-100 rounded text-slate-700 font-bold text-xs flex justify-center items-center">
+                            <i id="play-icon" class="fa-solid fa-play text-blue-600"></i>
+                        </button>
+                        <button onclick="stepPrev()" class="p-2 bg-white border border-slate-200 hover:bg-slate-100 rounded text-slate-700 font-bold text-xs flex justify-center items-center">
+                            <i class="fa-solid fa-step-backward"></i>
+                        </button>
+                        <button onclick="stepNext()" class="p-2 bg-white border border-slate-200 hover:bg-slate-100 rounded text-slate-700 font-bold text-xs flex justify-center items-center">
+                            <i class="fa-solid fa-step-forward"></i>
+                        </button>
+                        <button onclick="resetSimulation()" class="p-2 bg-white border border-slate-200 hover:bg-slate-100 rounded text-slate-700 font-bold text-xs flex justify-center items-center text-red-600" title="Reset">
+                            <i class="fa-solid fa-rotate-left"></i>
+                        </button>
+                    </div>
+
+                    <div class="mt-2 flex items-center justify-between text-xs">
+                        <span class="text-slate-600">Speed:</span>
+                        <div class="flex gap-1">
+                            <button onclick="setSpeed(0.5)" class="speed-btn px-2 py-0.5 rounded text-[11px] bg-white border border-slate-200 font-mono">0.5x</button>
+                            <button onclick="setSpeed(1.0)" class="speed-btn px-2 py-0.5 rounded text-[11px] bg-blue-600 text-white font-mono font-bold">1.0x</button>
+                            <button onclick="setSpeed(1.5)" class="speed-btn px-2 py-0.5 rounded text-[11px] bg-white border border-slate-200 font-mono">1.5x</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Block Pathway / What-If Options -->
+                <div id="what-if-panel" class="hidden space-y-2 bg-purple-50 p-3 rounded-lg border border-purple-200">
+                    <span class="block text-xs font-bold text-purple-900"><i class="fa-solid fa-user-slash text-purple-600 mr-1"></i> Block Components</span>
+                    <div class="space-y-1 text-xs">
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="checkbox" id="block-sensory" onchange="toggleBlock('sensory')" class="rounded text-purple-600 focus:ring-purple-500">
+                            <span class="text-slate-700">Block Sensory Neuron</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="checkbox" id="block-cns" onchange="toggleBlock('cns')" class="rounded text-purple-600 focus:ring-purple-500">
+                            <span class="text-slate-700">Block Spinal Cord (CNS)</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="checkbox" id="block-motor" onchange="toggleBlock('motor')" class="rounded text-purple-600 focus:ring-purple-500">
+                            <span class="text-slate-700">Block Motor Neuron</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reaction Timer Metrics -->
+            <div class="bg-slate-900 text-white p-3 rounded-lg shadow-inner">
+                <div class="flex justify-between items-center text-xs text-slate-400 border-b border-slate-800 pb-1 mb-2">
+                    <span>PATHWAY TIMER</span>
+                    <i class="fa-regular fa-clock"></i>
+                </div>
+                <div class="flex justify-between items-baseline">
+                    <span class="text-xs text-slate-300">Elapsed Time:</span>
+                    <span id="pathway-timer" class="text-xl font-mono font-bold text-amber-400">0.0 ms</span>
+                </div>
+                <div class="mt-2 text-[10px] text-slate-400 leading-tight">
+                    *Illustrative millisecond scale showing neural conduction velocity across membrane segments.
+                </div>
+            </div>
+        </section>
+
+        <!-- CENTER PANEL: INTERACTIVE DIAGRAM CANVAS (SVG) -->
+        <section class="lg:col-span-6 bg-white rounded-xl border border-slate-200 shadow-2xs relative flex flex-col overflow-hidden min-h-[420px]">
+            <!-- Pathway Status Banner -->
+            <div id="canvas-banner" class="bg-slate-100 border-b border-slate-200 px-4 py-2 flex items-center justify-between text-xs">
+                <div class="flex items-center space-x-2">
+                    <span id="stage-dot" class="w-2.5 h-2.5 rounded-full bg-slate-400"></span>
+                    <span id="stage-title" class="font-bold text-slate-800 uppercase">System Ready</span>
+                </div>
+                <span id="stage-description" class="text-slate-500 truncate max-w-[280px]">Trigger heat stimulus to begin pathway simulation.</span>
+            </div>
+
+            <!-- SVG Container -->
+            <div class="relative flex-1 bg-slate-50/50 flex items-center justify-center p-2">
+                <svg id="pathway-svg" viewBox="0 0 800 500" class="w-full h-full max-h-[550px] drop-shadow-xs" preserveAspectRatio="xMidYMid meet">
+                    
+                    <defs>
+                        <!-- Glow / Pulse Filters -->
+                        <filter id="glow-sensory" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur stdDeviation="3" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                        </filter>
+                        <filter id="glow-motor" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur stdDeviation="3" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                        </filter>
+                        <!-- Heat Wave Gradient -->
+                        <radialGradient id="heat-grad" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.8" />
+                            <stop offset="100%" stop-color="#ef4444" stop-opacity="0" />
+                        </radialGradient>
+                    </defs>
+
+                    <!-- BACKGROUND SCHEMATIC GUIDES -->
+                    <rect x="10" y="10" width="780" height="480" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" />
+
+                    <!-- STIMULUS & RECEPTOR AREA (SKIN / HAND) -->
+                    <g id="group-stimulus-skin" class="cursor-pointer" onclick="clickComponent('skin')">
+                        <!-- Flame / Heat Source -->
+                        <g id="heat-source" class="opacity-80 transition-opacity">
+                            <rect x="30" y="320" width="70" height="90" rx="6" fill="#f87171" opacity="0.2" />
+                            <path d="M 65 390 C 50 380 45 350 65 330 C 85 350 80 380 65 390 Z" fill="#ef4444" />
+                            <path d="M 65 385 C 55 375 52 355 65 340 C 78 355 75 375 65 385 Z" fill="#f59e0b" />
+                            <path d="M 65 380 C 60 372 58 360 65 350 C 72 360 70 372 65 380 Z" fill="#fef08a" />
+                            <text x="65" y="425" text-anchor="middle" class="text-[11px] font-bold fill-amber-700">Hot Object (Stimulus)</text>
+                        </g>
+
+                        <!-- Hand & Finger Diagram -->
+                        <g id="hand-group" transform="translate(0,0)" class="transition-transform duration-500 ease-out">
+                            <!-- Arm Body -->
+                            <path d="M 40 260 Q 90 265 140 270 L 140 310 Q 90 310 40 310 Z" fill="#fca5a5" opacity="0.4" stroke="#f87171" stroke-width="1.5"/>
+                            <!-- Finger Touching Object -->
+                            <path id="finger-path" d="M 120 270 Q 100 270 70 290 Q 60 300 65 320 Q 75 325 85 310 Q 110 290 140 290" fill="#fca5a5" stroke="#ef4444" stroke-width="2"/>
+                            
+                            <!-- Skin Thermoreceptor Spot -->
+                            <g id="receptor-node" transform="translate(65, 318)">
+                                <circle r="8" fill="#d97706" stroke="#ffffff" stroke-width="2" class="animate-pulse"/>
+                                <circle r="4" fill="#fef08a"/>
+                            </g>
+                        </g>
+
+                        <!-- Stimulus/Receptor Labels -->
+                        <g class="sim-label" data-label="receptor">
+                            <rect x="25" y="225" width="105" height="22" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1" />
+                            <text x="77" y="240" text-anchor="middle" class="text-[10px] font-bold fill-amber-900">Thermoreceptor</text>
+                            <line x1="77" y1="247" x2="65" y2="310" stroke="#d97706" stroke-width="1" stroke-dasharray="2 2" />
+                        </g>
+                    </g>
+
+                    <!-- SENSORY NEURON (BLUE) -->
+                    <g id="group-sensory" class="cursor-pointer" onclick="clickComponent('sensory')">
+                        <!-- Axon Path from Skin Receptor to Spinal Cord -->
+                        <!-- Path length roughly 380px -->
+                        <path id="sensory-axon-bg" d="M 65 318 C 120 230, 200 130, 310 130 C 370 130, 420 160, 480 180" fill="none" stroke="#93c5fd" stroke-width="8" stroke-linecap="round"/>
+                        <path id="sensory-axon-core" d="M 65 318 C 120 230, 200 130, 310 130 C 370 130, 420 160, 480 180" fill="none" stroke="#2563eb" stroke-width="3" stroke-linecap="round"/>
+                        
+                        <!-- Sensory Cell Body (Dorsal Root Ganglion) -->
+                        <g transform="translate(310, 130)">
+                            <circle r="14" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+                            <text x="0" y="4" text-anchor="middle" class="text-[9px] font-bold fill-white">DRG</text>
+                        </g>
+
+                        <!-- Directional Arrows -->
+                        <path d="M 200 148 L 212 142 L 204 156 Z" fill="#1d4ed8"/>
+                        <path d="M 400 162 L 412 160 L 406 172 Z" fill="#1d4ed8"/>
+
+                        <!-- Membrane Propagation Wave Overlay (Animated via JS) -->
+                        <path id="sensory-pulse" d="M 65 318 C 120 230, 200 130, 310 130 C 370 130, 420 160, 480 180" fill="none" stroke="#fef08a" stroke-width="5" stroke-dasharray="20 360" stroke-dashoffset="0" class="opacity-0"/>
+
+                        <!-- Sensory Neuron Label -->
+                        <g class="sim-label" data-label="sensory">
+                            <rect x="180" y="80" width="110" height="22" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="1" />
+                            <text x="235" y="95" text-anchor="middle" class="text-[10px] font-bold fill-blue-900">Sensory Neuron (Blue)</text>
+                            <line x1="235" y1="102" x2="250" y2="130" stroke="#2563eb" stroke-width="1" stroke-dasharray="2 2" />
+                        </g>
+                    </g>
+
+                    <!-- CENTRAL NERVOUS SYSTEM / SPINAL CORD (PURPLE) -->
+                    <g id="group-cns" class="cursor-pointer" onclick="clickComponent('cns')">
+                        <!-- Spinal Cord Cross Section Schematic -->
+                        <rect x="460" y="120" width="180" height="240" rx="20" fill="#f3e8ff" stroke="#7c3aed" stroke-width="2"/>
+                        <!-- Grey Matter Butterfly Pattern -->
+                        <path d="M 490 180 Q 520 210 490 240 Q 530 240 550 210 Q 530 180 490 180 Z M 610 180 Q 580 210 610 240 Q 570 240 550 210 Q 570 180 610 180 Z" fill="#ddd6fe" stroke="#a855f7" stroke-width="1.5"/>
+
+                        <!-- Interneuron / Relay Neuron -->
+                        <path id="relay-path" d="M 480 180 C 510 190, 520 200, 530 220 C 530 240, 510 250, 490 260" fill="none" stroke="#7c3aed" stroke-width="3" stroke-dasharray="4 2"/>
+                        <circle cx="520" cy="210" r="7" fill="#7c3aed"/>
+
+                        <!-- Synapse Nodes -->
+                        <!-- Synapse 1: Sensory to Relay -->
+                        <circle id="synapse-1" cx="480" cy="180" r="6" fill="#a855f7" stroke="#ffffff" stroke-width="1.5" class="synapse-gap cursor-pointer" onclick="openSynapseModal(1); event.stopPropagation();"/>
+                        <!-- Synapse 2: Relay to Motor -->
+                        <circle id="synapse-2" cx="490" cy="260" r="6" fill="#a855f7" stroke="#ffffff" stroke-width="1.5" class="synapse-gap cursor-pointer" onclick="openSynapseModal(2); event.stopPropagation();"/>
+
+                        <!-- CNS Label -->
+                        <g class="sim-label" data-label="cns">
+                            <rect x="500" y="85" width="130" height="24" rx="4" fill="#f3e8ff" stroke="#7c3aed" stroke-width="1.5" />
+                            <text x="565" y="101" text-anchor="middle" class="text-[10px] font-bold fill-purple-900">CNS (Spinal Cord Gray Matter)</text>
+                        </g>
+                    </g>
+
+                    <!-- MOTOR NEURON (GREEN) -->
+                    <g id="group-motor" class="cursor-pointer" onclick="clickComponent('motor')">
+                        <!-- Axon Path from Spinal Cord to Muscle -->
+                        <!-- Path length roughly 350px -->
+                        <path id="motor-axon-bg" d="M 490 260 C 420 280, 330 310, 260 330 C 220 340, 180 340, 150 350" fill="none" stroke="#a7f3d0" stroke-width="8" stroke-linecap="round"/>
+                        <path id="motor-axon-core" d="M 490 260 C 420 280, 330 310, 260 330 C 220 340, 180 340, 150 350" fill="none" stroke="#059669" stroke-width="3" stroke-linecap="round"/>
+
+                        <!-- Motor Cell Body (in Ventral Horn) -->
+                        <g transform="translate(490, 260)">
+                            <polygon points="-8,-8 8,-4 4,8 -8,4" fill="#059669" stroke="#ffffff" stroke-width="1.5"/>
+                        </g>
+
+                        <!-- Directional Arrows -->
+                        <path d="M 380 288 L 368 294 L 372 280 Z" fill="#047857"/>
+                        <path d="M 220 332 L 208 335 L 214 322 Z" fill="#047857"/>
+
+                        <!-- Motor Membrane Wave Overlay -->
+                        <path id="motor-pulse" d="M 490 260 C 420 280, 330 310, 260 330 C 220 340, 180 340, 150 350" fill="none" stroke="#fef08a" stroke-width="5" stroke-dasharray="20 350" stroke-dashoffset="0" class="opacity-0"/>
+
+                        <!-- Motor Neuron Label -->
+                        <g class="sim-label" data-label="motor">
+                            <rect x="300" y="370" width="110" height="22" rx="4" fill="#d1fae5" stroke="#059669" stroke-width="1" />
+                            <text x="355" y="385" text-anchor="middle" class="text-[10px] font-bold fill-emerald-900">Motor Neuron (Green)</text>
+                            <line x1="355" y1="370" x2="330" y2="310" stroke="#059669" stroke-width="1" stroke-dasharray="2 2" />
+                        </g>
+                    </g>
+
+                    <!-- EFFECTOR (ARM MUSCLE) -->
+                    <g id="group-effector" class="cursor-pointer" onclick="clickComponent('effector')">
+                        <!-- Biceps Muscle Group -->
+                        <g id="biceps-muscle" transform="translate(130, 280)">
+                            <path id="muscle-body" d="M 0 30 Q 30 10 60 30 Q 80 50 60 70 Q 30 80 0 60 Q -20 45 0 30 Z" fill="#dc2626" opacity="0.85" stroke="#991b1b" stroke-width="2"/>
+                            <!-- Muscle Fiber Textures -->
+                            <path d="M 10 35 Q 30 25 50 35 M 10 50 Q 30 45 50 50 M 10 60 Q 30 55 50 60" stroke="#fca5a5" stroke-width="1.5" fill="none" opacity="0.7"/>
+                        </g>
+
+                        <!-- Neuromuscular Junction Node -->
+                        <circle cx="150" cy="350" r="5" fill="#10b981" stroke="#ffffff" stroke-width="1"/>
+
+                        <!-- Effector Label -->
+                        <g class="sim-label" data-label="effector">
+                            <rect x="140" y="420" width="110" height="22" rx="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1" />
+                            <text x="195" y="435" text-anchor="middle" class="text-[10px] font-bold fill-red-900">Effector (Arm Muscle)</text>
+                            <line x1="195" y1="420" x2="170" y2="360" stroke="#dc2626" stroke-width="1" stroke-dasharray="2 2" />
+                        </g>
+                    </g>
+
+                    <!-- RESPONSE ARROW ANNOTATION -->
+                    <g id="response-annotation" class="opacity-0 transition-opacity duration-300">
+                        <path d="M 110 250 Q 140 220 170 240" fill="none" stroke="#0284c7" stroke-width="3" stroke-dasharray="4 2"/>
+                        <polygon points="170,240 160,232 162,245" fill="#0284c7"/>
+                        <rect x="80" y="195" width="140" height="22" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
+                        <text x="150" y="210" text-anchor="middle" class="text-[10px] font-bold fill-sky-900">Response: Hand Withdraws</text>
+                    </g>
+
+                    <!-- INTERACTIVE TRACE CLICK HINTS (For Trace Mode) -->
+                    <g id="trace-hints" class="hidden">
+                        <circle id="hint-target" cx="65" cy="318" r="16" fill="none" stroke="#f59e0b" stroke-width="3" class="animate-ping"/>
+                    </g>
+                </svg>
+
+                <!-- Floating Synapse Quick-Inspect Button -->
+                <button onclick="openModal('synapse-modal')" class="absolute top-3 right-3 px-2.5 py-1.5 bg-white/90 backdrop-blur-xs border border-purple-300 rounded-lg text-purple-800 text-xs font-semibold shadow-xs hover:bg-purple-50 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-circle-nodes text-purple-600"></i> Inspect Synapse
+                </button>
+            </div>
+
+            <!-- Legend Bar -->
+            <div class="bg-white border-t border-slate-200 p-2.5 flex flex-wrap items-center justify-between gap-2 text-xs font-medium text-slate-600">
+                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Legend:</span>
+                <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span> Stimulus</div>
+                <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-yellow-600 inline-block"></span> Receptor</div>
+                <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-blue-600 inline-block"></span> Sensory (Toward CNS)</div>
+                <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-purple-600 inline-block"></span> CNS (Spinal Cord)</div>
+                <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-emerald-600 inline-block"></span> Motor (Away from CNS)</div>
+                <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-red-600 inline-block"></span> Effector (Muscle)</div>
+            </div>
+        </section>
+
+        <!-- RIGHT PANEL: SIGNAL TRACKER & EDUCATIONAL CONTEXT -->
+        <section class="lg:col-span-3 bg-white rounded-xl border border-slate-200 p-4 shadow-2xs flex flex-col justify-between overflow-y-auto custom-scrollbar gap-4">
+            
+            <div class="space-y-4">
+                <div class="border-b border-slate-100 pb-2 flex items-center justify-between">
+                    <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider">
+                        <i class="fa-solid fa-radar text-blue-600 mr-1.5"></i> Live Signal Tracker
+                    </h2>
+                    <span id="live-dot" class="flex h-2 w-2 relative">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
+                    </span>
+                </div>
+
+                <!-- Live Signal Location Cards -->
+                <div class="space-y-2 text-xs">
+                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 flex justify-between items-center">
+                        <span class="text-slate-500 font-medium">Current Location</span>
+                        <strong id="tracker-location" class="font-bold text-slate-800">1. Stimulus Surface</strong>
+                    </div>
+
+                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 flex justify-between items-center">
+                        <span class="text-slate-500 font-medium">Direction</span>
+                        <strong id="tracker-direction" class="font-bold text-blue-700 flex items-center gap-1">
+                            <i id="tracker-dir-icon" class="fa-solid fa-arrow-right"></i>
+                            <span id="tracker-dir-text">Stationary</span>
+                        </strong>
+                    </div>
+
+                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 flex justify-between items-center">
+                        <span class="text-slate-500 font-medium">Signal Type</span>
+                        <span id="tracker-signal-type" class="font-mono bg-white px-2 py-0.5 rounded border border-slate-200 text-slate-700 font-semibold">Thermal Energy</span>
+                    </div>
+
+                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 flex justify-between items-center">
+                        <span class="text-slate-500 font-medium">Next Stage</span>
+                        <strong id="tracker-next" class="font-bold text-slate-800">2. Receptor Activation</strong>
+                    </div>
+                </div>
+
+                <!-- Biological Mechanism Context Box -->
+                <div class="bg-blue-50/60 p-3 rounded-lg border border-blue-100 text-xs space-y-1.5">
+                    <div class="font-bold text-blue-900 flex items-center gap-1.5">
+                        <i class="fa-solid fa-book-bookmark text-blue-600"></i> Biological Principle
+                    </div>
+                    <p id="mechanism-text" class="text-slate-700 leading-relaxed">
+                        A stimulus is a detectable change in the environment. Extreme heat causes rapid thermal energy transfer to skin cells.
+                    </p>
+                </div>
+
+                <!-- Interactive Concept Checkpoint Launcher -->
+                <div class="bg-amber-50/70 p-3 rounded-lg border border-amber-200/80 text-xs space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-amber-900"><i class="fa-solid fa-circle-question text-amber-600 mr-1"></i> Checkpoint Quiz</span>
+                        <span class="text-[10px] bg-amber-200 text-amber-900 px-1.5 py-0.5 rounded font-mono font-bold">Concept Check</span>
+                    </div>
+                    <p class="text-slate-700">Test your understanding of the sensory vs motor pathways and effectors.</p>
+                    <button onclick="openModal('quiz-modal')" class="w-full py-1.5 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded transition">
+                        Start Knowledge Check
+                    </button>
+                </div>
+            </div>
+
+            <!-- Important Distinction Callout -->
+            <div class="bg-slate-100 p-2.5 rounded-lg border border-slate-200 text-[11px] text-slate-600">
+                <strong class="text-slate-800 block mb-0.5"><i class="fa-solid fa-triangle-exclamation text-amber-500 mr-1"></i> Important Distinction:</strong>
+                <span class="text-red-700 font-semibold">Effector</span> = Arm Muscle.<br>
+                <span class="text-sky-700 font-semibold">Response</span> = Hand moving away.
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL 1: SENSORY VS MOTOR NEURON COMPARISON PANEL -->
+    <div id="comparison-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl border border-slate-200 max-w-2xl w-full p-6 shadow-2xl space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                    <i class="fa-solid fa-code-compare text-blue-600"></i> Sensory vs Motor Neuron Comparison
+                </h3>
+                <button onclick="closeModal('comparison-modal')" class="text-slate-400 hover:text-slate-600 text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                <!-- Sensory Neuron Card -->
+                <div class="bg-blue-50/50 border border-blue-200 rounded-lg p-4 space-y-2">
+                    <div class="flex items-center gap-2 border-b border-blue-200 pb-2">
+                        <span class="w-3 h-3 rounded-full bg-blue-600"></span>
+                        <h4 class="font-bold text-blue-900 text-sm">Sensory Neuron</h4>
+                    </div>
+                    <ul class="space-y-1.5 text-slate-700">
+                        <li><strong>Direction:</strong> Receptor &rarr; Central Nervous System (CNS)</li>
+                        <li><strong>Function:</strong> Carries sensory nerve impulses detected by receptors toward the spinal cord.</li>
+                        <li><strong>Cell Body Location:</strong> Dorsal Root Ganglion (outside CNS).</li>
+                        <li><strong>Dendrites:</strong> Long dendron connecting to receptor endings.</li>
+                    </ul>
+                </div>
+
+                <!-- Motor Neuron Card -->
+                <div class="bg-emerald-50/50 border border-emerald-200 rounded-lg p-4 space-y-2">
+                    <div class="flex items-center gap-2 border-b border-emerald-200 pb-2">
+                        <span class="w-3 h-3 rounded-full bg-emerald-600"></span>
+                        <h4 class="font-bold text-emerald-900 text-sm">Motor Neuron</h4>
+                    </div>
+                    <ul class="space-y-1.5 text-slate-700">
+                        <li><strong>Direction:</strong> CNS &rarr; Effector (Muscle / Gland)</li>
+                        <li><strong>Function:</strong> Carries motor commands away from the CNS to activate responses.</li>
+                        <li><strong>Cell Body Location:</strong> Grey matter of the spinal cord (ventral horn).</li>
+                        <li><strong>Axon:</strong> Long axon terminating at neuromuscular junctions.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 text-xs text-slate-600">
+                <strong>Key Takeaway:</strong> Information flows strictly in one direction through each specialized neuron type, maintaining the structural pathway: <em>Receptor &rarr; Sensory Neuron &rarr; CNS &rarr; Motor Neuron &rarr; Effector</em>.
+            </div>
+
+            <div class="flex justify-end">
+                <button onclick="closeModal('comparison-modal')" class="px-4 py-2 bg-slate-800 text-white font-bold text-xs rounded-lg hover:bg-slate-900">
+                    Close Comparison
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: SYNAPSE MAGNIFIER / DETAIL MODAL -->
+    <div id="synapse-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl border border-slate-200 max-w-xl w-full p-6 shadow-2xl space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                    <i class="fa-solid fa-circle-nodes text-purple-600"></i> Synaptic Transmission Detail
+                </h3>
+                <button onclick="closeModal('synapse-modal')" class="text-slate-400 hover:text-slate-600 text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="bg-purple-900 rounded-lg p-4 text-white flex flex-col items-center justify-center relative overflow-hidden h-48">
+                <!-- SVG Synapse Micro-Diagram -->
+                <svg viewBox="0 0 400 160" class="w-full h-full">
+                    <!-- Presynaptic Terminal -->
+                    <path d="M 20 20 L 140 20 Q 180 20 180 80 Q 180 140 140 140 L 20 140 Z" fill="#7c3aed" opacity="0.8"/>
+                    <text x="70" y="85" text-anchor="middle" class="text-[10px] fill-white font-bold">Presynaptic Axon Terminal</text>
+
+                    <!-- Synaptic Vesicles -->
+                    <circle cx="130" cy="50" r="6" fill="#fef08a"/>
+                    <circle cx="150" cy="80" r="6" fill="#fef08a"/>
+                    <circle cx="130" cy="110" r="6" fill="#fef08a"/>
+
+                    <!-- Neurotransmitters Diffusion -->
+                    <circle cx="190" cy="65" r="2.5" fill="#fef08a" class="animate-ping"/>
+                    <circle cx="195" cy="85" r="2.5" fill="#fef08a"/>
+                    <circle cx="190" cy="105" r="2.5" fill="#fef08a" class="animate-ping"/>
+
+                    <!-- Synaptic Cleft Gap -->
+                    <rect x="182" y="10" width="20" height="140" fill="#a855f7" opacity="0.2"/>
+                    <text x="192" y="150" text-anchor="middle" class="text-[8px] fill-purple-200">Synaptic Cleft</text>
+
+                    <!-- Postsynaptic Membrane -->
+                    <path d="M 380 20 L 220 20 Q 200 20 200 80 Q 200 140 220 140 L 380 140 Z" fill="#059669" opacity="0.8"/>
+                    <text x="300" y="85" text-anchor="middle" class="text-[10px] fill-white font-bold">Postsynaptic Membrane</text>
+
+                    <!-- Receptors -->
+                    <rect x="200" y="45" width="4" height="12" fill="#f59e0b"/>
+                    <rect x="200" y="75" width="4" height="12" fill="#f59e0b"/>
+                    <rect x="200" y="105" width="4" height="12" fill="#f59e0b"/>
+                </svg>
+            </div>
+
+            <div class="space-y-2 text-xs text-slate-700">
+                <p><strong>1. Electrical Wave Arrives:</strong> The electrical action potential reaches the end of the presynaptic axon terminal.</p>
+                <p><strong>2. Neurotransmitter Release:</strong> Chemical messengers (neurotransmitters) are released from vesicles into the synaptic cleft.</p>
+                <p><strong>3. Chemical Diffusion:</strong> Chemicals diffuse across the tiny gap and bind to receptor molecules on the next neuron, initiating a new electrical impulse.</p>
+            </div>
+
+            <div class="flex justify-end">
+                <button onclick="closeModal('synapse-modal')" class="px-4 py-2 bg-purple-700 text-white font-bold text-xs rounded-lg hover:bg-purple-800">
+                    Got It
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 3: INTERACTIVE CHECKPOINT QUIZ -->
+    <div id="quiz-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl border border-slate-200 max-w-lg w-full p-6 shadow-2xl space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                    <i class="fa-solid fa-graduation-cap text-amber-600"></i> Pathway Knowledge Checkpoint
+                </h3>
+                <button onclick="closeModal('quiz-modal')" class="text-slate-400 hover:text-slate-600 text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div id="quiz-container" class="space-y-4 text-xs">
+                <!-- Question content rendered dynamically by JS -->
+            </div>
+
+            <div class="flex justify-between items-center border-t border-slate-100 pt-3">
+                <span id="quiz-score" class="text-xs font-bold text-slate-500">Question 1 of 4</span>
+                <button id="quiz-next-btn" onclick="nextQuizQuestion()" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs rounded-lg transition">
+                    Submit Answer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * NEURON SIGNAL SIMULATOR - CORE ARCHITECTURE
+         * State Machine & SVG Animation Engine
+         */
+
+        // State Machine Definitions
+        const STAGES = {
+            IDLE: { name: 'IDLE', title: 'System Ready', color: '#64748b', desc: 'Trigger heat stimulus to start.' },
+            STIMULUS: { name: 'STIMULUS', title: '1. Heat Stimulus Applied', color: '#d97706', desc: 'High heat makes contact with skin surface.' },
+            RECEPTOR: { name: 'RECEPTOR', title: '2. Thermoreceptor Activation', color: '#ca8a04', desc: 'Skin receptors detect temperature threshold.' },
+            SENSORY: { name: 'SENSORY', title: '3. Sensory Impulse Propagation', color: '#2563eb', desc: 'Electrical wave travels TOWARD the CNS.' },
+            CNS: { name: 'CNS', title: '4. CNS Relay Processing', color: '#7c3aed', desc: 'Spinal cord interneurons relay signal.' },
+            MOTOR: { name: 'MOTOR', title: '5. Motor Impulse Propagation', color: '#059669', desc: 'Electrical wave travels AWAY from CNS to muscle.' },
+            EFFECTOR: { name: 'EFFECTOR', title: '6. Muscle Effector Activation', color: '#dc2626', desc: 'Arm muscle receives signal and contracts.' },
+            RESPONSE: { name: 'RESPONSE', title: '7. Hand Withdrawal Response', color: '#0284c7', desc: 'Hand moves away from the hot surface.' }
+        };
+
+        const STAGE_ORDER = [
+            STAGES.IDLE, STAGES.STIMULUS, STAGES.RECEPTOR, STAGES.SENSORY,
+            STAGES.CNS, STAGES.MOTOR, STAGES.EFFECTOR, STAGES.RESPONSE
+        ];
+
+        // Global Simulation State
+        let state = {
+            currentStageIndex: 0,
+            viewMode: 'SIMPLE', // SIMPLE, DETAILED, TRACE, BUILD, WHAT_IF
+            isPlaying: false,
+            speed: 1.0,
+            intensity: 60, // 10-100
+            blockedComponents: { sensory: false, cns: false, motor: false },
+            labelsVisible: true,
+            timerMs: 0,
+            animFrameId: null,
+            traceTargetIndex: 1
+        };
+
+        // Quiz State
+        const quizQuestions = [
+            {
+                q: "Which neuron carries electrical impulses toward the Central Nervous System (CNS)?",
+                options: ["Motor Neuron", "Sensory Neuron", "Relay Neuron", "Effector Cell"],
+                correct: 1,
+                explain: "Sensory neurons transport signals detected by receptors TOWARD the CNS."
+            },
+            {
+                q: "In this reflex scenario, what is the 'Effector'?",
+                options: ["Heat from hot surface", "Skin receptor", "Arm Muscle", "Hand moving away"],
+                correct: 2,
+                explain: "The arm muscle is the Effector (the organ/tissue that acts). Hand moving away is the Response."
+            },
+            {
+                q: "What happens when a stronger stimulus (e.g. 90°C heat) is applied?",
+                options: ["The electrical pulse height gets larger", "Higher frequency of action potential impulses", "Signal changes into chemical form inside sensory neuron", "Signal moves backwards"],
+                correct: 1,
+                explain: "Action potential size remains constant; stimulus strength is encoded by impulse FREQUENCY."
+            },
+            {
+                q: "Which best describes the 'Response' in a reflex arc?",
+                options: ["The spinal cord", "The muscle tissue", "Hand withdrawing from hot object", "Chemical across synapse"],
+                correct: 2,
+                explain: "The action resulting from muscle contraction (hand moving away) is the Response."
+            }
+        ];
+        let currentQuizIdx = 0;
+        let quizScoreCount = 0;
+
+        // Initialize App on DOM Load
+        window.onload = function() {
+            updateUIState();
+            setupTraceModeEvents();
+        };
+
+        // Trigger Stimulus Action
+        function triggerStimulus() {
+            if (state.isPlaying) resetSimulation();
+            state.currentStageIndex = 1; // Move to STIMULUS
+            state.isPlaying = true;
+            document.getElementById('play-icon').className = "fa-solid fa-pause text-amber-600";
+            runSimulationLoop();
+        }
+
+        // Main Simulation Loop
+        let lastTimestamp = 0;
+        function runSimulationLoop(timestamp) {
+            if (!lastTimestamp) lastTimestamp = timestamp;
+            const delta = (timestamp - lastTimestamp) || 16;
+
+            if (state.isPlaying) {
+                // Update timer
+                if (state.currentStageIndex > 0 && state.currentStageIndex < 7) {
+                    state.timerMs += (delta * 0.15 * state.speed);
+                    document.getElementById('pathway-timer').innerText = state.timerMs.toFixed(1) + ' ms';
+                }
+
+                // Stage Advancement Logic based on stage pulse animations
+                advancePulseAnimation();
+            }
+
+            state.animFrameId = requestAnimationFrame(runSimulationLoop);
+        }
+
+        // Animate membrane activation wave along SVG paths
+        let pulseProgress = 0;
+        function advancePulseAnimation() {
+            const currentStage = STAGE_ORDER[state.currentStageIndex];
+            
+            // Check for Blocked Pathway Interruptions
+            if (currentStage === STAGES.SENSORY && state.blockedComponents.sensory) {
+                pauseSimulation("Pathway Interrupted: Sensory Neuron Blocked!");
+                return;
+            }
+            if (currentStage === STAGES.CNS && state.blockedComponents.cns) {
+                pauseSimulation("Pathway Interrupted: Spinal Cord Blocked!");
+                return;
+            }
+            if (currentStage === STAGES.MOTOR && state.blockedComponents.motor) {
+                pauseSimulation("Pathway Interrupted: Motor Neuron Blocked!");
+                return;
+            }
+
+            const sensoryPulse = document.getElementById('sensory-pulse');
+            const motorPulse = document.getElementById('motor-pulse');
+
+            if (currentStage === STAGES.SENSORY) {
+                sensoryPulse.classList.remove('opacity-0');
+                pulseProgress += 3 * state.speed;
+                sensoryPulse.setAttribute('stroke-dashoffset', -pulseProgress);
+
+                if (pulseProgress > 360) {
+                    pulseProgress = 0;
+                    sensoryPulse.classList.add('opacity-0');
+                    state.currentStageIndex++;
+                    updateUIState();
+                }
+            } else if (currentStage === STAGES.MOTOR) {
+                motorPulse.classList.remove('opacity-0');
+                pulseProgress += 3 * state.speed;
+                motorPulse.setAttribute('stroke-dashoffset', -pulseProgress);
+
+                if (pulseProgress > 350) {
+                    pulseProgress = 0;
+                    motorPulse.classList.add('opacity-0');
+                    state.currentStageIndex++;
+                    updateUIState();
+                }
+            } else if (currentStage === STAGES.STIMULUS || currentStage === STAGES.RECEPTOR || currentStage === STAGES.CNS || currentStage === STAGES.EFFECTOR) {
+                pulseProgress += 1 * state.speed;
+                if (pulseProgress > 40) {
+                    pulseProgress = 0;
+                    state.currentStageIndex++;
+                    updateUIState();
+                }
+            } else if (currentStage === STAGES.RESPONSE) {
+                // Animate Hand move                document.getElementById('hand-group').setAttribute('transform', 'translate(0, -30)');
+                document.getElementById('response-annotation').classList.remove('opacity-0');
+                pauseSimulation("Reflex Response Complete!");
+            }
+        }
+
+        // Pause simulation execution
+        function pauseSimulation(msg) {
+            state.isPlaying = false;
+            document.getElementById('play-icon').className = "fa-solid fa-play text-blue-600";
+            if (msg) document.getElementById('stage-description').innerText = msg;
+        }
+
+        // Toggle Play / Pause
+        function togglePlayPause() {
+            if (state.currentStageIndex === 0 || state.currentStageIndex === 7) {
+                triggerStimulus();
+            } else {
+                state.isPlaying = !state.isPlaying;
+                document.getElementById('play-icon').className = state.isPlaying ? "fa-solid fa-pause text-amber-600" : "fa-solid fa-play text-blue-600";
+            }
+        }
+
+        // Step Forward / Backward
+        function stepNext() {
+            if (state.currentStageIndex < STAGE_ORDER.length - 1) {
+                state.currentStageIndex++;
+                pulseProgress = 0;
+                updateUIState();
+            }
+        }
+        function stepPrev() {
+            if (state.currentStageIndex > 0) {
+                state.currentStageIndex--;
+                pulseProgress = 0;
+                updateUIState();
+            }
+        }
+
+        // Reset Simulation State
+        function resetSimulation() {
+            state.isPlaying = false;
+            state.currentStageIndex = 0;
+            state.timerMs = 0;
+            pulseProgress = 0;
+            document.getElementById('pathway-timer').innerText = '0.0 ms';
+            document.getElementById('play-icon').className = "fa-solid fa-play text-blue-600";
+            document.getElementById('hand-group').setAttribute('transform', 'translate(0, 0)');
+            document.getElementById('response-annotation').classList.add('opacity-0');
+            document.getElementById('sensory-pulse').classList.add('opacity-0');
+            document.getElementById('motor-pulse').classList.add('opacity-0');
+            updateUIState();
+        }
+
+        // Update UI Elements matching State Machine
+        function updateUIState() {
+            const currentStage = STAGE_ORDER[state.currentStageIndex];
+
+            // Update Breadcrumb Badges
+            document.querySelectorAll('.stage-badge').forEach(badge => {
+                const stageKey = badge.getAttribute('data-stage');
+                if (stageKey === currentStage.name) {
+                    badge.className = "stage-badge stage-active flex items-center px-2.5 py-1 rounded-lg bg-blue-600 text-white font-bold shadow-md";
+                } else {
+                    badge.className = "stage-badge flex items-center px-2.5 py-1 rounded-lg bg-white text-slate-600 border border-slate-200 opacity-80";
+                }
+            });
+
+            // Update Header Status Banner
+            document.getElementById('stage-dot').style.backgroundColor = currentStage.color;
+            document.getElementById('stage-title').innerText = currentStage.title;
+            document.getElementById('stage-description').innerText = currentStage.desc;
+            document.getElementById('experiment-status-badge').innerText = currentStage.name;
+
+            // Update Right Signal Tracker
+            document.getElementById('tracker-location').innerText = currentStage.title;
+            
+            let dirText = "Stationary";
+            let dirIcon = "fa-minus";
+            let sigType = "Thermal Energy";
+            let nextStage = "2. Receptor";
+
+            switch(currentStage.name) {
+                case 'STIMULUS':
+                    sigType = "Thermal Heat";
+                    nextStage = "Receptor Activation";
+                    break;
+                case 'RECEPTOR':
+                    sigType = "Transduced Signal";
+                    dirText = "Toward Sensory Axon";
+                    nextStage = "Sensory Neuron";
+                    break;
+                case 'SENSORY':
+                    sigType = "Electrical Action Potential";
+                    dirText = "TOWARD CNS";
+                    dirIcon = "fa-arrow-right";
+                    nextStage = "Spinal Cord CNS";
+                    break;
+                case 'CNS':
+                    sigType = "Chemical Neurotransmitter";
+                    dirText = "Interneuron Relay";
+                    nextStage = "Motor Neuron";
+                    break;
+                case 'MOTOR':
+                    sigType = "Electrical Action Potential";
+                    dirText = "AWAY from CNS";
+                    dirIcon = "fa-arrow-left";
+                    nextStage = "Effector Muscle";
+                    break;
+                case 'EFFECTOR':
+                    sigType = "Neuromuscular Excitation";
+                    dirText = "Muscle Fiber";
+                    nextStage = "Physical Response";
+                    break;
+                case 'RESPONSE':
+                    sigType = "Mechanical Movement";
+                    dirText = "Hand Withdrawn";
+                    nextStage = "Completed";
+                    break;
+            }
+
+            document.getElementById('tracker-dir-text').innerText = dirText;
+            document.getElementById('tracker-dir-icon').className = "fa-solid " + dirIcon;
+            document.getElementById('tracker-signal-type').innerText = sigType;
+            document.getElementById('tracker-next').innerText = nextStage;
+            
+            // Mechanism Description update
+            updateMechanismText(currentStage.name);
+        }
+
+        // Biological mechanism details text generator
+        function updateMechanismText(stageName) {
+            const el = document.getElementById('mechanism-text');
+            switch(stageName) {
+                case 'STIMULUS':
+                    el.innerText = "A stimulus is a change in the physical or chemical environment. Here, thermal heat energy transfers to skin tissues.";
+                    break;
+                case 'RECEPTOR':
+                    el.innerText = "Specialized thermoreceptors in the dermis convert thermal energy into electrical depolarisation waves once threshold is reached.";
+                    break;
+                case 'SENSORY':
+                    el.innerText = "Sensory neurons carry nerve impulses TOWARD the spinal cord (CNS). The impulse travels as sequential membrane voltage changes.";
+                    break;
+                case 'CNS':
+                    el.innerText = "Within the spinal cord grey matter, sensory terminals release neurotransmitters across synapses to excite relay/motor neurons rapid reflex arc.";
+                    break;
+                case 'MOTOR':
+                    el.innerText = "Motor neurons carry action potentials AWAY from the CNS toward effectors. Notice the opposite direction compared to sensory neurons.";
+                    break;
+                case 'EFFECTOR':
+                    el.innerText = "The arm muscle acts as the Effector. Muscle fibers receive acetylcholine neurotransmitters and contract rapidly.";
+                    break;
+                case 'RESPONSE':
+                    el.innerText = "Response: Hand withdraws from heat source. The muscle is the Effector; the movement produced is the Response.";
+                    break;
+                default:
+                    el.innerText = "Click 'Touch Hot Surface' to initiate the reflex arc pathway.";
+            }
+        }
+
+        // Intensity Slider & Frequency Representation
+        function updateIntensity(val) {
+            state.intensity = val;
+            let label = "Moderate (60°C)";
+            let freq = Math.round(val * 0.8) + " Hz";
+
+            if (val < 30) {
+                label = "Low (" + val + "°C) - Sub-threshold";
+                freq = "0 Hz (No Impulse)";
+            } else if (val > 75) {
+                label = "High (" + val + "°C) - Rapid Firing";
+                freq = Math.round(val * 1.2) + " Hz (High Frequency)";
+            }
+
+            document.getElementById('intensity-val').innerText = label;
+            document.getElementById('freq-text').innerText = freq;
+        }
+
+        // Set Simulation Speed
+        function setSpeed(sp) {
+            state.speed = sp;
+            document.querySelectorAll('.speed-btn').forEach(btn => {
+                btn.className = "speed-btn px-2 py-0.5 rounded text-[11px] bg-white border border-slate-200 font-mono";
+            });
+            event.target.className = "speed-btn px-2 py-0.5 rounded text-[11px] bg-blue-600 text-white font-mono font-bold";
+        }
+
+        // View Mode Switcher
+        function setViewMode(mode) {
+            state.viewMode = mode;
+            document.querySelectorAll('.mode-tab').forEach(b => {
+                b.className = "mode-tab px-3 py-1.5 text-xs font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition";
+            });
+            document.getElementById('mode-btn-' + mode).className = "mode-tab px-3 py-1.5 text-xs font-semibold rounded-md transition bg-white text-blue-700 shadow-2xs border border-slate-200";
+
+            document.getElementById('current-mode-label').innerText = mode.replace('_', ' ') + " MODE";
+            document.getElementById('what-if-panel').classList.toggle('hidden', mode !== 'WHAT_IF');
+            document.getElementById('trace-hints').classList.toggle('hidden', mode !== 'TRACE');
+
+            if (mode === 'BUILD') {
+                openBuildPathwayModal();
+            }
+        }
+
+        // Block Component Toggles (What-If Mode)
+        function toggleBlock(comp) {
+            state.blockedComponents[comp] = document.getElementById('block-' + comp).checked;
+        }
+
+        // Toggle Visual Labels
+        function toggleLabels() {
+            state.labelsVisible = !state.labelsVisible;
+            document.querySelectorAll('.sim-label').forEach(lbl => {
+                lbl.style.display = state.labelsVisible ? 'block' : 'none';
+            });
+            document.getElementById('label-toggle-text').innerText = state.labelsVisible ? 'Hide Labels' : 'Show Labels';
+        }
+
+        // Component Click Handler
+        function clickComponent(comp) {
+            if (state.viewMode === 'TRACE') {
+                handleTraceClick(comp);
+            }
+        }
+
+        // Trace Mode Handler
+        function setupTraceModeEvents() {
+            // Hint circles for trace mode step-by-step
+        }
+
+        function handleTraceClick(comp) {
+            const expectedOrder = ['skin', 'sensory', 'cns', 'motor', 'effector'];
+            if (comp === expectedOrder[state.traceTargetIndex - 1]) {
+                state.currentStageIndex = state.traceTargetIndex * 1;
+                state.traceTargetIndex++;
+                updateUIState();
+                if (state.traceTargetIndex > 5) {
+                    alert("Congratulations! You correctly traced the entire reflex pathway!");
+                    setViewMode('SIMPLE');
+                }
+            } else {
+                alert("Incorrect step! Remember the signal flow: Receptor -> Sensory -> CNS -> Motor -> Effector.");
+            }
+        }
+
+        // Modal Helpers
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+            if (id === 'quiz-modal') renderQuizQuestion();
+        }
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        // Quiz Renderer
+        function renderQuizQuestion() {
+            const q = quizQuestions[currentQuizIdx];
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = `
+                <div class="space-y-2">
+                    <strong class="text-sm text-slate-800 block">${currentQuizIdx + 1}. ${q.q}</strong>
+                    <div class="space-y-1.5">
+                        ${q.options.map((opt, i) => `
+                            <label class="flex items-center space-x-2 bg-slate-50 p-2 rounded border border-slate-200 cursor-pointer hover:bg-blue-50">
+                                <input type="radio" name="quiz-opt" value="${i}" class="text-blue-600">
+                                <span class="text-slate-700 font-medium">${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            document.getElementById('quiz-score').innerText = `Question ${currentQuizIdx + 1} of ${quizQuestions.length}`;
+        }
+
+        function nextQuizQuestion() {
+            const selected = document.querySelector('input[name="quiz-opt"]:checked');
+            if (!selected) {
+                alert("Please select an answer!");
+                return;
+            }
+            const q = quizQuestions[currentQuizIdx];
+            if (parseInt(selected.value) === q.correct) {
+                quizScoreCount++;
+                alert("Correct! " + q.explain);
+            } else {
+                alert("Incorrect. " + q.explain);
+            }
+
+            currentQuizIdx++;
+            if (currentQuizIdx < quizQuestions.length) {
+                renderQuizQuestion();
+            } else {
+                alert(`Quiz Finished! You scored ${quizScoreCount} / ${quizQuestions.length}`);
+                closeModal('quiz-modal');
+                currentQuizIdx = 0;
+                quizScoreCount = 0;
+            }
+        }
+
+        // Synapse Modal Opener
+        function openSynapseModal(num) {
+            openModal('synapse-modal');
+        }
+
+        // Build Pathway Interactive Modal
+        function openBuildPathwayModal() {
+            alert("Build Pathway Mode: Arrange cards in correct order: Stimulus -> Receptor -> Sensory -> CNS -> Motor -> Effector -> Response.");
+        }
+    </script>
+</body>
+</html>
