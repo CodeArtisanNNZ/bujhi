@@ -52,7 +52,16 @@ export default function LearnBookPage(){
       {number:5,title:"সমন্বয় ও নিঃসরণ",detail:"Coordination and excretion"},
       {number:6,title:"পরমাণুর গঠন",detail:"Build atoms and electron shells"}
     ].map(chapter=><Link className={styles.lessonCard} key={chapter.number} href={`/science/class-8/chapter-${chapter.number}`}><BookOpen/><strong>{chapter.number}. {chapter.title}</strong><p>{chapter.detail} · Interactive textbook lesson</p></Link>)}</div>
-    <p className={styles.lessonNotice}>Chapters 7–14 are listed in the textbook. Interactive lessons are being prepared; open the full PDF to read them.</p></section>
+    <div className={styles.lessonWorkspace}>{[
+      {number:7,title:"পৃথিবী ও মহাকর্ষ",detail:"Gravity and weight practice"},
+      {number:8,title:"রাসায়নিক বিক্রিয়া",detail:"Balance equations and observe reactions"},
+      {number:9,title:"বর্তনী ও চলবিদ্যুৎ",detail:"Circuits and Ohm's law"},
+      {number:10,title:"অম্ল, ক্ষারক ও লবণ",detail:"Indicators and safe chemistry"},
+      {number:11,title:"আলো",detail:"Refraction and ray model"},
+      {number:12,title:"মহাকাশ ও উপগ্রহ",detail:"Orbits and satellite applications"},
+      {number:13,title:"খাদ্য ও পুষ্টি",detail:"Food groups and recall cards"},
+      {number:14,title:"পরিবেশ এবং বাস্তুতন্ত্র",detail:"Food chains and ecosystem relationships"}
+    ].map(chapter=><Link className={styles.lessonCard} key={chapter.number} href={`/science/class-8/chapter-${chapter.number}`}><BookOpen/><strong>{chapter.number}. {chapter.title}</strong><p>{chapter.detail} · Discover → Explore → Do → Remember → Check</p></Link>)}</div></section>
   </main>;
 
   return <main className={styles.page}>

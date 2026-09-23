@@ -253,6 +253,16 @@ export default function TeacherDashboard(){
                 {number:5,title:"সমন্বয় ও নিঃসরণ"},
                 {number:6,title:"পরমাণুর গঠন"}
               ].map(chapter=><div key={chapter.number}><a href={`/science/class-8/chapter-${chapter.number}`}>Chapter {chapter.number} · {chapter.title} →</a></div>)}
+              {[
+                {number:7,title:"পৃথিবী ও মহাকর্ষ"},
+                {number:8,title:"রাসায়নিক বিক্রিয়া"},
+                {number:9,title:"বর্তনী ও চলবিদ্যুৎ"},
+                {number:10,title:"অম্ল, ক্ষারক ও লবণ"},
+                {number:11,title:"আলো"},
+                {number:12,title:"মহাকাশ ও উপগ্রহ"},
+                {number:13,title:"খাদ্য ও পুষ্টি"},
+                {number:14,title:"পরিবেশ এবং বাস্তুতন্ত্র"}
+              ].map(chapter=><div key={chapter.number}><a href={`/science/class-8/chapter-${chapter.number}`}>Chapter {chapter.number} · {chapter.title} →</a></div>)}
               <div><a href="/nctb/2026/class-8/science-chapter-1.pdf" target="_blank" rel="noopener noreferrer">Open the exact textbook at Chapter 1 →</a></div>
             </div>}
             <button className={styles.keepSubject} onClick={()=>setFolderOpen(false)}>Keep this book on my desk</button>

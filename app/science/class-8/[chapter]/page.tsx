@@ -4,6 +4,7 @@ import Link from "next/link";
 import {useParams} from "next/navigation";
 import {useEffect,useState} from "react";
 import styles from "./lesson.module.css";
+import AdvancedChapters,{isAdvancedChapter} from "./AdvancedChapters";
 
 type Lang="bn"|"en";
 type Pair=[string,string];
@@ -31,8 +32,9 @@ export default function ScienceLesson(){
  useEffect(()=>{if(!running)return;const timer=window.setInterval(()=>setElapsed(v=>Math.min(100,v+Math.max(1,Math.round((temperature/20)*(concentration/5))))),450);return()=>window.clearInterval(timer)},[running,temperature,concentration]);
  const t=(pair:Pair|readonly [string,string])=>pair[lang==="bn"?0:1];const l=(bn:string,en:string)=>lang==="bn"?bn:en;
  const back=role==="teacher"?"/teacher-dashboard":"/student-dashboard/books/8/science/learn";
- if(!chapter)return <main className={styles.page}><Link href="/student-dashboard/books/8/science/learn">Chapter not found · Back to Science</Link></main>;
  if(!role)return <main className={styles.page}><p className={styles.loading}>{l("পাঠ খুলছে…","Opening lesson…")}</p></main>;
+ if(isAdvancedChapter(slug))return <AdvancedChapters slug={slug} role={role}/>;
+ if(!chapter)return <main className={styles.page}><Link href="/student-dashboard/books/8/science/learn">Chapter not found · Back to Science</Link></main>;
  const phase=(items:Pair[])=> <div className={styles.flow} aria-label={l("ধাপে ধাপে পথ","Step by step pathway")}>{items.map((item,i)=><button key={i} className={i===flow?styles.current:""} onClick={()=>setFlow(i)}>{i+1}. {t(item)}</button>)}</div>;
  const nextFlow=(length:number)=><div className={styles.controls}><button onClick={()=>setFlow(Math.max(0,flow-1))} disabled={flow===0}>← {l("আগে","Previous")}</button><button onClick={()=>setFlow(Math.min(length-1,flow+1))} disabled={flow===length-1}>{l("পরে","Next")} →</button></div>;
  function chooseTopic(i:number){setTopic(i);setPrediction(null);setObserved(false);setExplanation("");setFlow(0)}
