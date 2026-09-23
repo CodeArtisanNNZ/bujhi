@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heredity / Gene Transfer Simulator</title>
+    <title>বংশগতি ও জিন সঞ্চারণ সিমুলেটর</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
@@ -199,12 +199,12 @@
         <div class="flex items-center space-x-3">
             <div class="bujhi-mark"><img src="/bujhi-icon.png" alt="Bujhi"></div>
             <div>
-                <div class="bujhi-kicker">BUJHI · CLASS 8 SCIENCE · CHAPTER 2 · LESSON 9</div>
+                <div class="bujhi-kicker">বুঝি · অষ্টম শ্রেণি · বিজ্ঞান · অধ্যায় ২ · পাঠ ৯</div>
                 <h1 class="text-base font-bold tracking-tight flex items-center gap-2">
                     Heredity &amp; Gene Transfer
-                    <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full border" style="background:#f4dfdb;color:#990000;border-color:#d9b0a5">Inheritance Lab</span>
+                    <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full border" style="background:#f4dfdb;color:#990000;border-color:#d9b0a5">বংশগতি ল্যাব</span>
                 </h1>
-                <p class="text-xs font-medium hidden sm:block">Parent &rarr; Gamete &rarr; Fertilization &rarr; Offspring &rarr; Trait</p>
+                <p class="text-xs font-medium hidden sm:block">পিতামাতা &rarr; গ্যামেট &rarr; নিষেক &rarr; সন্তান &rarr; বৈশিষ্ট্য</p>
             </div>
         </div>
 
@@ -233,31 +233,31 @@
                 <i id="sound-icon" class="fa-solid fa-volume-high text-sm"></i>
             </button>
             <button onclick="openModal('build-modal')" class="px-3 py-2 text-xs font-semibold rounded-lg bg-slate-800 hover:bg-slate-700 text-white transition flex items-center gap-1.5 shadow-sm">
-                <i class="fa-solid fa-hands-holding-child"></i> <span class="hidden sm:inline">Build Offspring</span>
+                <i class="fa-solid fa-hands-holding-child"></i> <span class="hidden sm:inline">সন্তানের জিনোটাইপ তৈরি</span>
             </button>
             <button onclick="openModal('quiz-modal')" class="px-3 py-2 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition flex items-center gap-1.5 shadow-sm">
-                <i class="fa-solid fa-graduation-cap"></i> <span class="hidden sm:inline">Quiz & Myths</span>
+                <i class="fa-solid fa-graduation-cap"></i> <span class="hidden sm:inline">কুইজ ও ভুল ধারণা</span>
             </button>
         </div>
     </header>
 
     <nav class="h-12 bg-slate-50 border-b border-slate-200 px-6 flex items-center justify-between shrink-0 z-20 text-xs">
         <div class="flex items-center space-x-2">
-            <span class="text-slate-400 font-semibold uppercase text-[10px] tracking-wider mr-1 hidden md:inline">Mode:</span>
+            <span class="text-slate-400 font-semibold uppercase text-[10px] tracking-wider mr-1 hidden md:inline">মোড:</span>
             <button onclick="setSimMode('MENDELIAN')" id="mode-MENDELIAN" class="mode-tab-btn px-3 py-1.5 rounded-lg font-semibold transition flex items-center gap-2 bg-white text-slate-900 border border-slate-300 shadow-sm">
-                <i class="fa-solid fa-code-branch text-indigo-600"></i> Simple Mendelian (1 Locus)
+                <i class="fa-solid fa-code-branch text-indigo-600"></i> সরল মেন্ডেলীয় (১টি লোকাস)
             </button>
             <button onclick="setSimMode('POLYGENIC')" id="mode-POLYGENIC" class="mode-tab-btn px-3 py-1.5 rounded-lg font-medium text-slate-600 hover:bg-slate-200/60 transition flex items-center gap-2">
-                <i class="fa-solid fa-sliders text-emerald-600"></i> Polygenic + Environment
+                <i class="fa-solid fa-sliders text-emerald-600"></i> বহুজিনীয় + পরিবেশ
             </button>
         </div>
 
         <div class="flex items-center space-x-3">
             <button onclick="setExploreMode('FREE')" id="exp-FREE" class="exp-tab-btn px-2.5 py-1 rounded-md font-semibold bg-slate-200 text-slate-800 transition">
-                <i class="fa-solid fa-compass"></i> Free Explore
+                <i class="fa-solid fa-compass"></i> স্বাধীনভাবে দেখো
             </button>
             <button onclick="setExploreMode('GUIDED')" id="exp-GUIDED" class="exp-tab-btn px-2.5 py-1 rounded-md font-medium text-slate-500 hover:bg-slate-200 transition">
-                <i class="fa-solid fa-route"></i> Guided Journey
+                <i class="fa-solid fa-route"></i> নির্দেশিত ধাপ
             </button>
         </div>
     </nav>
@@ -267,18 +267,18 @@
         <!-- LEFT SIMULATION CANVAS & CHROMOSOME VISUALIZER -->
         <div class="flex-1 bg-white p-4 lg:p-6 flex flex-col justify-between overflow-y-auto custom-scrollbar relative">
             
-            <!-- GUIDED JOURNEY STEP PROMPT BANNER (Hidden in Free Explore) -->
+            <!-- GUIDED JOURNEY STEP PROMPT BANNER (Hidden in স্বাধীনভাবে দেখো) -->
             <div id="guided-banner" class="hidden mb-4 bg-indigo-50 border border-indigo-200 rounded-xl p-3 text-xs text-indigo-900 flex items-center justify-between shadow-sm">
                 <div class="flex items-center space-x-3">
                     <span id="guided-step-badge" class="w-6 h-6 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center shrink-0">1</span>
                     <div>
-                        <h4 id="guided-title" class="font-bold text-slate-900">Step 1: Select Parent Genotypes</h4>
-                        <p id="guided-desc" class="text-slate-600 text-[11px]">Choose genotypes for Parent 1 and Parent 2 to see how homologous chromosomes carry alleles.</p>
+                        <h4 id="guided-title" class="font-bold text-slate-900">ধাপ ১: পিতামাতার জিনোটাইপ বেছে নাও</h4>
+                        <p id="guided-desc" class="text-slate-600 text-[11px]">সমসংস্থ ক্রোমোজোম কীভাবে অ্যালিল বহন করে তা দেখতে পিতামাতা ১ ও পিতামাতা ২-এর জিনোটাইপ বেছে নাও।</p>
                     </div>
                 </div>
                 <div class="flex items-center space-x-2 shrink-0">
-                    <button onclick="prevGuidedStep()" id="guided-prev" class="px-2.5 py-1 rounded bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 font-semibold disabled:opacity-40">Back</button>
-                    <button onclick="nextGuidedStep()" id="guided-next" class="px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white font-bold shadow-sm">Next Step &rarr;</button>
+                    <button onclick="prevGuidedStep()" id="guided-prev" class="px-2.5 py-1 rounded bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 font-semibold disabled:opacity-40">পেছনে</button>
+                    <button onclick="nextGuidedStep()" id="guided-next" class="px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white font-bold shadow-sm">পরের ধাপ &rarr;</button>
                 </div>
             </div>
 
@@ -292,16 +292,16 @@
                     <div class="bg-p1-light/60 border-2 border-p1-border rounded-2xl p-4 flex flex-col justify-between shadow-sm relative">
                         <div class="flex items-center justify-between border-b border-p1-border/60 pb-2 mb-3">
                             <div class="flex items-center space-x-2">
-                                <span class="px-2 py-0.5 rounded-md bg-p1 text-white font-bold text-xs uppercase tracking-wider">Parent 1 (P1)</span>
-                                <span class="text-xs font-semibold text-slate-600">Maternal / P1 Organism</span>
+                                <span class="px-2 py-0.5 rounded-md bg-p1 text-white font-bold text-xs uppercase tracking-wider">পিতামাতা ১ (P1)</span>
+                                <span class="text-xs font-semibold text-slate-600">মাতৃ উৎস / P1 জীব</span>
                             </div>
                             <!-- Genotype Selector -->
                             <div class="flex items-center space-x-1 bg-white rounded-lg p-1 border border-p1-border shadow-xs">
-                                <label class="text-[10px] font-bold text-slate-500 uppercase px-1">Genotype:</label>
+                                <label class="text-[10px] font-bold text-slate-500 uppercase px-1">জিনোটাইপ:</label>
                                 <select id="p1-genotype" onchange="updateMendelianState()" class="text-xs font-bold font-mono bg-transparent text-slate-800 focus:outline-none cursor-pointer">
-                                    <option value="AA">AA (Homozygous Dom)</option>
-                                    <option value="Aa" selected>Aa (Heterozygous)</option>
-                                    <option value="aa">aa (Homozygous Rec)</option>
+                                    <option value="AA">AA (সমপ্রকট)</option>
+                                    <option value="Aa" selected>Aa (বিষমযুগ্ম)</option>
+                                    <option value="aa">aa (সমপ্রচ্ছন্ন)</option>
                                 </select>
                             </div>
                         </div>
@@ -320,10 +320,10 @@
 
                         <!-- Gamete / Meiosis Selection -->
                         <div class="mt-2 pt-2 border-t border-p1-border/60 flex items-center justify-between text-xs">
-                            <span class="font-semibold text-slate-600">Gamete Produced (1n):</span>
+                            <span class="font-semibold text-slate-600">উৎপন্ন গ্যামেট (1n):</span>
                             <div class="flex items-center space-x-2">
-                                <button onclick="selectGamete('p1', 0)" id="p1-g0-btn" class="px-2.5 py-1 rounded-lg bg-white border border-p1-border font-mono font-bold text-p1 hover:bg-p1 hover:text-white transition shadow-xs">Allele 1</button>
-                                <button onclick="selectGamete('p1', 1)" id="p1-g1-btn" class="px-2.5 py-1 rounded-lg bg-white border border-p1-border font-mono font-bold text-p1 hover:bg-p1 hover:text-white transition shadow-xs">Allele 2</button>
+                                <button onclick="selectGamete('p1', 0)" id="p1-g0-btn" class="px-2.5 py-1 rounded-lg bg-white border border-p1-border font-mono font-bold text-p1 hover:bg-p1 hover:text-white transition shadow-xs">অ্যালিল ১</button>
+                                <button onclick="selectGamete('p1', 1)" id="p1-g1-btn" class="px-2.5 py-1 rounded-lg bg-white border border-p1-border font-mono font-bold text-p1 hover:bg-p1 hover:text-white transition shadow-xs">অ্যালিল ২</button>
                                 <button onclick="randomGamete('p1')" class="p-1.5 rounded-lg bg-white border border-p1-border text-slate-600 hover:bg-slate-100" title="Random Meiotic Segregation">
                                     <i class="fa-solid fa-dice text-xs"></i>
                                 </button>
@@ -335,16 +335,16 @@
                     <div class="bg-p2-light/60 border-2 border-p2-border rounded-2xl p-4 flex flex-col justify-between shadow-sm relative">
                         <div class="flex items-center justify-between border-b border-p2-border/60 pb-2 mb-3">
                             <div class="flex items-center space-x-2">
-                                <span class="px-2 py-0.5 rounded-md bg-p2 text-white font-bold text-xs uppercase tracking-wider">Parent 2 (P2)</span>
-                                <span class="text-xs font-semibold text-slate-600">Paternal / P2 Organism</span>
+                                <span class="px-2 py-0.5 rounded-md bg-p2 text-white font-bold text-xs uppercase tracking-wider">পিতামাতা ২ (P2)</span>
+                                <span class="text-xs font-semibold text-slate-600">পিতৃ উৎস / P2 জীব</span>
                             </div>
                             <!-- Genotype Selector -->
                             <div class="flex items-center space-x-1 bg-white rounded-lg p-1 border border-p2-border shadow-xs">
-                                <label class="text-[10px] font-bold text-slate-500 uppercase px-1">Genotype:</label>
+                                <label class="text-[10px] font-bold text-slate-500 uppercase px-1">জিনোটাইপ:</label>
                                 <select id="p2-genotype" onchange="updateMendelianState()" class="text-xs font-bold font-mono bg-transparent text-slate-800 focus:outline-none cursor-pointer">
-                                    <option value="AA">AA (Homozygous Dom)</option>
-                                    <option value="Aa" selected>Aa (Heterozygous)</option>
-                                    <option value="aa">aa (Homozygous Rec)</option>
+                                    <option value="AA">AA (সমপ্রকট)</option>
+                                    <option value="Aa" selected>Aa (বিষমযুগ্ম)</option>
+                                    <option value="aa">aa (সমপ্রচ্ছন্ন)</option>
                                 </select>
                             </div>
                         </div>
@@ -363,10 +363,10 @@
 
                         <!-- Gamete / Meiosis Selection -->
                         <div class="mt-2 pt-2 border-t border-p2-border/60 flex items-center justify-between text-xs">
-                            <span class="font-semibold text-slate-600">Gamete Produced (1n):</span>
+                            <span class="font-semibold text-slate-600">উৎপন্ন গ্যামেট (1n):</span>
                             <div class="flex items-center space-x-2">
-                                <button onclick="selectGamete('p2', 0)" id="p2-g0-btn" class="px-2.5 py-1 rounded-lg bg-white border border-p2-border font-mono font-bold text-p2 hover:bg-p2 hover:text-white transition shadow-xs">Allele 1</button>
-                                <button onclick="selectGamete('p2', 1)" id="p2-g1-btn" class="px-2.5 py-1 rounded-lg bg-white border border-p2-border font-mono font-bold text-p2 hover:bg-p2 hover:text-white transition shadow-xs">Allele 2</button>
+                                <button onclick="selectGamete('p2', 0)" id="p2-g0-btn" class="px-2.5 py-1 rounded-lg bg-white border border-p2-border font-mono font-bold text-p2 hover:bg-p2 hover:text-white transition shadow-xs">অ্যালিল ১</button>
+                                <button onclick="selectGamete('p2', 1)" id="p2-g1-btn" class="px-2.5 py-1 rounded-lg bg-white border border-p2-border font-mono font-bold text-p2 hover:bg-p2 hover:text-white transition shadow-xs">অ্যালিল ২</button>
                                 <button onclick="randomGamete('p2')" class="p-1.5 rounded-lg bg-white border border-p2-border text-slate-600 hover:bg-slate-100" title="Random Meiotic Segregation">
                                     <i class="fa-solid fa-dice text-xs"></i>
                                 </button>
@@ -379,7 +379,7 @@
                 <!-- FERTILIZATION ACTION CONTROLLER -->
                 <div class="flex items-center justify-center my-2">
                     <button onclick="triggerFertilization()" id="fertilize-btn" class="px-6 py-3 rounded-xl bg-gradient-to-r from-p1 via-indigo-600 to-p2 text-white font-bold text-sm shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition flex items-center gap-2">
-                        <i class="fa-solid fa-burst text-base"></i> Perform Fertilization Fusion
+                        <i class="fa-solid fa-burst text-base"></i> নিষেক ঘটাও
                     </button>
                 </div>
 
@@ -388,21 +388,21 @@
                         <div class="flex items-center space-x-3 bg-white p-3 rounded-xl border border-slate-200 shadow-xs">
                             <div class="flex flex-col items-center">
                                 <svg id="offspring-chr-p1" class="w-14 h-32" viewBox="0 0 60 140"></svg>
-                                <span class="text-[10px] font-bold text-p1 uppercase mt-1">From P1</span>
+                                <span class="text-[10px] font-bold text-p1 uppercase mt-1">P1 থেকে</span>
                             </div>
                             <div class="flex flex-col items-center">
                                 <svg id="offspring-chr-p2" class="w-14 h-32" viewBox="0 0 60 140"></svg>
-                                <span class="text-[10px] font-bold text-p2 uppercase mt-1">From P2</span>
+                                <span class="text-[10px] font-bold text-p2 uppercase mt-1">P2 থেকে</span>
                             </div>
                         </div>
 
                         <div>
-                            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Offspring Genotype & Phenotype</span>
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">সন্তানের জিনোটাইপ ও ফিনোটাইপ</span>
                             <div class="flex items-baseline space-x-2 my-0.5">
                                 <h3 id="offspring-genotype-display" class="text-2xl font-black font-mono text-slate-900">Aa</h3>
-                                <span id="offspring-zygosity-display" class="text-xs font-semibold px-2 py-0.5 rounded bg-indigo-100 text-indigo-700">Heterozygous</span>
+                                <span id="offspring-zygosity-display" class="text-xs font-semibold px-2 py-0.5 rounded bg-indigo-100 text-indigo-700">বিষমযুগ্ম</span>
                             </div>
-                            <p id="offspring-phenotype-display" class="text-xs font-medium text-slate-600">Exhibits Dominant Trait (Purple Flower Phenotype)</p>
+                            <p id="offspring-phenotype-display" class="text-xs font-medium text-slate-600">প্রকট বৈশিষ্ট্য প্রকাশ করে (বেগুনি ফুল)</p>
                         </div>
                     </div>
 
@@ -411,7 +411,7 @@
                         <div id="phenotype-avatar" class="w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-sm mb-2 transition-transform duration-500">
                             🌸
                         </div>
-                        <span id="phenotype-avatar-label" class="text-xs font-bold text-slate-700">Purple Flower</span>
+                        <span id="phenotype-avatar-label" class="text-xs font-bold text-slate-700">বেগুনি ফুল</span>
                     </div>
                 </div>
 
@@ -419,39 +419,39 @@
                     <div class="flex items-center justify-between border-b border-slate-800 pb-2">
                         <div class="flex items-center space-x-2">
                             <i class="fa-solid fa-magnifying-glass text-cyan-400 text-xs"></i>
-                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-200">Gene Locus Molecular DNA Zoom View</h4>
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-200">জিন লোকাসের আণবিক DNA দৃশ্য</h4>
                         </div>
-                        <span class="text-[10px] font-mono text-cyan-400 bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-800/60">Scale: ~0.34 nm</span>
+                        <span class="text-[10px] font-mono text-cyan-400 bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-800/60">স্কেল: ~০.৩৪ nm</span>
                     </div>
 
                     <!-- Molecular DNA Base Comparison -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
-                        <!-- Dominant Allele A -->
+                        <!-- Dominant অ্যালিল A -->
                         <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700/80 space-y-1.5">
                             <div class="flex justify-between items-center">
-                                <span class="text-dom font-bold">Allele 'A' (Dominant)</span>
-                                <span class="text-[10px] text-slate-400">Functional Enzyme</span>
+                                <span class="text-dom font-bold">অ্যালিল 'A' (প্রকট)</span>
+                                <span class="text-[10px] text-slate-400">কার্যকর এনজাইম</span>
                             </div>
                             <div class="flex items-center space-x-1 tracking-widest text-sm bg-slate-950 p-2 rounded-lg border border-slate-800 text-center overflow-x-auto">
                                 <span class="text-slate-500">...A T G C</span>
                                 <span class="text-amber-400 font-bold underline px-1">C</span>
                                 <span class="text-slate-500">A T G G T C...</span>
                             </div>
-                            <p class="text-[10px] text-slate-400 font-sans">Encodes active pigment synthesis protein.</p>
+                            <p class="text-[10px] text-slate-400 font-sans">সক্রিয় রঞ্জক তৈরির প্রোটিনের নির্দেশ বহন করে।</p>
                         </div>
 
-                        <!-- Recessive Allele a -->
+                        <!-- Recessive অ্যালিল a -->
                         <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700/80 space-y-1.5">
                             <div class="flex justify-between items-center">
-                                <span class="text-rec font-bold">Allele 'a' (Recessive)</span>
-                                <span class="text-[10px] text-slate-400">Point Mutation</span>
+                                <span class="text-rec font-bold">অ্যালিল 'a' (প্রচ্ছন্ন)</span>
+                                <span class="text-[10px] text-slate-400">বিন্দু মিউটেশন</span>
                             </div>
                             <div class="flex items-center space-x-1 tracking-widest text-sm bg-slate-950 p-2 rounded-lg border border-slate-800 text-center overflow-x-auto">
                                 <span class="text-slate-500">...A T G C</span>
                                 <span class="text-rose-400 font-bold underline px-1">T</span>
                                 <span class="text-slate-500">A T G G T C...</span>
                             </div>
-                            <p class="text-[10px] text-slate-400 font-sans">Single base SNP mutation causes non-functional protein.</p>
+                            <p class="text-[10px] text-slate-400 font-sans">একটি একক বেসের SNP মিউটেশন অকার্যকর প্রোটিন তৈরি করতে পারে।</p>
                         </div>
                     </div>
                 </div>
@@ -462,10 +462,10 @@
                 
                 <div class="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-4 text-xs text-slate-700 space-y-1">
                     <h3 class="font-bold text-slate-900 text-sm flex items-center gap-1.5">
-                        <i class="fa-solid fa-dna text-emerald-600"></i> Complex Polygenic Traits & Environmental Influence
+                        <i class="fa-solid fa-dna text-emerald-600"></i> জটিল বহুজিনীয় বৈশিষ্ট্য ও পরিবেশের প্রভাব
                     </h3>
                     <p class="text-slate-600 leading-relaxed">
-                        Traits like human height or skin tone do not follow simple Mendelian 1-locus rules. They are influenced by multiple gene loci (Genes A, B, C, D) acting additively, along with continuous environmental variables (nutrition, sunlight).
+                        মানুষের উচ্চতা বা ত্বকের বর্ণের মতো বৈশিষ্ট্য সরল এক-লোকাস মেন্ডেলীয় অনুপাত অনুসরণ করে না। একাধিক জিন লোকাস (A, B, C, D) এবং পরিবেশগত উপাদান (পুষ্টি, সূর্যালোক) মিলিতভাবে প্রভাব ফেলে।
                     </p>
                 </div>
 
@@ -474,83 +474,83 @@
                     
                     <!-- Genetic Allele Loci (4 Loci) -->
                     <div class="bg-white border border-slate-200 rounded-2xl p-4 space-y-4 shadow-sm">
-                        <h4 class="font-bold text-xs uppercase tracking-wider text-slate-500 border-b pb-2">Polygenic Allele Composition</h4>
+                        <h4 class="font-bold text-xs uppercase tracking-wider text-slate-500 border-b pb-2">বহুজিনীয় অ্যালিল বিন্যাস</h4>
 
                         <!-- Gene A -->
                         <div class="flex items-center justify-between">
                             <div>
-                                <span class="font-bold text-slate-800 text-xs">Gene A Locus:</span>
-                                <span class="text-[11px] text-slate-500 block">Growth Factor Alpha</span>
+                                <span class="font-bold text-slate-800 text-xs">জিন A লোকাস:</span>
+                                <span class="text-[11px] text-slate-500 block">বৃদ্ধি উপাদান আলফা</span>
                             </div>
                             <select id="poly-gene-a" onchange="updatePolygenicPhenotype()" class="font-mono text-xs font-bold border border-slate-300 rounded-lg p-1.5 bg-slate-50">
-                                <option value="2">AA (+2 Units)</option>
+                                <option value="2">AA (+2 একক)</option>
                                 <option value="1" selected>Aa (+1 Unit)</option>
-                                <option value="0">aa (0 Units)</option>
+                                <option value="0">aa (0 একক)</option>
                             </select>
                         </div>
 
                         <!-- Gene B -->
                         <div class="flex items-center justify-between">
                             <div>
-                                <span class="font-bold text-slate-800 text-xs">Gene B Locus:</span>
-                                <span class="text-[11px] text-slate-500 block">Bone Matrix Density</span>
+                                <span class="font-bold text-slate-800 text-xs">জিন B লোকাস:</span>
+                                <span class="text-[11px] text-slate-500 block">অস্থি ম্যাট্রিক্স ঘনত্ব</span>
                             </div>
                             <select id="poly-gene-b" onchange="updatePolygenicPhenotype()" class="font-mono text-xs font-bold border border-slate-300 rounded-lg p-1.5 bg-slate-50">
-                                <option value="2">BB (+2 Units)</option>
+                                <option value="2">BB (+2 একক)</option>
                                 <option value="1" selected>Bb (+1 Unit)</option>
-                                <option value="0">bb (0 Units)</option>
+                                <option value="0">bb (0 একক)</option>
                             </select>
                         </div>
 
                         <!-- Gene C -->
                         <div class="flex items-center justify-between">
                             <div>
-                                <span class="font-bold text-slate-800 text-xs">Gene C Locus:</span>
-                                <span class="text-[11px] text-slate-500 block">Hormonal Receptors</span>
+                                <span class="font-bold text-slate-800 text-xs">জিন C লোকাস:</span>
+                                <span class="text-[11px] text-slate-500 block">হরমোন গ্রাহক</span>
                             </div>
                             <select id="poly-gene-c" onchange="updatePolygenicPhenotype()" class="font-mono text-xs font-bold border border-slate-300 rounded-lg p-1.5 bg-slate-50">
-                                <option value="2">CC (+2 Units)</option>
+                                <option value="2">CC (+2 একক)</option>
                                 <option value="1">Cc (+1 Unit)</option>
-                                <option value="0" selected>cc (0 Units)</option>
+                                <option value="0" selected>cc (0 একক)</option>
                             </select>
                         </div>
 
                         <!-- Gene D -->
                         <div class="flex items-center justify-between">
                             <div>
-                                <span class="font-bold text-slate-800 text-xs">Gene D Locus:</span>
-                                <span class="text-[11px] text-slate-500 block">Metabolic Rate</span>
+                                <span class="font-bold text-slate-800 text-xs">জিন D লোকাস:</span>
+                                <span class="text-[11px] text-slate-500 block">বিপাকের হার</span>
                             </div>
                             <select id="poly-gene-d" onchange="updatePolygenicPhenotype()" class="font-mono text-xs font-bold border border-slate-300 rounded-lg p-1.5 bg-slate-50">
-                                <option value="2">DD (+2 Units)</option>
+                                <option value="2">DD (+2 একক)</option>
                                 <option value="1">Dd (+1 Unit)</option>
-                                <option value="0" selected>dd (0 Units)</option>
+                                <option value="0" selected>dd (0 একক)</option>
                             </select>
                         </div>
                     </div>
 
                     <!-- Environmental Sliders -->
                     <div class="bg-white border border-slate-200 rounded-2xl p-4 space-y-5 shadow-sm">
-                        <h4 class="font-bold text-xs uppercase tracking-wider text-slate-500 border-b pb-2">Environmental Multipliers</h4>
+                        <h4 class="font-bold text-xs uppercase tracking-wider text-slate-500 border-b pb-2">পরিবেশগত প্রভাব</h4>
 
                         <!-- Slider 1: Nutrition Level -->
                         <div class="space-y-1.5">
                             <div class="flex justify-between items-center text-xs">
-                                <span class="font-semibold text-slate-700"><i class="fa-solid fa-utensils text-amber-500"></i> Nutrition Quality</span>
-                                <span id="env-nutrition-val" class="font-mono font-bold text-slate-900">100% (Optimal)</span>
+                                <span class="font-semibold text-slate-700"><i class="fa-solid fa-utensils text-amber-500"></i> পুষ্টির মান</span>
+                                <span id="env-nutrition-val" class="font-mono font-bold text-slate-900">১০০% (অনুকূল)</span>
                             </div>
                             <input type="range" id="env-nutrition" min="50" max="150" value="100" oninput="updatePolygenicPhenotype()" class="w-full accent-emerald-600 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer">
-                            <span class="text-[10px] text-slate-400 block">Poor nutrition limits genetic potential realization.</span>
+                            <span class="text-[10px] text-slate-400 block">অপর্যাপ্ত পুষ্টি জিনগত সম্ভাবনার পূর্ণ প্রকাশ সীমিত করতে পারে।</span>
                         </div>
 
-                        <!-- Slider 2: Sunlight / UV Exposure -->
+                        <!-- Slider 2: সূর্যালোক / UV প্রভাব -->
                         <div class="space-y-1.5">
                             <div class="flex justify-between items-center text-xs">
-                                <span class="font-semibold text-slate-700"><i class="fa-solid fa-sun text-amber-500"></i> Sunlight / UV Exposure</span>
-                                <span id="env-sun-val" class="font-mono font-bold text-slate-900">Medium</span>
+                                <span class="font-semibold text-slate-700"><i class="fa-solid fa-sun text-amber-500"></i> সূর্যালোক / UV প্রভাব</span>
+                                <span id="env-sun-val" class="font-mono font-bold text-slate-900">মাঝারি</span>
                             </div>
                             <input type="range" id="env-sun" min="0" max="100" value="50" oninput="updatePolygenicPhenotype()" class="w-full accent-amber-500 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer">
-                            <span class="text-[10px] text-slate-400 block">Modulates melanin synthesis response continuously.</span>
+                            <span class="text-[10px] text-slate-400 block">মেলানিন তৈরির প্রতিক্রিয়াকে ক্রমাগত প্রভাবিত করে।</span>
                         </div>
                     </div>
 
@@ -559,8 +559,8 @@
                 <!-- Combined Phenotypic Expression Result Bar -->
                 <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-3">
                     <div class="flex justify-between items-center">
-                        <span class="font-bold text-xs uppercase tracking-wider text-slate-500">Combined Expression Outcome</span>
-                        <span id="poly-height-tag" class="font-mono font-bold text-sm text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">Calculated Height: 172 cm</span>
+                        <span class="font-bold text-xs uppercase tracking-wider text-slate-500">সমন্বিত বৈশিষ্ট্য প্রকাশ</span>
+                        <span id="poly-height-tag" class="font-mono font-bold text-sm text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">হিসাবকৃত উচ্চতা: ১৭২ cm</span>
                     </div>
 
                     <!-- Visual Phenotype Spectrum Bar -->
@@ -569,9 +569,9 @@
                             <div id="poly-bar-fill" class="h-full bg-gradient-to-r from-teal-500 via-emerald-500 to-amber-500 rounded-full transition-all duration-500" style="width: 55%;"></div>
                         </div>
                         <div class="flex justify-between text-[10px] font-mono text-slate-400">
-                            <span>140 cm (Short)</span>
-                            <span>170 cm (Average)</span>
-                            <span>200 cm (Tall)</span>
+                            <span>১৪০ cm (খাটো)</span>
+                            <span>১৭০ cm (গড়)</span>
+                            <span>২০০ cm (লম্বা)</span>
                         </div>
                     </div>
                 </div>
@@ -586,9 +586,9 @@
             <div class="space-y-4">
                 <div class="flex items-center justify-between border-b border-slate-200 pb-2">
                     <h3 class="font-bold text-xs uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                        <i class="fa-solid fa-table-cells text-indigo-600"></i> Punnett Square Matrix
+                        <i class="fa-solid fa-table-cells text-indigo-600"></i> পানেট স্কোয়ার
                     </h3>
-                    <span class="text-[10px] font-mono bg-slate-200 text-slate-700 px-2 py-0.5 rounded">1-Locus Monohybrid</span>
+                    <span class="text-[10px] font-mono bg-slate-200 text-slate-700 px-2 py-0.5 rounded">১-লোকাস মনোহাইব্রিড</span>
                 </div>
 
                 <!-- Interactive Punnett Grid -->
@@ -613,22 +613,22 @@
 
                 <!-- Theoretical vs Statistical Probabilities -->
                 <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs space-y-3">
-                    <h4 class="font-bold text-xs uppercase tracking-wider text-slate-500">Theoretical Ratio vs Sample Batch</h4>
+                    <h4 class="font-bold text-xs uppercase tracking-wider text-slate-500">তাত্ত্বিক অনুপাত বনাম নমুনা ফলাফল</h4>
 
                     <div class="space-y-1.5 text-xs">
                         <div class="flex justify-between">
-                            <span class="text-slate-600">Dominant Phenotype Ratio:</span>
+                            <span class="text-slate-600">প্রকট ফিনোটাইপের অনুপাত:</span>
                             <span id="prob-dom-ratio" class="font-mono font-bold text-dom">75% (3/4)</span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-slate-600">Recessive Phenotype Ratio:</span>
+                            <span class="text-slate-600">প্রচ্ছন্ন ফিনোটাইপের অনুপাত:</span>
                             <span id="prob-rec-ratio" class="font-mono font-bold text-rec">25% (1/4)</span>
                         </div>
                     </div>
 
                     <!-- Batch Trial Simulation Controls -->
                     <div class="pt-2 border-t border-slate-100 space-y-2">
-                        <label class="text-[10px] font-bold text-slate-500 uppercase block">Simulate Offspring Batch (N):</label>
+                        <label class="text-[10px] font-bold text-slate-500 uppercase block">সন্তানের নমুনা সিমুলেট করো (N):</label>
                         <div class="grid grid-cols-4 gap-1.5">
                             <button onclick="runBatchSimulation(1)" class="py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-mono text-xs font-bold text-slate-700 transition">N=1</button>
                             <button onclick="runBatchSimulation(10)" class="py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 font-mono text-xs font-bold text-slate-700 transition">N=10</button>
@@ -640,14 +640,14 @@
                     <!-- Batch Result Breakdown Bar -->
                     <div id="batch-results-panel" class="hidden pt-2 space-y-1">
                         <div class="flex justify-between text-[11px] font-mono">
-                            <span class="text-dom font-bold">Dom: <span id="batch-dom-cnt">0</span></span>
-                            <span class="text-rec font-bold">Rec: <span id="batch-rec-cnt">0</span></span>
+                            <span class="text-dom font-bold">প্রকট: <span id="batch-dom-cnt">0</span></span>
+                            <span class="text-rec font-bold">প্রচ্ছন্ন: <span id="batch-rec-cnt">0</span></span>
                         </div>
                         <div class="h-2 w-full bg-slate-100 rounded-full overflow-hidden flex border border-slate-200">
                             <div id="batch-dom-bar" class="bg-dom h-full" style="width: 50%;"></div>
                             <div id="batch-rec-bar" class="bg-rec h-full" style="width: 50%;"></div>
                         </div>
-                        <span class="text-[10px] text-slate-400 block text-center">Notice how larger N values converge toward theoretical 3:1 ratio!</span>
+                        <span class="text-[10px] text-slate-400 block text-center">দেখো, N বড় হলে ফলাফল তাত্ত্বিক ৩:১ অনুপাতের কাছাকাছি আসে।</span>
                     </div>
                 </div>
             </div>
@@ -655,12 +655,12 @@
             <!-- KEY SCIENTIFIC CONCEPTS QUICK SUMMARY -->
             <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs space-y-2 text-xs">
                 <h4 class="font-bold text-slate-900 flex items-center gap-1.5">
-                    <i class="fa-solid fa-bookmark text-indigo-600"></i> Core Concept Reminders
+                    <i class="fa-solid fa-bookmark text-indigo-600"></i> মূল ধারণা মনে রাখো
                 </h4>
                 <ul class="space-y-1.5 text-slate-600 list-disc list-inside leading-normal text-[11px]">
-                    <li><strong>Homologous Pair:</strong> Offspring receive exactly 1 chromosome of each pair from P1 and 1 from P2.</li>
-                    <li><strong>Allele vs Gene:</strong> A gene is the sequence location (locus); alleles ($A, a$) are variations of that sequence.</li>
-                    <li><strong>Punnett Square:</strong> Predicts <em>probabilities</em> across many offspring, not guaranteed individual birth outcomes!</li>
+                    <li><strong>সমসংস্থ জোড়া:</strong> সন্তান প্রতিটি সমসংস্থ জোড়ার একটি ক্রোমোজোম P1 থেকে এবং একটি P2 থেকে পায়।</li>
+                    <li><strong>অ্যালিল ও জিন:</strong> জিন হলো DNA-র নির্দিষ্ট অনুক্রমের অবস্থান; অ্যালিল (A, a) হলো সেই অনুক্রমের ভিন্ন রূপ।</li>
+                    <li><strong>পানেট স্কোয়ার:</strong> অনেক সন্তানের ক্ষেত্রে <em>সম্ভাবনা</em> দেখায়; কোনো একটি সন্তানের ফল নিশ্চিত করে না।</li>
                 </ul>
             </div>
 
@@ -675,7 +675,7 @@
                     <div class="p-2 rounded-lg bg-indigo-50 text-indigo-600 font-bold">
                         <i class="fa-solid fa-hands-holding-child"></i>
                     </div>
-                    <h3 class="font-bold text-slate-900 text-base">Activity: Build Diploid Offspring Pair</h3>
+                    <h3 class="font-bold text-slate-900 text-base">কাজ: ডিপ্লয়েড সন্তানের ক্রোমোজোম জোড়া তৈরি</h3>
                 </div>
                 <button onclick="closeModal('build-modal')" class="text-slate-400 hover:text-slate-600">
                     <i class="fa-solid fa-xmark text-lg"></i>
@@ -683,25 +683,25 @@
             </div>
 
             <p class="text-xs text-slate-600 leading-relaxed">
-                Select 1 haploid gamete chromosome from Parent 1 and 1 haploid gamete chromosome from Parent 2 to assemble the homologous chromosome pair for the offspring:
+                সন্তানের সমসংস্থ ক্রোমোজোম জোড়া তৈরি করতে পিতামাতা ১ থেকে ১টি এবং পিতামাতা ২ থেকে ১টি হ্যাপ্লয়েড গ্যামেট ক্রোমোজোম বেছে নাও:
             </p>
 
             <div class="grid grid-cols-2 gap-4">
                 <!-- P1 Choice -->
                 <div class="bg-p1-light border border-p1-border p-4 rounded-xl text-center space-y-3">
-                    <span class="text-xs font-bold text-p1 uppercase">Choose Parent 1 Gamete</span>
+                    <span class="text-xs font-bold text-p1 uppercase">পিতামাতা ১-এর গ্যামেট বেছে নাও</span>
                     <div class="flex justify-center space-x-4">
-                        <button onclick="setBuildChoice('p1', 'A')" id="build-p1-A" class="px-4 py-2 bg-white border-2 border-p1 rounded-xl font-mono font-bold text-p1 text-sm hover:bg-p1 hover:text-white transition">Allele A</button>
-                        <button onclick="setBuildChoice('p1', 'a')" id="build-p1-a" class="px-4 py-2 bg-white border-2 border-p1 rounded-xl font-mono font-bold text-p1 text-sm hover:bg-p1 hover:text-white transition">Allele a</button>
+                        <button onclick="setBuildChoice('p1', 'A')" id="build-p1-A" class="px-4 py-2 bg-white border-2 border-p1 rounded-xl font-mono font-bold text-p1 text-sm hover:bg-p1 hover:text-white transition">অ্যালিল A</button>
+                        <button onclick="setBuildChoice('p1', 'a')" id="build-p1-a" class="px-4 py-2 bg-white border-2 border-p1 rounded-xl font-mono font-bold text-p1 text-sm hover:bg-p1 hover:text-white transition">অ্যালিল a</button>
                     </div>
                 </div>
 
                 <!-- P2 Choice -->
                 <div class="bg-p2-light border border-p2-border p-4 rounded-xl text-center space-y-3">
-                    <span class="text-xs font-bold text-p2 uppercase">Choose Parent 2 Gamete</span>
+                    <span class="text-xs font-bold text-p2 uppercase">পিতামাতা ২-এর গ্যামেট বেছে নাও</span>
                     <div class="flex justify-center space-x-4">
-                        <button onclick="setBuildChoice('p2', 'A')" id="build-p2-A" class="px-4 py-2 bg-white border-2 border-p2 rounded-xl font-mono font-bold text-p2 text-sm hover:bg-p2 hover:text-white transition">Allele A</button>
-                        <button onclick="setBuildChoice('p2', 'a')" id="build-p2-a" class="px-4 py-2 bg-white border-2 border-p2 rounded-xl font-mono font-bold text-p2 text-sm hover:bg-p2 hover:text-white transition">Allele a</button>
+                        <button onclick="setBuildChoice('p2', 'A')" id="build-p2-A" class="px-4 py-2 bg-white border-2 border-p2 rounded-xl font-mono font-bold text-p2 text-sm hover:bg-p2 hover:text-white transition">অ্যালিল A</button>
+                        <button onclick="setBuildChoice('p2', 'a')" id="build-p2-a" class="px-4 py-2 bg-white border-2 border-p2 rounded-xl font-mono font-bold text-p2 text-sm hover:bg-p2 hover:text-white transition">অ্যালিল a</button>
                     </div>
                 </div>
             </div>
@@ -709,20 +709,20 @@
             <!-- Assembled Offspring Preview -->
             <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex items-center justify-between">
                 <div>
-                    <span class="text-[10px] font-bold text-slate-400 uppercase">Assembled Genotype</span>
+                    <span class="text-[10px] font-bold text-slate-400 uppercase">তৈরি জিনোটাইপ</span>
                     <h4 id="build-genotype-preview" class="text-xl font-mono font-bold text-slate-900">--</h4>
                 </div>
                 <div id="build-result-status" class="text-xs font-medium text-slate-500">
-                    Select gametes from both parents to complete fertilization.
+                    নিষেক সম্পূর্ণ করতে দুই পিতামাতা থেকেই গ্যামেট বেছে নাও।
                 </div>
             </div>
 
             <div class="flex justify-end space-x-3 border-t border-slate-100 pt-3">
                 <button onclick="closeModal('build-modal')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl transition">
-                    Close
+                    বন্ধ করো
                 </button>
                 <button onclick="applyBuiltOffspring()" id="apply-build-btn" disabled class="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl transition disabled:opacity-40">
-                    Apply to Main Simulation
+                    মূল সিমুলেশনে প্রয়োগ করো
                 </button>
             </div>
         </div>
@@ -735,7 +735,7 @@
                     <div class="p-2 rounded-lg bg-emerald-50 text-emerald-600 font-bold">
                         <i class="fa-solid fa-graduation-cap"></i>
                     </div>
-                    <h3 class="font-bold text-slate-900 text-base">Concept Quiz & Myth Check</h3>
+                    <h3 class="font-bold text-slate-900 text-base">ধারণা যাচাই ও ভুল ধারণা পরীক্ষা</h3>
                 </div>
                 <button onclick="closeModal('quiz-modal')" class="text-slate-400 hover:text-slate-600">
                     <i class="fa-solid fa-xmark text-lg"></i>
@@ -747,9 +747,9 @@
             </div>
 
             <div class="flex justify-between items-center border-t border-slate-100 pt-3">
-                <span id="quiz-progress" class="text-xs text-slate-400 font-mono">Question 1 of 3</span>
+                <span id="quiz-progress" class="text-xs text-slate-400 font-mono">প্রশ্ন ১ / ৩</span>
                 <button id="quiz-submit-btn" onclick="submitQuizChoice()" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition shadow-sm">
-                    Submit Answer
+                    উত্তর জমা দাও
                 </button>
             </div>
         </div>
@@ -818,9 +818,9 @@
         // Global Simulation State
         const state = {
             mode: 'MENDELIAN', // 'MENDELIAN' or 'POLYGENIC'
-            exploreMode: 'FREE', // 'FREE' or 'GUIDED'
-            p1Genotype: 'Aa',
-            p2Genotype: 'Aa',
+            exploreমোড: 'FREE', // 'FREE' or 'GUIDED'
+            p1জিনোটাইপ: 'Aa',
+            p2জিনোটাইপ: 'Aa',
             p1GameteIdx: 0, // 0 or 1
             p2GameteIdx: 0, // 0 or 1
             guidedStep: 0,
@@ -951,26 +951,26 @@
             const avatarLabel = document.getElementById('phenotype-avatar-label');
 
             if (combo === 'AA') {
-                zygosityTag.innerText = "Homozygous Dominant";
+                zygosityTag.innerText = "সমপ্রকট";
                 zygosityTag.className = "text-xs font-semibold px-2 py-0.5 rounded bg-blue-100 text-blue-700";
-                phenotypeDesc.innerText = "Exhibits Dominant Trait (Purple Flower Phenotype)";
+                phenotypeDesc.innerText = "প্রকট বৈশিষ্ট্য প্রকাশ করে (বেগুনি ফুল)";
                 avatar.innerText = "🌸";
                 avatar.className = "w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center text-3xl shadow-sm mb-2 scale-105 transition-transform";
-                avatarLabel.innerText = "Purple Flower";
+                avatarLabel.innerText = "বেগুনি ফুল";
             } else if (combo === 'Aa') {
-                zygosityTag.innerText = "Heterozygous (Carrier)";
+                zygosityTag.innerText = "বিষমযুগ্ম (Carrier)";
                 zygosityTag.className = "text-xs font-semibold px-2 py-0.5 rounded bg-indigo-100 text-indigo-700";
-                phenotypeDesc.innerText = "Exhibits Dominant Trait (Purple Flower Phenotype)";
+                phenotypeDesc.innerText = "প্রকট বৈশিষ্ট্য প্রকাশ করে (বেগুনি ফুল)";
                 avatar.innerText = "🌸";
                 avatar.className = "w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center text-3xl shadow-sm mb-2 transition-transform";
-                avatarLabel.innerText = "Purple Flower";
+                avatarLabel.innerText = "বেগুনি ফুল";
             } else {
-                zygosityTag.innerText = "Homozygous Recessive";
+                zygosityTag.innerText = "সমপ্রচ্ছন্ন";
                 zygosityTag.className = "text-xs font-semibold px-2 py-0.5 rounded bg-rose-100 text-rose-700";
-                phenotypeDesc.innerText = "Exhibits Recessive Trait (White Flower Phenotype)";
+                phenotypeDesc.innerText = "প্রচ্ছন্ন বৈশিষ্ট্য প্রকাশ করে (সাদা ফুল)";
                 avatar.innerText = "💮";
                 avatar.className = "w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center text-3xl shadow-sm mb-2 scale-105 transition-transform";
-                avatarLabel.innerText = "White Flower";
+                avatarLabel.innerText = "সাদা ফুল";
             }
         }
 
@@ -1049,7 +1049,7 @@
             const sun = parseInt(document.getElementById('env-sun').value);
 
             document.getElementById('env-nutrition-val').innerText = nutrition + '%';
-            document.getElementById('env-sun-val').innerText = sun > 75 ? "High (UV Active)" : sun > 35 ? "Medium" : "Low";
+            document.getElementById('env-sun-val').innerText = sun > 75 ? "High (UV Active)" : sun > 35 ? "মাঝারি" : "Low";
 
             // Base height formula: 140cm base + 5cm per additive dominant allele
             const totalAdditiveAlleles = gA + gB + gC + gD; // Range 0 to 8
@@ -1058,7 +1058,7 @@
             // Environmental Nutrition multiplier (80% to 110%)
             const finalHeight = Math.round(baseHeight * (nutrition / 100));
 
-            document.getElementById('poly-height-tag').innerText = `Calculated Height: ${finalHeight} cm`;
+            document.getElementById('poly-height-tag').innerText = `হিসাবকৃত উচ্চতা: ${finalHeight} cm`;
 
             // Bar Percentage Fill (Min 140cm, Max 200cm)
             const fillPct = Math.min(100, Math.max(5, ((finalHeight - 130) / 70) * 100));
@@ -1102,7 +1102,7 @@
             }
         }
 
-        // Guided Journey Sequence Definition
+        // নির্দেশিত ধাপ Sequence Definition
         const GUIDED_STEPS = [
             {
                 title: "Step 1: Parent Diploid Genotypes",
@@ -1114,7 +1114,7 @@
             },
             {
                 title: "Step 3: Offspring Genotype Analysis",
-                desc: "Observe the offspring's genotype: 1 allele came from P1 (Coral) and 1 from P2 (Blue). Heterozygous 'Aa' displays the dominant phenotype."
+                desc: "Observe the offspring's genotype: 1 allele came from P1 (Coral) and 1 from P2 (Blue). বিষমযুগ্ম 'Aa' displays the dominant phenotype."
             },
             {
                 title: "Step 4: Punnett Probability vs Sample Size",
@@ -1161,7 +1161,7 @@
             if (state.buildChoices.p1 && state.buildChoices.p2) {
                 const combo = formatCombo(state.buildChoices.p1, state.buildChoices.p2);
                 document.getElementById('build-genotype-preview').innerText = combo;
-                document.getElementById('build-result-status').innerText = "Fertilization pairing complete! Ready to apply.";
+                document.getElementById('build-result-status').innerText = "নিষেকের জোড়া সম্পূর্ণ হয়েছে। এখন প্রয়োগ করা যাবে।";
                 document.getElementById('apply-build-btn').disabled = false;
             }
         }
@@ -1177,34 +1177,34 @@
 
         const quizQuestions = [
             {
-                q: "Myth Check: Does a dominant allele 'destroy' or overwrite a recessive allele in heterozygous (Aa) offspring?",
+                q: "ভুল ধারণা যাচাই: বিষমযুগ্ম (Aa) সন্তানে প্রকট অ্যালিল কি প্রচ্ছন্ন অ্যালিলকে নষ্ট বা মুছে দেয়?",
                 opts: [
-                    "Yes, the recessive allele is physically deleted from the chromosome.",
-                    "No, both alleles remain intact on their respective chromosomes and can be passed to future generations.",
-                    "Yes, dominant alleles are always stronger and more common in populations."
+                    "হ্যাঁ, প্রচ্ছন্ন অ্যালিলটি ক্রোমোজোম থেকে শারীরিকভাবে মুছে যায়।",
+                    "না, দুই অ্যালিলই নিজ নিজ ক্রোমোজোমে অক্ষত থাকে এবং পরবর্তী প্রজন্মে যেতে পারে।",
+                    "হ্যাঁ, প্রকট অ্যালিল সবসময় বেশি শক্তিশালী এবং জনসংখ্যায় বেশি সাধারণ।"
                 ],
                 correct: 1,
-                explain: "Alleles retain their physical sequence integrity on chromosomes. Recessive alleles remain intact and can segregate into future gametes."
+                explain: "অ্যালিলগুলো ক্রোমোজোমে তাদের অনুক্রম অক্ষত রাখে। প্রচ্ছন্ন অ্যালিলও অক্ষত থাকে এবং ভবিষ্যৎ গ্যামেটে পৃথক হতে পারে।"
             },
             {
-                q: "If a Punnett Square predicts a 25% chance of white flowers (aa), what happens if a plant has 4 offspring?",
+                q: "পানেট স্কোয়ারে সাদা ফুল (aa) হওয়ার সম্ভাবনা ২৫% হলে একটি গাছে ৪টি সন্তান হলে কী হবে?",
                 opts: [
-                    "Exactly 1 child will have white flowers.",
-                    "Each birth is an independent event with a 25% probability; sample randomness applies.",
-                    "All 4 children will have purple flowers."
+                    "অবশ্যই ঠিক ১টি সন্তানে সাদা ফুল হবে।",
+                    "প্রতিটি সন্তান স্বাধীন ঘটনা; প্রতিটির সাদা হওয়ার সম্ভাবনা ২৫%, তাই ছোট নমুনায় ফল ভিন্ন হতে পারে।",
+                    "সব ৪টি সন্তানে বেগুনি ফুল হবে।"
                 ],
                 correct: 1,
-                explain: "Punnett squares predict statistical probabilities for large populations, not exact guaranteed outcomes for small single births."
+                explain: "পানেট স্কোয়ার বড় সংখ্যার ক্ষেত্রে পরিসংখ্যানগত সম্ভাবনা দেখায়; অল্প সন্তানের ক্ষেত্রে নির্দিষ্ট ফল নিশ্চিত করে না।"
             },
             {
-                q: "Why do complex human traits like height or skin color not fit simple 1-gene Mendelian ratios?",
+                q: "মানুষের উচ্চতা বা ত্বকের বর্ণের মতো জটিল বৈশিষ্ট্য কেন সরল এক-জিন মেন্ডেলীয় অনুপাত মানে না?",
                 opts: [
-                    "They are influenced by multiple gene loci (polygenic) plus environmental factors like nutrition.",
-                    "Human DNA does not follow genetics rules.",
-                    "Height is completely random and has no genetic basis."
+                    "এগুলো একাধিক জিন লোকাস (বহুজিনীয়) এবং পুষ্টির মতো পরিবেশগত উপাদানে প্রভাবিত হয়।",
+                    "মানুষের DNA বংশগতির নিয়ম মানে না।",
+                    "উচ্চতা সম্পূর্ণ এলোমেলো এবং এর কোনো জিনগত ভিত্তি নেই।"
                 ],
                 correct: 0,
-                explain: "Polygenic traits combine additive effects across multiple gene loci along with continuous environmental variables."
+                explain: "বহুজিনীয় বৈশিষ্ট্যে একাধিক জিন লোকাসের যৌথ প্রভাবের সঙ্গে পরিবেশগত উপাদানও কাজ করে।"
             }
         ];
 
@@ -1228,7 +1228,7 @@
                     </div>
                 </div>
             `;
-            document.getElementById('quiz-progress').innerText = `Question ${currentQuizIdx + 1} of ${quizQuestions.length}`;
+            document.getElementById('quiz-progress').innerText = `প্রশ্ন ${currentQuizIdx + 1} / ${quizQuestions.length}`;
             selectedQuizOpt = null;
         }
 
@@ -1237,16 +1237,16 @@
             const q = quizQuestions[currentQuizIdx];
             if (selectedQuizOpt === q.correct) {
                 playSound('correct');
-                alert("Correct! " + q.explain);
+                alert("সঠিক! " + q.explain);
             } else {
-                alert("Incorrect. " + q.explain);
+                alert("ভুল। " + q.explain);
             }
 
             currentQuizIdx++;
             if (currentQuizIdx < quizQuestions.length) {
                 renderQuizQuestion();
             } else {
-                alert("Quiz Completed! You have mastered Chapter 2 Heredity Concepts!");
+                alert("কুইজ সম্পন্ন। অধ্যায় ২-এর বংশগতির ধারণাগুলো তুমি আয়ত্ত করেছ।");
                 closeModal('quiz-modal');
                 currentQuizIdx = 0;
             }
