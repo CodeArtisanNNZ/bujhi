@@ -81,7 +81,7 @@ function ProvidedResourceLab({kind,focus}:{kind:ResourceKind;focus:string}){
         <h3>{kind==="mitosis"?"Mitosis":"Meiosis"} · watch, control, compare</h3>
         <p>{focus}</p>
       </div>
-      <a href={current.url} target="_blank" rel="noreferrer">Open full screen ↗</a>
+      <a href={current.url} target="_blank" rel="noreferrer">বড় করে দেখো ↗</a>
     </div>
     <div className={styles.resourceTabs}>
       {resources.map(r=><button key={r.id} className={r.id===active?styles.resourceTabOn:""} onClick={()=>setActive(r.id)}>{r.label}</button>)}
@@ -234,18 +234,18 @@ function getDoc(lesson:number){
 export default function LibraryLabs({lesson}:{lesson:number}){
   if(lesson>=1&&lesson<=4){
     const focus=lesson===1
-      ?"Start by comparing the real mitosis resources you supplied. Use the tabs to switch between the two interactive simulations, the animation video, and the stage reference."
+      ?"তোমার দেওয়া মাইটোসিস উপকরণগুলো পাশাপাশি তুলনা করে শুরু করো। ট্যাব ব্যবহার করে দুইটি ইন্টারেক্টিভ সিমুলেশন, অ্যানিমেশন ভিডিও ও ধাপের রেফারেন্স দেখো।"
       :lesson===2
-      ?"Focus on Interphase and Prophase first, then scrub through the supplied simulation to see how chromosomes become visible."
+      ?"প্রথমে ইন্টারফেজ ও প্রোফেজে মনোযোগ দাও। তারপর সিমুলেশনের ধাপ এগিয়ে দেখে বোঝো কীভাবে ক্রোমোজোম দৃশ্যমান হয়।"
       :lesson===3
-      ?"Focus on Pro-metaphase → Metaphase → Anaphase. Pause the supplied animation and compare each stage with the reference order."
-      :"Use the final mitosis stages to connect Telophase/Cytokinesis with the formation of daughter cells and growth.";
+      ?"প্রো-মেটাফেজ → মেটাফেজ → অ্যানাফেজ অনুসরণ করো। অ্যানিমেশন থামিয়ে প্রতিটি ধাপের ক্রম রেফারেন্সের সঙ্গে মিলিয়ে দেখো।"
+      :"মাইটোসিসের শেষ ধাপগুলো দেখে টেলোফেজ/সাইটোকাইনেসিসের সঙ্গে অপত্য কোষ তৈরি ও বৃদ্ধির সম্পর্ক বোঝো।";
     return <ProvidedResourceLab kind="mitosis" focus={focus}/>;
   }
   if(lesson===5||lesson===6){
     const focus=lesson===5
-      ?"Use the Bujhi meiosis tracker and video to follow Meiosis I: homologous pairing, alignment, separation, and the 2n → n change."
-      :"Continue through Meiosis II and track how two haploid cells become four haploid cells.";
+      ?"বুঝির মিয়োসিস ট্র্যাকার ও ভিডিওতে মিয়োসিস-I অনুসরণ করো: সমসংস্থ ক্রোমোজোমের জোড়া বাঁধা, সারিবদ্ধ হওয়া, পৃথক হওয়া এবং 2n → n পরিবর্তন।"
+      :"মিয়োসিস-II অনুসরণ করে দেখো কীভাবে দুইটি হ্যাপ্লয়েড কোষ থেকে চারটি হ্যাপ্লয়েড কোষ তৈরি হয়।";
     return <ProvidedResourceLab kind="meiosis" focus={focus}/>;
   }
   if(lesson===7)return <div className={styles.frameShell}>
@@ -258,7 +258,7 @@ export default function LibraryLabs({lesson}:{lesson:number}){
       allowFullScreen
     />
     <div className={styles.sourceNote}>
-      BUJHI · Chapter 2 · Lesson 7 · Cell → Nucleus → Chromosome → DNA → Gene · <a href="/simulations/class-8/hereditary-hierarchy.html" target="_blank" rel="noreferrer">Open full screen ↗</a>
+      বুঝি · অধ্যায় ২ · পাঠ ৭ · কোষ → নিউক্লিয়াস → ক্রোমোজোম → DNA → জিন · <a href="/simulations/class-8/hereditary-hierarchy.html" target="_blank" rel="noreferrer">বড় করে দেখো ↗</a>
     </div>
   </div>;
 
@@ -272,7 +272,7 @@ export default function LibraryLabs({lesson}:{lesson:number}){
       allowFullScreen
     />
     <div className={styles.sourceNote}>
-      BUJHI · Chapter 2 · Lesson 9 · Parent → Gamete → Fertilization → Offspring → Trait · <a href="/simulations/class-8/heredity-gene-transfer.html" target="_blank" rel="noreferrer">Open full screen ↗</a>
+      বুঝি · অধ্যায় ২ · পাঠ ৯ · পিতামাতা → গ্যামেট → নিষেক → সন্তান → বৈশিষ্ট্য · <a href="/simulations/class-8/heredity-gene-transfer.html" target="_blank" rel="noreferrer">বড় করে দেখো ↗</a>
     </div>
   </div>;
 
@@ -284,6 +284,6 @@ export default function LibraryLabs({lesson}:{lesson:number}){
       sandbox="allow-scripts"
       srcDoc={getDoc(lesson)}
     />
-    <div className={styles.sourceNote}>Lesson 8 uses the DNA learning viewer; Lessons 7 and 9 use the supplied Bujhi simulations.</div>
+    <div className={styles.sourceNote}>পাঠ ৮-এ DNA শেখার ভিউয়ার ব্যবহার করা হয়েছে; পাঠ ৭ ও ৯-এ বুঝির দেওয়া সিমুলেশন ব্যবহার করা হয়েছে।</div>
   </div>;
 }
