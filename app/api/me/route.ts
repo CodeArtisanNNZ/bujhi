@@ -13,5 +13,17 @@ export async function GET(){
  const user=await userRes.json();
  const profileRes=await fetch(`${url}/rest/v1/profiles?id=eq.${user.id}&select=*`,{headers:{apikey:key,Authorization:`Bearer ${token}`},cache:"no-store"});
  const profiles=profileRes.ok?await profileRes.json():[];
- return NextResponse.json({user:{id:user.id,email:user.email},profile:profiles?.[0]||null});
+ const storedProfile=profiles?.[0]||null;
+ const metadata=user.user_metadata||{};
+ const fallbackProfile={
+  full_name:String(metadata.full_name||""),
+  role:metadata.role==="teacher"?"teacher":"student",
+  class_level:metadata.class_level??null,
+  subject:metadata.subject??null
+ };
+ return NextResponse.json({
+  user:{id:user.id,email:user.email},
+  profile:storedProfile||fallbackProfile,
+  profileSource:storedProfile?"profiles":"auth_metadata"
+ });
 }
