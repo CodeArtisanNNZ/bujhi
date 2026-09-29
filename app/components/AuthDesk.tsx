@@ -78,7 +78,7 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
    }
 
    if(kind==="signup"&&data.needsConfirmation){
-    setError("Account created, but email confirmation is still enabled in Supabase. Disable Confirm email to let new users enter immediately.");
+    setError("Account created. Check your email and confirm the account first, then come back and log in.");
     return;
    }
 
@@ -89,7 +89,11 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
     return;
    }
 
-   const actualRole=me.profile?.role==="teacher"?"teacher":"student";
+   const actualRole=me.profile?.role==="teacher"
+    ?"teacher"
+    :me.profile?.role==="student"
+      ?"student"
+      :role;
    window.location.assign(actualRole==="teacher"?"/teacher-dashboard":"/dashboard");
   }catch{
    setError("Could not reach Bujhi's account service. Please try again.");
