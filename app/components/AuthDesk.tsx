@@ -73,7 +73,14 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
    const data=await response.json().catch(()=>({})) as {error?:string;needsConfirmation?:boolean};
 
    if(!response.ok){
-    setError(data.error||"Could not sign in. Please check your details and try again.");
+    const message=data.error||"Could not sign in. Please check your details and try again.";
+    if(kind==="login"&&/invalid login credentials|email or password is incorrect/i.test(message)){
+      setError(role==="teacher"
+        ?"No teacher account matches this email and password. If this is a new teacher, create a teacher account first."
+        :"No account matches this email and password. Check the details or create an account first.");
+    }else{
+      setError(message);
+    }
     return;
    }
 
@@ -163,7 +170,7 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
      <button type="submit" className="submit-auth" disabled={loading}>{loading?"Opening your desk…":kind==="login"?"Log in":"Create account"}</button>
     </form>
 
-    <p className="auth-swap">{kind==="login"?"New to Bujhi? ":"Already have an account? "}<Link href={kind==="login"?`/register?role=${role}`:`/login?role=${role}`}>{kind==="login"?"Choose your place":"Log in"}</Link></p>
+    <p className="auth-swap">{kind==="login"?"New to Bujhi? ":"Already have an account? "}<Link href={kind==="login"?`/signup?role=${role}`:`/login?role=${role}`}>{kind==="login"?(role==="teacher"?"Create teacher account":"Create student account"):"Log in"}</Link></p>
    </article>
   </section>
  </main>
