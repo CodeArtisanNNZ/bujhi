@@ -170,7 +170,7 @@ const europePeople:Person[]=[
     action:"সুতানুটি-কলকাতা অঞ্চলে ইংরেজ কোম্পানির স্থায়ী বাণিজ্যিক অবস্থান শক্ত করার সঙ্গে তাঁর নাম যুক্ত।",
     significance:"কলকাতা পরবর্তীতে ইংরেজদের একটি বড় বাণিজ্যিক ও রাজনৈতিক কেন্দ্রে পরিণত হয়।",
     period:"১৬৯০",
-    imageFile:"Job Charnock.jpg",license:"CC BY-SA 4.0",credit:"Chingaaribera",
+    imageFile:"Job Charnock.jpg",license:"CC BY-SA 4.0",
     imageNote:"Wikimedia Commons-এ মুক্ত লাইসেন্সে প্রকাশিত আধুনিক পুনর্নির্মিত চিত্র।"
   }
 ];
@@ -215,7 +215,7 @@ function Portrait({person,large=false}:{person:Person;large?:boolean}){
   if(!person.imageFile)return <div className={large?styles.portraitFallbackLarge:styles.portraitFallback}><span>{person.name.slice(0,1)}</span><small>মুক্ত ও নির্ভরযোগ্য প্রতিকৃতি পাওয়া যায়নি</small></div>;
   return <figure className={large?styles.portraitLarge:styles.portrait}>
     <img src={commons(person.imageFile)} alt={`${person.name}-এর ঐতিহাসিক/প্রতিনিধিত্বমূলক চিত্র`} loading="lazy"/>
-    <figcaption><span>{person.license}{person.credit?` · ${person.credit}`:""}</span><a href={commonsPage(person.imageFile)} target="_blank" rel="noopener noreferrer">Wikimedia Commons <ExternalLink/></a></figcaption>
+    <figcaption><span>{person.license}</span><a href={commonsPage(person.imageFile)} target="_blank" rel="noopener noreferrer">Wikimedia Commons <ExternalLink/></a></figcaption>
   </figure>;
 }
 
