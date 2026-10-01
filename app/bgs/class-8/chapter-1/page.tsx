@@ -10,7 +10,7 @@ import {
 import styles from "./chapter.module.css";
 
 type Role="teacher"|"student";
-type SectionId="concept"|"background"|"europe"|"palashi"|"recap";
+type SectionId="concept"|"background"|"europe"|"palashi"|"exploitation"|"crown"|"recap";
 
 const commons=(file:string)=>`https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file)}`;
 const commonsPage=(file:string)=>`https://commons.wikimedia.org/wiki/File:${encodeURIComponent(file.replaceAll(" ","_"))}`;
@@ -211,6 +211,98 @@ const palashiBlocks=[
   {title:"আসল পরিবর্তন",tag:"Turning point",text:"কোম্পানি আর শুধু বণিক থাকল না—বাংলার রাজনীতিতে প্রধান নিয়ামক শক্তি হয়ে ওঠার পথ খুলে গেল।",visual:"💼  →  🏛"}
 ];
 
+
+const dualTimeline=[
+  {year:"১৭৬৫",title:"দেওয়ানি ও দ্বৈত শাসন",text:"কোম্পানি বাংলা-বিহার-উড়িষ্যার রাজস্ব আদায়ের ক্ষমতা পায়। নবাবের হাতে শাসন ও বিচার বিভাগের দায়িত্ব থাকে।",impact:"ক্ষমতা ও দায়িত্ব আলাদা হয়ে যায়।"},
+  {year:"১৭৭০",title:"ছিয়াত্তরের মন্বন্তর",text:"অনাবৃষ্টি ও খরায় ফসলের ব্যাপক ক্ষতি হয়। দুর্ভিক্ষের মধ্যেও কোম্পানি রাজস্বের চাপ কমায়নি।",impact:"খাদ্যসংকটের সঙ্গে কঠোর রাজস্বচাপ মানুষের দুর্দশা আরও তীব্র করে।"},
+  {year:"১৭৭২",title:"দ্বৈত শাসনের অবসান",text:"ওয়ারেন হেস্টিংস দ্বৈত শাসনের অবসান ঘটিয়ে কোম্পানির হাতে দেওয়ানি প্রশাসন আরও সরাসরি নেয়।",impact:"দায়িত্বহীন ক্ষমতার পর্ব শেষ হলেও ঔপনিবেশিক নিয়ন্ত্রণ আরও প্রত্যক্ষ হয়।"},
+  {year:"১৭৭৩",title:"নতুন ঔপনিবেশিক প্রশাসন",text:"Regulating Act-এর পর গভর্নরদের পদবি গভর্নর জেনারেলে রূপ নেয় এবং কোম্পানি শাসনের ওপর ব্রিটিশ পার্লামেন্টের নিয়ন্ত্রণ বাড়ে।",impact:"বাংলার শাসন ক্রমে একটি আরও কেন্দ্রীভূত ঔপনিবেশিক কাঠামোয় বাঁধা পড়ে।"}
+];
+
+const governorGenerals:Person[]=[
+  {
+    name:"ওয়ারেন হেস্টিংস",
+    identity:"ইস্ট ইন্ডিয়া কোম্পানির শাসক",
+    action:"১৭৭২ সালে দ্বৈত শাসনের অবসান ঘটিয়ে রাজস্ব ও প্রশাসনে কোম্পানির প্রত্যক্ষ নিয়ন্ত্রণ বাড়ান।",
+    significance:"কোম্পানি শাসনকে আরও সংগঠিত ও কেন্দ্রীভূত করার গুরুত্বপূর্ণ ব্যক্তি।",
+    period:"১৭৭২–১৭৮৫",
+    imageFile:"Warren Hastings.jpg",license:"Public domain"
+  },
+  {
+    name:"লর্ড কর্নওয়ালিস",
+    identity:"গভর্নর জেনারেল",
+    action:"১৭৯৩ সালে চিরস্থায়ী বন্দোবস্ত চালু করেন।",
+    significance:"রাজস্ব আদায়ের স্বার্থে জমিদার শ্রেণিকে শক্তিশালী করা হয়; কৃষকের নিরাপত্তা ও দরকষাকষির অবস্থান দুর্বল থাকে।",
+    period:"১৭৮৬–১৭৯৩",
+    imageFile:"Lord Cornwallis.jpg",license:"Public domain"
+  },
+  {
+    name:"লর্ড ওয়েলেসলি",
+    identity:"গভর্নর জেনারেল",
+    action:"ব্রিটিশ সাম্রাজ্য বিস্তারের নীতিকে জোরদার করেন।",
+    significance:"সামরিক ও কূটনৈতিক উপায়ে কোম্পানির ভূখণ্ডগত আধিপত্য আরও বাড়ে।",
+    period:"১৭৯৮–১৮০৫",
+    imageFile:"Richard Wellesley.jpeg",license:"Public domain"
+  },
+  {
+    name:"লর্ড উইলিয়াম বেন্টিঙ্ক",
+    identity:"গভর্নর জেনারেল",
+    action:"প্রশাসন ও শিক্ষায় পরিবর্তন আনেন; সামাজিক সংস্কারের কিছু উদ্যোগে স্থানীয় সংস্কারকদের সহযোগিতা দেন।",
+    significance:"কিছু সংস্কারমূলক পদক্ষেপ থাকলেও এগুলো ঔপনিবেশিক শাসনের বৃহত্তর ক্ষমতা কাঠামোর ভেতরেই ঘটেছিল।",
+    period:"১৮২৮–১৮৩৫",
+    imageFile:"William Bentinck, 1st Graf Bentinck.jpg",license:"Public domain"
+  },
+  {
+    name:"লর্ড হার্ডিঞ্জ",
+    identity:"গভর্নর জেনারেল",
+    action:"শিক্ষা ও প্রশাসনিক পরিবর্তনের ধারায় কাজ করেন।",
+    significance:"ঔপনিবেশিক প্রশাসনকে আরও বিস্তৃত ও কার্যকর করার সময়ের একজন গুরুত্বপূর্ণ শাসক।",
+    period:"১৮৪৪–১৮৪৮",
+    imageFile:"Henryhardinge.jpg",license:"Public domain"
+  },
+  {
+    name:"লর্ড ডালহৌসি",
+    identity:"গভর্নর জেনারেল",
+    action:"রেল, ডাক ও তার যোগাযোগ বিস্তারের পাশাপাশি ব্রিটিশ ভূখণ্ডগত নিয়ন্ত্রণ বাড়ান।",
+    significance:"যোগাযোগব্যবস্থা প্রশাসন, বাণিজ্য ও সৈন্য চলাচল সহজ করে ঔপনিবেশিক রাষ্ট্রের ক্ষমতা সুসংহত করে।",
+    period:"১৮৪৮–১৮৫৬",
+    imageFile:"Dalhousie.jpg",license:"Public domain"
+  }
+];
+
+const crownPeople:Person[]=[
+  {
+    name:"লর্ড ক্যানিং",
+    identity:"প্রথম ভাইসরয়",
+    action:"১৮৫৮ সালের ভারত শাসন আইনের পর ব্রিটিশ Crown-এর প্রতিনিধি হিসেবে শাসন পরিচালনা করেন।",
+    significance:"কোম্পানি শাসনের অবসান হলেও ভারতের শাসন ভারতীয় জনগণের হাতে ফেরেনি; তা সরাসরি ব্রিটিশ সরকারের অধীনে যায়।",
+    period:"১৮৫৮–১৮৬২",
+    imageFile:"Lord Viscount Canning.jpg",license:"Public domain"
+  }
+];
+
+const colonialControlPoints=[
+  {n:"১",title:"ভূমি ও রাজস্ব",text:"রাজস্বব্যবস্থা ঔপনিবেশিক প্রশাসনের নিয়ন্ত্রণে কেন্দ্রীভূত হয়।",harm:"কৃষক ও প্রজাদের ওপর রাজস্বচাপ শাসনের প্রধান অর্থনৈতিক ভিত্তি হয়ে ওঠে।",visual:"🌾 → ৳ → 🏛"},
+  {n:"২",title:"চিরস্থায়ী বন্দোবস্ত · ১৭৯৩",text:"ব্রিটিশদের অনুগত ও রাজস্ব-দায়ী জমিদার শ্রেণিকে শক্তিশালী করা হয়।",harm:"চাষির শ্রম ও জমির ওপর নির্ভর করেও রাজস্বব্যবস্থায় কৃষক ছিল দুর্বল পক্ষ।",visual:"কৃষক → জমিদার → ঔপনিবেশিক রাজস্ব"},
+  {n:"৩",title:"রাষ্ট্র ও প্রশাসনে কর্তৃত্ব",text:"আইন, বিচার, রাজস্ব ও প্রশাসনিক দপ্তরে ইংরেজ নিয়ন্ত্রণ সুসংহত করা হয়।",harm:"নিজেদের দেশের রাজনৈতিক সিদ্ধান্তে স্থানীয় মানুষের কর্তৃত্ব সীমিত থাকে।",visual:"⚖ + ৳ + 🏛 = CONTROL"},
+  {n:"৪",title:"মুর্শিদাবাদ → কলকাতা",text:"প্রশাসনিক দপ্তর, শিক্ষা ও বাণিজ্যিক প্রতিষ্ঠান কলকাতাকেন্দ্রিক করা হয়।",harm:"ক্ষমতার কেন্দ্র এমন শহরে সরতে থাকে যেখানে ঔপনিবেশিক প্রশাসনের নিয়ন্ত্রণ সবচেয়ে শক্তিশালী ছিল।",visual:"মুর্শিদাবাদ → কলকাতা"}
+];
+
+const crownTimeline=[
+  {year:"১৮৫৭",title:"সিপাহি বিদ্রোহ",text:"বিভিন্ন ব্যারাকে বিদ্রোহ ছড়িয়ে পড়ে; ব্রিটিশ বাহিনী কঠোরভাবে তা দমন করে।"},
+  {year:"১৮৫৮",title:"কোম্পানি থেকে Crown",text:"ভারত শাসন আইনে East India Company-এর প্রশাসনিক শাসনের অবসান হয়; সরাসরি ব্রিটিশ সরকারি শাসন শুরু হয়।"},
+  {year:"১৮৬১–৬২",title:"আইনপরিষদ",text:"বঙ্গীয় আইনপরিষদের কাঠামো গড়ে ওঠে, কিন্তু শুরুতে সদস্যরা নির্বাচিত ছিলেন না এবং চূড়ান্ত কর্তৃত্ব ব্রিটিশ শাসকদের কাছেই থাকে।"},
+  {year:"১৯৪৭",title:"ঔপনিবেশিক শাসনের অবসান",text:"ব্রিটিশ শাসনের অবসানের সঙ্গে ভারত ও পাকিস্তান নামে দুটি রাষ্ট্র প্রতিষ্ঠিত হয়।"}
+];
+
+const crownHarms=[
+  {title:"কৃষক সংখ্যাগরিষ্ঠ, জমিদার অল্প কিন্তু শক্তিশালী",text:"সমাজে বিপুল কৃষক জনগোষ্ঠীর বিপরীতে সুবিধাপ্রাপ্ত জমিদার শ্রেণি ছিল তুলনামূলকভাবে ছোট কিন্তু ক্ষমতাশালী।",visual:"🌾🌾🌾🌾  ↔  🏠"},
+  {title:"কৃষি ও তাঁতশিল্পের দুর্বলতা",text:"পাঠ্যবই বাংলার কৃষি ও এককালের সমৃদ্ধ তাঁতশিল্পকে ঔপনিবেশিক অর্থনীতির চাপে গভীরভাবে দুর্বল হয়ে পড়ার কথা তুলে ধরে।",visual:"🧵 ↓   🌾 চাপের মধ্যে"},
+  {title:"স্থানীয় শিল্প ও বণিকগোষ্ঠীর সীমাবদ্ধতা",text:"স্থানীয় কুটির ও ক্ষুদ্র শিল্প এবং সংগঠিত বণিকশক্তি ঔপনিবেশিক অর্থনৈতিক কাঠামোয় শক্তিশালী ভিত্তি গড়ে তুলতে পারেনি।",visual:"🏪 ↓   🏭 বাইরে"},
+  {title:"নারী ও মধ্যবিত্তের সীমিত অগ্রগতি",text:"সামাজিক বাধা ও সীমিত সুযোগের কারণে নারীসমাজ পিছিয়ে ছিল এবং মধ্যবিত্ত সমাজও দীর্ঘ সময় দুর্বল ছিল।",visual:"সুযোগ কম → অংশগ্রহণ কম"},
+  {title:"ধনী সাম্রাজ্য, দরিদ্র উপনিবেশ",text:"ব্রিটেন শিল্প ও সাম্রাজ্যিক সম্পদে দ্রুত সমৃদ্ধ হচ্ছিল, অথচ ভারত ছিল তার উপনিবেশ এবং সম্পদ আহরণের ক্ষেত্র।",visual:"উপনিবেশের সম্পদ → সাম্রাজ্য"}
+];
+
 function Portrait({person,large=false}:{person:Person;large?:boolean}){
   if(!person.imageFile)return <div className={large?styles.portraitFallbackLarge:styles.portraitFallback}><span>{person.name.slice(0,1)}</span><small>মুক্ত ও নির্ভরযোগ্য প্রতিকৃতি পাওয়া যায়নি</small></div>;
   return <figure className={large?styles.portraitLarge:styles.portrait}>
@@ -259,6 +351,8 @@ export default function BgsChapterOne(){
     {id:"background" as SectionId,label:"২. অশোক থেকে সিরাজ",icon:<Crown/>},
     {id:"europe" as SectionId,label:"৩. ইউরোপীয় আগমন",icon:<Ship/>},
     {id:"palashi" as SectionId,label:"৪. পলাশী",icon:<Swords/>},
+    {id:"exploitation" as SectionId,label:"পাঠ ৪ · দ্বৈত শাসন",icon:<CircleDollarSign/>},
+    {id:"crown" as SectionId,label:"পাঠ ৫ · ১৮৫৮–১৯৪৭",icon:<Landmark/>},
     {id:"recap" as SectionId,label:"মনে রাখি",icon:<CheckCircle2/>}
   ];
 
@@ -274,14 +368,14 @@ export default function BgsChapterOne(){
         <div>
           <p>অষ্টম শ্রেণি · বাংলাদেশ ও বিশ্বপরিচয় · অধ্যায় ১</p>
           <h1>উপনিবেশিক যুগ ও বাংলার স্বাধীনতা সংগ্রাম</h1>
-          <span>এই build-এ এখন পর্যন্ত আলোচিত প্রথম ৪টি অংশ · বুঝে শেখো, নাম মুখস্থ করার আগে গল্পটা ধরো</span>
+          <span>এখন পর্যন্ত আলোচিত পাঠগুলো এক ধারাবাহিক গল্পে · উপনিবেশের ধারণা থেকে দ্বৈত শাসন ও ১৮৫৮–১৯৪৭-এর ব্রিটিশ সরকারি শাসন পর্যন্ত</span>
         </div>
         <div className={styles.heroStamp}><small>CHAPTER</small><b>০১</b></div>
       </section>
 
       {role==="teacher"&&<aside className={styles.teacherGuide}>
         <div><BookOpen/><strong>শিক্ষকের পাঠ পরিকল্পনা · ৪৫–৫০ মিনিট</strong></div>
-        <p><b>৮ মিনিট</b> উপনিবেশের ধারণা → <b>১২ মিনিট</b> অশোক থেকে সিরাজ timeline → <b>১০ মিনিট</b> ইউরোপীয় বাণিজ্য বিস্তার → <b>১৫–২০ মিনিট</b> পলাশীর কারণ, ৩ bucket ও ৮-block story। প্রতিটি অংশে আগে প্রশ্ন করুন, পরে উত্তর দেখান।</p>
+        <p><b>প্রথম সেশন:</b> উপনিবেশের ধারণা → অশোক থেকে সিরাজ → ইউরোপীয় বাণিজ্য → পলাশী। <b>দ্বিতীয় সেশন:</b> ১৭৬৫–১৭৭৩ দ্বৈত শাসন → দুর্ভিক্ষ ও রাজস্বচাপ → গভর্নর জেনারেল → ১৮৫৮–১৯৪৭ Crown rule ও তার সামাজিক-অর্থনৈতিক প্রভাব। প্রতিটি অংশে আগে শিক্ষার্থীর অনুমান নিন, পরে evidence reveal করুন।</p>
       </aside>}
 
       <nav className={styles.lessonNav} aria-label="Chapter 1 learning path">
@@ -438,18 +532,145 @@ export default function BgsChapterOne(){
         <div className={styles.coreQuestion}><small>সবচেয়ে গুরুত্বপূর্ণ takeaway</small><h3>বণিক → রাজনৈতিক শক্তি</h3><p>পলাশী ছিল একদিনে সম্পূর্ণ উপনিবেশ গড়ে ওঠা নয়; কিন্তু বাংলায় কোম্পানির রাজনৈতিক আধিপত্য বিস্তারের একটি বড় turning point।</p></div>
       </section>}
 
+      {section==="exploitation"&&<section className={styles.panel}>
+        <div className={styles.sectionTitle}><span>পাঠ ৪ · ঔপনিবেশিক শাসন ও শোষণ</span><h2>দ্বৈত শাসন: ক্ষমতা একদিকে, দায়িত্ব আরেকদিকে</h2><p>১৭৬৫–১৭৭৩ সময়টাকে ৪টি তারিখে বুঝি—সংজ্ঞা মুখস্থ নয়, মানুষের অভিজ্ঞতা দিয়ে।</p></div>
+
+        <div className={styles.dualHook}>
+          <article><small>নবাব</small><Crown/><h3>দায়িত্ব আছে</h3><p>শাসন ও বিচার বিভাগের দায়িত্ব</p><strong>কিন্তু প্রয়োজনীয় অর্থনৈতিক ক্ষমতা সীমিত</strong></article>
+          <div className={styles.dualEquals}><span>≠</span><b>দ্বৈত শাসন</b><small>ক্ষমতা ও দায়িত্ব বিচ্ছিন্ন</small></div>
+          <article><small>East India Company</small><CircleDollarSign/><h3>ক্ষমতা আছে</h3><p>রাজস্ব আদায় ও প্রতিরক্ষার ক্ষমতা</p><strong>কিন্তু মানুষের দৈনন্দিন শাসনের দায় সরাসরি নেয় না</strong></article>
+        </div>
+
+        <div className={styles.dualFormula}>
+          <strong>সবচেয়ে সহজ ভাষায়</strong>
+          <span>নবাব = ক্ষমতাহীন দায়িত্ব</span>
+          <b>+</b>
+          <span>কোম্পানি = দায়িত্বহীন ক্ষমতা</span>
+        </div>
+
+        <div className={styles.timeline1765}>
+          {dualTimeline.map((item,i)=><button key={item.year} className={selectedDual===i?styles.timeline1765Active:""} onClick={()=>setSelectedDual(i)}><b>{item.year}</b><span>{item.title}</span></button>)}
+        </div>
+        <article className={styles.timeline1765Focus}>
+          <small>{dualTimeline[selectedDual].year}</small>
+          <h3>{dualTimeline[selectedDual].title}</h3>
+          <p>{dualTimeline[selectedDual].text}</p>
+          <div><strong>মানুষের জীবনে এর অর্থ</strong><span>{dualTimeline[selectedDual].impact}</span></div>
+        </article>
+
+        <div className={styles.curseMachine}>
+          <div className={styles.sectionMini}><small>HOW THE PRESSURE BUILDS</small><h3>কীভাবে এই ব্যবস্থা মানুষের জন্য অভিশাপে পরিণত হলো?</h3></div>
+          <div className={styles.pressureFlow}>
+            {[
+              ["কোম্পানির বেশি রাজস্বের চাহিদা","৳ ↑"],
+              ["কৃষক ও প্রজার ওপর অতিরিক্ত কর","চাপ ↑"],
+              ["অনাবৃষ্টি ও খরা","ফসল ↓"],
+              ["কর কমানো হলো না","দাবি ↔"],
+              ["খাদ্য ও অর্থের সংকট","সংকট ↑"],
+              ["১৭৭০ · ছিয়াত্তরের মন্বন্তর","মানবিক বিপর্যয়"]
+            ].map(([title,visual],i)=><div key={title}><span>{i+1}</span><strong>{title}</strong><b>{visual}</b>{i<5&&<ChevronRight/>}</div>)}
+          </div>
+          <p className={styles.accuracyNote}><b>গুরুত্বপূর্ণ:</b> দুর্ভিক্ষকে একটিমাত্র কারণ দিয়ে বোঝানো হবে না। অনাবৃষ্টি ও খরায় ফসলহানি হয়েছিল; কঠোর রাজস্বচাপ এবং কর না কমানো মানুষের দুর্দশা আরও বাড়ায়।</p>
+        </div>
+
+        <div className={styles.famineView}>
+          <article><span>🌧️✕</span><strong>পর পর অনাবৃষ্টি</strong><p>পানির অভাব ও খরা</p></article>
+          <ChevronRight/>
+          <article><span>🌾↓</span><strong>ফসলের ক্ষতি</strong><p>খাদ্যের প্রাপ্যতা কমে</p></article>
+          <ChevronRight/>
+          <article><span>৳</span><strong>রাজস্বচাপ বহাল</strong><p>সংকটের সময়ও করের বোঝা কমেনি</p></article>
+          <ChevronRight/>
+          <article><span>১৭৭০</span><strong>ছিয়াত্তরের মন্বন্তর</strong><p>পাঠ্যবই অনুযায়ী বাংলার প্রায় এক-তৃতীয়াংশ মানুষের মৃত্যু ঘটে</p></article>
+        </div>
+
+        <div className={styles.responsibilityTest}>
+          <div><small>INTERACTIVE IDEA</small><h3>“সমস্যা হলে কার কাছে যাবে?”</h3><p>দ্বৈত শাসনের দুর্বলতা ধরতে দুই দিক দেখো।</p></div>
+          <article><Crown/><strong>নবাবের কাছে গেলে</strong><p>প্রশাসনিক দায় আছে, কিন্তু রাজস্ব ও বাস্তব ক্ষমতার বড় অংশ কোম্পানির হাতে।</p></article>
+          <article><CircleDollarSign/><strong>কোম্পানির কাছে গেলে</strong><p>অর্থ ও প্রতিরক্ষার ক্ষমতা আছে, কিন্তু সাধারণ মানুষের দৈনন্দিন প্রশাসনের দায় থেকে দূরে থাকে।</p></article>
+        </div>
+
+        <div className={styles.governorSection}>
+          <div className={styles.sectionMini}><small>নাম + মুখ + একটি মূল কাজ</small><h3>উল্লেখযোগ্য গভর্নর জেনারেল</h3><p>দীর্ঘ জীবনী নয়—প্রত্যেকের সঙ্গে একটি প্রধান ধারণা যুক্ত করো।</p></div>
+          <div className={styles.governorTabs}>
+            {governorGenerals.map((person,i)=><button key={person.name} className={selectedGovernor===i?styles.governorActive:""} onClick={()=>setSelectedGovernor(i)}><Portrait person={person}/><span><small>{person.period}</small><strong>{person.name}</strong></span></button>)}
+          </div>
+          <div className={styles.governorFocus}>
+            <Portrait person={governorGenerals[selectedGovernor]} large/>
+            <div><small>{governorGenerals[selectedGovernor].period}</small><h3>{governorGenerals[selectedGovernor].name}</h3><p>{governorGenerals[selectedGovernor].action}</p><strong>{governorGenerals[selectedGovernor].significance}</strong></div>
+          </div>
+        </div>
+
+        <div className={styles.controlPoints}>
+          <div className={styles.sectionMini}><small>৪টি মূল পয়েন্ট</small><h3>কীভাবে ঔপনিবেশিক নিয়ন্ত্রণ স্থায়ী কাঠামো পেল?</h3></div>
+          <div>{colonialControlPoints.map(item=><article key={item.n}><b>{item.n}</b><small>{item.visual}</small><h3>{item.title}</h3><p>{item.text}</p><strong>ক্ষতির দিক: {item.harm}</strong></article>)}</div>
+        </div>
+      </section>}
+
+      {section==="crown"&&<section className={styles.panel}>
+        <div className={styles.sectionTitle}><span>পাঠ ৫ · বাংলায় ব্রিটিশ শাসন · ১৮৫৮–১৯৪৭</span><h2>কোম্পানি গেল—ঔপনিবেশিক নিয়ন্ত্রণ গেল না</h2><p>এই অংশে প্রতিটি ঘটনা একটি প্রশ্ন দিয়ে দেখো: <b>কার হাতে ক্ষমতা গেল, আর তার খরচ কে বহন করল?</b></p></div>
+
+        <div className={styles.crownSwitch}>
+          <article><small>১৮৫৮-এর আগে</small><Store/><h3>East India Company</h3><p>বাণিজ্যিক কোম্পানি হয়েও রাষ্ট্রীয় ক্ষমতা চালায়</p></article>
+          <ChevronRight/>
+          <article><small>১৮৫৮-এর পরে</small><Crown/><h3>British Crown</h3><p>ভারতের শাসন সরাসরি ব্রিটিশ সরকারের হাতে যায়</p></article>
+          <div><strong>শাসক কাঠামো বদলেছে</strong><span>কিন্তু ভারতীয় জনগণের হাতে সার্বভৌম ক্ষমতা ফেরেনি</span></div>
+        </div>
+
+        <div className={styles.crownTimeline}>
+          {crownTimeline.map(item=><article key={item.year}><b>{item.year}</b><strong>{item.title}</strong><p>{item.text}</p></article>)}
+        </div>
+
+        <div className={styles.viceroyCard}>
+          <Portrait person={crownPeople[0]} large/>
+          <div><small>প্রথম ভাইসরয়</small><h3>{crownPeople[0].name}</h3><p>{crownPeople[0].action}</p><strong>{crownPeople[0].significance}</strong></div>
+        </div>
+
+        <div className={styles.controlDoors}>
+          <div className={styles.sectionMini}><small>WHO CONTROLS THE COUNTRY?</small><h3>চারটি দরজা, একই ঔপনিবেশিক কর্তৃত্ব</h3></div>
+          <div>
+            {[
+              ["🏛","প্রশাসন","গুরুত্বপূর্ণ দপ্তর ও সিদ্ধান্তের চূড়ান্ত নিয়ন্ত্রণ ব্রিটিশ শাসনের হাতে।"],
+              ["⚖","আইন ও বিচার","আইনপরিষদ তৈরি হলেও শুরুতে তা নির্বাচিত গণপ্রতিনিধিত্বের প্রতিষ্ঠান ছিল না; ব্রিটিশ কর্তৃত্ব বহাল ছিল।"],
+              ["৳","রাজস্ব","ভূমি ও রাজস্বব্যবস্থা ছিল ঔপনিবেশিক রাষ্ট্রের আয়ের প্রধান ভিত্তি।"],
+              ["🛡","রাষ্ট্রীয় শক্তি","সেনা ও প্রশাসনিক শক্তি ব্রিটিশ শাসন টিকিয়ে রাখে।"]
+            ].map(([icon,title,text])=><article key={title}><span>{icon}</span><strong>{title}</strong><p>{text}</p></article>)}
+          </div>
+        </div>
+
+        <div className={styles.impactWall}>
+          <div className={styles.sectionMini}><small>DOCUMENTED HARMS</small><h3>১৮৫৮–১৯৪৭: সমাজ ও অর্থনীতিতে যে ক্ষতিগুলো স্পষ্ট</h3><p>পাঠ্যবইয়ের প্রতিটি paragraph-কে আলাদা story হিসেবে দেখানো হয়েছে।</p></div>
+          <div>{crownHarms.map((item,i)=><article key={item.title}><b>{String(i+1).padStart(2,"0")}</b><small>{item.visual}</small><h3>{item.title}</h3><p>{item.text}</p></article>)}</div>
+        </div>
+
+        <div className={styles.infrastructureLens}>
+          <div>
+            <small>রেল · ডাক · তার</small>
+            <h3>“নতুন অবকাঠামো” — কিন্তু কার প্রয়োজনকে আগে সেবা দিচ্ছিল?</h3>
+            <p>রেল, ডাক ও তার যোগাযোগ মানুষের ব্যবহারের সুযোগও তৈরি করে। একই সঙ্গে এগুলো ঔপনিবেশিক প্রশাসনের জন্য সৈন্য, তথ্য ও পণ্য দ্রুত সরানো এবং দূরবর্তী অঞ্চল নিয়ন্ত্রণ সহজ করে। তাই একে শুধু “উপকার” বা শুধু “ক্ষতি”—কোনোটাই এককভাবে দেখানো হবে না; বরং <b>colonial purpose</b> এবং মানুষের বাস্তব ব্যবহার দুটোই আলাদা করে দেখানো হবে।</p>
+          </div>
+          <div className={styles.infrastructureFlow}><span>সৈন্য</span><ChevronRight/><span>তথ্য</span><ChevronRight/><span>পণ্য</span><ChevronRight/><strong>দ্রুত ঔপনিবেশিক নিয়ন্ত্রণ</strong></div>
+        </div>
+
+        <div className={styles.colonialDefinitionReturn}>
+          <small>শুরুর সংজ্ঞায় ফিরে যাই</small>
+          <h3>ঔপনিবেশিক শাসন শুধু “বিদেশি শাসক” নয়</h3>
+          <div><span>ক্ষমতা</span><b>+</b><span>ভূমি</span><b>+</b><span>অর্থ</span><b>+</b><span>প্রশাসন</span><b>+</b><span>বাণিজ্য</span></div>
+          <p>যখন এই নিয়ন্ত্রণগুলো স্থানীয় জনগণের পরিবর্তে বাইরের সাম্রাজ্যিক শক্তির স্বার্থে সংগঠিত হয়, তখন শোষণ একটি পুরো ব্যবস্থায় পরিণত হয়।</p>
+        </div>
+      </section>}
+
       {section==="recap"&&<section className={styles.panel}>
-        <div className={styles.sectionTitle}><span>RECAP</span><h2>চার অংশকে এক গল্পে জুড়ে দাও</h2><p>নাম ও সাল আলাদা আলাদা না রেখে পরিবর্তনের ধারাটি ধরো।</p></div>
+        <div className={styles.sectionTitle}><span>RECAP</span><h2>এখন পর্যন্ত পুরো গল্পটা একসঙ্গে জুড়ে দাও</h2><p>নাম ও সাল আলাদা আলাদা না রেখে পরিবর্তনের ধারাটি ধরো।</p></div>
 
         <div className={styles.recapFlow}>
           <article><Compass/><span>১</span><strong>উপনিবেশ কী?</strong><p>বাইরের শক্তির নিয়ন্ত্রণ যখন অর্থনীতি, প্রশাসন ও রাজনৈতিক সিদ্ধান্তে পৌঁছে যায়।</p></article>
           <article><Crown/><span>২</span><strong>বাংলা আগে কী ছিল?</strong><p>দীর্ঘ সময় ধরে বিভিন্ন স্বাধীন ও সাম্রাজ্যিক রাজনৈতিক কাঠামোর মধ্য দিয়ে বদলেছে।</p></article>
           <article><Ship/><span>৩</span><strong>ইউরোপীয়রা কেন এল?</strong><p>প্রথমে বাণিজ্যের জন্য—বাংলার মূল্যবান পণ্য ও বাজার তাদের আকৃষ্ট করে।</p></article>
-          <article><Swords/><span>৪</span><strong>কীভাবে ক্ষমতা বদলাল?</strong><p>বাণিজ্যিক দ্বন্দ্ব + কর্তৃত্বের দ্বন্দ্ব + অভ্যন্তরীণ ষড়যন্ত্র → পলাশী → কোম্পানির রাজনৈতিক প্রভাব।</p></article>
+          <article><Swords/><span>৪</span><strong>কীভাবে ক্ষমতা বদলাল?</strong><p>বাণিজ্যিক দ্বন্দ্ব + কর্তৃত্বের দ্বন্দ্ব + অভ্যন্তরীণ ষড়যন্ত্র → পলাশী → কোম্পানির রাজনৈতিক প্রভাব।</p></article><article><CircleDollarSign/><span>৫</span><strong>দ্বৈত শাসনে কী হলো?</strong><p>কোম্পানির হাতে ক্ষমতা, নবাবের হাতে দায়িত্ব → রাজস্বচাপ → ১৭৭০-এর দুর্ভিক্ষে মানুষের সংকট আরও গভীর।</p></article><article><Landmark/><span>৬</span><strong>১৮৫৮-এর পর কী বদলাল?</strong><p>কোম্পানির বদলে British Crown সরাসরি শাসন নেয়; ঔপনিবেশিক নিয়ন্ত্রণ প্রশাসন, রাজস্ব ও রাষ্ট্রীয় প্রতিষ্ঠানে বহাল থাকে।</p></article>
         </div>
 
         <div className={styles.bigChain}>
-          <span>আগমন</span><ChevronRight/><span>বাণিজ্য</span><ChevronRight/><span>প্রভাব</span><ChevronRight/><span>দ্বন্দ্ব</span><ChevronRight/><span>পলাশী</span><ChevronRight/><span>রাজনৈতিক শক্তি</span>
+          <span>আগমন</span><ChevronRight/><span>বাণিজ্য</span><ChevronRight/><span>পলাশী</span><ChevronRight/><span>দ্বৈত শাসন</span><ChevronRight/><span>রাজস্ব ও প্রশাসনিক নিয়ন্ত্রণ</span><ChevronRight/><span>Crown rule</span><ChevronRight/><span>১৯৪৭</span>
         </div>
 
         <div className={styles.checks}>
@@ -458,15 +679,15 @@ export default function BgsChapterOne(){
             ["বিদেশি বাণিজ্য আর উপনিবেশ কি একই জিনিস?","না। বাণিজ্য উপনিবেশ নয়; শাসনক্ষমতা ও নিয়ন্ত্রণের পরিবর্তনটাই মূল।"],
             ["ইউরোপীয়রা বাংলায় প্রথমে কেন আসে?","মূলত বাণিজ্য ও বাজারের জন্য।"],
             ["পলাশীর কারণ ৩ bucket-এ কী?","বাণিজ্য ও অর্থ · ক্ষমতা ও কর্তৃত্ব · অভ্যন্তরীণ ষড়যন্ত্র।"],
-            ["পলাশীর সবচেয়ে বড় পরিবর্তন কী?","ইস্ট ইন্ডিয়া কোম্পানির বাণিজ্যিক শক্তি থেকে রাজনৈতিক নিয়ামক শক্তি হয়ে ওঠার পথ খুলে যায়।"]
+            ["পলাশীর সবচেয়ে বড় পরিবর্তন কী?","ইস্ট ইন্ডিয়া কোম্পানির বাণিজ্যিক শক্তি থেকে রাজনৈতিক নিয়ামক শক্তি হয়ে ওঠার পথ খুলে যায়।"],["দ্বৈত শাসনের সবচেয়ে বড় সমস্যা কী?","ক্ষমতা ও দায়িত্ব দুই জায়গায় ভাগ হয়ে যায়—কোম্পানির হাতে অর্থনৈতিক ক্ষমতা, নবাবের হাতে দায়।"],["১৮৫৮ সালে কি ভারত স্বাধীন হয়?","না। কোম্পানি শাসনের অবসান হয়, কিন্তু শাসন সরাসরি British Crown-এর হাতে যায়।"]
           ].map(([q,a])=><details key={q}><summary>{q}</summary><p>{a}</p></details>)}
         </div>
 
-        <div className={styles.nextLesson}><CircleDollarSign/><div><small>NEXT</small><h3>উপনিবেশিক শাসন ও শোষণ</h3><p>একটি বিদেশি কোম্পানি যখন দেশের রাজনীতি নিয়ন্ত্রণ করতে শুরু করে, তখন সাধারণ মানুষ ও অর্থনীতির ওপর কী প্রভাব পড়ে?</p></div></div>
+        <div className={styles.nextLesson}><CheckCircle2/><div><small>NEXT · পাঠ ৬–৭</small><h3>ঔপনিবেশিক শাসনের প্রতিক্রিয়া</h3><p>দীর্ঘদিনের রাজনৈতিক ও অর্থনৈতিক নিয়ন্ত্রণের বিরুদ্ধে বাংলায় নবজাগরণ, প্রতিবাদ ও ব্রিটিশবিরোধী আন্দোলন কীভাবে গড়ে উঠল?</p></div></div>
       </section>}
 
       <footer className={styles.footer}>
-        <p>পাঠ কাঠামো: NCTB Class 8 Bangladesh and Global Studies · Chapter 1-এর আলোচিত অংশ। ঐতিহাসিক চিত্রগুলো শুধুমাত্র মুক্ত লাইসেন্স / public-domain উৎস থেকে দেখানো হয়েছে; যেখানে নির্ভরযোগ্য মুক্ত প্রতিকৃতি পাওয়া যায়নি সেখানে তা স্পষ্টভাবে বলা হয়েছে।</p>
+        <p>পাঠ কাঠামো: NCTB Class 8 Bangladesh and Global Studies · Chapter 1-এর আলোচিত অংশ। Lesson 4–5-এ দ্বৈত শাসন, ১৭৭০-এর দুর্ভিক্ষ, গভর্নর জেনারেল, ১৮৫৮–১৯৪৭ British Crown rule এবং পাঠ্যবইয়ে বর্ণিত সামাজিক-অর্থনৈতিক প্রভাব যোগ করা হয়েছে। ঐতিহাসিক চিত্রগুলো মুক্ত লাইসেন্স / public-domain Wikimedia Commons উৎস থেকে দেখানো হয়েছে।</p>
       </footer>
     </div>
   </main>;
