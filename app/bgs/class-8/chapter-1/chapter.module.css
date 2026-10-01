@@ -57,3 +57,60 @@
   .crownTimeline{grid-template-columns:1fr}.controlDoors>div:last-child{grid-template-columns:1fr}.impactWall>div:last-child{grid-template-columns:1fr}
   .infrastructureLens{grid-template-columns:1fr}.infrastructureFlow{justify-content:flex-start}
 }
+
+
+/* ===== Lesson 6: Renaissance ===== */
+.actionReaction{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:center;margin:14px 0 24px}
+.actionReaction article{min-height:190px;padding:18px;border:1px solid #ddcdbc;border-radius:15px;background:#fbf4ea}
+.actionReaction article small{color:#990000;font-size:9px;font-weight:900;letter-spacing:.1em}.actionReaction article svg{width:28px;color:#990000;margin-top:14px}
+.actionReaction article h3{margin:7px 0 6px;font:700 21px Georgia,serif}.actionReaction article p{margin:0;color:#66564b;font-size:12px}.actionReaction>svg{color:#990000}
+.awakeningTimeline{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.awakeningTimeline button{min-height:86px;padding:12px;border:1px solid #decdbb;border-radius:12px;background:#fffaf4;text-align:left;color:#403128;cursor:pointer}
+.awakeningTimeline button b,.awakeningTimeline button span{display:block}.awakeningTimeline button b{font:700 24px Georgia,serif;color:#990000}.awakeningTimeline button span{margin-top:4px;font-size:11px;font-weight:850}
+.awakeningTimeline .awakeningActive{background:#990000;color:#fff;border-color:#990000}.awakeningTimeline .awakeningActive b{color:#fff}
+.awakeningFocus{display:grid;grid-template-columns:.8fr 1fr 1fr;gap:0;margin-top:10px;border:1px solid #ddcbb7;border-radius:15px;background:#fffaf4;overflow:hidden}
+.awakeningFocus>div{padding:18px;border-left:1px solid #e3d2bf}.awakeningFocus>div:first-child{border-left:0;background:#3d2a22;color:#fff6e9}
+.awakeningFocus small{display:block;color:#990000;font-size:9px;font-weight:900;letter-spacing:.08em}.awakeningFocus>div:first-child small{color:#efb28c}
+.awakeningFocus h3{font:700 26px Georgia,serif;margin:4px 0}.awakeningFocus strong{font-size:11px;color:#e4d4c6}.awakeningFocus p{margin:5px 0 0;color:#66564b;font-size:12px}.awakeningFocus>div:first-child p{color:#e3d4c8}
+.careyCard{display:grid;grid-template-columns:250px 1fr;gap:20px;align-items:stretch;margin-top:20px;padding:18px;border:1px solid #decab7;border-radius:16px;background:linear-gradient(120deg,#f1e2d2,#fffaf3)}
+.careyCard .portraitLarge{min-height:300px}.careyCard>div{align-self:center}.careyCard>div>small{color:#990000;font-weight:900}.careyCard h3{font:700 32px Georgia,serif;margin:4px 0 7px}.careyCard p{color:#615146}.careyCard strong{display:block;color:#8b2b26;margin-top:10px}
+.careyCard>div>div{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}.careyCard>div>div span{padding:7px 10px;border:1px solid #d8bea7;border-radius:999px;background:#fffaf4;font-size:10px;font-weight:800}
+.yearNote{display:flex;gap:9px;align-items:flex-start;margin-top:14px;padding:12px 14px;border-radius:11px;background:#fff4d8;border:1px solid #e4cb91;color:#624c2b;font-size:11px}.yearNote b{white-space:nowrap;color:#8c2f25}
+.renaissanceGallery{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:12px}
+.renaissanceGallery button{display:grid;grid-template-columns:82px 1fr;gap:9px;align-items:center;padding:8px;border:1px solid #dfcebc;border-radius:12px;background:#fffaf4;text-align:left;color:#3f3027;cursor:pointer}
+.renaissanceGallery .portrait,.renaissanceGallery .portraitFallback{width:82px;height:96px}.renaissanceGallery button span small,.renaissanceGallery button span strong,.renaissanceGallery button span em{display:block}
+.renaissanceGallery button span small{color:#9b5546;font-size:8px;font-weight:900}.renaissanceGallery button span strong{font:700 13px/1.2 Georgia,serif;margin:3px 0}.renaissanceGallery button span em{font-size:9px;color:#7b685c;font-style:normal}
+.renaissanceGallery .renaissanceActive{border-color:#990000;background:#fff0e8;box-shadow:0 0 0 2px #99000012}
+.renaissanceFocus{display:grid;grid-template-columns:240px 1fr;gap:20px;margin-top:12px;padding:18px;border-radius:16px;background:#3d2b23;color:#fff5e8}
+.renaissanceFocus .portraitLarge{min-height:310px}.renaissanceFocus>div{align-self:center}.renaissanceFocus>div>small{color:#efb28c;font-weight:900}.renaissanceFocus h3{font:700 31px Georgia,serif;margin:4px 0}.renaissanceFocus .identity{color:#f0c8ae}
+.renaissanceFocus dl{margin:10px 0 0}.renaissanceFocus dl>div{padding:11px 0;border-top:1px solid #ffffff1c}.renaissanceFocus dt{color:#efb28c;font-size:9px;font-weight:900;text-transform:uppercase}.renaissanceFocus dd{margin:4px 0 0;color:#eaded3}
+.nationalismBuilder{margin-top:20px;padding:20px;border-radius:16px;background:#f5e6d7;border:1px solid #ddc6ad}.nationalismBuilder>div:first-child small{color:#990000;font-weight:900}.nationalismBuilder h3{font:700 25px Georgia,serif;margin:4px 0}
+.nationalismBuilder>div:nth-child(2){display:flex;align-items:center;gap:7px;overflow-x:auto;padding:12px 0}.nationalismBuilder>div:nth-child(2) span,.nationalismBuilder>div:nth-child(2) strong{white-space:nowrap;padding:8px 10px;border:1px solid #d7bea7;border-radius:999px;background:#fffaf4}.nationalismBuilder>div:nth-child(2) svg{flex:0 0 auto;width:17px;color:#990000}.nationalismBuilder p{margin:4px 0 0;color:#625348}
+
+/* ===== Lesson 7: Bangabhanga / movement ===== */
+.curzonFeature{display:grid;grid-template-columns:260px 1fr;gap:20px;padding:18px;border:1px solid #decbb7;border-radius:17px;background:linear-gradient(120deg,#efe0d0,#fffaf4)}
+.curzonFeature .portraitLarge{min-height:320px}.curzonFeature>div{align-self:center}.curzonFeature small{color:#990000;font-weight:900}.curzonFeature h3{font:700 34px Georgia,serif;margin:5px 0}.curzonFeature p{color:#615146}.curzonFeature strong{display:block;margin-top:12px;color:#8b2d28}
+.partitionPerspectives{display:grid;grid-template-columns:1fr 80px 1fr;gap:10px;align-items:stretch;margin-top:18px}.partitionPerspectives article{padding:19px;border:1px solid #ddcbb9;border-radius:15px;background:#fbf4e9}.partitionPerspectives article small{color:#990000;font-size:9px;font-weight:900}.partitionPerspectives article h3{font:700 22px Georgia,serif;margin:5px 0}.partitionPerspectives article p{margin:0;color:#65554a}.partitionPerspectives>div{display:grid;place-items:center}.partitionPerspectives>div span{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:#3d2b23;color:#fff;font-weight:900}
+.movementTimeline{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}.movementTimeline button{min-height:88px;padding:12px;border:1px solid #ddcbb9;border-radius:12px;background:#fffaf4;text-align:left;cursor:pointer}.movementTimeline button b,.movementTimeline button span{display:block}.movementTimeline button b{font:700 23px Georgia,serif;color:#990000}.movementTimeline button span{margin-top:4px;font-size:11px;font-weight:850}.movementTimeline .movementActive{background:#990000;color:#fff;border-color:#990000}.movementTimeline .movementActive b{color:#fff}
+.movementFocus{margin-top:10px;padding:20px;border-radius:15px;background:#3d2b23;color:#fff5e8}.movementFocus small{color:#efb28c;font-weight:900}.movementFocus h3{font:700 29px Georgia,serif;margin:4px 0 7px}.movementFocus p{color:#eadcd0}.movementFocus>div{display:grid;grid-template-columns:150px 1fr;gap:12px;padding-top:12px;border-top:1px solid #ffffff20}.movementFocus>div span{color:#eeddd0}
+.partitionAnimation{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:8px;align-items:center;margin-top:18px}.partitionAnimation>div{min-height:135px;padding:14px;border:1px solid #ddcbb8;border-radius:13px;background:#fffaf4}.partitionAnimation>div small,.partitionAnimation>div strong,.partitionAnimation>div span{display:block}.partitionAnimation>div small{color:#9b5546;font-weight:900}.partitionAnimation>div strong{margin-top:10px;font:700 17px Georgia,serif}.partitionAnimation>div span{margin-top:5px;color:#706055;font-size:10px}.partitionAnimation>svg{color:#990000}.partitionAnimation .splitBengal{background:#fff0e8;border-color:#b9493f}
+.responseSpectrum{margin-top:20px}.responseSpectrum>div:first-child small{color:#990000;font-weight:900}.responseSpectrum h3{font:700 24px Georgia,serif;margin:4px 0 8px}.responseSpectrum>div:last-child{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.responseSpectrum article{padding:16px;border:1px solid #decebc;border-radius:13px;background:#faf3e8}.responseSpectrum article span{font-size:23px}.responseSpectrum article strong{display:block;margin-top:9px;font:700 16px Georgia,serif}.responseSpectrum article p{font-size:11px;color:#6b5b50}
+.selfRuleBridge{margin-top:20px;padding:21px;border-radius:17px;background:#990000;color:#fff5e8}.selfRuleBridge>small{color:#f0c4ab;font-weight:900}.selfRuleBridge h3{font:700 29px Georgia,serif;margin:4px 0 10px}.selfRuleBridge>div{display:flex;align-items:center;gap:7px;overflow-x:auto;padding:6px 0}.selfRuleBridge>div span,.selfRuleBridge>div strong{white-space:nowrap;padding:8px 10px;border:1px solid #ffffff2b;border-radius:999px;background:#ffffff12}.selfRuleBridge>div svg{flex:0 0 auto;width:16px;color:#f2c1a0}.selfRuleBridge p{margin:11px 0 0;color:#efddd1}
+
+@media(max-width:980px){
+  .renaissanceGallery{grid-template-columns:repeat(3,1fr)}
+  .actionReaction{grid-template-columns:1fr}.actionReaction>svg{transform:rotate(90deg);justify-self:center}
+  .awakeningFocus{grid-template-columns:1fr}.awakeningFocus>div{border-left:0;border-top:1px solid #e3d2bf}.awakeningFocus>div:first-child{border-top:0}
+  .partitionAnimation{grid-template-columns:1fr}.partitionAnimation>svg{transform:rotate(90deg);justify-self:center}
+}
+@media(max-width:760px){
+  .awakeningTimeline,.movementTimeline{grid-template-columns:repeat(2,1fr)}
+  .careyCard,.renaissanceFocus,.curzonFeature{grid-template-columns:1fr}.careyCard .portraitLarge,.renaissanceFocus .portraitLarge,.curzonFeature .portraitLarge{height:300px;min-height:300px}
+  .renaissanceGallery{grid-template-columns:repeat(2,1fr)}
+  .partitionPerspectives{grid-template-columns:1fr}.partitionPerspectives>div{min-height:50px}.responseSpectrum>div:last-child{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:520px){
+  .awakeningTimeline,.movementTimeline{grid-template-columns:1fr 1fr}
+  .renaissanceGallery{grid-template-columns:1fr}.responseSpectrum>div:last-child{grid-template-columns:1fr}
+  .movementFocus>div{grid-template-columns:1fr}.yearNote{flex-direction:column}.yearNote b{white-space:normal}
+}
