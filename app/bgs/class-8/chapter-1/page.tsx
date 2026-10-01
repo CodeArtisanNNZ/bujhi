@@ -319,6 +319,8 @@ export default function BgsChapterOne(){
   const[selectedCause,setSelectedCause]=useState(0);
   const[palashiStep,setPalashiStep]=useState(0);
   const[playing,setPlaying]=useState(false);
+  const[selectedDual,setSelectedDual]=useState(0);
+  const[selectedGovernor,setSelectedGovernor]=useState(0);
 
   useEffect(()=>{
     void (async()=>{
