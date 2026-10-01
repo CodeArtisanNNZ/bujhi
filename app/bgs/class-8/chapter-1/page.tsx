@@ -585,6 +585,11 @@ export default function BgsChapterOne(){
           <article><span>১৭৭০</span><strong>ছিয়াত্তরের মন্বন্তর</strong><p>পাঠ্যবই অনুযায়ী বাংলার প্রায় এক-তৃতীয়াংশ মানুষের মৃত্যু ঘটে</p></article>
         </div>
 
+        <div className={styles.memoryLine}>
+          <strong>কেন “ছিয়াত্তরের মন্বন্তর” বলা হয়?</strong>
+          <p><b>এই ভয়াবহ দুর্ভিক্ষটি ১১৭৬ বঙ্গাব্দে (১৭৭০ খ্রিস্টাব্দ) ঘটেছিল। ১১৭৬-এর শেষ দুই অঙ্ক “৭৬” বা “ছিয়াত্তর” থেকেই এর নাম হয়েছে “ছিয়াত্তরের মন্বন্তর”।</b></p>
+        </div>
+
         <div className={styles.responsibilityTest}>
           <div><small>INTERACTIVE IDEA</small><h3>“সমস্যা হলে কার কাছে যাবে?”</h3><p>দ্বৈত শাসনের দুর্বলতা ধরতে দুই দিক দেখো।</p></div>
           <article><Crown/><strong>নবাবের কাছে গেলে</strong><p>প্রশাসনিক দায় আছে, কিন্তু রাজস্ব ও বাস্তব ক্ষমতার বড় অংশ কোম্পানির হাতে।</p></article>
