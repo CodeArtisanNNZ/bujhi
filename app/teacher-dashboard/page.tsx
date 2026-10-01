@@ -246,6 +246,10 @@ export default function TeacherDashboard(){
                 ? <a href={selectedBook.pdfPath} target="_blank" rel="noopener noreferrer">সম্পূর্ণ পাঠ্যবই খোলো →</a>
                 : <span>PDF এখনো যুক্ত হয়নি</span>}</div>
             </div>
+            {selectedClass===8&&selectedBook.id==="bangladesh-global-studies"&&<div className={styles.choiceList}>
+              <strong>অধ্যায় ১ · উপনিবেশিক যুগ ও বাংলার স্বাধীনতা সংগ্রাম</strong>
+              <div><a href="/bgs/class-8/chapter-1">Bujhi lesson plan · ধারণা, timeline, ইউরোপীয় বাণিজ্য ও পলাশীর ৮-block story খোলো →</a></div>
+            </div>}
             {selectedClass===8&&selectedBook.id==="science"&&<div className={styles.choiceList}>
               <strong>অধ্যায় ৪ · বীজ ও অঙ্কুরোদ্গম</strong>
               <div><a href="/science/class-8/chapter-4?topic=seed">বীজ অঙ্কুরোদ্গমের ব্যবহারিক কাজ ও সিমুলেশন খোলো →</a></div>
