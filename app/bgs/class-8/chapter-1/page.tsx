@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import {useEffect,useMemo,useState} from "react";
+import {useEffect,useState} from "react";
 import {
   ArrowLeft,BookOpen,CheckCircle2,ChevronRight,CircleDollarSign,
   Compass,Crown,ExternalLink,Landmark,PauseCircle,PlayCircle,
-  RotateCcw,Shield,Ship,Store,Swords,UsersRound
+  RotateCcw,Shield,Ship,Store,Swords
 } from "lucide-react";
 import styles from "./chapter.module.css";
 
