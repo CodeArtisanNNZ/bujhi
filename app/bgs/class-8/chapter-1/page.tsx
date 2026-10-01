@@ -5,12 +5,12 @@ import {useEffect,useState} from "react";
 import {
   ArrowLeft,BookOpen,CheckCircle2,ChevronRight,CircleDollarSign,
   Compass,Crown,ExternalLink,Landmark,PauseCircle,PlayCircle,
-  RotateCcw,Shield,Ship,Store,Swords
+  RotateCcw,Shield,Ship,Store,Swords,UsersRound
 } from "lucide-react";
 import styles from "./chapter.module.css";
 
 type Role="teacher"|"student";
-type SectionId="concept"|"background"|"europe"|"palashi"|"exploitation"|"crown"|"recap";
+type SectionId="concept"|"background"|"europe"|"palashi"|"exploitation"|"crown"|"renaissance"|"movement"|"recap";
 
 const commons=(file:string)=>`https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file)}`;
 const commonsPage=(file:string)=>`https://commons.wikimedia.org/wiki/File:${encodeURIComponent(file.replaceAll(" ","_"))}`;
@@ -303,6 +303,186 @@ const crownHarms=[
   {title:"ধনী সাম্রাজ্য, দরিদ্র উপনিবেশ",text:"ব্রিটেন শিল্প ও সাম্রাজ্যিক সম্পদে দ্রুত সমৃদ্ধ হচ্ছিল, অথচ ভারত ছিল তার উপনিবেশ এবং সম্পদ আহরণের ক্ষেত্র।",visual:"উপনিবেশের সম্পদ → সাম্রাজ্য"}
 ];
 
+
+const awakeningTimeline=[
+  {
+    year:"১৭৮১",
+    title:"কলকাতা মাদ্রাসা",
+    actor:"ওয়ারেন হেস্টিংস",
+    action:"মুসলিম শিক্ষার্থীদের জন্য কলকাতা মাদ্রাসা প্রতিষ্ঠা করা হয়।",
+    consequence:"পাঠ্যবইয়ের ব্যাখ্যায় ইংরেজরা শাসনকে স্থায়ী করতে দেশীয়দের মধ্যে শিক্ষিত ও প্রশাসনিকভাবে ব্যবহারযোগ্য একটি শ্রেণি গড়ে তুলতে আগ্রহী ছিল; একই সঙ্গে নতুন শিক্ষার সুযোগও তৈরি হয়।"
+  },
+  {
+    year:"১৭৯১",
+    title:"সংস্কৃত কলেজ",
+    actor:"ঔপনিবেশিক শিক্ষানীতি",
+    action:"হিন্দু শিক্ষার্থীদের জন্য সংস্কৃত কলেজ প্রতিষ্ঠিত হয়।",
+    consequence:"প্রাচ্যশিক্ষাকে প্রাতিষ্ঠানিক রূপ দেওয়া হয়; শিক্ষিত সমাজে নতুন জ্ঞানচর্চা ও বিতর্কের ক্ষেত্রও বিস্তৃত হতে থাকে।"
+  },
+  {
+    year:"১৮২১",
+    title:"শ্রীরামপুরে মুদ্রণযন্ত্র",
+    actor:"মিশনারি ও মুদ্রণ উদ্যোগ",
+    action:"পাঠ্যবইয়ের timeline অনুযায়ী শ্রীরামপুরে মুদ্রণযন্ত্র স্থাপন জ্ঞান ছড়িয়ে দেওয়ার নতুন পথ খুলে দেয়।",
+    consequence:"বই, পুস্তিকা ও সংবাদপত্র দ্রুত ছাপা সম্ভব হওয়ায় জনমত, আত্মসমালোচনা ও সামাজিক প্রশ্ন নিয়ে আলোচনা বাড়ে।"
+  },
+  {
+    year:"১৮৫৭",
+    title:"কলকাতা বিশ্ববিদ্যালয়",
+    actor:"উচ্চশিক্ষার সম্প্রসারণ",
+    action:"উচ্চতর শিক্ষা ও গবেষণার প্রতিষ্ঠান হিসেবে কলকাতা বিশ্ববিদ্যালয় প্রতিষ্ঠিত হয়।",
+    consequence:"একটি নতুন শিক্ষিত শ্রেণি গড়ে ওঠে; সমাজসংস্কার, জনমত ও রাজনৈতিক চেতনার ক্ষেত্র আরও বিস্তৃত হয়।"
+  }
+];
+
+const renaissancePeople:(Person&{theme:string})[]=[
+  {
+    name:"উইলিয়াম কেরি",
+    identity:"ইংরেজ মিশনারি · ভাষা, মুদ্রণ ও শিক্ষা",
+    action:"খ্রিষ্টধর্ম প্রচারের পাশাপাশি বাংলা ব্যাকরণ রচনা, মুদ্রণ, সংবাদপত্র ও শিক্ষা-সংক্রান্ত নানা উদ্যোগে যুক্ত ছিলেন।",
+    significance:"মুদ্রণ ও ভাষাচর্চার বিস্তার বই, সংবাদ ও নতুন ধারণা ছড়িয়ে দেওয়ার সুযোগ বাড়ায়।",
+    period:"১৭৬১–১৮৩৪",
+    theme:"মুদ্রণ ও ভাষা",
+    imageFile:"WilliamCarey.jpg",license:"Public domain"
+  },
+  {
+    name:"রাজা রামমোহন রায়",
+    identity:"সমাজসংস্কারক",
+    action:"সতীদাহসহ সামাজিক অনাচারের বিরুদ্ধে আন্দোলন, যুক্তিবাদী চিন্তা ও সংবাদপত্রের মাধ্যমে জনমত গঠনে ভূমিকা রাখেন।",
+    significance:"বাংলার নবজাগরণে সমাজকে নিজের প্রথা ও অন্যায় নিয়ে প্রশ্ন করতে শেখানোর অন্যতম প্রধান ব্যক্তিত্ব।",
+    period:"১৭৭২–১৮৩৩",
+    theme:"সমাজসংস্কার",
+    imageFile:"Portrait of Raja Ram Mohun Roy, 1833.jpg",license:"Public domain"
+  },
+  {
+    name:"ঈশ্বরচন্দ্র বিদ্যাসাগর",
+    identity:"শিক্ষাবিদ ও সমাজসংস্কারক",
+    action:"নারীশিক্ষা ও বিধবা বিবাহের পক্ষে কাজ করেন; বাংলা গদ্য ও শিক্ষাব্যবস্থায় গুরুত্বপূর্ণ অবদান রাখেন।",
+    significance:"মানবিকতা, শিক্ষা ও যুক্তির ভিত্তিতে সমাজসংস্কারের ধারাকে শক্তিশালী করেন।",
+    period:"১৮২০–১৮৯১",
+    theme:"শিক্ষা ও সমাজসংস্কার",
+    imageFile:"Ishwar Chandra Vidyasagar.jpg",license:"Public domain"
+  },
+  {
+    name:"হেনরি লুই ভিভিয়ান ডিরোজিও",
+    identity:"শিক্ষক ও চিন্তাবিদ",
+    action:"তরুণ শিক্ষার্থীদের স্বাধীনভাবে প্রশ্ন করা, যুক্তি ব্যবহার করা ও মুক্তমনে জ্ঞানচর্চায় উৎসাহিত করেন।",
+    significance:"Young Bengal ধারার মাধ্যমে প্রশ্নমুখর ও স্বাধীন চিন্তার পরিবেশ গড়ে তোলেন।",
+    period:"১৮০৯–১৮৩১",
+    theme:"মুক্তচিন্তা",
+    imageFile:"Henry Louis Vivian Derozio photo.jpg",license:"Public domain"
+  },
+  {
+    name:"নওয়াব আবদুল লতিফ",
+    identity:"শিক্ষাবিদ ও সমাজসংস্কারক",
+    action:"মুসলিম সমাজে আধুনিক শিক্ষা ও নতুন জ্ঞানচর্চার প্রসারে কাজ করেন।",
+    significance:"পিছিয়ে থাকা মুসলিম জনগোষ্ঠীকে আধুনিক শিক্ষার ধারার সঙ্গে যুক্ত করার গুরুত্বপূর্ণ ব্যক্তিত্ব।",
+    period:"১৮২৮–১৮৯৩",
+    theme:"মুসলিম শিক্ষাজাগরণ",
+    imageFile:"Twelve men of Bengal - Nawab Abdul Latif Khan Bahadur.jpg",license:"Public domain"
+  },
+  {
+    name:"সৈয়দ আমীর আলী",
+    identity:"আইনজ্ঞ, লেখক ও মুসলিম সমাজচিন্তক",
+    action:"শিক্ষা, আইন, সংগঠন ও লেখালেখির মাধ্যমে মুসলিম সমাজে আধুনিক চিন্তা ও রাজনৈতিক সচেতনতা বৃদ্ধিতে কাজ করেন।",
+    significance:"মুসলিম বুদ্ধিবৃত্তিক ও রাজনৈতিক জাগরণের একটি গুরুত্বপূর্ণ ধারাকে প্রতিনিধিত্ব করেন।",
+    period:"১৮৪৯–১৯২৮",
+    theme:"মুসলিম বুদ্ধিবৃত্তিক জাগরণ",
+    imageFile:"Agha-Khan chef des mahométains (Mohammed Shah Aga Khan III) avec Hon. (Syed) Ameer Ali - btv1b69325676.jpg",license:"Public domain",
+    imageNote:"১৯১৪ সালের একটি public-domain group photograph; ছবিতে সৈয়দ আমীর আলী উপস্থিত আছেন।"
+  },
+  {
+    name:"বঙ্কিমচন্দ্র চট্টোপাধ্যায়",
+    identity:"সাহিত্যিক",
+    action:"উপন্যাস ও প্রবন্ধের মাধ্যমে বাংলা ভাষা, সাহিত্য ও দেশচেতনার বিকাশে গুরুত্বপূর্ণ ভূমিকা রাখেন।",
+    significance:"সাহিত্যকে সামাজিক ও জাতীয় কল্পনার শক্তিশালী মাধ্যম করে তুলতে সাহায্য করেন।",
+    period:"১৮৩৮–১৮৯৪",
+    theme:"সাহিত্য ও দেশচেতনা",
+    imageFile:"Bankim Chandra Chattopadhyay.jpg",license:"Public domain"
+  },
+  {
+    name:"মাইকেল মধুসূদন দত্ত",
+    identity:"কবি ও নাট্যকার",
+    action:"বাংলা কবিতা ও নাটকে নতুন রীতি, ভাষা ও সাহিত্যরূপ প্রবর্তনে বড় ভূমিকা রাখেন।",
+    significance:"বাংলা সাহিত্যের আধুনিকীকরণ ও আত্মবিশ্বাসী সাহিত্যচর্চার গুরুত্বপূর্ণ নির্মাতা।",
+    period:"১৮২৪–১৮৭৩",
+    theme:"আধুনিক বাংলা সাহিত্য",
+    imageFile:"Michael Madhusudan Dutt.jpg",license:"Public domain"
+  },
+  {
+    name:"রবীন্দ্রনাথ ঠাকুর",
+    identity:"কবি, সাহিত্যিক ও চিন্তাবিদ",
+    action:"কবিতা, গান, গল্প, প্রবন্ধ ও শিক্ষাচিন্তার মাধ্যমে বাংলা ভাষা ও সংস্কৃতিকে নতুন উচ্চতায় নিয়ে যান।",
+    significance:"বাংলার সাংস্কৃতিক আত্মপরিচয়, মানবতাবাদ এবং জাতীয় চেতনার বিকাশে গভীর প্রভাব রাখেন।",
+    period:"১৮৬১–১৯৪১",
+    theme:"সংস্কৃতি ও জাতীয় চেতনা",
+    imageFile:"Rabindranath Tagore.jpg",license:"Public domain"
+  },
+  {
+    name:"শরৎচন্দ্র চট্টোপাধ্যায়",
+    identity:"কথাসাহিত্যিক",
+    action:"সমাজের বৈষম্য, নারী, পরিবার ও সাধারণ মানুষের জীবনসংগ্রামকে সাহিত্যে শক্তভাবে তুলে ধরেন।",
+    significance:"সাহিত্যের মাধ্যমে সামাজিক সহানুভূতি ও সমকালীন সমস্যার প্রতি সচেতনতা বাড়ান।",
+    period:"১৮৭৬–১৯৩৮",
+    theme:"সমাজসচেতন সাহিত্য",
+    imageFile:"Sarat Chandra Chattopadhyay portrait.jpg",license:"Public domain"
+  },
+  {
+    name:"মীর মশাররফ হোসেন",
+    identity:"সাহিত্যিক",
+    action:"উপন্যাস, নাটক ও প্রবন্ধে ইতিহাস, সমাজ ও মুসলিম জীবনের নানা দিক তুলে ধরেন।",
+    significance:"বাংলা গদ্যসাহিত্যকে বিস্তৃত করেন এবং মুসলিম সমাজের সাহিত্যিক অংশগ্রহণকে শক্তিশালী করেন।",
+    period:"১৮৪৭–১৯১১",
+    theme:"বাংলা মুসলিম সাহিত্য",
+    imageFile:"Mir mosharraf hossain.jpg",license:"Public domain"
+  },
+  {
+    name:"কাজী নজরুল ইসলাম",
+    identity:"কবি ও লেখক",
+    action:"বিদ্রোহ, সাম্য, স্বাধীনতা ও অন্যায়ের বিরুদ্ধে প্রতিবাদের ভাষা কবিতা ও গানে প্রকাশ করেন।",
+    significance:"ব্রিটিশবিরোধী ও সাম্যবাদী চেতনার এক শক্তিশালী সাহিত্যিক কণ্ঠে পরিণত হন।",
+    period:"১৮৯৯–১৯৭৬",
+    theme:"বিদ্রোহ ও স্বাধীনতার চেতনা",
+    imageFile:"Kazi Nazrul Islam 01.png",license:"Public domain"
+  }
+];
+
+const movementTimeline=[
+  {
+    year:"১৯০৩",
+    title:"বঙ্গভঙ্গের প্রস্তাব",
+    text:"ভাইসরয় লর্ড কার্জন বাংলাকে ভাগ করে ঢাকাকে নতুন প্রদেশের রাজধানী করার প্রস্তাব দেন।",
+    why:"সরকারি যুক্তি ছিল বিশাল বাংলা প্রদেশের প্রশাসন সহজ করা। পাঠ্যবই এই পরিকল্পনাকে ক্রমবর্ধমান ব্রিটিশবিরোধী জাতীয়তাবাদকে দুর্বল করার ‘ভাগ করো, শাসন করো’ কৌশলের অংশ হিসেবেও ব্যাখ্যা করে।"
+  },
+  {
+    year:"১৯০৫",
+    title:"বঙ্গভঙ্গ কার্যকর",
+    text:"বাংলা বিভক্ত হওয়ার পর বঙ্গভঙ্গবিরোধী আন্দোলন, বয়কট, স্বদেশী প্রচার এবং কিছু তরুণের সশস্ত্র প্রতিরোধের দিকে ঝোঁক বাড়ে।",
+    why:"বিভাজন রাজনৈতিক বিরোধ ও সাম্প্রদায়িক দূরত্বও বাড়ায়, কিন্তু একই সঙ্গে শক্তিশালী জাতীয়তাবাদী প্রতিবাদ সৃষ্টি করে।"
+  },
+  {
+    year:"১৯০৬",
+    title:"মুসলিম লীগ প্রতিষ্ঠা",
+    text:"ঢাকায় মুসলিম লীগ প্রতিষ্ঠিত হয় মুসলমানদের রাজনৈতিক দাবিদাওয়া ও স্বার্থ সংগঠিতভাবে উপস্থাপনের লক্ষ্যে।",
+    why:"বঙ্গভঙ্গ-পরবর্তী সময়ে হিন্দু ও মুসলিম রাজনীতির ভিন্ন উদ্বেগ ও সংগঠনের ধারা আরও স্পষ্ট হয়ে ওঠে।"
+  },
+  {
+    year:"পরবর্তী ধাপ",
+    title:"স্বাধিকার আন্দোলন",
+    text:"স্বরাজ, অসহযোগ, বয়কট, রাজনৈতিক সংগঠন এবং বিভিন্ন ধরনের প্রতিরোধের মধ্য দিয়ে স্বশাসন ও স্বাধীনতার দাবি আরও বিস্তৃত হয়।",
+    why:"শিক্ষা ও নবজাগরণের সামাজিক চেতনা ধীরে ধীরে সংগঠিত রাজনৈতিক দাবিতে রূপ নেয়।"
+  }
+];
+
+const curzonPerson:Person={
+  name:"লর্ড কার্জন",
+  identity:"ভারতের ভাইসরয়",
+  action:"১৯০৩ সালে বাংলা ভাগ করার প্রস্তাব দেন; ১৯০৫ সালে বঙ্গভঙ্গ কার্যকর হয়।",
+  significance:"বঙ্গভঙ্গকে কেন্দ্র করে তীব্র রাজনৈতিক আন্দোলন গড়ে ওঠে। সরকারি প্রশাসনিক যুক্তির পাশাপাশি পাঠ্যবই এটিকে জাতীয়তাবাদী শক্তিকে দুর্বল করার divide-and-rule কৌশল হিসেবেও ব্যাখ্যা করে।",
+  period:"ভাইসরয় · ১৮৯৯–১৯০৫",
+  imageFile:"Portrait of George Curzon, 1st Marquess Curzon of Kedleston.jpg",license:"Public domain"
+};
+
 function Portrait({person,large=false}:{person:Person;large?:boolean}){
   if(!person.imageFile)return <div className={large?styles.portraitFallbackLarge:styles.portraitFallback}><span>{person.name.slice(0,1)}</span><small>মুক্ত ও নির্ভরযোগ্য প্রতিকৃতি পাওয়া যায়নি</small></div>;
   return <figure className={large?styles.portraitLarge:styles.portrait}>
@@ -321,6 +501,9 @@ export default function BgsChapterOne(){
   const[playing,setPlaying]=useState(false);
   const[selectedDual,setSelectedDual]=useState(0);
   const[selectedGovernor,setSelectedGovernor]=useState(0);
+  const[selectedAwakening,setSelectedAwakening]=useState(0);
+  const[selectedRenaissance,setSelectedRenaissance]=useState(0);
+  const[selectedMovement,setSelectedMovement]=useState(0);
 
   useEffect(()=>{
     void (async()=>{
@@ -355,6 +538,8 @@ export default function BgsChapterOne(){
     {id:"palashi" as SectionId,label:"৪. পলাশী",icon:<Swords/>},
     {id:"exploitation" as SectionId,label:"পাঠ ৪ · দ্বৈত শাসন",icon:<CircleDollarSign/>},
     {id:"crown" as SectionId,label:"পাঠ ৫ · ১৮৫৮–১৯৪৭",icon:<Landmark/>},
+    {id:"renaissance" as SectionId,label:"পাঠ ৬ · নবজাগরণ",icon:<BookOpen/>},
+    {id:"movement" as SectionId,label:"পাঠ ৭ · বঙ্গভঙ্গ",icon:<UsersRound/>},
     {id:"recap" as SectionId,label:"মনে রাখি",icon:<CheckCircle2/>}
   ];
 
@@ -370,14 +555,14 @@ export default function BgsChapterOne(){
         <div>
           <p>অষ্টম শ্রেণি · বাংলাদেশ ও বিশ্বপরিচয় · অধ্যায় ১</p>
           <h1>উপনিবেশিক যুগ ও বাংলার স্বাধীনতা সংগ্রাম</h1>
-          <span>এখন পর্যন্ত আলোচিত পাঠগুলো এক ধারাবাহিক গল্পে · উপনিবেশের ধারণা থেকে দ্বৈত শাসন ও ১৮৫৮–১৯৪৭-এর ব্রিটিশ সরকারি শাসন পর্যন্ত</span>
+          <span>এখন পর্যন্ত আলোচিত পাঠগুলো এক ধারাবাহিক গল্পে · উপনিবেশের ধারণা থেকে নবজাগরণ, জাতীয়তাবাদ, বঙ্গভঙ্গ ও স্বাধিকার আন্দোলনের সূচনা পর্যন্ত</span>
         </div>
         <div className={styles.heroStamp}><small>CHAPTER</small><b>০১</b></div>
       </section>
 
       {role==="teacher"&&<aside className={styles.teacherGuide}>
         <div><BookOpen/><strong>শিক্ষকের পাঠ পরিকল্পনা · ৪৫–৫০ মিনিট</strong></div>
-        <p><b>প্রথম সেশন:</b> উপনিবেশের ধারণা → অশোক থেকে সিরাজ → ইউরোপীয় বাণিজ্য → পলাশী। <b>দ্বিতীয় সেশন:</b> ১৭৬৫–১৭৭৩ দ্বৈত শাসন → দুর্ভিক্ষ ও রাজস্বচাপ → গভর্নর জেনারেল → ১৮৫৮–১৯৪৭ Crown rule ও তার সামাজিক-অর্থনৈতিক প্রভাব। প্রতিটি অংশে আগে শিক্ষার্থীর অনুমান নিন, পরে evidence reveal করুন।</p>
+        <p><b>প্রথম সেশন:</b> উপনিবেশের ধারণা → অশোক থেকে সিরাজ → ইউরোপীয় বাণিজ্য → পলাশী। <b>দ্বিতীয় সেশন:</b> ১৭৬৫–১৭৭৩ দ্বৈত শাসন → দুর্ভিক্ষ ও রাজস্বচাপ → গভর্নর জেনারেল → ১৮৫৮–১৯৪৭ Crown rule ও তার সামাজিক-অর্থনৈতিক প্রভাব। প্রতিটি অংশে আগে শিক্ষার্থীর অনুমান নিন, পরে evidence reveal করুন। <b>তৃতীয় সেশন:</b> ঔপনিবেশিক শিক্ষা ও মুদ্রণ → নবজাগরণের ব্যক্তিত্ব → সাহিত্য ও জাতীয় চেতনা → ১৯০৩–১৯০৬ বঙ্গভঙ্গ ও রাজনৈতিক সংগঠন → স্বাধিকার আন্দোলনের bridge।</p>
       </aside>}
 
       <nav className={styles.lessonNav} aria-label="Chapter 1 learning path">
@@ -666,6 +851,113 @@ export default function BgsChapterOne(){
         </div>
       </section>}
 
+
+      {section==="renaissance"&&<section className={styles.panel}>
+        <div className={styles.sectionTitle}>
+          <span>পাঠ ৬ · ঔপনিবেশিক শাসনের প্রতিক্রিয়া</span>
+          <h2>বাংলার নবজাগরণ: শাসনের জন্য তৈরি প্রতিষ্ঠান থেকেই প্রশ্নের জন্ম</h2>
+          <p>এই lesson-এর মূল flow: <b>ঔপনিবেশিক শিক্ষা ও মুদ্রণ → নতুন জ্ঞান → সমাজ নিয়ে প্রশ্ন → সংস্কার → সাহিত্য ও জাতীয় চেতনা</b>।</p>
+        </div>
+
+        <div className={styles.actionReaction}>
+          <article><small>BRITISH ACTION</small><Landmark/><h3>শিক্ষা ও প্রতিষ্ঠান</h3><p>পাঠ্যবইয়ের ব্যাখ্যায় শাসনকে স্থায়ী করতে শিক্ষিত ও প্রশাসনিকভাবে ব্যবহারযোগ্য শ্রেণি তৈরির আগ্রহ ছিল।</p></article>
+          <ChevronRight/>
+          <article><small>UNINTENDED / WIDER EFFECT</small><BookOpen/><h3>জ্ঞান ও জনমত ছড়িয়ে পড়ে</h3><p>শিক্ষা, মুদ্রণ ও সংবাদপত্র মানুষকে সমাজ, প্রথা ও শাসন নিয়ে প্রশ্ন করার নতুন উপকরণ দেয়।</p></article>
+          <ChevronRight/>
+          <article><small>BENGALI RESPONSE</small><UsersRound/><h3>নবজাগরণ</h3><p>সমাজসংস্কার, মুক্তচিন্তা, সাহিত্য এবং পরে জাতীয়তাবাদী চেতনার বিকাশ ঘটে।</p></article>
+        </div>
+
+        <div className={styles.sectionMini}><small>YEAR-WISE EXPLORER</small><h3>১৭৮১ → ১৮৫৭: কোন বছরে কী বদলাল?</h3><p>একটি বছর চাপলে ঘটনা, উদ্দেশ্য/প্রেক্ষাপট এবং তার সামাজিক প্রভাব দেখো।</p></div>
+        <div className={styles.awakeningTimeline}>
+          {awakeningTimeline.map((item,i)=><button key={item.year} className={selectedAwakening===i?styles.awakeningActive:""} onClick={()=>setSelectedAwakening(i)}><b>{item.year}</b><span>{item.title}</span></button>)}
+        </div>
+        <article className={styles.awakeningFocus}>
+          <div><small>{awakeningTimeline[selectedAwakening].year}</small><h3>{awakeningTimeline[selectedAwakening].title}</h3><strong>{awakeningTimeline[selectedAwakening].actor}</strong></div>
+          <div><small>কী ঘটল?</small><p>{awakeningTimeline[selectedAwakening].action}</p></div>
+          <div><small>তারপর কী হলো?</small><p>{awakeningTimeline[selectedAwakening].consequence}</p></div>
+        </article>
+
+        <div className={styles.careyCard}>
+          <Portrait person={renaissancePeople[0]} large/>
+          <div><small>MISSIONARY + PRINT CULTURE</small><h3>উইলিয়াম কেরি</h3><p>{renaissancePeople[0].action}</p><strong>{renaissancePeople[0].significance}</strong><div><span>ধর্মপ্রচার</span><span>বাংলা ব্যাকরণ</span><span>মুদ্রণ</span><span>সংবাদপত্র</span><span>শিক্ষা</span></div></div>
+        </div>
+
+        <div className={styles.yearNote}><b>১৮৫৭ নিয়ে confusion এড়াও:</b><span>এই lesson-এর ১৮৫৭ = <strong>কলকাতা বিশ্ববিদ্যালয় প্রতিষ্ঠা</strong>। একই বছর সিপাহি বিদ্রোহও হয়েছিল, যা Chapter 1-এর রাজনৈতিক timeline-এ আলাদা ঘটনা।</span></div>
+
+        <div className={styles.sectionMini}><small>FACE GALLERY</small><h3>নাম মুখস্থ নয়—“সমস্যা → কাজ → প্রভাব” মনে রাখো</h3><p>প্রতিটি মুখে click করলে তাঁর অবদান ও নবজাগরণের কোন ধারার সঙ্গে যুক্ত ছিলেন তা দেখাবে।</p></div>
+        <div className={styles.renaissanceGallery}>
+          {renaissancePeople.slice(1).map((person,i)=><button key={person.name} className={selectedRenaissance===i?styles.renaissanceActive:""} onClick={()=>setSelectedRenaissance(i)}><Portrait person={person}/><span><small>{person.theme}</small><strong>{person.name}</strong><em>{person.period}</em></span></button>)}
+        </div>
+        <div className={styles.renaissanceFocus}>
+          <Portrait person={renaissancePeople.slice(1)[selectedRenaissance]} large/>
+          <div>
+            <small>{renaissancePeople.slice(1)[selectedRenaissance].theme}</small>
+            <h3>{renaissancePeople.slice(1)[selectedRenaissance].name}</h3>
+            <p className={styles.identity}>{renaissancePeople.slice(1)[selectedRenaissance].identity}</p>
+            <dl><div><dt>কী করেছিলেন?</dt><dd>{renaissancePeople.slice(1)[selectedRenaissance].action}</dd></div><div><dt>কেন গুরুত্বপূর্ণ?</dt><dd>{renaissancePeople.slice(1)[selectedRenaissance].significance}</dd></div></dl>
+            {renaissancePeople.slice(1)[selectedRenaissance].imageNote&&<p className={styles.imageNote}>{renaissancePeople.slice(1)[selectedRenaissance].imageNote}</p>}
+          </div>
+        </div>
+
+        <div className={styles.nationalismBuilder}>
+          <div><small>HOW NATIONAL CONSCIOUSNESS GROWS</small><h3>জাতীয়তাবাদী চেতনা হঠাৎ তৈরি হয়নি</h3></div>
+          <div><span>শিক্ষা</span><ChevronRight/><span>মুদ্রণ ও সংবাদ</span><ChevronRight/><span>সমাজসংস্কার</span><ChevronRight/><span>সাহিত্য ও সংস্কৃতি</span><ChevronRight/><span>অধিকার সচেতনতা</span><ChevronRight/><strong>জাতীয়তাবাদী চেতনা</strong></div>
+          <p>এই chain-এ রামমোহন–বিদ্যাসাগরের সমাজসংস্কার, ডিরোজিওর মুক্তচিন্তা, আবদুল লতিফ–আমীর আলীর শিক্ষাজাগরণ এবং বঙ্কিম–মাইকেল–রবীন্দ্রনাথ–শরৎচন্দ্র–মীর মশাররফ–নজরুলের সাহিত্যিক অবদান একে অপরের সঙ্গে যুক্ত হয়ে বৃহত্তর সামাজিক ও রাজনৈতিক সচেতনতার পরিবেশ তৈরি করে।</p>
+        </div>
+      </section>}
+
+      {section==="movement"&&<section className={styles.panel}>
+        <div className={styles.sectionTitle}>
+          <span>পাঠ ৭ · নবজাগরণ থেকে ব্রিটিশবিরোধী রাজনীতি</span>
+          <h2>বঙ্গভঙ্গ: একটি প্রশাসনিক সিদ্ধান্ত কীভাবে আন্দোলনের বিস্ফোরণ ঘটাল?</h2>
+          <p>এই অংশে <b>১৯০৩ → ১৯০৫ → ১৯০৬ → স্বাধিকার আন্দোলন</b> ধারাটি interactive timeline-এ দেখা যাবে।</p>
+        </div>
+
+        <div className={styles.curzonFeature}>
+          <Portrait person={curzonPerson} large/>
+          <div><small>{curzonPerson.period}</small><h3>{curzonPerson.name}</h3><p>{curzonPerson.action}</p><strong>{curzonPerson.significance}</strong></div>
+        </div>
+
+        <div className={styles.partitionPerspectives}>
+          <article><small>সরকারি যুক্তি</small><h3>“প্রশাসন সহজ করা”</h3><p>বাংলা প্রদেশ খুব বড়—এটি ভাগ করলে শাসন ও প্রশাসন সহজ হবে, এমন যুক্তি ব্রিটিশ সরকার দেয়।</p></article>
+          <div><span>VS</span></div>
+          <article><small>পাঠ্যবইয়ের রাজনৈতিক ব্যাখ্যা</small><h3>“ভাগ করো, শাসন করো”</h3><p>পাঠ্যবই বঙ্গভঙ্গকে ক্রমবর্ধমান ব্রিটিশবিরোধী জাতীয়তাবাদকে বিভক্ত ও দুর্বল করার কৌশল হিসেবেও ব্যাখ্যা করে।</p></article>
+        </div>
+
+        <div className={styles.sectionMini}><small>YEAR-WISE POLITICAL TIMELINE</small><h3>একটি বছর চাপো—ঘটনা ও তার প্রতিক্রিয়া দেখো</h3></div>
+        <div className={styles.movementTimeline}>
+          {movementTimeline.map((item,i)=><button key={item.year} className={selectedMovement===i?styles.movementActive:""} onClick={()=>setSelectedMovement(i)}><b>{item.year}</b><span>{item.title}</span></button>)}
+        </div>
+        <article className={styles.movementFocus}>
+          <small>{movementTimeline[selectedMovement].year}</small>
+          <h3>{movementTimeline[selectedMovement].title}</h3>
+          <p>{movementTimeline[selectedMovement].text}</p>
+          <div><strong>কেন গুরুত্বপূর্ণ?</strong><span>{movementTimeline[selectedMovement].why}</span></div>
+        </article>
+
+        <div className={styles.partitionAnimation}>
+          <div><small>১৯০৩</small><strong>এক বাংলা</strong><span>প্রস্তাব</span></div>
+          <ChevronRight/>
+          <div className={styles.splitBengal}><small>১৯০৫</small><strong>বঙ্গভঙ্গ</strong><span>বাংলা বিভক্ত</span></div>
+          <ChevronRight/>
+          <div><small>প্রতিক্রিয়া</small><strong>বয়কট · স্বদেশী · প্রতিবাদ</strong><span>জাতীয়তাবাদী আন্দোলন তীব্র</span></div>
+          <ChevronRight/>
+          <div><small>১৯০৬</small><strong>মুসলিম লীগ</strong><span>মুসলিম রাজনৈতিক দাবির সংগঠন</span></div>
+        </div>
+
+        <div className={styles.responseSpectrum}>
+          <div><small>প্রতিক্রিয়া এক রকম ছিল না</small><h3>সমাজ → সংস্কৃতি → রাজনীতি → প্রতিরোধ</h3></div>
+          <div><article><span>📚</span><strong>শিক্ষা ও জনমত</strong><p>জ্ঞান ও সংবাদ মানুষের অধিকার সচেতনতা বাড়ায়।</p></article><article><span>🖋</span><strong>সাহিত্য ও দেশচেতনা</strong><p>ভাষা ও সংস্কৃতি জাতীয় পরিচয়ের শক্তি হয়ে ওঠে।</p></article><article><span>🧵</span><strong>স্বদেশী ও বয়কট</strong><p>বঙ্গভঙ্গবিরোধী আন্দোলনে অর্থনৈতিক প্রতিবাদের কৌশল ব্যবহৃত হয়।</p></article><article><span>⚔</span><strong>সশস্ত্র প্রতিরোধ</strong><p>কিছু তরুণ বিপ্লবী কর্মকাণ্ডের দিকে ঝুঁকে পড়ে।</p></article></div>
+        </div>
+
+        <div className={styles.selfRuleBridge}>
+          <small>NEXT IDEA · স্বাধিকার আন্দোলন</small>
+          <h3>নবজাগরণ থেকে রাজনৈতিক অধিকারের দাবি</h3>
+          <div><span>নতুন শিক্ষা</span><ChevronRight/><span>সচেতন সমাজ</span><ChevronRight/><span>জাতীয়তাবাদ</span><ChevronRight/><span>রাজনৈতিক সংগঠন</span><ChevronRight/><strong>স্বশাসন ও স্বাধীনতার দাবি</strong></div>
+          <p>এখান থেকে Chapter 1-এর পরের অংশে আমরা দেখব—ব্রিটিশবিরোধী প্রতিবাদ কীভাবে স্বরাজ, অসহযোগ এবং আরও বিস্তৃত স্বাধিকার আন্দোলনে রূপ নেয়।</p>
+        </div>
+      </section>}
+
       {section==="recap"&&<section className={styles.panel}>
         <div className={styles.sectionTitle}><span>RECAP</span><h2>এখন পর্যন্ত পুরো গল্পটা একসঙ্গে জুড়ে দাও</h2><p>নাম ও সাল আলাদা আলাদা না রেখে পরিবর্তনের ধারাটি ধরো।</p></div>
 
@@ -673,11 +965,11 @@ export default function BgsChapterOne(){
           <article><Compass/><span>১</span><strong>উপনিবেশ কী?</strong><p>বাইরের শক্তির নিয়ন্ত্রণ যখন অর্থনীতি, প্রশাসন ও রাজনৈতিক সিদ্ধান্তে পৌঁছে যায়।</p></article>
           <article><Crown/><span>২</span><strong>বাংলা আগে কী ছিল?</strong><p>দীর্ঘ সময় ধরে বিভিন্ন স্বাধীন ও সাম্রাজ্যিক রাজনৈতিক কাঠামোর মধ্য দিয়ে বদলেছে।</p></article>
           <article><Ship/><span>৩</span><strong>ইউরোপীয়রা কেন এল?</strong><p>প্রথমে বাণিজ্যের জন্য—বাংলার মূল্যবান পণ্য ও বাজার তাদের আকৃষ্ট করে।</p></article>
-          <article><Swords/><span>৪</span><strong>কীভাবে ক্ষমতা বদলাল?</strong><p>বাণিজ্যিক দ্বন্দ্ব + কর্তৃত্বের দ্বন্দ্ব + অভ্যন্তরীণ ষড়যন্ত্র → পলাশী → কোম্পানির রাজনৈতিক প্রভাব।</p></article><article><CircleDollarSign/><span>৫</span><strong>দ্বৈত শাসনে কী হলো?</strong><p>কোম্পানির হাতে ক্ষমতা, নবাবের হাতে দায়িত্ব → রাজস্বচাপ → ১৭৭০-এর দুর্ভিক্ষে মানুষের সংকট আরও গভীর।</p></article><article><Landmark/><span>৬</span><strong>১৮৫৮-এর পর কী বদলাল?</strong><p>কোম্পানির বদলে British Crown সরাসরি শাসন নেয়; ঔপনিবেশিক নিয়ন্ত্রণ প্রশাসন, রাজস্ব ও রাষ্ট্রীয় প্রতিষ্ঠানে বহাল থাকে।</p></article>
+          <article><Swords/><span>৪</span><strong>কীভাবে ক্ষমতা বদলাল?</strong><p>বাণিজ্যিক দ্বন্দ্ব + কর্তৃত্বের দ্বন্দ্ব + অভ্যন্তরীণ ষড়যন্ত্র → পলাশী → কোম্পানির রাজনৈতিক প্রভাব।</p></article><article><CircleDollarSign/><span>৫</span><strong>দ্বৈত শাসনে কী হলো?</strong><p>কোম্পানির হাতে ক্ষমতা, নবাবের হাতে দায়িত্ব → রাজস্বচাপ → ১৭৭০-এর দুর্ভিক্ষে মানুষের সংকট আরও গভীর।</p></article><article><Landmark/><span>৬</span><strong>১৮৫৮-এর পর কী বদলাল?</strong><p>কোম্পানির বদলে British Crown সরাসরি শাসন নেয়; ঔপনিবেশিক নিয়ন্ত্রণ প্রশাসন, রাজস্ব ও রাষ্ট্রীয় প্রতিষ্ঠানে বহাল থাকে।</p></article><article><BookOpen/><span>৭</span><strong>নবজাগরণ কীভাবে এলো?</strong><p>শিক্ষা + মুদ্রণ + জনমত → সমাজসংস্কার + সাহিত্য → নতুন সামাজিক ও জাতীয় চেতনা।</p></article><article><UsersRound/><span>৮</span><strong>বঙ্গভঙ্গ কী করল?</strong><p>১৯০৩-এর প্রস্তাব ও ১৯০৫-এর বঙ্গভঙ্গ তীব্র প্রতিবাদ, স্বদেশী/বয়কট এবং সংগঠিত রাজনীতিকে আরও শক্তিশালী করে।</p></article>
         </div>
 
         <div className={styles.bigChain}>
-          <span>আগমন</span><ChevronRight/><span>বাণিজ্য</span><ChevronRight/><span>পলাশী</span><ChevronRight/><span>দ্বৈত শাসন</span><ChevronRight/><span>রাজস্ব ও প্রশাসনিক নিয়ন্ত্রণ</span><ChevronRight/><span>Crown rule</span><ChevronRight/><span>১৯৪৭</span>
+          <span>আগমন</span><ChevronRight/><span>বাণিজ্য</span><ChevronRight/><span>পলাশী</span><ChevronRight/><span>দ্বৈত শাসন</span><ChevronRight/><span>Crown rule</span><ChevronRight/><span>নবজাগরণ</span><ChevronRight/><span>জাতীয়তাবাদ</span><ChevronRight/><span>বঙ্গভঙ্গ</span><ChevronRight/><span>স্বাধিকার</span>
         </div>
 
         <div className={styles.checks}>
@@ -690,11 +982,11 @@ export default function BgsChapterOne(){
           ].map(([q,a])=><details key={q}><summary>{q}</summary><p>{a}</p></details>)}
         </div>
 
-        <div className={styles.nextLesson}><CheckCircle2/><div><small>NEXT · পাঠ ৬–৭</small><h3>ঔপনিবেশিক শাসনের প্রতিক্রিয়া</h3><p>দীর্ঘদিনের রাজনৈতিক ও অর্থনৈতিক নিয়ন্ত্রণের বিরুদ্ধে বাংলায় নবজাগরণ, প্রতিবাদ ও ব্রিটিশবিরোধী আন্দোলন কীভাবে গড়ে উঠল?</p></div></div>
+        <div className={styles.nextLesson}><CheckCircle2/><div><small>NEXT</small><h3>স্বাধিকার আন্দোলন</h3><p>নবজাগরণ ও বঙ্গভঙ্গবিরোধী আন্দোলনের পর রাজনৈতিক দাবি কীভাবে স্বরাজ, অসহযোগ এবং স্বাধীনতার বৃহত্তর আন্দোলনে রূপ নিল?</p></div></div>
       </section>}
 
       <footer className={styles.footer}>
-        <p>পাঠ কাঠামো: NCTB Class 8 Bangladesh and Global Studies · Chapter 1-এর আলোচিত অংশ। Lesson 4–5-এ দ্বৈত শাসন, ১৭৭০-এর দুর্ভিক্ষ, গভর্নর জেনারেল, ১৮৫৮–১৯৪৭ British Crown rule এবং পাঠ্যবইয়ে বর্ণিত সামাজিক-অর্থনৈতিক প্রভাব যোগ করা হয়েছে। ঐতিহাসিক চিত্রগুলো মুক্ত লাইসেন্স / public-domain Wikimedia Commons উৎস থেকে দেখানো হয়েছে।</p>
+        <p>পাঠ কাঠামো: NCTB Class 8 Bangladesh and Global Studies · Chapter 1-এর আলোচিত অংশ। Lesson 4–7-এ দ্বৈত শাসন, ১৭৭০-এর দুর্ভিক্ষ, গভর্নর জেনারেল, British Crown rule, বাংলার নবজাগরণ, প্রধান সমাজসংস্কারক ও সাহিত্যিক, ১৯০৩–১৯০৬ বঙ্গভঙ্গ timeline এবং স্বাধিকার আন্দোলনের bridge যোগ করা হয়েছে। ঐতিহাসিক চিত্রগুলো মুক্ত লাইসেন্স / public-domain Wikimedia Commons উৎস থেকে দেখানো হয়েছে।</p>
       </footer>
     </div>
   </main>;
