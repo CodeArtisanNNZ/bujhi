@@ -62,7 +62,6 @@ export default function SolarSystemPreview({running,onFact}:Props){
         animationDelay:`-${index*1.37}s`,
         animationPlayState:running?"running":"paused"
       }}
-      aria-hidden="true"
     >
       <button
         type="button"
