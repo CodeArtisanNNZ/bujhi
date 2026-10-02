@@ -1335,3 +1335,187 @@ html[lang="bn"] select{
 .quiz-next{margin-top:16px;border:0;background:var(--accent-solid);color:white;border-radius:999px;padding:11px 15px;display:flex;align-items:center;gap:7px;font-weight:800}
 .quiz-next svg{width:16px;height:16px}
 @media(max-width:560px){.quiz-meta{align-items:flex-start;flex-direction:column;gap:4px}.quiz-meta>span{white-space:normal}.modal>section{padding:28px 20px}}
+
+
+/* ===== CELL TO GENE HOMEPAGE PREVIEW ===== */
+.cell-zoom-preview{
+  position:relative;
+  width:100%;
+  height:230px;
+  min-width:0;
+  overflow:hidden;
+  border:1px solid rgba(126,91,151,.34);
+  border-radius:16px;
+  background:
+    radial-gradient(circle at 74% 18%,rgba(129,88,166,.22),transparent 30%),
+    radial-gradient(circle at 24% 82%,rgba(167,91,111,.16),transparent 34%),
+    linear-gradient(145deg,#171018 0%,#0e0c13 52%,#090a10 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.025),inset 0 -30px 55px rgba(0,0,0,.18);
+}
+.cell-zoom-stage{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  padding:0;
+  border:0;
+  background:transparent;
+  color:inherit;
+  cursor:zoom-in;
+  overflow:hidden;
+  text-align:left;
+}
+.cell-zoom-svg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  filter:drop-shadow(0 8px 18px rgba(0,0,0,.24));
+}
+.cell-stage-visual{animation:cellStageReveal .48s cubic-bezier(.2,.75,.2,1) both;transform-origin:center}
+.cell-pulse-ring{animation:cellPulse 2.4s ease-out infinite;transform-origin:center}
+.nucleus-glow{animation:nucleusBreathe 2.8s ease-in-out infinite;transform-origin:center}
+.chromatin path{animation:chromatinDrift 3.4s ease-in-out infinite alternate}
+.chromosome-focus{animation:chromosomePulse 2.1s ease-out infinite;transform-origin:center}
+.dna-stage{animation:cellStageReveal .5s cubic-bezier(.2,.75,.2,1) both,dnaFloat 4.4s ease-in-out infinite alternate}
+.gene-highlight{animation:geneGlow 1.9s ease-in-out infinite alternate}
+.cell-zoom-preview.paused .cell-pulse-ring,
+.cell-zoom-preview.paused .nucleus-glow,
+.cell-zoom-preview.paused .chromatin path,
+.cell-zoom-preview.paused .chromosome-focus,
+.cell-zoom-preview.paused .dna-stage,
+.cell-zoom-preview.paused .gene-highlight{animation-play-state:paused}
+.cell-stage-badge{
+  position:absolute;
+  left:11px;
+  top:10px;
+  z-index:3;
+  display:flex;
+  flex-direction:column;
+  gap:1px;
+  min-width:72px;
+  padding:7px 9px;
+  border:1px solid rgba(242,225,236,.13);
+  border-radius:9px;
+  background:rgba(24,16,24,.63);
+  backdrop-filter:blur(7px);
+  pointer-events:none;
+}
+.cell-stage-badge small{
+  color:#bda1ca;
+  font-size:.47rem;
+  font-weight:900;
+  letter-spacing:.09em;
+}
+.cell-stage-badge strong{
+  color:#fff7ee;
+  font:600 .8rem "Fraunces","Bujhi Bangla",serif;
+}
+.cell-stage-copy{
+  position:absolute;
+  z-index:3;
+  left:12px;
+  right:12px;
+  bottom:28px;
+  max-width:76%;
+  padding:7px 9px;
+  border-radius:8px;
+  background:rgba(18,12,18,.58);
+  color:#e9dce4;
+  font-size:.56rem;
+  font-weight:650;
+  line-height:1.35;
+  backdrop-filter:blur(6px);
+  pointer-events:none;
+}
+.cell-zoom-hint{
+  position:absolute;
+  z-index:4;
+  right:9px;
+  bottom:8px;
+  padding:5px 8px;
+  border-radius:999px;
+  background:rgba(36,23,38,.76);
+  border:1px solid rgba(210,180,225,.12);
+  color:#d7bddf;
+  font-size:.48rem;
+  font-weight:800;
+  pointer-events:none;
+}
+.cell-zoom-progress{
+  position:absolute;
+  z-index:7;
+  left:50%;
+  top:10px;
+  transform:translateX(-50%);
+  display:flex;
+  align-items:center;
+  gap:5px;
+}
+.cell-zoom-progress button{
+  width:7px;
+  height:7px;
+  padding:0;
+  border:0;
+  border-radius:50%;
+  background:#d9c5de;
+  opacity:.3;
+  cursor:pointer;
+  box-shadow:none;
+  transition:width .2s ease,opacity .2s ease,background .2s ease;
+}
+.cell-zoom-progress button.active{
+  width:23px;
+  border-radius:999px;
+  background:#c99be0;
+  opacity:1;
+}
+@keyframes cellStageReveal{
+  from{opacity:0;transform:scale(.76)}
+  to{opacity:1;transform:scale(1)}
+}
+@keyframes cellPulse{
+  0%{opacity:.72;transform:scale(.72)}
+  70%,100%{opacity:0;transform:scale(1.35)}
+}
+@keyframes nucleusBreathe{
+  0%,100%{opacity:.18;transform:scale(.88)}
+  50%{opacity:.42;transform:scale(1.12)}
+}
+@keyframes chromatinDrift{
+  from{transform:translate(-2px,1px)}
+  to{transform:translate(3px,-2px)}
+}
+@keyframes chromosomePulse{
+  0%{opacity:.72;transform:scale(.76)}
+  70%,100%{opacity:0;transform:scale(1.45)}
+}
+@keyframes dnaFloat{
+  from{transform:translateY(-2px)}
+  to{transform:translateY(3px)}
+}
+@keyframes geneGlow{
+  from{opacity:.72}
+  to{opacity:1;filter:drop-shadow(0 0 6px rgba(255,209,102,.48))}
+}
+.science-preview-loading{
+  height:230px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:linear-gradient(110deg,var(--surface) 20%,var(--paper) 36%,var(--surface) 52%);
+  background-size:220% 100%;
+  animation:previewLoading 1.2s linear infinite;
+}
+@keyframes previewLoading{to{background-position:-220% 0}}
+@media(max-width:650px){
+  .cell-zoom-preview,.science-preview-loading{height:174px;border-radius:13px}
+  .cell-stage-copy{max-width:88%;bottom:25px;font-size:.48rem;padding:5px 7px}
+  .cell-stage-badge{left:8px;top:8px;padding:5px 7px}
+  .cell-stage-badge strong{font-size:.68rem}
+  .cell-stage-badge small{font-size:.41rem}
+  .cell-zoom-progress{top:8px}
+  .cell-zoom-hint{right:7px;bottom:6px;font-size:.42rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .cell-stage-visual,.cell-pulse-ring,.nucleus-glow,.chromatin path,.chromosome-focus,.dna-stage,.gene-highlight,.science-preview-loading{animation:none!important}
+}
