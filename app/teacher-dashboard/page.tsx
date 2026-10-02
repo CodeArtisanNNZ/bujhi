@@ -110,7 +110,7 @@ export default function TeacherDashboard(){
   }
 
   return <main className={`${styles.page} ${lightOn?"":styles.pageDim}`}>
-    <section className={styles.referenceDesk} aria-label="বুঝি শিক্ষক ডেস্ক">
+    <section className={styles.referenceDesk} aria-label="বুঝি? শিক্ষক ডেস্ক">
       <div className={styles.teacherBadge}>
         <FolderOpen/><span>তোমার শ্রেণিগুলো</span>
       </div>
@@ -252,7 +252,7 @@ export default function TeacherDashboard(){
             </div>
             {selectedClass===8&&selectedBook.id==="bangladesh-global-studies"&&<div className={styles.choiceList}>
               <strong>অধ্যায় ১ · উপনিবেশিক যুগ ও বাংলার স্বাধীনতা সংগ্রাম</strong>
-              <div><a href="/bgs/class-8/chapter-1">Bujhi lesson plan · ধারণা, timeline, ইউরোপীয় বাণিজ্য ও পলাশীর ৮-block story খোলো →</a></div>
+              <div><a href="/bgs/class-8/chapter-1">Bujhi? lesson plan · ধারণা, timeline, ইউরোপীয় বাণিজ্য ও পলাশীর ৮-block story খোলো →</a></div>
             </div>}
             {selectedClass===8&&selectedBook.id==="science"&&<div className={styles.choiceList}>
               <strong>অধ্যায় ৪ · বীজ ও অঙ্কুরোদ্গম</strong>
