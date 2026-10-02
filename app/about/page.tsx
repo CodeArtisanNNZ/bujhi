@@ -16,7 +16,7 @@ const teamMembers=[
  {name:"Talukder Khaleed Bin Hasan",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/talukder-khaleed-bin-hasan.webp"}
 ] as const;
 
-// deploy retry: team photos
+// deploy retry: team photos 2
 export default function About(){
  const[teamIndex,setTeamIndex]=useState(0);
  const touchStart=useRef<number|null>(null);
