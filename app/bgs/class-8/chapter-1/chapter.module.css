@@ -143,3 +143,51 @@
   .movementDetail{grid-template-columns:1fr}.movementDetail>div{border-left:0;border-top:1px solid #e2d0bd}.movementDetail>div:first-child{border-top:0}
   .movementChips button{flex-basis:155px}.selfRuleSpotlight{padding:17px}.selfRuleTimeline>div{flex-basis:160px}
 }
+
+
+/* ===== Revolutionary tribute / respectful portrait gallery ===== */
+.revolutionarySection{margin-top:26px;padding:22px;border:1px solid #d6c0a6;border-radius:18px;background:linear-gradient(145deg,#f8eee1 0%,#fffaf4 55%,#f4e6d4 100%)}
+.revolutionaryTimeline{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:14px}
+.revolutionaryTimeline article{min-height:150px;padding:14px;border:1px solid #dfcdb8;border-radius:13px;background:#fffaf4}
+.revolutionaryTimeline article b,.revolutionaryTimeline article strong{display:block}.revolutionaryTimeline article b{font:700 22px Georgia,serif;color:#990000}.revolutionaryTimeline article strong{margin-top:7px;font:700 14px Georgia,serif}.revolutionaryTimeline article p{font-size:10px;color:#6c5a4e}
+.revolutionaryGallery{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px}
+.revolutionaryGallery>button{position:relative;display:grid;grid-template-columns:96px 1fr;gap:10px;align-items:center;min-height:126px;padding:10px;border-radius:14px;text-align:left;color:#3f3027;background:#fffaf4;border:1px solid #ddcbb8;cursor:pointer;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.revolutionaryGallery>button:hover{transform:translateY(-2px);box-shadow:0 10px 24px #5c32171a}.revolutionaryGallery>button>span small,.revolutionaryGallery>button>span strong,.revolutionaryGallery>button>span em{display:block}
+.revolutionaryGallery>button>span small{font-size:8px;font-weight:900;color:#9b5b46}.revolutionaryGallery>button>span strong{margin-top:3px;font:700 14px/1.2 Georgia,serif}.revolutionaryGallery>button>span em{margin-top:5px;font-size:9px;color:#766357;font-style:normal}
+.martyrCard{border-color:#c8a35e!important;background:linear-gradient(145deg,#fff8e8,#fffaf4)!important}
+.leaderCard{background:linear-gradient(145deg,#f6efe8,#fffaf4)!important}
+.revolutionaryActive{box-shadow:0 0 0 2px #99000022,0 10px 22px #5e2c181a!important;border-color:#990000!important}
+.goldenPortrait,.dignifiedPortrait{position:relative;display:flex;align-items:center;justify-content:center}.goldenPortrait .portrait,.goldenPortrait .portraitFallback,.dignifiedPortrait .portrait,.dignifiedPortrait .portraitFallback{width:96px;height:108px;margin:0}
+.goldenPortrait{padding:3px;border-radius:12px;background:linear-gradient(135deg,#8b651b,#f7dd87,#a47a24,#ffe9a4);box-shadow:0 0 18px #d4ad4f45}
+.goldenPortrait:before,.goldenPortrait:after{position:absolute;z-index:3;color:#d5a62f;text-shadow:0 0 8px #fff0a6;animation:tributeTwinkle 2.2s ease-in-out infinite;pointer-events:none}
+.goldenPortrait:before{content:"✦";top:-7px;right:-3px;font-size:15px}.goldenPortrait:after{content:"✧";bottom:3px;left:-6px;font-size:13px;animation-delay:.8s}
+.dignifiedPortrait{padding:3px;border-radius:12px;background:linear-gradient(135deg,#73523f,#c8a688,#7e5d48)}
+.sparkleBadge{position:absolute;left:4px;right:4px;bottom:4px;display:flex;align-items:center;justify-content:center;gap:3px;padding:3px 5px;border-radius:999px;background:#38291dcc;color:#f9df8c;font-size:7px;font-weight:900;backdrop-filter:blur(4px)}
+.sparkleBadge svg{width:10px;height:10px}
+.revolutionaryFocus{display:grid;grid-template-columns:280px 1fr;gap:22px;margin-top:14px;padding:20px;border-radius:17px;background:#3c2b23;color:#fff6e9;border:1px solid #5d4235}
+.revolutionaryFocusMartyr{background:radial-gradient(circle at 12% 25%,#6f542b 0,#3c2b23 38%,#31231d 100%);border-color:#c39a4e;box-shadow:inset 0 0 0 1px #f2da8b22,0 12px 35px #68461118}
+.goldenPortraitLarge,.dignifiedPortraitLarge{position:relative;align-self:stretch;min-height:340px;display:flex;align-items:stretch;justify-content:stretch;border-radius:15px;padding:5px}
+.goldenPortraitLarge{background:linear-gradient(135deg,#755216,#d9b34e,#fff0aa,#a07722,#f0d77a);box-shadow:0 0 28px #e4bd5840}
+.goldenPortraitLarge:before,.goldenPortraitLarge:after{position:absolute;z-index:5;color:#f0d36e;text-shadow:0 0 12px #fff1a6;animation:tributeTwinkle 2.4s ease-in-out infinite}.goldenPortraitLarge:before{content:"✦";right:10px;top:7px;font-size:25px}.goldenPortraitLarge:after{content:"✧";left:8px;bottom:11px;font-size:19px;animation-delay:.9s}
+.dignifiedPortraitLarge{background:linear-gradient(135deg,#6f5140,#b68f72,#6e4f3d)}
+.goldenPortraitLarge .portraitLarge,.dignifiedPortraitLarge .portraitLarge{width:100%;height:100%;min-height:328px;margin:0}
+.memorialRibbon{position:absolute;left:18px;right:18px;bottom:16px;z-index:4;display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 10px;border-radius:999px;background:#3d2c1ee8;color:#f9df87;border:1px solid #dfbd64;font-size:10px;font-weight:900;box-shadow:0 4px 16px #0004}
+.memorialRibbon svg{width:14px}
+.revolutionaryFocus>div:last-child{align-self:center}.revolutionaryFocus>div:last-child>small{color:#efc778;font-weight:900}.revolutionaryFocus h3{margin:4px 0;font:700 32px Georgia,serif}.revolutionaryFocus .identity{color:#efc9ae}
+.revolutionaryFocus dl{margin:12px 0}.revolutionaryFocus dl>div{padding:11px 0;border-top:1px solid #ffffff1c}.revolutionaryFocus dt{color:#efc778;font-size:9px;font-weight:900;text-transform:uppercase}.revolutionaryFocus dd{margin:4px 0 0;color:#eaded4}
+.respectLine{margin:13px 0 0;padding:13px 15px;border-left:4px solid #e0b84e;border-radius:0 10px 10px 0;background:#ffffff0d;color:#f7e7c2;font:700 14px/1.55 Georgia,serif}
+.revolutionaryOrgs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}.revolutionaryOrgs article{padding:17px;border:1px solid #dbc7b2;border-radius:14px;background:#fffaf4}.revolutionaryOrgs article small{color:#990000;font-size:9px;font-weight:900}.revolutionaryOrgs article h3{font:700 20px Georgia,serif;margin:5px 0}.revolutionaryOrgs article p{margin:0;color:#67574b}
+.patriotismPanel{display:grid;grid-template-columns:52px 1fr;gap:14px;align-items:start;margin-top:16px;padding:20px;border-radius:16px;background:linear-gradient(135deg,#8f621c,#b9862e 35%,#5b3b15 100%);color:#fff8e6;box-shadow:0 10px 28px #8a5d1f20}
+.patriotismPanel>svg{width:42px;height:42px;color:#ffe08a;filter:drop-shadow(0 0 8px #ffd76c99)}.patriotismPanel small{font-weight:900;color:#ffe39c}.patriotismPanel h3{margin:4px 0 7px;font:700 26px Georgia,serif}.patriotismPanel p{margin:0;color:#f5e8cf}
+@keyframes tributeTwinkle{0%,100%{opacity:.45;transform:scale(.85) rotate(0)}50%{opacity:1;transform:scale(1.18) rotate(12deg)}}
+@media(max-width:1100px){
+  .revolutionaryTimeline{grid-template-columns:repeat(3,1fr)}
+  .revolutionaryGallery{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:760px){
+  .revolutionaryFocus{grid-template-columns:1fr}.goldenPortraitLarge,.dignifiedPortraitLarge{min-height:300px}.goldenPortraitLarge .portraitLarge,.dignifiedPortraitLarge .portraitLarge{min-height:288px;height:288px}
+  .revolutionaryOrgs{grid-template-columns:1fr}.patriotismPanel{grid-template-columns:1fr}.patriotismPanel>svg{width:34px;height:34px}
+}
+@media(max-width:560px){
+  .revolutionaryTimeline{grid-template-columns:1fr 1fr}.revolutionaryGallery{grid-template-columns:1fr}.revolutionaryGallery>button{grid-template-columns:86px 1fr}.goldenPortrait .portrait,.goldenPortrait .portraitFallback,.dignifiedPortrait .portrait,.dignifiedPortrait .portraitFallback{width:86px;height:100px}
+}
