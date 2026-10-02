@@ -1071,8 +1071,6 @@ html[lang="bn"] select{
 .solar-planet-real.has-rings:before{content:"";position:absolute;left:50%;top:50%;width:165%;height:48%;border:2px solid rgba(231,209,153,.78);border-left-color:rgba(231,209,153,.36);border-radius:50%;transform:translate(-50%,-50%) rotate(-12deg)}
 @keyframes solar-real-spin{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
 @media(max-width:650px){.solar-sun-real{width:24px;height:24px}.solar-planet-real{transform:translateX(-50%) scale(.82)}}
-}}
-
 
 /* ===== BUJHI TEAM STACK ===== */
 .team-showcase{
