@@ -15,7 +15,6 @@ export default function Layout({children}:{children:React.ReactNode}){
   return <html lang="en" suppressHydrationWarning>
     <head>
       <script dangerouslySetInnerHTML={{__html:`try{var t=localStorage.getItem('bujhi-theme');document.documentElement.dataset.theme=t==='light'||t==='dark'?t:matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}catch{document.documentElement.dataset.theme='light'}`}} />
-      <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" />
     </head>
     <body><SiteShell>{children}</SiteShell></body>
   </html>
