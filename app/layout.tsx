@@ -8,7 +8,7 @@ export const viewport:Viewport={width:"device-width",initialScale:1,viewportFit:
 export const metadata:Metadata={
   title:"Bujhi — Less memorizing. More understanding.",
   description:"Multiple ways to understand and explain every subject.",
-  icons:{icon:"/bujhi-icon.png"}
+  icons:{icon:"/optimized/bujhi-icon-96.webp"}
 };
 
 export default function Layout({children}:{children:React.ReactNode}){

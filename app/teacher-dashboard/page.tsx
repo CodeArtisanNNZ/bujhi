@@ -111,7 +111,7 @@ export default function TeacherDashboard(){
 
   return <main className={`${styles.page} ${lightOn?"":styles.pageDim}`}>
     <section className={styles.referenceDesk} aria-label="বুঝি শিক্ষক ডেস্ক">
-      <div className={styles.deskBrand}><a href="/" aria-label="বুঝি হোম"><ResponsiveImage sizes="38px" src="/bujhi-icon.png" alt=""/><strong>বুঝি</strong></a><span>শিক্ষক ডেস্ক</span></div>
+      <div className={styles.deskBrand}><a href="/" aria-label="বুঝি হোম"><ResponsiveImage sizes="38px" src="/optimized/bujhi-icon-96.webp" alt=""/><strong>বুঝি</strong></a><span>শিক্ষক ডেস্ক</span></div>
 
       <div className={styles.teacherBadge}>
         <FolderOpen/><span>তোমার শ্রেণিগুলো</span>

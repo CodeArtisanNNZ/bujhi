@@ -894,7 +894,7 @@ export default function BgsChapterOne(){
   return <main className={styles.page}>
     <header className={styles.topbar}>
       <Link href={back} className={styles.back}><ArrowLeft/> {role==="teacher"?"শিক্ষক ডেস্কে ফিরি":"বইয়ের পাঠে ফিরি"}</Link>
-      <Link href="/" className={styles.brand}><img src="/bujhi-icon.png" alt=""/><strong>বুঝি</strong></Link>
+      <Link href="/" className={styles.brand}><img src="/optimized/bujhi-icon-96.webp" alt=""/><strong>বুঝি</strong></Link>
       <span className={styles.rolePill}>{role==="teacher"?"শিক্ষক ভিউ":"শিক্ষার্থী ভিউ"}</span>
     </header>
 
