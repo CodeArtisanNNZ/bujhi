@@ -16,11 +16,24 @@
 .deskSurface{position:absolute;z-index:-1;inset:400px 0 0;background:repeating-linear-gradient(1deg,transparent 0 12px,#55351e0b 13px,transparent 14px 35px),linear-gradient(#d0a476,#b98759);border-top:9px solid #bd9268;box-shadow:0 -10px 35px #7c583519}
 .lamp{position:absolute;z-index:3;top:300px;left:1%;width:365px;height:370px;pointer-events:none;filter:drop-shadow(8px 12px 10px #4b1b182c)}
 .studentLampImage{position:absolute;left:0;bottom:0;width:100%;height:100%;object-fit:contain;object-position:left bottom;user-select:none;pointer-events:none}
-.roomLightSwitch{position:absolute;z-index:70;top:675px;left:7.2%;right:auto;min-height:38px;padding:0 14px 0 11px;border:1px solid #c5b298;border-radius:22px;background:var(--paper);color:var(--ink);display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 7px 18px #3b241629}
-.roomLightSwitch:hover{background:var(--paper)}
-.roomLightDot{width:10px;height:10px;border-radius:50%;background:#d6a93d;box-shadow:0 0 0 4px #d6a93d22}
-.pageDim .roomLightDot{background:#5e5148;box-shadow:0 0 0 4px #5e514822}
-.pageDim .roomLightSwitch{background:var(--surface);color:var(--ink)}
+.roomLightSwitch{position:absolute;z-index:70;top:675px;left:7.2%;right:auto;min-height:42px;padding:4px 5px 4px 11px;border:1px solid color-mix(in srgb,var(--line) 78%,#8e6d4d);border-radius:999px;background:color-mix(in srgb,var(--paper) 93%,transparent);color:var(--ink);display:flex;align-items:center;gap:9px;font-size:11px;font-weight:800;cursor:pointer;box-shadow:0 8px 20px #3b241629,inset 0 1px #ffffff80;backdrop-filter:blur(8px);transition:background .25s,border-color .25s,box-shadow .25s,transform .18s}
+.roomLightSwitch:hover{transform:translateY(-1px);box-shadow:0 10px 24px #3b241633,inset 0 1px #ffffff99}
+.roomLightSwitch:active{transform:translateY(1px)}
+.roomLightLabel{min-width:28px;text-align:left;letter-spacing:.02em}
+.roomLightTrack{position:relative;display:block;width:88px;height:32px;border:1px solid color-mix(in srgb,var(--line) 82%,#5b4738);border-radius:999px;background:linear-gradient(180deg,color-mix(in srgb,var(--surface) 90%,#000 4%),color-mix(in srgb,var(--paper) 86%,#000 7%));box-shadow:inset 0 2px 5px #2c1a111f;overflow:hidden}
+.roomLightState{position:absolute;z-index:1;top:50%;transform:translateY(-50%);font-size:7px;font-weight:900;letter-spacing:.07em;transition:opacity .25s,color .25s}
+.roomLightOff{left:9px;color:var(--muted)}
+.roomLightOn{right:9px;color:#8a6417}
+.roomLightThumb{position:absolute;z-index:2;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:linear-gradient(145deg,#fdf8ef,#d8c7b7);border:1px solid #baa791;box-shadow:0 2px 5px #2f1c1238,inset 0 1px #fff;transition:transform .28s cubic-bezier(.2,.8,.2,1),background .25s,border-color .25s,box-shadow .25s}
+.roomLightThumb i{position:absolute;inset:7px;border-radius:50%;background:#77685e;box-shadow:0 0 0 3px #77685e18;transition:background .25s,box-shadow .25s}
+.lightOn .roomLightThumb{transform:translateX(56px);background:linear-gradient(145deg,#fff4c7,#e4b73f);border-color:#ca9d2e;box-shadow:0 2px 6px #5b3b1738,0 0 14px #e8bc4b66,inset 0 1px #fff7d4}
+.lightOn .roomLightThumb i{background:#fff1a5;box-shadow:0 0 0 3px #f0c85c35,0 0 11px #ffd95a}
+.lightOn .roomLightOff{opacity:.42}
+.lightOff .roomLightOn{opacity:.38}
+.pageDim .roomLightSwitch{background:color-mix(in srgb,var(--paper) 92%,transparent);color:var(--ink);box-shadow:0 8px 20px #0003,inset 0 1px #ffffff12}
+.pageDim .roomLightTrack{background:linear-gradient(180deg,#2f2521,#211a17);border-color:#57463e}
+.pageDim .roomLightOff{color:#d2c4b8}
+.pageDim .roomLightOn{color:#9f8b78}
 .moneyPlant{position:absolute;z-index:2;top:316px;right:3.2%;width:184px;height:258px;transform-origin:bottom center;animation:plantSway 7s ease-in-out infinite;pointer-events:none}
 .moneyPlant img{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom;filter:drop-shadow(7px 10px 7px #39231324);user-select:none;pointer-events:none}
 .studyNotebook{position:absolute;top:396px;left:26%;width:47%;min-height:258px;padding:24px 30px 24px 43px;border:1px solid #c7b899;border-radius:6px 15px 15px 6px;background:repeating-linear-gradient(180deg,transparent 0 27px,#9e8e7319 28px),var(--surface);box-shadow:3px 4px var(--line),5px 7px #f6ead2,9px 16px 24px #51361e33}
