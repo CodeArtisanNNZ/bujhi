@@ -95,7 +95,7 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
    const meResponse=await fetch("/api/me",{cache:"no-store"});
    const me=await meResponse.json().catch(()=>({})) as {error?:string;profile?:{role?:string}};
    if(!meResponse.ok){
-    setError(me.error||"Signed in, but Bujhi could not load your profile.");
+    setError(me.error||"Signed in, but Bujhi? could not load your profile.");
     return;
    }
 
@@ -106,7 +106,7 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
       :role;
    window.location.assign(actualRole==="teacher"?"/teacher-dashboard":"/dashboard");
   }catch{
-   setError("Could not reach Bujhi's account service. Please try again.");
+   setError("Could not reach the Bujhi? account service. Please try again.");
   }finally{
    setLoading(false);
   }
@@ -144,7 +144,7 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
 
    <article className="auth-notebook">
     <div className="auth-rings">{Array.from({length:7}).map((_,i)=><i key={i}/>)}</div>
-    <p className="eyebrow">{kind==="login"?"Welcome back":"Begin your Bujhi journey"}</p>
+    <p className="eyebrow">{kind==="login"?"Welcome back":"Begin your Bujhi? journey"}</p>
     <h1>{kind==="login"?"Log in to your desk":"Create your account"}</h1>
 
     <div className="role-switch">
@@ -163,7 +163,7 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
      {kind==="signup"&&role==="teacher"&&<label><span>Subject</span><input className="plain-input" value={subject} onChange={e=>setSubject(e.target.value)} placeholder="For example: Science"/></label>}
 
      {error&&<p className="auth-error">{error}</p>}
-     <p className="auth-preview-note">Your Bujhi account is used to open the correct student or teacher desk.</p>
+     <p className="auth-preview-note">Your Bujhi? account is used to open the correct student or teacher desk.</p>
      <button type="submit" className="submit-auth" disabled={loading}>{loading?"Opening your desk…":kind==="login"?"Log in":"Create account"}</button>
     </form>
 
