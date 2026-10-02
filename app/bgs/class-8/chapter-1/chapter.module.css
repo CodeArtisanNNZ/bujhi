@@ -114,3 +114,32 @@
   .renaissanceGallery{grid-template-columns:1fr}.responseSpectrum>div:last-child{grid-template-columns:1fr}
   .movementFocus>div{grid-template-columns:1fr}.yearNote{flex-direction:column}.yearNote b{white-space:normal}
 }
+
+
+/* ===== Major movements atlas + Self-rule spotlight ===== */
+.movementAtlas{margin-top:24px;padding:20px;border:1px solid #d9c5b1;border-radius:18px;background:#f8efe4}
+.movementChips{display:flex;gap:8px;overflow-x:auto;padding:12px 0 5px;scrollbar-width:thin}
+.movementChips button{flex:0 0 180px;min-height:76px;padding:11px;border:1px solid #ddcbb7;border-radius:12px;background:#fffaf4;color:#433229;text-align:left;cursor:pointer}
+.movementChips button b,.movementChips button span{display:block}.movementChips button b{color:#990000;font:700 15px Georgia,serif}.movementChips button span{margin-top:4px;font-size:11px;font-weight:850;line-height:1.35}
+.movementChips .movementChipActive{background:#990000;color:#fff;border-color:#990000;box-shadow:0 8px 18px #7a171422}.movementChips .movementChipActive b{color:#fff}
+.movementDetail{display:grid;grid-template-columns:1fr 1fr 1fr 1.2fr;gap:0;margin-top:10px;border:1px solid #d9c5b0;border-radius:15px;background:#fffaf4;overflow:hidden}
+.movementDetail>div{padding:16px;border-left:1px solid #e2d0bd}.movementDetail>div:first-child{border-left:0;background:#3d2b23;color:#fff6e9}
+.movementDetail small{display:block;color:#990000;font-size:9px;font-weight:900;letter-spacing:.08em}.movementIdentity small{color:#efb28c}
+.movementIdentity h3{font:700 22px Georgia,serif;margin:4px 0 6px}.movementIdentity strong{color:#ead9cc}
+.movementDetail p{margin:5px 0 0;color:#64554a;font-size:11px}.movementIdentity p{color:#ead9cc}
+.movementTableWrap{overflow-x:auto;margin-top:14px;border:1px solid #dbc8b4;border-radius:14px;background:#fffdf8}
+.movementTable{width:100%;min-width:980px;border-collapse:collapse;font-size:11px}.movementTable th{padding:11px 12px;background:#3d2b23;color:#fff;text-align:left;font-size:10px;letter-spacing:.04em}.movementTable td{padding:12px;border-top:1px solid #e2d1bf;vertical-align:top;color:#5f5046}.movementTable td:first-child{white-space:nowrap;font-weight:900;color:#8e302a}.movementTable td strong,.movementTable td small{display:block}.movementTable td strong{font:700 14px Georgia,serif;color:#3c2d25}.movementTable td small{margin-top:4px;color:#9a5a48}
+.selfRuleSpotlight{margin-top:24px;padding:22px;border-radius:18px;background:#3b2a22;color:#fff5e8;box-shadow:inset 0 0 0 1px #ffffff12}
+.selfRuleHeading small{color:#efb28c;font-weight:900;letter-spacing:.1em}.selfRuleHeading h3{margin:5px 0 7px;font:700 clamp(25px,4vw,34px)/1.12 Georgia,serif}.selfRuleHeading p{max-width:920px;margin:0;color:#e5d5c9}
+.selfRuleTimeline{display:flex;align-items:stretch;gap:8px;overflow-x:auto;margin-top:18px;padding-bottom:6px}
+.selfRuleTimeline>div{position:relative;flex:0 0 175px;min-height:178px;padding:14px;border:1px solid #ffffff20;border-radius:13px;background:#ffffff09}
+.selfRuleTimeline>div b,.selfRuleTimeline>div strong{display:block}.selfRuleTimeline>div b{font:700 22px Georgia,serif;color:#f1b993}.selfRuleTimeline>div strong{margin-top:7px;font:700 15px Georgia,serif}.selfRuleTimeline>div p{font-size:10px;color:#ddcec3}.selfRuleTimeline>div>svg{position:absolute;right:-14px;top:50%;z-index:2;width:18px;color:#f0b38c}
+.selfRuleEquation{display:flex;align-items:center;gap:7px;overflow-x:auto;margin-top:13px;padding:13px;border-radius:12px;background:#ffffff0e}
+.selfRuleEquation span,.selfRuleEquation strong{white-space:nowrap;padding:7px 9px;border:1px solid #ffffff25;border-radius:999px;background:#ffffff0c;font-size:10px;font-weight:900}.selfRuleEquation svg{flex:0 0 auto;width:15px;color:#efb28c}.selfRuleEquation strong{background:#990000;border-color:#b4463d}
+@media(max-width:900px){
+  .movementDetail{grid-template-columns:1fr 1fr}.movementDetail>div:nth-child(3){border-left:0;border-top:1px solid #e2d0bd}.movementDetail>div:nth-child(4){border-top:1px solid #e2d0bd}
+}
+@media(max-width:620px){
+  .movementDetail{grid-template-columns:1fr}.movementDetail>div{border-left:0;border-top:1px solid #e2d0bd}.movementDetail>div:first-child{border-top:0}
+  .movementChips button{flex-basis:155px}.selfRuleSpotlight{padding:17px}.selfRuleTimeline>div{flex-basis:160px}
+}
