@@ -8,12 +8,12 @@ const teamMembers=[
  {name:"Syed Mohammad Samiul Haque",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null},
  {name:"Mrittika Rahman",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null},
  {name:"Syed Muhtasim Abrar Sahosh",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null},
- {name:"Adriana Arif",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null},
+ {name:"Adriana Arif",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/adriana-arif.webp"},
  {name:"Akira Jannat Faiza",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null},
- {name:"Sidratul Muntaha",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null},
+ {name:"Sidratul Muntaha",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/sidratul-muntaha.webp"},
  {name:"Nowrin Tanhiad",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null},
  {name:"Azwad Akhlak",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null},
- {name:"Talukder Khaleed Bin Hasan",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null}
+ {name:"Talukder Khaleed Bin Hasan",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/talukder-khaleed-bin-hasan.webp"}
 ] as const;
 
 export default function About(){
