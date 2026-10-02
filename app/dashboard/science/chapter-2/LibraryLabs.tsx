@@ -49,7 +49,7 @@ const PROVIDED_RESOURCES:Record<ResourceKind,ResourceTab[]>={
       url:"/simulations/class-8/meiosis.html",
       embed:"/simulations/class-8/meiosis.html",
       kind:"site",
-      note:"Track maternal and paternal chromosomes through Meiosis I and II in Bujhi?."
+      note:"Track maternal and paternal chromosomes through Meiosis I and II inside Bujhi?."
     },
     {
       id:"video",
