@@ -148,7 +148,7 @@ function firstPrimes(count:number){
   return primes;
 }
 
-const primeFacts = firstPrimes(108).map((prime,i)=>
+const primeFacts = firstPrimes(208).map((prime,i)=>
   `Number theory · ${prime} is prime number #${i+1} in ascending order.`
 );
 
