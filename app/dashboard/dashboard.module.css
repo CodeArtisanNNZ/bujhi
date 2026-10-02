@@ -147,8 +147,9 @@
 .noteEditor{
   width:100%;min-height:230px;resize:vertical;outline:none;border:1px solid #d7bc80;border-radius:13px;
   background:repeating-linear-gradient(180deg,transparent 0 31px,rgba(124,103,67,.12) 32px),#f1dc99;
-  color:var(--ink);padding:18px;font:600 1rem/2 Georgia,"Bujhi Bangla",serif;
+  color:#3f2b1d;caret-color:#3f2b1d;padding:18px;font:600 1rem/2 Georgia,"Bujhi Bangla",serif;
 }
+.noteEditor::placeholder{color:#7a624d;opacity:1}
 .noteEditor:focus{border-color:#9b742e;box-shadow:0 0 0 3px rgba(155,116,46,.12)}
 .noteMeta{display:flex;justify-content:space-between;margin-top:8px;color:var(--muted);font-size:.7rem}
 .noteMeta strong{color:var(--muted)}
