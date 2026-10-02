@@ -151,13 +151,17 @@ export default function StudentDashboard(){
 
       <button
         type="button"
-        className={styles.roomLightSwitch}
+        className={`${styles.roomLightSwitch} ${lightOn?styles.lightOn:styles.lightOff}`}
         onClick={toggleTheme}
         aria-pressed={lightOn}
         aria-label={lightOn?"Turn lamp off":"Turn lamp on"}
       >
-        <span className={styles.roomLightDot} aria-hidden="true"/>
-        <span>{lightOn?"Lamp on":"Lamp off"}</span>
+        <span className={styles.roomLightLabel}>Lamp</span>
+        <span className={styles.roomLightTrack} aria-hidden="true">
+          <span className={`${styles.roomLightState} ${styles.roomLightOff}`}>OFF</span>
+          <span className={`${styles.roomLightState} ${styles.roomLightOn}`}>ON</span>
+          <span className={styles.roomLightThumb}><i/></span>
+        </span>
       </button>
 
       <div className={styles.moneyPlant} role="img" aria-label="Money plant">
