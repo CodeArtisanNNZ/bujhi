@@ -7,3 +7,19 @@ node_modules/
 public/nctb/2026/class-8/*.pdf
 !public/nctb/2026/class-8/science.pdf
 !public/nctb/2026/class-8/science-chapter-1.pdf
+
+# Large source PNGs are excluded; optimized WebP copies are used by the app.
+public/auth-desk.png
+public/classroom-student-view.png
+public/classroom-teacher-view.png
+public/about-practical.png
+public/29e8b631-9c79-4996-b225-405227aa1153.png
+public/about-origin.png
+public/auth-desk-clean.png
+public/about-classroom.png
+public/lemonade.png
+public/classiccoffee.png
+public/classictea.png
+public/ef6af6f1-43c9-41fe-9c24-5f3873a95c33.png
+public/glassofwater.png
+public/bobatea.png
