@@ -43,7 +43,66 @@ select{width:100%;border:1px solid var(--line);background:var(--paper);border-ra
 @media(max-width:1080px){.page{grid-template-columns:245px minmax(340px,1fr)}.results{grid-column:1/-1}.results .card-body{display:grid;grid-template-columns:1fr 1fr;gap:14px}}
 @media(max-width:700px){header{align-items:flex-start;flex-direction:column}.page{display:flex;flex-direction:column;padding:10px;gap:10px}.page>.card{width:100%}.lab{order:0}.variables{order:1}.results{order:2}.results .card-body{display:block}.scene{height:330px}.practical{padding:0 10px}.controls{gap:6px}}
 </style>
-<link rel="stylesheet" href="/simulation-theme.css"><script src="/theme-sync.js"></script></head>
+<link rel="stylesheet" href="/simulation-theme.css"><script src="/theme-sync.js"></script><!-- BUJHI_THEME_BRIDGE_V1 -->
+<style>
+:root{color-scheme:light}
+:root[data-bujhi-theme="dark"]{color-scheme:dark}
+:root[data-bujhi-theme="dark"] body{background:#1e1715!important;color:#f3e9dd!important}
+:root[data-bujhi-theme="dark"] .bg-white,
+:root[data-bujhi-theme="dark"] .bg-slate-50,
+:root[data-bujhi-theme="dark"] .bg-slate-100,
+:root[data-bujhi-theme="dark"] .bg-gray-50,
+:root[data-bujhi-theme="dark"] .bg-gray-100{background-color:#2b211e!important}
+:root[data-bujhi-theme="dark"] .text-slate-950,
+:root[data-bujhi-theme="dark"] .text-slate-900,
+:root[data-bujhi-theme="dark"] .text-slate-800,
+:root[data-bujhi-theme="dark"] .text-gray-950,
+:root[data-bujhi-theme="dark"] .text-gray-900,
+:root[data-bujhi-theme="dark"] .text-gray-800{color:#f3e9dd!important}
+:root[data-bujhi-theme="dark"] .text-slate-700,
+:root[data-bujhi-theme="dark"] .text-slate-600,
+:root[data-bujhi-theme="dark"] .text-slate-500,
+:root[data-bujhi-theme="dark"] .text-gray-700,
+:root[data-bujhi-theme="dark"] .text-gray-600,
+:root[data-bujhi-theme="dark"] .text-gray-500{color:#c2afa1!important}
+:root[data-bujhi-theme="dark"] .border-slate-100,
+:root[data-bujhi-theme="dark"] .border-slate-200,
+:root[data-bujhi-theme="dark"] .border-slate-300,
+:root[data-bujhi-theme="dark"] .border-gray-100,
+:root[data-bujhi-theme="dark"] .border-gray-200,
+:root[data-bujhi-theme="dark"] .border-gray-300{border-color:#61483f!important}
+:root[data-bujhi-theme="dark"] input,
+:root[data-bujhi-theme="dark"] select,
+:root[data-bujhi-theme="dark"] textarea{background:#352825!important;color:#f3e9dd!important;border-color:#61483f!important}
+@media(max-width:700px){
+  html,body{max-width:100%;overflow-x:hidden}
+  button,a,input,select,textarea{touch-action:manipulation}
+}
+</style>
+<script>
+(function(){
+  function apply(theme){
+    document.documentElement.dataset.bujhiTheme=theme==="dark"?"dark":"light";
+  }
+  function initial(){
+    try{
+      var saved=localStorage.getItem("bujhi-theme");
+      if(saved==="light"||saved==="dark"){apply(saved);return;}
+    }catch(e){}
+    try{apply(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");}
+    catch(e){apply("light");}
+  }
+  window.addEventListener("message",function(event){
+    var data=event.data;
+    if(data&&data.type==="bujhi-theme")apply(data.theme);
+  });
+  window.addEventListener("storage",function(event){
+    if(event.key==="bujhi-theme"&&(event.newValue==="light"||event.newValue==="dark"))apply(event.newValue);
+  });
+  initial();
+})();
+</script>
+</head>
 <body>
 <div class="topline"></div>
 <header><div class="brand"><div class="mark" aria-hidden="true">বু</div><div><div class="eyebrow">বুঝি · অষ্টম শ্রেণি · বিজ্ঞান · অধ্যায় ৪</div><h1>বীজ অঙ্কুরোদ্গম পরীক্ষাগার</h1></div></div><div class="header-actions"><span class="pill">পানি + অক্সিজেন + তাপমাত্রা</span><button class="pill" id="reset" type="button">নতুন পরীক্ষা ↺</button></div></header>
