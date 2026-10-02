@@ -70,3 +70,9 @@ html[lang="bn"] #bujhi-content :where(h2,h3,h4){line-height:1.55;letter-spacing:
 html[lang="bn"] #bujhi-content .hero-copy h1{font-size:clamp(1.8rem,3.2vw,2.65rem);line-height:1.5}
 html[lang="bn"] #bujhi-content :is(.about-hero,.classroom-intro) h1{font-size:clamp(1.6rem,3vw,2.25rem);line-height:1.5}
 @media(max-width:700px){html[lang="bn"] #bujhi-content .hero-copy h1{font-size:clamp(1.6rem,6.8vw,2rem)}}
+
+
+/* BUJHI_EMBED_RESPONSIVE_V1 */
+#bujhi-content iframe{display:block;width:100%;max-width:100%;border:0;color-scheme:light}
+:root[data-theme="dark"] #bujhi-content iframe{color-scheme:dark}
+@media(max-width:700px){#bujhi-content iframe{max-width:100%;margin-inline:0}}
