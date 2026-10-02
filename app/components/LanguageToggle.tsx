@@ -169,6 +169,7 @@ export default function LanguageToggle(){
     setLang(initial);
     document.documentElement.lang=initial==="bn"?"bn":"en";
     translateTree(document.body,initial);
+    window.dispatchEvent(new CustomEvent("bujhi-language-changed",{detail:{lang:initial}}));
 
     const observer=new MutationObserver(mutations=>{
       if(applying)return;
@@ -202,6 +203,7 @@ export default function LanguageToggle(){
     try{localStorage.setItem("bujhi-language",next)}catch{}
     document.documentElement.lang=next==="bn"?"bn":"en";
     translateTree(document.body,next);
+    window.dispatchEvent(new CustomEvent("bujhi-language-changed",{detail:{lang:next}}));
   }
 
   return <div className="language-toggle-wrap" data-no-translate>
