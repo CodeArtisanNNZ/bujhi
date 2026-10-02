@@ -5,10 +5,15 @@ import {ArrowLeft,ArrowRight,BookOpen,ChevronLeft,ChevronRight,GraduationCap,Lig
 import {useRef,useState,type CSSProperties} from "react";
 const teamMembers=[
  {name:"Nusaiba Nusrat Zaman",role:"Founder · Bujhi",bio:"Building Bujhi around one belief: students should have more than one way to understand the same idea.",image:"/about-founder-nusaiba.webp"},
- {name:"Saif Mahmud Hasib",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null},
+ {name:"Syed Mohammad Samiul Haque",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null},
+ {name:"Mrittika Rahman",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null},
+ {name:"Syed Muhtasim Abrar Sahosh",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null},
+ {name:"Adriana Arif",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null},
  {name:"Akira Jannat Faiza",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null},
- {name:"Zarin Tashnim Roshni",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null},
- {name:"Sidratul Muntaha",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null}
+ {name:"Sidratul Muntaha",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null},
+ {name:"Nowrin Tanhiad",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null},
+ {name:"Azwad Akhlak",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null},
+ {name:"Talukder Khaleed Bin Hasan",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null}
 ] as const;
 
 export default function About(){
