@@ -1665,3 +1665,111 @@ linear-gradient(180deg,var(--paper),var(--surface))}
 
 .book-footer>a{display:inline-flex;align-items:center;gap:6px;color:var(--red);font-weight:800}
 .book-footer>a svg{width:16px;height:16px}
+
+
+/* ===== CLEAN CELL / DNA HOMEPAGE PREVIEW ===== */
+.clean-cell-preview{
+  position:relative;
+  display:block;
+  width:100%;
+  height:230px;
+  min-width:0;
+  padding:0;
+  overflow:hidden;
+  border:1px solid rgba(145,103,165,.32);
+  border-radius:16px;
+  background:
+    radial-gradient(circle at 26% 48%,rgba(170,92,120,.18),transparent 35%),
+    radial-gradient(circle at 77% 36%,rgba(104,76,151,.22),transparent 38%),
+    linear-gradient(145deg,#171018 0%,#0e0c13 58%,#090a10 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.025),inset 0 -28px 54px rgba(0,0,0,.16);
+  cursor:pointer;
+  text-align:left;
+}
+.clean-cell-preview:focus-visible{
+  outline:2px solid #c99be0;
+  outline-offset:3px;
+}
+.clean-cell-svg{
+  display:block;
+  width:100%;
+  height:100%;
+}
+.clean-cell-body{transform-origin:135px 128px;animation:cleanCellFloat 5s ease-in-out infinite alternate}
+.clean-nucleus-ring{transform-origin:139px 126px;animation:cleanNucleusPulse 2.4s ease-out infinite}
+.clean-zoom-line{animation:cleanDash 2.4s linear infinite}
+.clean-dna{transform-origin:321px 118px;animation:cleanDnaFloat 4s ease-in-out infinite alternate}
+.clean-gene-focus{animation:cleanGeneGlow 1.8s ease-in-out infinite alternate}
+.clean-cell-preview.paused .clean-cell-body,
+.clean-cell-preview.paused .clean-nucleus-ring,
+.clean-cell-preview.paused .clean-zoom-line,
+.clean-cell-preview.paused .clean-dna,
+.clean-cell-preview.paused .clean-gene-focus{animation-play-state:paused}
+.clean-cell-label{
+  position:absolute;
+  left:11px;
+  top:10px;
+  z-index:3;
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  padding:7px 9px;
+  border:1px solid rgba(240,224,235,.12);
+  border-radius:9px;
+  background:rgba(22,15,23,.58);
+  backdrop-filter:blur(7px);
+  pointer-events:none;
+}
+.clean-cell-label small{
+  color:#c9acd4;
+  font-size:.45rem;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.clean-cell-label strong{
+  color:#fff8ef;
+  font:600 .78rem "Fraunces","Bujhi Bangla",serif;
+}
+.clean-cell-hint{
+  position:absolute;
+  right:9px;
+  bottom:8px;
+  z-index:3;
+  padding:5px 8px;
+  border:1px solid rgba(228,206,234,.11);
+  border-radius:999px;
+  background:rgba(22,15,23,.62);
+  color:#d8c2dd;
+  font-size:.46rem;
+  font-weight:800;
+  backdrop-filter:blur(5px);
+  pointer-events:none;
+}
+@keyframes cleanCellFloat{
+  from{transform:translateY(-2px) scale(.99)}
+  to{transform:translateY(3px) scale(1.015)}
+}
+@keyframes cleanNucleusPulse{
+  0%{opacity:.72;transform:scale(.78)}
+  72%,100%{opacity:0;transform:scale(1.34)}
+}
+@keyframes cleanDash{to{stroke-dashoffset:-22}}
+@keyframes cleanDnaFloat{
+  from{transform:translateY(-3px) rotate(-1deg)}
+  to{transform:translateY(3px) rotate(1deg)}
+}
+@keyframes cleanGeneGlow{
+  from{opacity:.55;filter:drop-shadow(0 0 0 rgba(255,211,106,0))}
+  to{opacity:1;filter:drop-shadow(0 0 7px rgba(255,211,106,.45))}
+}
+@media(max-width:650px){
+  .clean-cell-preview{height:174px;border-radius:13px}
+  .clean-cell-label{left:8px;top:8px;padding:5px 7px}
+  .clean-cell-label small{font-size:.39rem}
+  .clean-cell-label strong{font-size:.66rem}
+  .clean-cell-hint{right:7px;bottom:6px;font-size:.4rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .clean-cell-body,.clean-nucleus-ring,.clean-zoom-line,.clean-dna,.clean-gene-focus{animation:none!important}
+}
