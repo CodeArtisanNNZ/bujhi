@@ -47,7 +47,7 @@ export default function LearnBookPage(){
   if(!ready)return <main className={styles.page}><div className={styles.loading}>{ui("পাঠ খোলা হচ্ছে…","Opening lesson…")}</div></main>;
 
   if(classKey==="8"&&book.id==="bangladesh-global-studies")return <main className={styles.page}>
-    <header className={styles.topbar}><Link className={styles.brand} href="/">বুঝি</Link><Link className={styles.back} href="/student-dashboard/books/8/bangladesh-global-studies"><ArrowLeft/>বাংলাদেশ ও বিশ্বপরিচয়ের বইয়ে ফিরি</Link></header>
+    <header className={styles.topbar}><Link className={styles.brand} href="/">বুঝি?</Link><Link className={styles.back} href="/student-dashboard/books/8/bangladesh-global-studies"><ArrowLeft/>বাংলাদেশ ও বিশ্বপরিচয়ের বইয়ে ফিরি</Link></header>
     <section className={styles.lessonPage}>
       <div className={styles.lessonHero} style={{"--accent":book.accent} as React.CSSProperties}>
         <p>অষ্টম শ্রেণি · বাংলাদেশ ও বিশ্বপরিচয় · NCTB ২০২৬</p>
@@ -61,12 +61,12 @@ export default function LearnBookPage(){
           <p>উপনিবেশের ধারণা → অশোক থেকে সিরাজ → ইউরোপীয়দের আগমন ও বাণিজ্য → পলাশীর কারণ ও ৮-block story।</p>
         </Link>
       </div>
-      <div className={styles.lessonNotice}>অধ্যায় ১-এর এখন পর্যন্ত আলোচিত প্রথম চারটি অংশ Bujhi lesson plan-এ যুক্ত হয়েছে। পরের অংশগুলো একই chapter route-এ যোগ হবে।</div>
+      <div className={styles.lessonNotice}>অধ্যায় ১-এর এখন পর্যন্ত আলোচিত প্রথম চারটি অংশ Bujhi? lesson plan-এ যুক্ত হয়েছে। পরের অংশগুলো একই chapter route-এ যোগ হবে।</div>
     </section>
   </main>;
 
   if(classKey==="8"&&book.id==="science")return <main className={styles.page}>
-    <header className={styles.topbar}><Link className={styles.brand} href="/">বুঝি</Link><Link className={styles.back} href="/student-dashboard/books/8/science"><ArrowLeft/>বিজ্ঞানের বইয়ে ফিরি</Link></header>
+    <header className={styles.topbar}><Link className={styles.brand} href="/">বুঝি?</Link><Link className={styles.back} href="/student-dashboard/books/8/science"><ArrowLeft/>বিজ্ঞানের বইয়ে ফিরি</Link></header>
     <section className={styles.lessonPage}><div className={styles.lessonHero} style={{"--accent":book.accent} as React.CSSProperties}><p>অষ্টম শ্রেণি · বিজ্ঞান · NCTB ২০২৬</p><h1>বিজ্ঞান</h1><span>তোমার মূল পাঠ্যবই থেকে একটি অধ্যায় খোলো।</span></div>
     <div className={styles.lessonWorkspace}><Link className={styles.lessonCard} href="/science/class-8/chapter-1"><BookOpen/><strong>১. প্রাণিজগতের শ্রেণিবিন্যাস</strong><p>শ্রেণিবিন্যাস বৃক্ষ দেখো, প্রাণী শনাক্ত করো এবং বইয়ের পৃষ্ঠা ১–১২ থেকে অনুশীলন করো।</p></Link><Link className={styles.lessonCard} href="/dashboard/science/chapter-2"><Play/><strong>২. জীবের বৃদ্ধি ও বংশগতি</strong><p>কোষ বিভাজন, মিয়োসিস-I ও II, ক্রোমোজোম, DNA, জিন এবং বংশগত তথ্যের ধারাবাহিক জুম—সবই অধ্যায় ২-এর ভিতরে।</p></Link></div>
     <div className={styles.lessonWorkspace}><Link className={styles.lessonCard} href="/science/class-8/chapter-4?topic=seed"><Play/><strong>অধ্যায় ৪ · বীজ অঙ্কুরোদ্গম পরীক্ষাগার</strong><p>পানি, অক্সিজেন ও তাপমাত্রা বদলে ফল দেখো এবং বাস্তব বীজের সঙ্গে তুলনা করো।</p></Link></div>
@@ -90,7 +90,7 @@ export default function LearnBookPage(){
 
   return <main className={styles.page}>
     <header className={styles.topbar}>
-      <Link className={styles.brand} href="/">বুঝি</Link>
+      <Link className={styles.brand} href="/">বুঝি?</Link>
       <Link className={styles.back} href={`/student-dashboard/books/${classKey}/${book.id}`}><ArrowLeft/>{ui("বইয়ে ফিরি","Back to book")}</Link>
     </header>
 
