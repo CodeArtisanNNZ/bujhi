@@ -152,7 +152,6 @@ export default function TeacherDashboard(){
         aria-pressed={lightOn}
         aria-label={lightOn?"বাতি বন্ধ করো":"বাতি চালু করো"}
       >
-        <span className={styles.roomLightLabel}>বাতি</span>
         <span className={styles.roomLightTrack} aria-hidden="true">
           <span className={`${styles.roomLightState} ${styles.roomLightOff}`}>বন্ধ</span>
           <span className={`${styles.roomLightState} ${styles.roomLightOn}`}>চালু</span>
