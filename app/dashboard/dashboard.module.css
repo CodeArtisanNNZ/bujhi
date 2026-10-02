@@ -1,18 +1,18 @@
 
-.page{position:relative;min-height:100vh;margin:0;background:var(--surface);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,sans-serif}
+.page{position:relative;min-height:100vh;margin:0;background:var(--surface);color:var(--ink);font-family:Inter,"Bujhi Bangla",ui-sans-serif,system-ui,sans-serif}
 .pageDim:after{display:none}
 .referenceDesk{position:relative;isolation:isolate;width:min(1440px,100%);min-height:800px;margin:0 auto;overflow:hidden;background:radial-gradient(ellipse at 20% 25%,rgba(var(--surface-rgb),0.667),transparent 65%),repeating-linear-gradient(90deg,#c1ad8d12 0 1px,transparent 1px 6px),var(--surface)}
-.deskBrand{position:absolute;top:25px;left:5%;display:flex;align-items:center;gap:14px}.deskBrand a{display:flex;align-items:center;gap:9px;color:var(--red);text-decoration:none}.deskBrand a img{width:38px;height:38px;border-radius:9px;object-fit:contain}.deskBrand a strong{font:bold 30px Georgia,serif}.deskBrand span{font-size:12px;letter-spacing:.1em;color:var(--muted)}
+.deskBrand{position:absolute;top:25px;left:5%;display:flex;align-items:center;gap:14px}.deskBrand a{display:flex;align-items:center;gap:9px;color:var(--red);text-decoration:none}.deskBrand a img{width:38px;height:38px;border-radius:9px;object-fit:contain}.deskBrand a strong{font:bold 30px Georgia,"Bujhi Bangla",serif}.deskBrand span{font-size:12px;letter-spacing:.1em;color:var(--muted)}
 .headerClassCover,.headerProfileCover{display:none}
 .dynamicClass{position:absolute;z-index:30;top:20px;left:42%}.classPill{min-height:48px;border:1px solid #cdbba2;border-radius:25px;background:var(--paper);color:var(--ink);display:flex;flex-direction:column;justify-content:center;padding:5px 17px;box-shadow:0 6px 18px #51361e13}.classPill strong{font-size:13px;line-height:1.1}.classPill span{margin-top:3px;color:var(--muted);font-size:9px;letter-spacing:.04em}
 .dynamicProfile{position:absolute;z-index:30;top:24px;right:4%;padding:0 7px;gap:10px}.dynamicProfile>span{width:32px;height:32px;border-radius:50%;background:#8b201d;color:white;display:grid;place-items:center}.dynamicProfile svg{width:18px}.dynamicProfile strong{font-size:13px}.dynamicProfile button{width:36px;height:36px;border:0;background:transparent;color:var(--muted);cursor:pointer}
-.shelfMeta{position:absolute;z-index:4;top:86px;left:10%;right:10%;display:flex;align-items:center;justify-content:space-between;color:var(--muted);pointer-events:none}.shelfMeta strong{font:700 12px Georgia,serif}.shelfMeta span{font-size:9px;letter-spacing:.04em}
+.shelfMeta{position:absolute;z-index:4;top:86px;left:10%;right:10%;display:flex;align-items:center;justify-content:space-between;color:var(--muted);pointer-events:none}.shelfMeta strong{font:700 12px Georgia,"Bujhi Bangla",serif}.shelfMeta span{font-size:9px;letter-spacing:.04em}
 .bookHotspots{position:absolute;z-index:3;top:113px;left:7%;width:86%;height:210px;display:flex;align-items:flex-end;gap:8px;padding:0 10px 18px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:#8d6747 #d8c09f;border-bottom:20px solid #a9784d;box-shadow:0 17px 19px #4a2d2429}
 .bookHotspots:after{display:none}
 .bookHotspots button{position:relative;flex:0 0 60px;width:60px;min-width:60px;height:170px;border:1px solid #462f2933;border-radius:5px 8px 3px 3px;color:#fff1dc;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:12px 4px 10px;box-shadow:inset 5px 0 #ffffff12,inset -5px 0 #0000001a,3px 2px 3px #35231a33;transition:transform .25s,box-shadow .25s;scroll-snap-align:start}
 .bookHotspots button:nth-child(3n),.bookHotspots button:nth-child(4n){height:170px}
 .bookHotspots button:hover{transform:translateY(-8px);box-shadow:inset 5px 0 #ffffff12,6px 12px 12px #35231a33}.bookHotspots .bookSelected{outline:2px solid #f7dfae;outline-offset:-4px;box-shadow:inset 5px 0 #ffffff20,0 0 0 2px #8b201d55,6px 12px 12px #35231a33}
-.bookGlyph{font:20px Georgia,serif}.bookTitle{writing-mode:vertical-rl;font:600 11px/1.1 Georgia,serif;text-align:center;max-height:112px;overflow:hidden}.bookHotspots small{font-size:9px;opacity:.7}
+.bookGlyph{font:20px Georgia,"Bujhi Bangla",serif}.bookTitle{writing-mode:vertical-rl;font:600 11px/1.1 Georgia,"Bujhi Bangla",serif;text-align:center;max-height:112px;overflow:hidden}.bookHotspots small{font-size:9px;opacity:.7}
 .deskSurface{position:absolute;z-index:-1;inset:400px 0 0;background:repeating-linear-gradient(1deg,transparent 0 12px,#55351e0b 13px,transparent 14px 35px),linear-gradient(#d0a476,#b98759);border-top:9px solid #bd9268;box-shadow:0 -10px 35px #7c583519}
 .lamp{position:absolute;z-index:3;top:300px;left:1%;width:365px;height:370px;pointer-events:none;filter:drop-shadow(8px 12px 10px #4b1b182c)}
 .studentLampImage{position:absolute;left:0;bottom:0;width:100%;height:100%;object-fit:contain;object-position:left bottom;user-select:none;pointer-events:none}
@@ -25,8 +25,8 @@
 .moneyPlant img{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom;filter:drop-shadow(7px 10px 7px #39231324);user-select:none;pointer-events:none}
 .studyNotebook{position:absolute;top:396px;left:26%;width:47%;min-height:258px;padding:24px 30px 24px 43px;border:1px solid #c7b899;border-radius:6px 15px 15px 6px;background:repeating-linear-gradient(180deg,transparent 0 27px,#9e8e7319 28px),var(--surface);box-shadow:3px 4px var(--line),5px 7px #f6ead2,9px 16px 24px #51361e33}
 .notebookBinding{position:absolute;left:9px;top:12px;bottom:12px;width:16px;background:repeating-linear-gradient(180deg,transparent 0 15px,#867762 16px 19px,transparent 20px 28px);border-right:1px solid #bfae92}
-.studyNotebook p{margin:0 0 10px;text-transform:uppercase;letter-spacing:.15em;font-size:10px;color:var(--red);font-weight:700}.studyNotebook h1{font:400 clamp(24px,2.8vw,37px)/1.15 Georgia,serif;color:var(--ink);margin:0 0 12px}.studyNotebook>span{font-size:12px;color:var(--muted)}.studyNotebook button{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:17px;padding:11px 16px;border:0;border-radius:7px;background:#8b201d;color:#fff4e3;cursor:pointer;font-size:12px}.studyNotebook small{display:block;margin-top:13px;font-size:10px;color:var(--muted)}
-.stickyHotspot{position:absolute;z-index:4;top:342px;right:22%;width:140px;min-height:100px;padding:12px;border:0;border-radius:2px;background:#ebd89b;color:var(--muted);box-shadow:2px 5px 9px #65452126;text-align:left;cursor:pointer}.stickyHotspot strong{display:block;font:600 12px Georgia,serif;margin:5px 0}.stickyHotspot span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:10px;line-height:1.5}
+.studyNotebook p{margin:0 0 10px;text-transform:uppercase;letter-spacing:.15em;font-size:10px;color:var(--red);font-weight:700}.studyNotebook h1{font:400 clamp(24px,2.8vw,37px)/1.15 Georgia,"Bujhi Bangla",serif;color:var(--ink);margin:0 0 12px}.studyNotebook>span{font-size:12px;color:var(--muted)}.studyNotebook button{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:17px;padding:11px 16px;border:0;border-radius:7px;background:#8b201d;color:#fff4e3;cursor:pointer;font-size:12px}.studyNotebook small{display:block;margin-top:13px;font-size:10px;color:var(--muted)}
+.stickyHotspot{position:absolute;z-index:4;top:342px;right:22%;width:140px;min-height:100px;padding:12px;border:0;border-radius:2px;background:#ebd89b;color:var(--muted);box-shadow:2px 5px 9px #65452126;text-align:left;cursor:pointer}.stickyHotspot strong{display:block;font:600 12px Georgia,"Bujhi Bangla",serif;margin:5px 0}.stickyHotspot span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:10px;line-height:1.5}
 .actionHotspots{position:absolute;top:731px;left:26%;width:47%;display:flex;gap:12px;justify-content:center}.actionHotspots button{display:flex;align-items:center;justify-content:center;gap:9px;flex:1;min-height:43px;border:1px solid #a57d56;border-radius:8px;background:var(--surface);color:var(--ink);box-shadow:0 3px 0 #9f734d;cursor:pointer;font-size:12px}
 .drinkArea{position:absolute;z-index:10;right:1.2%;top:548px;width:215px;height:195px}
 .cupHotspot{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;width:100%;height:100%;border:0;background:transparent;cursor:pointer;color:var(--ink);padding:0}
@@ -37,7 +37,7 @@
 .steam i:nth-child(2){animation-delay:.8s}.steam i:nth-child(3){animation-delay:1.6s}
 .drinkLabel{font-size:11px;background:rgba(var(--surface-rgb),0.91);padding:6px 12px;border:1px solid #cdae8d66;border-radius:20px;box-shadow:0 4px 9px #5b342019}
 .drinkMenu{position:absolute;z-index:35;right:6px;bottom:190px;width:194px;padding:8px;border:1px solid var(--line);border-radius:14px;background:var(--paper);box-shadow:0 18px 38px #30190d38}
-.drinkMenuTitle{padding:8px;color:var(--ink);font:700 14px Georgia,serif}
+.drinkMenuTitle{padding:8px;color:var(--ink);font:700 14px Georgia,"Bujhi Bangla",serif}
 .drinkMenu button{width:100%;min-height:48px;border:0;border-radius:10px;background:transparent;color:var(--ink);padding:5px 8px;text-align:left;cursor:pointer;display:grid;grid-template-columns:42px 1fr;align-items:center;gap:9px}
 .drinkMenu button:hover{background:var(--surface)}.drinkMenu .drinkActive{background:#7f201b;color:white}
 .drinkThumb{position:relative;display:block;width:40px;height:40px;overflow:hidden;border-radius:9px;background:var(--surface);box-shadow:inset 0 0 0 1px #bda48855}
@@ -77,10 +77,10 @@
 .readerSubject{display:flex;align-items:center;gap:13px;margin-bottom:34px}
 .readerSubject>span{
   width:58px;height:72px;border-radius:9px 9px 4px 4px;color:#fff;display:grid;place-items:center;
-  font:700 1.45rem Georgia,serif;box-shadow:inset -7px 0 rgba(0,0,0,.08);
+  font:700 1.45rem Georgia,"Bujhi Bangla",serif;box-shadow:inset -7px 0 rgba(0,0,0,.08);
 }
 .readerSubject small{display:block;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-size:.58rem;font-weight:900}
-.readerSubject h2{margin:5px 0 0;color:#2f4e3f;font:700 clamp(1.8rem,4vw,2.7rem)/1 Georgia,serif}
+.readerSubject h2{margin:5px 0 0;color:#2f4e3f;font:700 clamp(1.8rem,4vw,2.7rem)/1 Georgia,"Bujhi Bangla",serif}
 .pdfCard{
   border:1px solid var(--line);border-radius:15px;background:var(--paper);padding:18px;
   display:grid;grid-template-columns:42px 1fr;gap:11px;align-items:center;
@@ -89,9 +89,9 @@
 .pdfCard strong{display:block;font-size:.88rem}
 .pdfCard span{display:block;margin-top:3px;color:var(--muted);font-size:.72rem}
 .pdfCard button{grid-column:1/-1;min-height:40px;border:0;border-radius:999px;background:var(--surface);color:var(--muted)}
-.readerTip{margin:22px 0 0;color:var(--muted);font:italic .86rem/1.6 Georgia,serif}
+.readerTip{margin:22px 0 0;color:var(--muted);font:italic .86rem/1.6 Georgia,"Bujhi Bangla",serif}
 .readerKicker{margin:0;color:var(--red);text-transform:uppercase;letter-spacing:.12em;font-size:.62rem;font-weight:900}
-.readerRight h3{margin:7px 0 18px;color:#2f4e3f;font:700 2rem Georgia,serif}
+.readerRight h3{margin:7px 0 18px;color:#2f4e3f;font:700 2rem Georgia,"Bujhi Bangla",serif}
 .chapterList{display:grid;gap:8px}
 .chapterList button{
   min-height:64px;border:1px solid var(--line);border-radius:12px;background:rgba(255,250,243,.88);
@@ -124,17 +124,17 @@
 .panelHeader{display:flex;align-items:center;gap:15px;padding-right:48px;margin-bottom:20px}
 .panelHeader>span{
   width:58px;height:68px;flex:0 0 auto;border-radius:9px 9px 4px 4px;display:grid;
-  place-items:center;color:white;font:700 1.35rem Georgia,serif;
+  place-items:center;color:white;font:700 1.35rem Georgia,"Bujhi Bangla",serif;
 }
 .panelHeader p{margin:0 0 4px;color:var(--red);text-transform:uppercase;letter-spacing:.13em;font-size:.61rem;font-weight:900}
-.panelHeader h2{margin:0;color:var(--ink);font:700 clamp(1.8rem,4vw,2.65rem)/1 Georgia,serif}
+.panelHeader h2{margin:0;color:var(--ink);font:700 clamp(1.8rem,4vw,2.65rem)/1 Georgia,"Bujhi Bangla",serif}
 .panelHeader small{display:block;margin-top:6px;color:var(--muted);font-size:.78rem}
 .noteHeaderIcon{background:#b08a43!important}
 .noteHeaderIcon svg{width:25px}
 .noteEditor{
   width:100%;min-height:230px;resize:vertical;outline:none;border:1px solid #d7bc80;border-radius:13px;
   background:repeating-linear-gradient(180deg,transparent 0 31px,rgba(124,103,67,.12) 32px),#f1dc99;
-  color:var(--ink);padding:18px;font:600 1rem/2 Georgia,serif;
+  color:var(--ink);padding:18px;font:600 1rem/2 Georgia,"Bujhi Bangla",serif;
 }
 .noteEditor:focus{border-color:#9b742e;box-shadow:0 0 0 3px rgba(155,116,46,.12)}
 .noteMeta{display:flex;justify-content:space-between;margin-top:8px;color:var(--muted);font-size:.7rem}
@@ -144,7 +144,7 @@
   min-height:170px;padding:18px;border:1px solid var(--line);border-radius:13px;background:var(--paper);
   display:flex;flex-direction:column;
 }
-.practiceCards strong{font:700 1rem Georgia,serif}
+.practiceCards strong{font:700 1rem Georgia,"Bujhi Bangla",serif}
 .practiceCards p{color:var(--muted);font-size:.79rem;line-height:1.5}
 .practiceCards button{margin-top:auto;border:0;border-radius:999px;background:var(--surface);color:var(--muted);padding:9px 10px;font-size:.69rem}
 .lessonPlaceholder{
@@ -152,7 +152,7 @@
   text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;
 }
 .lessonPlaceholder>svg{width:54px;height:54px;padding:15px;border-radius:50%;background:#8b201d;color:white;fill:white}
-.lessonPlaceholder h3{margin:13px 0 7px;font:700 1.5rem Georgia,serif}
+.lessonPlaceholder h3{margin:13px 0 7px;font:700 1.5rem Georgia,"Bujhi Bangla",serif}
 .lessonPlaceholder p{max-width:520px;margin:0;color:var(--muted);font-size:.85rem;line-height:1.55}
 
 
@@ -177,7 +177,7 @@
 }
 @media(prefers-reduced-motion:reduce){.openBook,.moneyPlant,.drinkImageFrame,.steam i{animation:none}.steam i{opacity:.3}.bookHotspots button,.pageDim:after{display:none}}
 
-.studentLoading{min-height:100vh;display:grid;place-items:center;color:var(--muted);font:700 1.1rem Georgia,serif;background:var(--surface)}
+.studentLoading{min-height:100vh;display:grid;place-items:center;color:var(--muted);font:700 1.1rem Georgia,"Bujhi Bangla",serif;background:var(--surface)}
 
 
 /* =========================================================
