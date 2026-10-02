@@ -156,7 +156,6 @@ export default function StudentDashboard(){
         aria-pressed={lightOn}
         aria-label={lightOn?"Turn lamp off":"Turn lamp on"}
       >
-        <span className={styles.roomLightLabel}>Lamp</span>
         <span className={styles.roomLightTrack} aria-hidden="true">
           <span className={`${styles.roomLightState} ${styles.roomLightOff}`}>OFF</span>
           <span className={`${styles.roomLightState} ${styles.roomLightOn}`}>ON</span>
