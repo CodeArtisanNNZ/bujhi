@@ -2,3 +2,8 @@ node_modules/
 .next/
 .env*.local
 *.tsbuildinfo
+
+# Keep large Class 8 textbooks out of Vercel deployments; they are served from Google Drive.
+public/nctb/2026/class-8/*.pdf
+!public/nctb/2026/class-8/science.pdf
+!public/nctb/2026/class-8/science-chapter-1.pdf

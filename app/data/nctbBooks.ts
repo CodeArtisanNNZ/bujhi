@@ -133,6 +133,30 @@ const class7=makeBooks("7",[
   ["minority-language-culture","ক্ষুদ্র নৃগোষ্ঠীর ভাষা ও সংস্কৃতি","Minority Language and Culture","language"]
 ]).map(book=>({...book,pdfPath:class7PdfLinks[book.id]??book.pdfPath}));
 
+const class8PdfLinks:Record<string,string>={
+  "sahitya-kanika":"https://drive.google.com/file/d/1Uq4kBZ5I_Y_I7Mrdmwfqy8EkqKBIqadC/view?usp=drivesdk",
+  "anandapath":"https://drive.google.com/file/d/1_-ZqjZ4JYCOLe_Oi2G5mZoD8-BdCZIh7/view?usp=drivesdk",
+  "bangla-grammar":"https://drive.google.com/file/d/1iGXby0Elo4jHdS_zem8fZzCpjZkmIsTD/view?usp=drivesdk",
+  "english-for-today":"https://drive.google.com/file/d/1vTm5sw5hk6dbG_zbpzDXorUq7LHJqXXs/view?usp=drivesdk",
+  "english-grammar":"https://drive.google.com/file/d/1iojCIDltggKJDa9UPvCT9ia1Ee3jwwB8/view?usp=drivesdk",
+  "mathematics":"https://drive.google.com/file/d/18N3AVHbdBOYx4LEJZNDi8lwEkvt_MgL6/view?usp=drivesdk",
+  "ict":"https://drive.google.com/file/d/1hT-O3eE-elBN__rGieh8RZ2LInuGyCvy/view?usp=drivesdk",
+  "bangladesh-global-studies":"https://drive.google.com/file/d/15jf5kxQOl-eGy1EGki9Bur9mUyGhlam8/view?usp=drivesdk",
+  "physical-education-health":"https://drive.google.com/file/d/1qFCuQiJU__A2jEdFjCS6yJb1Nx25catw/view?usp=drivesdk",
+  "work-life-education":"https://drive.google.com/file/d/1BzQvEAp9OsELaEBTJ1WBynbyt9b_hEo-/view?usp=drivesdk",
+  "agriculture-studies":"https://drive.google.com/file/d/1ekSX3PM5ONbbjfGTWco-RXLUCbT-HwQB/view?usp=drivesdk",
+  "home-science":"https://drive.google.com/file/d/1B4gJnySozfkEYV9deEqRkw8F31n48E8Q/view?usp=drivesdk",
+  "arts-crafts":"https://drive.google.com/file/d/1IZP2Nul_Ookf3qkBmt4M84N1OwMkDP5z/view?usp=drivesdk",
+  "islamic-studies":"https://drive.google.com/file/d/11RcCPknFAAy60ParFGKKb61aSE3pdjcf/view?usp=drivesdk",
+  "hindu-religion":"https://drive.google.com/file/d/1gB2uN5DnyfHjnverY_31iICjNrwLWVWw/view?usp=drivesdk",
+  "christian-religion":"https://drive.google.com/file/d/1S1W16fiP6rvu5MO5cHKAg4YNjNXdQ_yu/view?usp=drivesdk",
+  "buddhist-religion":"https://drive.google.com/file/d/1af3HS3YQnkWk_uBWTVP9MpvcdGRTv3o-/view?usp=drivesdk",
+  "arabic":"https://drive.google.com/file/d/1gzCvU33Yv9eVJOYioEOm9kg01efYQXrf/view?usp=drivesdk",
+  "sanskrit":"https://drive.google.com/file/d/1eMMGq2XoKGeU3-Emqy5cx5uB4OSudRB6/view?usp=drivesdk",
+  "pali":"https://drive.google.com/file/d/14hD4Mf8gwkcl885_hIGdB0nsrHy_zB39/view?usp=drivesdk",
+  "music":"https://drive.google.com/file/d/1IyXFIyzOROJ3Um4J87zpyWvdk8Q-s0vo/view?usp=drivesdk"
+};
+
 const class8=makeBooks("8",[
   ["sahitya-kanika","সাহিত্য-কণিকা","Sahitya Kanika","core"],
   ["anandapath","আনন্দপাঠ","Anandapath","core"],
@@ -156,7 +180,7 @@ const class8=makeBooks("8",[
   ["sanskrit","সংস্কৃত","Sanskrit","language"],
   ["pali","পালি","Pali","language"],
   ["music","সংগীত","Music","arts"]
-]);
+]).map(book=>({...book,pdfPath:class8PdfLinks[book.id]??book.pdfPath}));
 
 const class910=makeBooks("9-10",[
   ["bangla-literature","বাংলা সাহিত্য","Bangla Literature","core"],
