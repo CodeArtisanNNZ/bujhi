@@ -1662,3 +1662,6 @@ linear-gradient(180deg,var(--paper),var(--surface))}
   .home-map-lesson .bd-fact-card svg{width:16px;height:16px}
   .home-map-lesson .bd-fact-card p{font-size:.58rem}
 }
+
+.book-footer>a{display:inline-flex;align-items:center;gap:6px;color:var(--red);font-weight:800}
+.book-footer>a svg{width:16px;height:16px}
