@@ -1319,3 +1319,19 @@ html[lang="bn"] select{
 @media(prefers-reduced-motion:reduce){
   .team-profile-card,.team-copy-transition{animation:none;transition:none}
 }
+
+/* ===== 1,000-question hidden desk quiz ===== */
+.quiz-meta{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-right:38px;margin-bottom:18px}
+.quiz-meta .eyebrow{margin:0}
+.quiz-meta>span{font-size:.72rem;color:var(--muted);font-weight:800;letter-spacing:.04em;white-space:nowrap}
+.quiz-option:disabled{cursor:default;opacity:1}
+.result{margin:16px 0 0;padding:13px 14px;border-radius:10px;background:var(--surface)}
+.result strong{display:block;margin-bottom:4px}
+.result p{margin:0;line-height:1.55;color:var(--muted)}
+.result-correct{border-left:4px solid #5c8f4d}
+.result-correct strong{color:#47743c}
+.result-wrong{border-left:4px solid var(--red)}
+.result-wrong strong{color:var(--red)}
+.quiz-next{margin-top:16px;border:0;background:var(--accent-solid);color:white;border-radius:999px;padding:11px 15px;display:flex;align-items:center;gap:7px;font-weight:800}
+.quiz-next svg{width:16px;height:16px}
+@media(max-width:560px){.quiz-meta{align-items:flex-start;flex-direction:column;gap:4px}.quiz-meta>span{white-space:normal}.modal>section{padding:28px 20px}}
