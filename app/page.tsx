@@ -1,6 +1,7 @@
 "use client";
 import ResponsiveImage from "./components/ResponsiveImage";
 import SolarSystemPreview from "./components/SolarSystemPreview";
+import CellZoomPreview from "./components/CellZoomPreview";
 import Link from "next/link";
 import {useEffect,useState} from "react";
 import {ArrowRight,BookOpen,Brain,FlaskConical,Pause,Play,Sparkles,X} from "lucide-react";
@@ -9,13 +10,28 @@ import {hiddenQuizQuestions} from "./data/hiddenQuizQuestions";
 
 
 export default function Home(){
- const[running,setRunning]=useState(true);const[toast,setToast]=useState("");const[quiz,setQuiz]=useState(false);const[quizIndex,setQuizIndex]=useState(0);const[answer,setAnswer]=useState<number|null>(null);const[lastThoughtIndex,setLastThoughtIndex]=useState(-1);const[thoughtLang,setThoughtLang]=useState<"en"|"bn">("en");
+ const[running,setRunning]=useState(true);const[homeDemo,setHomeDemo]=useState<"solar"|"cell"|null>(null);const[toast,setToast]=useState("");const[quiz,setQuiz]=useState(false);const[quizIndex,setQuizIndex]=useState(0);const[answer,setAnswer]=useState<number|null>(null);const[lastThoughtIndex,setLastThoughtIndex]=useState(-1);const[thoughtLang,setThoughtLang]=useState<"en"|"bn">("en");
  function note(text:string){setToast(text);window.setTimeout(()=>setToast(""),4200)}
  useEffect(()=>{
   const sync=()=>setThoughtLang(document.documentElement.lang==="bn"?"bn":"en");
   sync();
   window.addEventListener("bujhi-language-changed",sync);
   return()=>window.removeEventListener("bujhi-language-changed",sync);
+ },[]);
+ useEffect(()=>{
+  const loadId=String(Math.round(window.performance.timeOrigin));
+  const handledLoad=sessionStorage.getItem("bujhi-home-preview-load");
+  const currentForLoad=sessionStorage.getItem("bujhi-home-preview-current");
+  if(handledLoad===loadId&&(currentForLoad==="solar"||currentForLoad==="cell")){
+   setHomeDemo(currentForLoad);
+   return;
+  }
+  const last=localStorage.getItem("bujhi-home-preview-last");
+  const next:"solar"|"cell"=last==="cell"?"solar":"cell";
+  localStorage.setItem("bujhi-home-preview-last",next);
+  sessionStorage.setItem("bujhi-home-preview-load",loadId);
+  sessionStorage.setItem("bujhi-home-preview-current",next);
+  setHomeDemo(next);
  },[]);
  function openRandomThought(){let next=Math.floor(Math.random()*openThoughtFacts.length);if(openThoughtFacts.length>1&&next===lastThoughtIndex)next=(next+1)%openThoughtFacts.length;setLastThoughtIndex(next);const fact=openThoughtFacts[next];note(thoughtLang==="bn"?fact.bn:fact.en)}
  function openRandomQuiz(){setAnswer(null);setQuizIndex(current=>{let next=Math.floor(Math.random()*hiddenQuizQuestions.length);if(hiddenQuizQuestions.length>1&&next===current)next=(next+1)%hiddenQuizQuestions.length;return next});setQuiz(true)}
@@ -25,8 +41,13 @@ export default function Home(){
   <section className="hero">
    <div className="hero-copy"><p className="eyebrow">Built for the Bangladeshi curriculum</p><h1>Learn it<br/>your way.</h1><div className="hero-actions"><Link href="/register?role=student">Join as a Student <ArrowRight/></Link><Link href="/register?role=teacher">Join as a Teacher <ArrowRight/></Link></div><button className="hidden-spark" onClick={openRandomQuiz}><Sparkles/> I found something</button></div>
    <div className="notebook-wrap"><div className="paper back-one"/><div className="paper back-two"/><article className="notebook"><div className="rings">{Array.from({length:8}).map((_,i)=><i key={i}/>)}</div><div className="book-meta"><span>Interactive preview</span><span>Tap anything</span></div><h2>A peek inside Bujhi?</h2>
-    <div className="lesson"><div className="lesson-copy"><p>Explore · Universe</p><h3>The Solar System</h3><span>Watch the planets orbit the Sun.</span></div><SolarSystemPreview running={running} onFact={note}/></div>
-    <footer className="book-footer"><button onClick={()=>setRunning(!running)}>{running?<Pause/>:<Play/>}{running?"Pause orbit":"Play orbit"}</button><span>Tap a planet for a fact</span></footer>
+    <div className="lesson"><div className="lesson-copy">
+     <p>{homeDemo==="cell"?(thoughtLang==="bn"?"অন্বেষণ · জীববিজ্ঞান":"Explore · Biology"):(homeDemo==="solar"?(thoughtLang==="bn"?"অন্বেষণ · মহাবিশ্ব":"Explore · Universe"):(thoughtLang==="bn"?"ইন্টারঅ্যাকটিভ বিজ্ঞান":"Interactive science"))}</p>
+     <h3>{homeDemo==="cell"?(thoughtLang==="bn"?"কোষের ভেতরে":"Inside the Cell"):(homeDemo==="solar"?(thoughtLang==="bn"?"সৌরজগৎ":"The Solar System"):(thoughtLang==="bn"?"লোড হচ্ছে":"Loading"))}</h3>
+     <span>{homeDemo==="cell"?(thoughtLang==="bn"?"কোষ থেকে জিন পর্যন্ত ধাপে ধাপে জুম করুন।":"Zoom from a cell all the way to a gene."):(homeDemo==="solar"?(thoughtLang==="bn"?"গ্রহগুলোকে সূর্যের চারদিকে ঘুরতে দেখুন।":"Watch the planets orbit the Sun."):(thoughtLang==="bn"?"প্রিভিউ প্রস্তুত হচ্ছে…":"Preparing your preview…"))}</span>
+    </div>
+    {homeDemo==="cell"?<CellZoomPreview running={running} onFact={note}/>:homeDemo==="solar"?<SolarSystemPreview running={running} onFact={note}/>:<div className="science-preview-loading" aria-hidden="true"/>}</div>
+    <footer className="book-footer"><button onClick={()=>setRunning(!running)}>{running?<Pause/>:<Play/>}{homeDemo==="solar"?(running?"Pause orbit":"Play orbit"):(running?"Pause animation":"Play animation")}</button><span>{homeDemo==="cell"?"Tap to zoom: cell → gene":homeDemo==="solar"?"Tap a planet for a fact":"Loading preview…"}</span></footer>
    </article></div>
   </section>
   <section className="touch-strip"><button onClick={openRandomThought} title="Open one of 1,000 learning facts"><BookOpen/><span>Open a thought</span></button><button onClick={openRandomQuiz}><Brain/><span>Try a hidden quiz</span></button><button onClick={openRandomThought} title="Find one of 1,000 tiny facts"><Sparkles/><span>Find a tiny fact</span></button><button onClick={()=>{location.href="/login?role=student"}}><FlaskConical/><span>Open your learning desk</span></button></section>
