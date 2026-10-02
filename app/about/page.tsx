@@ -28,7 +28,7 @@ export default function About(){
   <section className="fellowship"><GraduationCap/><div><p className="eyebrow">Millennium Fellowship · SDG 4</p><h2>An idea gained a platform to become work.</h2><p>The Millennium Fellowship gave me the opportunity, structure and community to develop Bujhi? as a social-impact project connected to Quality Education. It created space to research the problem, listen to students and teachers, test assumptions, and move from personal frustration toward a practical solution.</p></div></section>
   <section className="team-showcase">
    <div className="team-stage-copy">
-    <p className="eyebrow">The people behind Bujhi?</p>
+    <p className="eyebrow">The people behind Bujhi??</p>
     <div className="team-copy-transition" key={activeMember.name}>
      <span className="team-count">{String(teamIndex+1).padStart(2,"0")} / {String(teamMembers.length).padStart(2,"0")}</span>
      <h2>{activeMember.name}</h2>
@@ -72,5 +72,5 @@ export default function About(){
    </div>
   </section>
  <section className="building"><p className="eyebrow">What we are trying to do</p><h2>One curriculum. More ways to understand and explain it.</h2><div><article><BookOpen/><h3>For students</h3><p>Read, watch, explore and practise the same topic until one approach finally makes sense.</p></article><article><Lightbulb/><h3>For teachers</h3><p>Find alternative explanations, classroom activities and practical ways to make difficult ideas visible.</p></article></div><Link href="/">Explore the homepage <ArrowRight/></Link></section>
- <footer className="site-footer"><Link className="brand" href="/"><ResponsiveImage sizes="38px" src="/optimized/bujhi-icon-96.webp" alt=""/>Bujhi?</Link><p>Built for understanding.</p><span>© 2026 Bujhi?</span></footer>
+ <footer className="site-footer"><Link className="brand" href="/"><ResponsiveImage sizes="38px" src="/optimized/bujhi-icon-96.webp" alt=""/>Bujhi?</Link><p>Built for understanding.</p><span>© 2026 Bujhi??</span></footer>
  </main>}
