@@ -147,13 +147,17 @@ export default function TeacherDashboard(){
 
       <button
         type="button"
-        className={styles.roomLightSwitch}
+        className={`${styles.roomLightSwitch} ${lightOn?styles.lightOn:styles.lightOff}`}
         onClick={toggleTheme}
         aria-pressed={lightOn}
         aria-label={lightOn?"বাতি বন্ধ করো":"বাতি চালু করো"}
       >
-        <span className={styles.roomLightDot}/>
-        <span>{lightOn?"বাতি চালু":"বাতি বন্ধ"}</span>
+        <span className={styles.roomLightLabel}>বাতি</span>
+        <span className={styles.roomLightTrack} aria-hidden="true">
+          <span className={`${styles.roomLightState} ${styles.roomLightOff}`}>বন্ধ</span>
+          <span className={`${styles.roomLightState} ${styles.roomLightOn}`}>চালু</span>
+          <span className={styles.roomLightThumb}><i/></span>
+        </span>
       </button>
 
       <div className={styles.moneyPlant} aria-hidden="true">
