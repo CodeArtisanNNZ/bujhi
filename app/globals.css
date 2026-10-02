@@ -1586,8 +1586,8 @@ linear-gradient(180deg,var(--paper),var(--surface))}
 .bd-map-region:focus{outline:none;filter:brightness(1.18);stroke:#fff;stroke-width:.007}
 .bd-map-region.is-active{filter:brightness(1.18) saturate(1.08);stroke:#fff7ef;stroke-width:.008}
 @media(hover:hover) and (pointer:fine){.bd-map-region:hover{filter:brightness(1.16);transform:scale(1.012)}}
-.bd-map-svg-label{pointer-events:none;fill:#fffaf3;stroke:rgba(40,20,14,.42);stroke-width:.0025;paint-order:stroke;stroke-linejoin:round;font:800 2.5%/1 "DM Sans","Bujhi Bangla",sans-serif;text-anchor:middle;dominant-baseline:middle;letter-spacing:.01em}
-.bd-map-svg-label.is-district{font-size:1.8%}
+.bd-map-svg-label{pointer-events:none;fill:#fffaf3;stroke:rgba(40,20,14,.42);stroke-width:.0025;paint-order:stroke;stroke-linejoin:round;font-family:"DM Sans","Bujhi Bangla",sans-serif;font-size:.025px;font-weight:800;text-anchor:middle;dominant-baseline:middle;letter-spacing:.001px}
+.bd-map-svg-label.is-district{font-size:.018px}
 .bd-map-watermark{position:absolute;right:12px;bottom:8px;color:var(--muted);opacity:.12;font:800 2.6rem "Fraunces","Bujhi Bangla",serif;pointer-events:none}
 .bd-map-info{padding:17px;align-self:stretch;animation:bdInfoIn .28s ease both}
 .bd-map-count{display:inline-block;color:#8d70a2;font-size:.62rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
