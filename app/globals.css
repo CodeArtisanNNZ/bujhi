@@ -1060,3 +1060,14 @@ html[lang="bn"] select{
     font-size:.44rem;
   }
 }
+
+
+/* ===== Type-safe orbit system ===== */
+.solar-star-field{position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle,#fff8ef 0 1px,transparent 1.2px),radial-gradient(circle,#d8c6ff 0 1px,transparent 1.2px),radial-gradient(circle,#ffe3b3 0 1px,transparent 1.2px);background-size:37px 37px,61px 61px,83px 83px;background-position:0 0,17px 23px,31px 11px;opacity:.55}
+.solar-sun-real{position:absolute;z-index:4;left:50%;top:50%;width:30px;height:30px;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle at 34% 30%,#fffbd0 0 12%,#ffd44b 35%,#ff9914 70%,#bc4d08 100%);box-shadow:0 0 12px #ffcb3b,0 0 32px #ff8a173d,0 0 58px #ff701525}
+.solar-orbit-real{position:absolute;z-index:3;left:50%;top:50%;border:1px solid rgba(235,220,205,.13);border-radius:50%;transform-origin:center;animation:solar-real-spin linear infinite;pointer-events:none}
+.solar-planet-real{position:absolute;left:50%;top:-7px;transform:translateX(-50%);padding:0;border:0;border-radius:50%;pointer-events:auto;cursor:pointer;box-shadow:inset -2px -2px 4px #0005,0 0 5px #fff2;transition:box-shadow .2s,filter .2s}
+.solar-planet-real:hover,.solar-planet-real.selected{filter:brightness(1.18);box-shadow:0 0 0 2px rgba(255,226,169,.85),0 0 12px rgba(255,213,120,.5),inset -2px -2px 4px #0005}
+.solar-planet-real.has-rings:before{content:"";position:absolute;left:50%;top:50%;width:165%;height:48%;border:2px solid rgba(231,209,153,.78);border-left-color:rgba(231,209,153,.36);border-radius:50%;transform:translate(-50%,-50%) rotate(-12deg)}
+@keyframes solar-real-spin{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+@media(max-width:650px){.solar-sun-real{width:24px;height:24px}.solar-planet-real{transform:translateX(-50%) scale(.82)}}
