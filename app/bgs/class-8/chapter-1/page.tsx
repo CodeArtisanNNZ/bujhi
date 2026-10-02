@@ -5,7 +5,7 @@ import {useEffect,useState} from "react";
 import {
   ArrowLeft,BookOpen,CheckCircle2,ChevronRight,CircleDollarSign,
   Compass,Crown,ExternalLink,Landmark,PauseCircle,PlayCircle,
-  RotateCcw,Shield,Ship,Store,Swords,UsersRound
+  RotateCcw,Shield,Ship,Store,Swords,UsersRound,Sparkles
 } from "lucide-react";
 import styles from "./chapter.module.css";
 
@@ -584,6 +584,120 @@ const selfRuleTimeline=[
   {year:"১৯৪৭",title:"ব্রিটিশ শাসনের অবসান",text:"British rule শেষ হয়; ভারত ও পাকিস্তান নামে দুটি স্বাধীন রাষ্ট্র গঠিত হয়।"}
 ];
 
+
+const revolutionaryPeople:(Person&{
+  badge:string;
+  category:"martyr"|"revolutionary"|"leader";
+  year:string;
+  respect:string;
+})[]=[
+  {
+    name:"ক্ষুদিরাম বসু",
+    identity:"বাঙালি বিপ্লবী",
+    action:"কৈশোরেই ব্রিটিশবিরোধী বিপ্লবী কর্মকাণ্ডে যুক্ত হন। ১৯০৮ সালে মুজাফফরপুর মামলায় তাঁকে ফাঁসি দেওয়া হয়।",
+    significance:"তাঁর অল্প বয়স, দৃঢ়তা ও ঔপনিবেশিক শাসনের বিরুদ্ধে প্রতিরোধ তাঁকে বাংলার বিপ্লবী স্মৃতির অন্যতম প্রতীকে পরিণত করেছে।",
+    period:"১৮৮৯–১৯০৮",
+    badge:"শহীদ হিসেবে স্মরণীয়",
+    category:"martyr",
+    year:"১৯০৮",
+    respect:"তাঁর সাহস ও দেশপ্রেমকে শ্রদ্ধা করি; আজ সেই দেশপ্রেমকে শিক্ষা, দায়িত্ব ও মানুষের কল্যাণে কাজে লাগানোই আমাদের পথ।",
+    imageFile:"Khudiram Bose 1905 cropped.jpg",license:"Public domain"
+  },
+  {
+    name:"বাঘা যতীন",
+    identity:"যুগান্তর-সংযুক্ত বিপ্লবী নেতা",
+    action:"ব্রিটিশবিরোধী বিপ্লবী সংগঠনে নেতৃত্ব দেন এবং ১৯১৫ সালে বালেশ্বরের সশস্ত্র সংঘর্ষে গুরুতর আহত হয়ে মারা যান।",
+    significance:"সংগঠন, শৃঙ্খলা ও ঔপনিবেশিক শাসনের বিরুদ্ধে দৃঢ় প্রতিরোধের জন্য স্মরণীয়।",
+    period:"১৮৭৯–১৯১৫",
+    badge:"শহীদ হিসেবে স্মরণীয়",
+    category:"martyr",
+    year:"১৯১৫",
+    respect:"তাঁর সংগঠনশক্তি ও দায়িত্ববোধ থেকে আমরা শিখতে পারি—নিজের কাজ সততার সঙ্গে করা দেশসেবারই অংশ।",
+    imageFile:"Bagha jatin.JPG",license:"Public domain"
+  },
+  {
+    name:"মাস্টারদা সূর্য সেন",
+    identity:"চট্টগ্রামের বিপ্লবী নেতা ও শিক্ষক",
+    action:"১৯৩০ সালের চট্টগ্রাম অস্ত্রাগার অভিযানের নেতৃত্ব দেন। গ্রেপ্তারের পর তাঁকে ১৯৩৪ সালে ব্রিটিশ সরকার ফাঁসি দেয়।",
+    significance:"চট্টগ্রামের বিপ্লবী আন্দোলনকে সংগঠিত করার ক্ষেত্রে কেন্দ্রীয় নেতৃত্ব দেন এবং উপনিবেশবিরোধী স্মৃতিতে গুরুত্বপূর্ণ স্থান অধিকার করেন।",
+    period:"১৮৯৪–১৯৩৪",
+    badge:"শহীদ হিসেবে স্মরণীয়",
+    category:"martyr",
+    year:"১৯৩০–১৯৩৪",
+    respect:"তাঁর সাহস, শিক্ষকসুলভ নেতৃত্ব ও দায়িত্ববোধকে শ্রদ্ধা করি; স্বাধীন দেশের নাগরিক হিসেবে আমাদের কর্তব্য হলো জ্ঞান, সততা ও সেবার মাধ্যমে দেশকে শক্তিশালী করা।",
+    imageFile:"Surya Sen.jpg",license:"Public domain"
+  },
+  {
+    name:"প্রীতিলতা ওয়াদ্দেদার",
+    identity:"চট্টগ্রামের নারী বিপ্লবী ও শিক্ষিকা",
+    action:"সূর্য সেনের বিপ্লবী সংগঠনের সঙ্গে যুক্ত হন এবং ১৯৩২ সালে পাহাড়তলী ইউরোপিয়ান ক্লাব আক্রমণের নেতৃত্ব দেন; সেই অভিযানের পর তাঁর মৃত্যু হয়।",
+    significance:"ব্রিটিশবিরোধী আন্দোলনে নারীর নেতৃত্ব ও সমঅংশগ্রহণের শক্তিশালী প্রতীক হয়ে ওঠেন।",
+    period:"১৯১১–১৯৩২",
+    badge:"শহীদ হিসেবে স্মরণীয়",
+    category:"martyr",
+    year:"১৯৩২",
+    respect:"তাঁর বৈষম্যবিরোধী সাহস ও নারীর রাজনৈতিক অংশগ্রহণের ইতিহাসকে শ্রদ্ধার সঙ্গে স্মরণ করি—তাঁর মৃত্যুকে অনুকরণের বিষয় হিসেবে নয়।",
+    imageFile:"Original Archived photo of Pritilata Waddedar.jpg",license:"Public domain"
+  },
+  {
+    name:"নেতাজি সুভাষচন্দ্র বসু",
+    identity:"জাতীয়তাবাদী নেতা",
+    action:"কংগ্রেস রাজনীতি থেকে শুরু করে পরে ব্রিটিশ শাসনের বিরুদ্ধে আরও তীব্র স্বাধীনতা-সংগ্রামের পক্ষে নেতৃত্ব দেন এবং আজাদ হিন্দ আন্দোলনের সঙ্গে যুক্ত হন।",
+    significance:"ঔপনিবেশিক শাসনের অবসান নিয়ে ভারতীয় রাজনীতির এক স্বতন্ত্র ও প্রভাবশালী ধারার প্রতিনিধিত্ব করেন।",
+    period:"১৮৯৭–১৯৪৫",
+    badge:"জাতীয় নেতা",
+    category:"leader",
+    year:"১৯৩০–৪০-এর দশক",
+    respect:"তাঁর শৃঙ্খলা, সংগঠন ও দেশসেবার অঙ্গীকার থেকে দায়িত্বশীল নাগরিকত্বের শিক্ষা নেওয়া যায়।",
+    imageFile:"Subhas Chandra Bose NRB.jpg",license:"Public domain"
+  },
+  {
+    name:"দেশবন্ধু চিত্তরঞ্জন দাস",
+    identity:"আইনজীবী ও জাতীয়তাবাদী রাজনীতিক",
+    action:"অসহযোগ আন্দোলনে গুরুত্বপূর্ণ ভূমিকা রাখেন এবং পরে স্বরাজ পার্টির প্রতিষ্ঠাতা-নেতাদের একজন হন।",
+    significance:"ঔপনিবেশিক আইনসভা, গণআন্দোলন ও স্বরাজের দাবি—এই তিন ক্ষেত্রকে যুক্ত করার গুরুত্বপূর্ণ রাজনৈতিক নেতা।",
+    period:"১৮৭০–১৯২৫",
+    badge:"জাতীয় নেতা",
+    category:"leader",
+    year:"১৯২০-এর দশক",
+    respect:"তাঁর জনসেবা ও রাজনৈতিক সংগঠনের ইতিহাস আমাদের মনে করায়—দেশপ্রেমের বড় অংশ হলো মানুষের অধিকার ও কল্যাণে কাজ করা।",
+    imageFile:"Portrait of Chittaranjan Das.JPG",license:"Public domain"
+  },
+  {
+    name:"হোসেন শহীদ সোহরাওয়ার্দী",
+    identity:"বাঙালি রাজনীতিক",
+    action:"ব্রিটিশ ভারতের শেষ দশকে বাংলার প্রাদেশিক রাজনীতি ও মুসলিম লীগের সংগঠনে গুরুত্বপূর্ণ ভূমিকা পালন করেন।",
+    significance:"১৯৪০-এর দশকের বঙ্গীয় রাজনীতি ও উপমহাদেশের ভবিষ্যৎ রাষ্ট্রকাঠামো নিয়ে আলোচনায় গুরুত্বপূর্ণ ব্যক্তি।",
+    period:"১৮৯২–১৯৬৩",
+    badge:"রাজনৈতিক নেতা",
+    category:"leader",
+    year:"১৯৪০-এর দশক",
+    respect:"তাঁর ভূমিকা নিয়ে ইতিহাসে বিভিন্ন মূল্যায়ন আছে; তাই ব্যক্তিপূজার বদলে তাঁর সিদ্ধান্ত, প্রেক্ষাপট ও প্রভাব বিচার করে শেখাই এখানে লক্ষ্য।",
+    imageFile:"Huseyn Shaheed Suhrawardy.png",license:"Public domain"
+  },
+  {
+    name:"শের-ই-বাংলা এ. কে. ফজলুল হক",
+    identity:"বাঙালি জননেতা ও রাজনীতিক",
+    action:"কৃষক-প্রজা রাজনীতি, বঙ্গীয় প্রাদেশিক সরকার এবং ১৯৪০ সালের লাহোর প্রস্তাব উত্থাপনের সঙ্গে তাঁর নাম বিশেষভাবে যুক্ত।",
+    significance:"কৃষক স্বার্থ, প্রাদেশিক রাজনীতি এবং মুসলিম রাজনৈতিক দাবির ইতিহাসে তাঁর ভূমিকা গুরুত্বপূর্ণ।",
+    period:"১৮৭৩–১৯৬২",
+    badge:"জাতীয় নেতা",
+    category:"leader",
+    year:"১৯৩৭–১৯৪০",
+    respect:"তাঁর কৃষককেন্দ্রিক রাজনীতি আমাদের শেখায়—দেশপ্রেমের একটি রূপ হলো সাধারণ মানুষের অধিকার, শিক্ষা ও জীবিকার প্রশ্নকে গুরুত্ব দেওয়া।",
+    imageFile:"A k fazlul hoque.jpg",license:"PD-Bangladesh"
+  }
+];
+
+const revolutionaryTimeline=[
+  {year:"১৯০৫",title:"বঙ্গভঙ্গবিরোধী আন্দোলন",text:"স্বদেশী, বয়কট ও প্রতিবাদের পাশাপাশি বিপ্লবী সংগঠনগুলোর প্রভাবও বাড়তে থাকে।"},
+  {year:"১৯০৮",title:"ক্ষুদিরামের ফাঁসি",text:"তরুণ বিপ্লবীদের আত্মত্যাগ ব্রিটিশবিরোধী আন্দোলনের প্রতীকী শক্তি বাড়ায়।"},
+  {year:"১৯১৫",title:"বাঘা যতীনের মৃত্যু",text:"যুগান্তর-সংযুক্ত সশস্ত্র বিপ্লবী ধারার একটি বড় অধ্যায় শেষ হয়।"},
+  {year:"১৯৩০",title:"চট্টগ্রাম অস্ত্রাগার অভিযান",text:"মাস্টারদা সূর্য সেনের নেতৃত্বে চট্টগ্রামের বিপ্লবীরা ঔপনিবেশিক সামরিক-যোগাযোগ কাঠামোকে চ্যালেঞ্জ করে।"},
+  {year:"১৯৩২",title:"প্রীতিলতার নেতৃত্ব",text:"পাহাড়তলী ইউরোপিয়ান ক্লাব আক্রমণে নারী নেতৃত্বের একটি ঐতিহাসিক দৃষ্টান্ত তৈরি হয়।"},
+  {year:"১৯৩৪",title:"সূর্য সেনের ফাঁসি",text:"ব্রিটিশ সরকার তাঁকে মৃত্যুদণ্ড কার্যকর করে; চট্টগ্রামের বিপ্লবী আন্দোলন কঠোর দমনের মুখে পড়ে।"}
+];
+
 const curzonPerson:Person={
   name:"লর্ড কার্জন",
   identity:"ভারতের ভাইসরয়",
@@ -615,6 +729,7 @@ export default function BgsChapterOne(){
   const[selectedRenaissance,setSelectedRenaissance]=useState(0);
   const[selectedMovement,setSelectedMovement]=useState(0);
   const[selectedResistance,setSelectedResistance]=useState(0);
+  const[selectedRevolutionary,setSelectedRevolutionary]=useState(0);
 
   useEffect(()=>{
     void (async()=>{
@@ -1061,6 +1176,60 @@ export default function BgsChapterOne(){
           <div><article><span>📚</span><strong>শিক্ষা ও জনমত</strong><p>জ্ঞান ও সংবাদ মানুষের অধিকার সচেতনতা বাড়ায়।</p></article><article><span>🖋</span><strong>সাহিত্য ও দেশচেতনা</strong><p>ভাষা ও সংস্কৃতি জাতীয় পরিচয়ের শক্তি হয়ে ওঠে।</p></article><article><span>🧵</span><strong>স্বদেশী ও বয়কট</strong><p>বঙ্গভঙ্গবিরোধী আন্দোলনে অর্থনৈতিক প্রতিবাদের কৌশল ব্যবহৃত হয়।</p></article><article><span>⚔</span><strong>সশস্ত্র প্রতিরোধ</strong><p>কিছু তরুণ বিপ্লবী কর্মকাণ্ডের দিকে ঝুঁকে পড়ে।</p></article></div>
         </div>
 
+
+        <div className={styles.revolutionarySection}>
+          <div className={styles.sectionMini}>
+            <small>বিপ্লবী অধ্যায় · ১৯০৫–১৯৩৪</small>
+            <h3>যাঁরা জীবন, স্বাধীনতা ও নিরাপত্তার ঝুঁকি নিয়ে ঔপনিবেশিক শাসনের বিরুদ্ধে দাঁড়িয়েছিলেন</h3>
+            <p>এখানে তাঁদের ঐতিহাসিক ভূমিকা শ্রদ্ধার সঙ্গে দেখানো হয়েছে। <b>শ্রদ্ধা মানে সহিংসতা অনুকরণ করা নয়</b>—বরং তাঁদের সাহস, দায়িত্ববোধ, বৈষম্যবিরোধিতা এবং দেশসেবার মানসিকতা থেকে শেখা।</p>
+          </div>
+
+          <div className={styles.revolutionaryTimeline}>
+            {revolutionaryTimeline.map(item=><article key={item.year}><b>{item.year}</b><strong>{item.title}</strong><p>{item.text}</p></article>)}
+          </div>
+
+          <div className={styles.revolutionaryGallery}>
+            {revolutionaryPeople.map((person,i)=><button key={person.name} className={`${selectedRevolutionary===i?styles.revolutionaryActive:""} ${person.category==="martyr"?styles.martyrCard:styles.leaderCard}`} onClick={()=>setSelectedRevolutionary(i)}>
+              <div className={person.category==="martyr"?styles.goldenPortrait:styles.dignifiedPortrait}>
+                <Portrait person={person}/>
+                {person.category==="martyr"&&<span className={styles.sparkleBadge}><Sparkles/> শ্রদ্ধাঞ্জলি</span>}
+              </div>
+              <span><small>{person.badge}</small><strong>{person.name}</strong><em>{person.year}</em></span>
+            </button>)}
+          </div>
+
+          <article className={`${styles.revolutionaryFocus} ${revolutionaryPeople[selectedRevolutionary].category==="martyr"?styles.revolutionaryFocusMartyr:""}`}>
+            <div className={revolutionaryPeople[selectedRevolutionary].category==="martyr"?styles.goldenPortraitLarge:styles.dignifiedPortraitLarge}>
+              <Portrait person={revolutionaryPeople[selectedRevolutionary]} large/>
+              {revolutionaryPeople[selectedRevolutionary].category==="martyr"&&<span className={styles.memorialRibbon}><Sparkles/> শহীদ হিসেবে স্মরণীয়</span>}
+            </div>
+            <div>
+              <small>{revolutionaryPeople[selectedRevolutionary].badge} · {revolutionaryPeople[selectedRevolutionary].year}</small>
+              <h3>{revolutionaryPeople[selectedRevolutionary].name}</h3>
+              <p className={styles.identity}>{revolutionaryPeople[selectedRevolutionary].identity}</p>
+              <dl>
+                <div><dt>কী করেছিলেন?</dt><dd>{revolutionaryPeople[selectedRevolutionary].action}</dd></div>
+                <div><dt>ইতিহাসে কেন গুরুত্বপূর্ণ?</dt><dd>{revolutionaryPeople[selectedRevolutionary].significance}</dd></div>
+              </dl>
+              <blockquote className={styles.respectLine}>{revolutionaryPeople[selectedRevolutionary].respect}</blockquote>
+            </div>
+          </article>
+
+          <div className={styles.revolutionaryOrgs}>
+            <article><small>বিপ্লবী সংগঠন</small><h3>অনুশীলন সমিতি</h3><p>শারীরিক অনুশীলন, রাজনৈতিক সংগঠন এবং ব্রিটিশবিরোধী গোপন বিপ্লবী কার্যক্রমের সঙ্গে যুক্ত একটি গুরুত্বপূর্ণ নেটওয়ার্ক।</p></article>
+            <article><small>বিপ্লবী সংগঠন</small><h3>যুগান্তর</h3><p>বাংলার বিপ্লবী জাতীয়তাবাদের একটি গুরুত্বপূর্ণ সংগঠন ও রাজনৈতিক-সাংবাদিক ধারা; বাঘা যতীনসহ বহু বিপ্লবীর সঙ্গে এর নাম যুক্ত।</p></article>
+          </div>
+
+          <div className={styles.patriotismPanel}>
+            <Sparkles/>
+            <div>
+              <small>তাঁদের প্রতি শ্রদ্ধা · আমাদের দায়িত্ব</small>
+              <h3>দেশপ্রেম শুধু আত্মত্যাগে নয়—দায়িত্বশীল জীবনযাপনেও প্রকাশ পায়</h3>
+              <p>তাঁরা তাঁদের সময়ের অন্যায় ও ঔপনিবেশিক শাসনের বিরুদ্ধে সাহস দেখিয়েছিলেন। আজ স্বাধীন দেশের নাগরিক হিসেবে দেশকে ভালোবাসার অর্থ হতে পারে <b>সততার সঙ্গে পড়াশোনা ও কাজ করা, আইন মানা, অন্যের অধিকারকে সম্মান করা, দুর্নীতি ও বৈষম্যের বিরুদ্ধে দায়িত্বশীলভাবে দাঁড়ানো, সমাজের উপকারে কাজ করা এবং নিজের দায়িত্ব ঠিকভাবে পালন করা</b>।</p>
+            </div>
+          </div>
+        </div>
+
         <div className={styles.movementAtlas}>
           <div className={styles.sectionMini}>
             <small>ইংরেজ শাসনামলে প্রধান আন্দোলনসমূহ</small>
@@ -1130,7 +1299,7 @@ export default function BgsChapterOne(){
             ["বিদেশি বাণিজ্য আর উপনিবেশ কি একই জিনিস?","না। বাণিজ্য উপনিবেশ নয়; শাসনক্ষমতা ও নিয়ন্ত্রণের পরিবর্তনটাই মূল।"],
             ["ইউরোপীয়রা বাংলায় প্রথমে কেন আসে?","মূলত বাণিজ্য ও বাজারের জন্য।"],
             ["পলাশীর কারণ ৩ bucket-এ কী?","বাণিজ্য ও অর্থ · ক্ষমতা ও কর্তৃত্ব · অভ্যন্তরীণ ষড়যন্ত্র।"],
-            ["পলাশীর সবচেয়ে বড় পরিবর্তন কী?","ইস্ট ইন্ডিয়া কোম্পানির বাণিজ্যিক শক্তি থেকে রাজনৈতিক নিয়ামক শক্তি হয়ে ওঠার পথ খুলে যায়।"],["দ্বৈত শাসনের সবচেয়ে বড় সমস্যা কী?","ক্ষমতা ও দায়িত্ব দুই জায়গায় ভাগ হয়ে যায়—কোম্পানির হাতে অর্থনৈতিক ক্ষমতা, নবাবের হাতে দায়।"],["১৮৫৮ সালে কি ভারত স্বাধীন হয়?","না। কোম্পানি শাসনের অবসান হয়, কিন্তু শাসন সরাসরি British Crown-এর হাতে যায়।"],["স্বাধিকার আন্দোলন বলতে এখানে কী বোঝানো হয়েছে?","নিজেদের রাজনৈতিক অধিকার, প্রতিনিধিত্ব, স্বশাসন/স্বরাজ এবং শেষ পর্যন্ত স্বাধীনতার দাবির দীর্ঘ ধারাবাহিকতা।"]
+            ["পলাশীর সবচেয়ে বড় পরিবর্তন কী?","ইস্ট ইন্ডিয়া কোম্পানির বাণিজ্যিক শক্তি থেকে রাজনৈতিক নিয়ামক শক্তি হয়ে ওঠার পথ খুলে যায়।"],["দ্বৈত শাসনের সবচেয়ে বড় সমস্যা কী?","ক্ষমতা ও দায়িত্ব দুই জায়গায় ভাগ হয়ে যায়—কোম্পানির হাতে অর্থনৈতিক ক্ষমতা, নবাবের হাতে দায়।"],["১৮৫৮ সালে কি ভারত স্বাধীন হয়?","না। কোম্পানি শাসনের অবসান হয়, কিন্তু শাসন সরাসরি British Crown-এর হাতে যায়।"],["স্বাধিকার আন্দোলন বলতে এখানে কী বোঝানো হয়েছে?","নিজেদের রাজনৈতিক অধিকার, প্রতিনিধিত্ব, স্বশাসন/স্বরাজ এবং শেষ পর্যন্ত স্বাধীনতার দাবির দীর্ঘ ধারাবাহিকতা।"],["বিপ্লবীদের কাছ থেকে আজকের শিক্ষার্থী কী শিখতে পারে?","সাহস ও দেশপ্রেমকে সহিংসতা অনুকরণে নয়—সততা, দায়িত্ব, শিক্ষা, অধিকার-সম্মান ও সমাজসেবায় রূপ দেওয়া।"]
           ].map(([q,a])=><details key={q}><summary>{q}</summary><p>{a}</p></details>)}
         </div>
 
@@ -1138,7 +1307,7 @@ export default function BgsChapterOne(){
       </section>}
 
       <footer className={styles.footer}>
-        <p>পাঠ কাঠামো: NCTB Class 8 Bangladesh and Global Studies · Chapter 1-এর আলোচিত অংশ। Lesson 4–7-এ দ্বৈত শাসন, ১৭৭০-এর দুর্ভিক্ষ, গভর্নর জেনারেল, British Crown rule, বাংলার নবজাগরণ, প্রধান সমাজসংস্কারক ও সাহিত্যিক, ১৯০৩–১৯০৬ বঙ্গভঙ্গ timeline, ইংরেজ শাসনামলের প্রধান আন্দোলনের interactive chart, এবং স্বাধিকার আন্দোলনের পূর্ণ spotlight timeline যোগ করা হয়েছে। ঐতিহাসিক চিত্রগুলো মুক্ত লাইসেন্স / public-domain Wikimedia Commons উৎস থেকে দেখানো হয়েছে।</p>
+        <p>পাঠ কাঠামো: NCTB Class 8 Bangladesh and Global Studies · Chapter 1-এর আলোচিত অংশ। Lesson 4–7-এ দ্বৈত শাসন, ১৭৭০-এর দুর্ভিক্ষ, গভর্নর জেনারেল, British Crown rule, বাংলার নবজাগরণ, প্রধান সমাজসংস্কারক ও সাহিত্যিক, ১৯০৩–১৯০৬ বঙ্গভঙ্গ timeline, ইংরেজ শাসনামলের প্রধান আন্দোলনের interactive chart, শহীদ ও বিপ্লবীদের real historical portrait tribute, এবং স্বাধিকার আন্দোলনের পূর্ণ spotlight timeline যোগ করা হয়েছে। ঐতিহাসিক চিত্রগুলো মুক্ত লাইসেন্স / public-domain Wikimedia Commons উৎস থেকে দেখানো হয়েছে।</p>
       </footer>
     </div>
   </main>;
