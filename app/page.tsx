@@ -3,14 +3,13 @@ import ResponsiveImage from "./components/ResponsiveImage";
 import SolarSystemPreview from "./components/SolarSystemPreview";
 import Link from "next/link";
 import {useEffect,useState} from "react";
-import {ArrowRight,BookOpen,Brain,Compass,FlaskConical,Menu,Pause,PenLine,Play,PlayCircle,Sparkles,X} from "lucide-react";
+import {ArrowRight,BookOpen,Brain,FlaskConical,Pause,Play,Sparkles,X} from "lucide-react";
 import {openThoughtFacts} from "./data/openThoughtFacts";
 import {hiddenQuizQuestions} from "./data/hiddenQuizQuestions";
 
-const modes={Read:{title:"A tiny universe on paper",copy:"Follow one clear idea at a time."},Watch:{title:"See motion make sense",copy:"Watch a difficult idea become visible."},Explore:{title:"The Solar System",copy:"Watch the planets orbit the Sun."},Practice:{title:"Try it without pressure",copy:"Choose, test, and learn from the answer."}};
 
 export default function Home(){
- const[menu,setMenu]=useState(false);const[mode,setMode]=useState<keyof typeof modes>("Explore");const[running,setRunning]=useState(true);const[toast,setToast]=useState("");const[quiz,setQuiz]=useState(false);const[quizIndex,setQuizIndex]=useState(0);const[answer,setAnswer]=useState<number|null>(null);const[lastThoughtIndex,setLastThoughtIndex]=useState(-1);const[thoughtLang,setThoughtLang]=useState<"en"|"bn">("en");
+ const[running,setRunning]=useState(true);const[toast,setToast]=useState("");const[quiz,setQuiz]=useState(false);const[quizIndex,setQuizIndex]=useState(0);const[answer,setAnswer]=useState<number|null>(null);const[lastThoughtIndex,setLastThoughtIndex]=useState(-1);const[thoughtLang,setThoughtLang]=useState<"en"|"bn">("en");
  function note(text:string){setToast(text);window.setTimeout(()=>setToast(""),4200)}
  useEffect(()=>{
   const sync=()=>setThoughtLang(document.documentElement.lang==="bn"?"bn":"en");
@@ -25,8 +24,8 @@ export default function Home(){
 
   <section className="hero">
    <div className="hero-copy"><p className="eyebrow">Built for the Bangladeshi curriculum</p><h1>Learn it<br/>your way.</h1><div className="hero-actions"><Link href="/register?role=student">Join as a Student <ArrowRight/></Link><Link href="/register?role=teacher">Join as a Teacher <ArrowRight/></Link></div><button className="hidden-spark" onClick={openRandomQuiz}><Sparkles/> I found something</button></div>
-   <div className="notebook-wrap"><div className="paper back-one"/><div className="paper back-two"/><article className="notebook"><div className="rings">{Array.from({length:8}).map((_,i)=><i key={i}/>)}</div><div className="book-meta"><span>Interactive preview</span><span>Tap anything</span></div><h2>A peek inside Bujhi?</h2><div className="mode-row">{Object.keys(modes).map(key=>{const Icon=key==="Read"?BookOpen:key==="Watch"?PlayCircle:key==="Explore"?Compass:PenLine;return <button key={key} className={mode===key?"active":""} onClick={()=>setMode(key as keyof typeof modes)}><Icon/>{key}</button>})}</div>
-    <div className="lesson"><div className="lesson-copy"><p>{mode} · Universe</p><h3>{modes[mode].title}</h3><span>{modes[mode].copy}</span></div>{mode==="Explore"?<SolarSystemPreview running={running} onFact={note}/>:<button className="mode-activity" onClick={()=>note(mode==="Read"?"Try reading the idea aloud, then explain it without looking.":mode==="Watch"?"Imagine a time-lapse showing one full orbit.":"Quick check: Earth takes about 365 days to orbit the Sun.")}>{mode==="Read"?<BookOpen/>:mode==="Watch"?<Play/>:<Brain/>}<span>Try this approach</span></button>}</div>
+   <div className="notebook-wrap"><div className="paper back-one"/><div className="paper back-two"/><article className="notebook"><div className="rings">{Array.from({length:8}).map((_,i)=><i key={i}/>)}</div><div className="book-meta"><span>Interactive preview</span><span>Tap anything</span></div><h2>A peek inside Bujhi?</h2>
+    <div className="lesson"><div className="lesson-copy"><p>Explore · Universe</p><h3>The Solar System</h3><span>Watch the planets orbit the Sun.</span></div><SolarSystemPreview running={running} onFact={note}/></div>
     <footer className="book-footer"><button onClick={()=>setRunning(!running)}>{running?<Pause/>:<Play/>}{running?"Pause orbit":"Play orbit"}</button><span>Tap a planet for a fact</span></footer>
    </article></div>
   </section>
