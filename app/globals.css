@@ -1773,3 +1773,244 @@ linear-gradient(180deg,var(--paper),var(--surface))}
 @media(prefers-reduced-motion:reduce){
   .clean-cell-body,.clean-nucleus-ring,.clean-zoom-line,.clean-dna,.clean-gene-focus{animation:none!important}
 }
+
+
+/* ===== 3D DNA HOMEPAGE PREVIEW ===== */
+.dna3d-preview{
+  position:relative;
+  width:100%;
+  height:230px;
+  overflow:hidden;
+  border:1px solid rgba(145,103,165,.3);
+  border-radius:16px;
+  background:
+    radial-gradient(circle at 49% 48%,rgba(123,72,158,.15),transparent 28%),
+    radial-gradient(circle at 22% 16%,rgba(81,119,172,.12),transparent 30%),
+    linear-gradient(145deg,#0b0c14 0%,#11101c 52%,#090a11 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.025),inset 0 -30px 56px rgba(0,0,0,.22);
+  isolation:isolate;
+}
+.dna3d-space{
+  position:absolute;
+  inset:0;
+  background-image:
+    radial-gradient(circle,rgba(255,255,255,.72) 0 1px,transparent 1.3px),
+    radial-gradient(circle,rgba(186,164,225,.6) 0 1px,transparent 1.2px);
+  background-size:43px 43px,71px 71px;
+  background-position:8px 12px,31px 19px;
+  opacity:.16;
+}
+.dna3d-nucleus{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:185px;
+  height:185px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:radial-gradient(circle at 38% 34%,rgba(151,116,181,.12),rgba(92,57,126,.055) 48%,transparent 71%);
+  border:1px solid rgba(190,161,211,.08);
+  box-shadow:0 0 50px rgba(114,78,151,.08),inset 0 0 30px rgba(182,151,205,.035);
+}
+.dna3d-stage{
+  --drag-turn:0deg;
+  position:absolute;
+  inset:0;
+  perspective:900px;
+  perspective-origin:50% 50%;
+  touch-action:none;
+  cursor:grab;
+  user-select:none;
+}
+.dna3d-stage:active{cursor:grabbing}
+.dna3d-helix{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:210px;
+  height:220px;
+  transform-style:preserve-3d;
+  transform:translate(-50%,-50%) rotateX(-9deg) rotateY(var(--drag-turn));
+  animation:dna3dMasterTurn 12s linear infinite;
+}
+.dna3d-pair{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:164px;
+  height:10px;
+  transform-style:preserve-3d;
+  transform:
+    translate(-50%,-50%)
+    translateY(var(--pair-y))
+    rotateY(var(--pair-turn));
+  opacity:.94;
+}
+.dna3d-pair:before,
+.dna3d-pair:after{
+  content:"";
+  position:absolute;
+  top:50%;
+  width:72px;
+  height:2px;
+  transform:translateY(-50%);
+  background:linear-gradient(90deg,rgba(210,221,236,.12),rgba(224,231,243,.68));
+  box-shadow:0 0 7px rgba(190,205,227,.12);
+}
+.dna3d-pair:before{right:50%}
+.dna3d-pair:after{left:50%;transform:translateY(-50%) scaleX(-1)}
+.dna3d-backbone{
+  position:absolute;
+  top:50%;
+  width:13px;
+  height:13px;
+  border-radius:50%;
+  transform:translateY(-50%) translateZ(5px);
+  box-shadow:0 0 12px currentColor;
+}
+.dna3d-backbone.left{
+  left:-4px;
+  color:#6ea6ff;
+  background:radial-gradient(circle at 34% 30%,#d6e8ff 0 9%,#6ea6ff 36%,#315eac 100%);
+}
+.dna3d-backbone.right{
+  right:-4px;
+  color:#a87ad8;
+  background:radial-gradient(circle at 34% 30%,#eadcff 0 9%,#a87ad8 36%,#62418c 100%);
+}
+.dna3d-base{
+  position:absolute;
+  top:50%;
+  z-index:2;
+  display:grid;
+  place-items:center;
+  width:20px;
+  height:20px;
+  margin-top:-10px;
+  border-radius:50%;
+  color:#091018;
+  font:900 7px/1 ui-sans-serif,system-ui,sans-serif;
+  box-shadow:0 2px 9px rgba(0,0,0,.3),0 0 8px currentColor;
+  transform:translateZ(7px);
+}
+.dna3d-base.left{left:44px}
+.dna3d-base.right{right:44px}
+.base-a{background:#f2cc61;color:#694e0a}
+.base-t{background:#ef8a9c;color:#6d2030}
+.base-g{background:#82cf75;color:#245526}
+.base-c{background:#71c9dc;color:#174d5d}
+.dna3d-bond{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:47px;
+  height:3px;
+  transform:translate(-50%,-50%) translateZ(2px);
+  border-radius:999px;
+  background:repeating-linear-gradient(90deg,rgba(233,238,246,.86) 0 5px,transparent 5px 8px);
+  opacity:.68;
+}
+.dna3d-pair.gene .dna3d-base{
+  box-shadow:0 0 10px rgba(255,209,102,.85),0 0 20px rgba(255,209,102,.32);
+}
+.dna3d-pair.gene .dna3d-bond{
+  background:repeating-linear-gradient(90deg,#ffd66f 0 5px,transparent 5px 8px);
+  opacity:.95;
+}
+.dna3d-gene-bracket{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:214px;
+  height:70px;
+  transform:translate(-50%,-50%) translateY(12px);
+  border:1px solid rgba(255,211,106,.34);
+  border-left-color:rgba(255,211,106,.8);
+  border-right-color:rgba(255,211,106,.8);
+  border-radius:22px;
+  box-shadow:0 0 26px rgba(255,211,106,.06);
+  pointer-events:none;
+}
+.dna3d-gene-bracket span{
+  position:absolute;
+  left:50%;
+  top:-8px;
+  transform:translate(-50%,-50%);
+  padding:3px 7px;
+  border-radius:999px;
+  background:#17131c;
+  color:#f1d887;
+  font-size:.4rem;
+  font-weight:900;
+  letter-spacing:.09em;
+  white-space:nowrap;
+}
+.dna3d-label{
+  position:absolute;
+  left:10px;
+  top:9px;
+  z-index:5;
+  display:flex;
+  flex-direction:column;
+  gap:1px;
+  padding:7px 9px;
+  border:1px solid rgba(235,220,239,.11);
+  border-radius:9px;
+  background:rgba(19,15,24,.62);
+  backdrop-filter:blur(7px);
+  pointer-events:none;
+}
+.dna3d-label small{
+  color:#bda6ca;
+  font-size:.43rem;
+  font-weight:900;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+}
+.dna3d-label strong{
+  color:#fff9ef;
+  font:600 .77rem "Fraunces","Bujhi Bangla",serif;
+}
+.dna3d-fact{
+  position:absolute;
+  right:8px;
+  bottom:8px;
+  z-index:6;
+  border:1px solid rgba(222,203,231,.11);
+  border-radius:999px;
+  padding:5px 8px;
+  background:rgba(21,16,26,.66);
+  color:#d7c2df;
+  font-size:.44rem;
+  font-weight:800;
+  cursor:pointer;
+  backdrop-filter:blur(5px);
+}
+.dna3d-drag-hint{
+  position:absolute;
+  left:10px;
+  bottom:9px;
+  z-index:5;
+  color:#93859c;
+  font-size:.42rem;
+  font-weight:700;
+  pointer-events:none;
+}
+.dna3d-preview.paused .dna3d-helix{animation-play-state:paused}
+@keyframes dna3dMasterTurn{
+  from{transform:translate(-50%,-50%) rotateX(-9deg) rotateY(var(--drag-turn))}
+  to{transform:translate(-50%,-50%) rotateX(-9deg) rotateY(calc(var(--drag-turn) + 360deg))}
+}
+@media(max-width:650px){
+  .dna3d-preview{height:174px;border-radius:13px}
+  .dna3d-helix{width:165px;height:176px;transform:translate(-50%,-50%) rotateX(-9deg) rotateY(var(--drag-turn)) scale(.78)}
+  .dna3d-gene-bracket{width:168px;height:55px;transform:translate(-50%,-50%) translateY(9px)}
+  .dna3d-label{left:7px;top:7px;padding:5px 7px}
+  .dna3d-label small{font-size:.37rem}
+  .dna3d-label strong{font-size:.64rem}
+  .dna3d-fact{right:6px;bottom:6px;font-size:.39rem}
+  .dna3d-drag-hint{left:7px;bottom:7px;font-size:.37rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .dna3d-helix{animation:none!important}
+}
