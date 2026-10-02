@@ -38,7 +38,7 @@ export default function Home(){
    </div>
    <Link href="/about">{thoughtLang==="bn"?"কেন বুঝি?":"Why Bujhi? exists"} <ArrowRight/></Link>
   </section>
-  <footer className="site-footer"><Link className="brand" href="/"><ResponsiveImage sizes="38px" src="/optimized/bujhi-icon-96.webp" alt=""/>Bujhi?</Link><p>Built around the way students actually learn.</p><span>© 2026 Bujhi?</span></footer>
+  <footer className="site-footer"><Link className="brand" href="/"><ResponsiveImage sizes="38px" src="/optimized/bujhi-icon-96.webp" alt=""/>Bujhi</Link><p>Built around the way students actually learn.</p><span>© 2026 Bujhi?</span></footer>
   {quiz&&<div className="modal" onMouseDown={e=>{if(e.target===e.currentTarget){setQuiz(false);setAnswer(null)}}}><section><button className="close" onClick={()=>{setQuiz(false);setAnswer(null)}}><X/></button><p className="eyebrow">Hidden desk quiz</p><h2>Why do we experience seasons?</h2>{["Earth moves closer to the Sun","Earth’s axis is tilted","The Sun becomes colder"].map((item,i)=><button className={`quiz-option ${answer===i?(i===1?"correct":"wrong"):""}`} key={item} onClick={()=>setAnswer(i)}>{item}</button>)}{answer!==null&&<p className="result">{answer===1?"Exactly. The tilt changes how directly sunlight reaches each hemisphere.":"Not quite. Distance is not the main reason—try the tilt."}</p>}</section></div>}
   {toast&&<div className="toast">{toast}</div>}
  </main>
