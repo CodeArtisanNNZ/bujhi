@@ -1,4 +1,6 @@
 "use client";
+import ResponsiveImage from "./ResponsiveImage";
+import {useTheme} from "./SiteShell";
 
 import {useEffect,useMemo,useRef,useState} from "react";
 import {useRouter} from "next/navigation";
@@ -28,7 +30,8 @@ export default function StudentDashboard(){
   const[profile,setProfile]=useState<Profile>({class_level:"8"});
   const[profileReady,setProfileReady]=useState(false);
   const[selectedBookId,setSelectedBookId]=useState("");
-  const[lightOn,setLightOn]=useState(true);
+  const {theme,toggleTheme}=useTheme();
+  const lightOn=theme==="light";
   const[drink,setDrink]=useState<Drink>("tea");
   const[drinkOpen,setDrinkOpen]=useState(false);
   const[panel,setPanel]=useState<Panel>(null);
@@ -105,7 +108,7 @@ export default function StudentDashboard(){
 
   return <main className={`${styles.page} ${lightOn?"":styles.pageDim}`}>
     <section ref={sceneRef} className={styles.referenceDesk} aria-label={`Bujhi ${studentClassLabels[classKey]} study desk`}>
-      <div className={styles.deskBrand}><a href="/" aria-label="Bujhi home"><img src="/bujhi-icon.png" alt=""/><strong>Bujhi</strong></a><span>Student desk</span></div>
+      <div className={styles.deskBrand}><a href="/" aria-label="Bujhi home"><ResponsiveImage sizes="38px" src="/bujhi-icon.png" alt=""/><strong>Bujhi</strong></a><span>Student desk</span></div>
 
       <div className={styles.dynamicClass}>
         <div className={styles.classPill}>
@@ -143,13 +146,13 @@ export default function StudentDashboard(){
 
       <div className={styles.deskSurface} aria-hidden="true"/>
       <div className={styles.lamp} aria-hidden="true">
-        <img className={styles.studentLampImage} src="/ef6af6f1-43c9-41fe-9c24-5f3873a95c33.png" alt="" draggable={false}/>
+        <ResponsiveImage className={styles.studentLampImage} sizes="360px" src="/ef6af6f1-43c9-41fe-9c24-5f3873a95c33.png" alt="" draggable={false}/>
       </div>
 
       <button
         type="button"
         className={styles.roomLightSwitch}
-        onClick={()=>setLightOn(value=>!value)}
+        onClick={toggleTheme}
         aria-pressed={lightOn}
         aria-label={lightOn?"Turn lamp off":"Turn lamp on"}
       >
@@ -158,7 +161,7 @@ export default function StudentDashboard(){
       </button>
 
       <div className={styles.moneyPlant} role="img" aria-label="Money plant">
-        <img src="/29e8b631-9c79-4996-b225-405227aa1153.png" alt="" draggable={false} loading="eager"/>
+        <ResponsiveImage sizes="360px" src="/29e8b631-9c79-4996-b225-405227aa1153.png" alt="" draggable={false} loading="eager"/>
       </div>
 
       <div className={styles.studyNotebook}>
@@ -184,14 +187,14 @@ export default function StudentDashboard(){
         <button type="button" className={styles.cupHotspot} onClick={()=>setDrinkOpen(value=>!value)} aria-expanded={drinkOpen} aria-label={`Change desk drink: ${activeDrink.label}`}>
           <span key={drink} className={styles.drinkImageFrame} aria-hidden="true">
             {(drink==="tea"||drink==="coffee")&&<span className={styles.steam}><i/><i/><i/></span>}
-            <img className={styles.drinkImage} src={activeDrink.image} alt="" draggable={false}/>
+            <ResponsiveImage className={styles.drinkImage} sizes="180px" src={activeDrink.image} alt="" draggable={false}/>
           </span>
           <span className={styles.drinkLabel}>{activeDrink.label} · Change</span>
         </button>
         {drinkOpen&&<div className={styles.drinkMenu}>
           <div className={styles.drinkMenuTitle}>Choose a drink</div>
           {drinkOptions.map(item=><button type="button" key={item.id} className={drink===item.id?styles.drinkActive:""} onClick={()=>chooseDrink(item.id)} aria-pressed={drink===item.id}>
-            <span className={styles.drinkThumb} aria-hidden="true"><img src={item.image} alt="" draggable={false}/></span><span>{item.label}</span>
+            <span className={styles.drinkThumb} aria-hidden="true"><ResponsiveImage sizes="80px" src={item.image} alt="" draggable={false}/></span><span>{item.label}</span>
           </button>)}
         </div>}
       </aside>

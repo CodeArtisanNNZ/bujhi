@@ -1,6 +1,8 @@
 "use client";
+import ResponsiveImage from "./ResponsiveImage";
 
 import Link from "next/link";
+import {useTheme} from "./SiteShell";
 import {useEffect,useState} from "react";
 import {ArrowLeft,Eye,EyeOff,Globe2,LampDesk,LockKeyhole,Mail,UserRound} from "lucide-react";
 
@@ -27,7 +29,8 @@ const drinks:{id:AuthDrink;label:string;image:string}[]=[
 ];
 
 export default function AuthDesk({kind}:{kind:"login"|"signup"}){
- const[light,setLight]=useState(true);
+ const {theme,toggleTheme}=useTheme();
+ const light=theme==="light";
  const[show,setShow]=useState(false);
  const[drink,setDrink]=useState<AuthDrink>("tea");
  const[chooser,setChooser]=useState(false);
@@ -110,19 +113,13 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
  }
 
  return <main className={`auth-page ${light?"lamp-on":"lamp-off"}`}>
-  <header className="auth-header">
-   <Link className="brand" href="/"><img src="/bujhi-icon.png" alt=""/>Bujhi</Link>
-   <Link href="/"><ArrowLeft/>Home</Link>
-  </header>
+
 
   <section className="desk-scene">
-   <picture>
-    <source media="(max-width:650px)" srcSet="/auth-desk-clean.png"/>
-    <img className="desk-art" src="/auth-desk-clean.png" alt="A study desk with a lamp, globe and books"/>
-   </picture>
+   <ResponsiveImage loading="eager" fetchPriority="high" sizes="100vw" className="desk-art" src="/auth-desk-clean.png" alt="A study desk with a lamp, globe and books"/>
    <div className="lamp-glow" aria-hidden="true"/>
 
-   <button type="button" className="object-hotspot lamp-spot" onClick={()=>setLight(!light)} aria-label="Turn lamp on or off"><LampDesk/><span>{light?"Turn off":"Turn on"}</span></button>
+   <button type="button" className="object-hotspot lamp-spot" onClick={toggleTheme} aria-label="Turn lamp on or off"><LampDesk/><span>{light?"Turn off":"Turn on"}</span></button>
    <button type="button" className="object-hotspot globe-spot" onClick={()=>tell(worldFacts[Math.floor(Math.random()*worldFacts.length)])} aria-label="Discover a world fact"><Globe2/><span>World fact</span></button>
 
    <div className="book-spots">
@@ -132,14 +129,14 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
    <button type="button" className="mug-spot auth-drink-button" onClick={()=>setChooser(!chooser)} aria-label={`Current beverage: ${activeDrink.label}. Choose another beverage`}>
     <span className="auth-drink-frame" aria-hidden="true">
      {(drink==="tea"||drink==="coffee")&&<span className="auth-drink-steam"><i/><i/><i/></span>}
-     <img src={activeDrink.image} alt="" draggable={false}/>
+     <ResponsiveImage sizes="180px" src={activeDrink.image} alt="" draggable={false}/>
     </span>
     <span className="cup-name">{activeDrink.label}</span>
    </button>
 
    {chooser&&<div className="drink-menu auth-drink-menu">
     {drinks.map(item=><button type="button" key={item.id} className={drink===item.id?"active":""} onClick={()=>{setDrink(item.id);setChooser(false);tell(`${item.label} selected. Choose whatever helps your study desk feel comfortable.`)}}>
-     <span className="auth-drink-thumb" aria-hidden="true"><img src={item.image} alt="" draggable={false}/></span>
+     <span className="auth-drink-thumb" aria-hidden="true"><ResponsiveImage sizes="80px" src={item.image} alt="" draggable={false}/></span>
      <span>{item.label}</span>
     </button>)}
    </div>}

@@ -163,7 +163,7 @@ export default function LanguageToggle(){
   const langRef=useRef<Lang>("en");
 
   useEffect(()=>{
-    const saved=(localStorage.getItem("bujhi-language") as Lang|null);
+    let saved:Lang|null=null;try{saved=localStorage.getItem("bujhi-language") as Lang|null}catch{}
     const initial=saved==="bn"?"bn":"en";
     langRef.current=initial;
     setLang(initial);
@@ -199,7 +199,7 @@ export default function LanguageToggle(){
   function choose(next:Lang){
     langRef.current=next;
     setLang(next);
-    localStorage.setItem("bujhi-language",next);
+    try{localStorage.setItem("bujhi-language",next)}catch{}
     document.documentElement.lang=next==="bn"?"bn":"en";
     translateTree(document.body,next);
   }

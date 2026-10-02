@@ -282,7 +282,7 @@ export default function LibraryLabs({lesson}:{lesson:number}){
       className={styles.frame}
       title={"Bujhi Chapter 2 interactive simulation "+lesson}
       sandbox="allow-scripts"
-      srcDoc={getDoc(lesson)}
+      srcDoc={getDoc(lesson).replace("</head>",'<link rel="stylesheet" href="/simulation-theme.css"><script src="/theme-sync.js"></script></head>')}
     />
     <div className={styles.sourceNote}>পাঠ ৮-এ DNA শেখার ভিউয়ার ব্যবহার করা হয়েছে; পাঠ ৭ ও ৯-এ বুঝির দেওয়া সিমুলেশন ব্যবহার করা হয়েছে।</div>
   </div>;

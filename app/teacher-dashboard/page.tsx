@@ -1,4 +1,6 @@
 "use client";
+import ResponsiveImage from "../components/ResponsiveImage";
+import {useTheme} from "../components/SiteShell";
 
 // Production teacher desk route
 
@@ -40,7 +42,8 @@ export default function TeacherDashboard(){
   const[selectedClass,setSelectedClass]=useState(8);
   const[selectedBook,setSelectedBook]=useState<NctbBook|null>(null);
   const[folderOpen,setFolderOpen]=useState(false);
-  const[lightOn,setLightOn]=useState(true);
+  const {theme,toggleTheme}=useTheme();
+  const lightOn=theme==="light";
   const[drink,setDrink]=useState<Drink>("coffee");
   const[drinkOpen,setDrinkOpen]=useState(false);
   const[note,setNote]=useState("");
@@ -108,7 +111,7 @@ export default function TeacherDashboard(){
 
   return <main className={`${styles.page} ${lightOn?"":styles.pageDim}`}>
     <section className={styles.referenceDesk} aria-label="বুঝি শিক্ষক ডেস্ক">
-      <div className={styles.deskBrand}><a href="/" aria-label="বুঝি হোম"><img src="/bujhi-icon.png" alt=""/><strong>বুঝি</strong></a><span>শিক্ষক ডেস্ক</span></div>
+      <div className={styles.deskBrand}><a href="/" aria-label="বুঝি হোম"><ResponsiveImage sizes="38px" src="/bujhi-icon.png" alt=""/><strong>বুঝি</strong></a><span>শিক্ষক ডেস্ক</span></div>
 
       <div className={styles.teacherBadge}>
         <FolderOpen/><span>তোমার শ্রেণিগুলো</span>
@@ -139,13 +142,13 @@ export default function TeacherDashboard(){
       <div className={styles.deskSurface} aria-hidden="true"/>
 
       <div className={styles.lamp} aria-hidden="true">
-        <img className={styles.lampImage} src="/ef6af6f1-43c9-41fe-9c24-5f3873a95c33.png" alt="" draggable={false}/>
+        <ResponsiveImage className={styles.lampImage} sizes="360px" src="/ef6af6f1-43c9-41fe-9c24-5f3873a95c33.png" alt="" draggable={false}/>
       </div>
 
       <button
         type="button"
         className={styles.roomLightSwitch}
-        onClick={()=>setLightOn(value=>!value)}
+        onClick={toggleTheme}
         aria-pressed={lightOn}
         aria-label={lightOn?"বাতি বন্ধ করো":"বাতি চালু করো"}
       >
@@ -154,7 +157,7 @@ export default function TeacherDashboard(){
       </button>
 
       <div className={styles.moneyPlant} aria-hidden="true">
-        <img src="/29e8b631-9c79-4996-b225-405227aa1153.png" alt="" draggable={false}/>
+        <ResponsiveImage sizes="360px" src="/29e8b631-9c79-4996-b225-405227aa1153.png" alt="" draggable={false}/>
       </div>
 
       <div className={styles.teacherNotebook}>
@@ -189,14 +192,14 @@ export default function TeacherDashboard(){
         <button type="button" className={styles.cupHotspot} onClick={()=>setDrinkOpen(v=>!v)} aria-expanded={drinkOpen}>
           <span key={drink} className={styles.drinkImageFrame}>
             {(drink==="tea"||drink==="coffee")&&<span className={styles.steam}><i/><i/><i/></span>}
-            <img className={styles.drinkImage} src={activeDrink.image} alt="" draggable={false}/>
+            <ResponsiveImage className={styles.drinkImage} sizes="180px" src={activeDrink.image} alt="" draggable={false}/>
           </span>
           <span className={styles.drinkLabel}>{activeDrink.label} · বদলাও</span>
         </button>
         {drinkOpen&&<div className={styles.drinkMenu}>
           <div className={styles.drinkMenuTitle}>পানীয় বেছে নাও</div>
           {drinkOptions.map(item=><button type="button" key={item.id} className={drink===item.id?styles.drinkActive:""} onClick={()=>chooseDrink(item.id)}>
-            <span className={styles.drinkThumb}><img src={item.image} alt="" draggable={false}/></span>
+            <span className={styles.drinkThumb}><ResponsiveImage sizes="80px" src={item.image} alt="" draggable={false}/></span>
             <span>{item.label}</span>
           </button>)}
         </div>}
