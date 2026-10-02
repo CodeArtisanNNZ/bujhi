@@ -1102,7 +1102,7 @@ html[lang="bn"] select{
 .team-count{
   display:inline-block;
   margin-bottom:13px;
-  color:#9c7fb8;
+  color:var(--red);
   font-size:.72rem;
   font-weight:900;
   letter-spacing:.14em;
@@ -1144,7 +1144,7 @@ html[lang="bn"] select{
   background:#30231f;
   box-shadow:
     0 24px 46px rgba(26,13,9,.26),
-    0 12px 32px rgba(111,77,153,.11);
+    0 12px 32px rgba(139,0,0,.10);
   transform:
     translateX(calc(var(--team-offset) * 62px))
     translateY(calc(var(--team-offset) * 24px))
@@ -1167,7 +1167,7 @@ html[lang="bn"] select{
   z-index:-1;
   inset:18px -24px -22px 22px;
   border-radius:32px;
-  background:radial-gradient(circle at 40% 40%,rgba(133,91,180,.24),rgba(102,71,141,.08) 48%,transparent 72%);
+  background:radial-gradient(circle at 40% 40%,rgba(153,0,0,.18),rgba(112,47,34,.08) 48%,transparent 72%);
   filter:blur(18px);
   pointer-events:none;
 }
@@ -1183,8 +1183,8 @@ html[lang="bn"] select{
 .team-profile-card.active{
   box-shadow:
     0 30px 60px rgba(26,13,9,.31),
-    0 18px 42px rgba(109,73,153,.22),
-    0 0 48px rgba(124,82,175,.12);
+    0 18px 42px rgba(153,0,0,.16),
+    0 0 48px rgba(153,0,0,.10);
 }
 .team-profile-card.active img{transform:scale(1.025)}
 .team-card-overlay{
@@ -1216,16 +1216,16 @@ html[lang="bn"] select{
   place-items:center;
   align-content:center;
   gap:11px;
-  color:#eadfd7;
+  color:#fff3e8;
   background:
-    radial-gradient(circle at 35% 22%,rgba(151,111,188,.24),transparent 35%),
-    linear-gradient(145deg,#382a32,#241b1e 58%,#191315);
+    radial-gradient(circle at 35% 22%,rgba(191,78,63,.22),transparent 35%),
+    linear-gradient(145deg,#6f2a24,#4a1f1c 58%,#2b1715);
 }
 .team-placeholder:before{
   content:"";
   position:absolute;
   inset:18px;
-  border:1px dashed rgba(238,221,211,.15);
+  border:1px dashed rgba(246,237,228,.34);
   border-radius:19px;
 }
 .team-placeholder b{
@@ -1234,12 +1234,12 @@ html[lang="bn"] select{
   width:72px;
   height:72px;
   border-radius:50%;
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.1);
+  background:rgba(246,237,228,.10);
+  border:1px solid rgba(246,237,228,.22);
   font:600 1.6rem "Fraunces","Bujhi Bangla",serif;
 }
 .team-placeholder small{
-  color:#ad9c9a;
+  color:#e8cfc2;
   font-size:.65rem;
   letter-spacing:.08em;
   text-transform:uppercase;
@@ -1262,7 +1262,7 @@ html[lang="bn"] select{
   cursor:pointer;
   transition:transform .2s,background .2s,border-color .2s;
 }
-.team-controls>button:hover{transform:translateY(-2px);background:var(--surface);border-color:#9b7ab7}
+.team-controls>button:hover{transform:translateY(-2px);background:var(--surface);border-color:var(--red)}
 .team-controls>button svg{width:18px}
 .team-dots{display:flex;align-items:center;gap:7px}
 .team-dots button{
@@ -1271,12 +1271,12 @@ html[lang="bn"] select{
   padding:0;
   border:0;
   border-radius:999px;
-  background:#a99890;
+  background:#c9a99c;
   opacity:.4;
   cursor:pointer;
   transition:width .25s,opacity .25s,background .25s;
 }
-.team-dots button.active{width:24px;background:#9774b5;opacity:1}
+.team-dots button.active{width:24px;background:var(--red);opacity:1}
 @keyframes teamCopyIn{
   from{opacity:0;transform:translateY(10px)}
   to{opacity:1;transform:none}
