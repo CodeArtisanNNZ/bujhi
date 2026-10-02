@@ -1519,3 +1519,47 @@ html[lang="bn"] select{
 @media(prefers-reduced-motion:reduce){
   .cell-stage-visual,.cell-pulse-ring,.nucleus-glow,.chromatin path,.chromosome-focus,.dna-stage,.gene-highlight,.science-preview-loading{animation:none!important}
 }
+
+
+/* ===== CONCORD BIOLOGY HOMEPAGE PREVIEW ===== */
+.concord-bio-preview{
+  position:relative;
+  width:100%;
+  height:230px;
+  min-width:0;
+  overflow:hidden;
+  border:1px solid rgba(126,91,151,.34);
+  border-radius:16px;
+  background:#0f0d14;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.025),inset 0 -30px 55px rgba(0,0,0,.16);
+}
+.concord-bio-preview iframe{
+  display:block;
+  width:100%;
+  height:100%;
+  border:0;
+  background:#fff;
+}
+.concord-bio-credit{
+  position:absolute;
+  right:7px;
+  bottom:6px;
+  z-index:3;
+  padding:4px 7px;
+  border-radius:999px;
+  background:rgba(23,16,24,.72);
+  color:#dbc6df;
+  font-size:.42rem;
+  font-weight:800;
+  letter-spacing:.02em;
+  pointer-events:none;
+  backdrop-filter:blur(4px);
+}
+.bio-model-label{
+  color:var(--red);
+  font-weight:700;
+}
+@media(max-width:650px){
+  .concord-bio-preview{height:174px;border-radius:13px}
+  .concord-bio-credit{font-size:.37rem;right:5px;bottom:4px}
+}
