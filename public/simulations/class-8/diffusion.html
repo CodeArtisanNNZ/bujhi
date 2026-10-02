@@ -34,23 +34,23 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
         
         body {
-            font-family: 'Inter', sans-serif;
-            user-select: none;
+            font-family:'Inter', sans-serif;
+            user-select:none;
         }
 
         .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
+            width:6px;
+            height:6px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
-            background: #F1F5F9;
+            background:#F1F5F9;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #CBD5E1;
-            border-radius: 4px;
+            background:#CBD5E1;
+            border-radius:4px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #94A3B8;
+            background:#94A3B8;
         }
     
         /* ============================================================
@@ -72,7 +72,7 @@
         body{
             font-family:'Noto Sans Bengali','Inter',sans-serif!important;
             background-color:var(--bujhi-cream)!important;
-            background-image:radial-gradient(#e6dac8 1px,transparent 1px)!important;
+            background-image:radial-gradient(var(--surface) 1px,transparent 1px)!important;
             background-size:23px 23px!important;
             color:var(--bujhi-ink)!important;
         }
@@ -84,8 +84,8 @@
             box-shadow:0 8px 24px rgba(73,45,30,.08)!important;
         }
         .bujhi-logo-wrap{
-            width:42px;height:42px;border-radius:13px;background:#fff;
-            border:1px solid #e4d2bd;display:grid;place-items:center;flex:none;
+            width:42px;height:42px;border-radius:13px;background:var(--paper);
+            border:1px solid var(--line);display:grid;place-items:center;flex:none;
             box-shadow:0 4px 12px rgba(92,47,35,.10);
         }
         .bujhi-logo{width:31px;height:31px;object-fit:contain}
@@ -101,33 +101,33 @@
             border-color:#d7b996!important;
         }
         .bg-white{background-color:var(--bujhi-paper)!important}
-        .bg-slate-50{background-color:#fbf4e9!important}
-        .bg-slate-100{background-color:#f2e5cf!important}
-        .bg-slate-200{background-color:#eadbc8!important}
+        .bg-slate-50{background-color:var(--paper)!important}
+        .bg-slate-100{background-color:var(--surface)!important}
+        .bg-slate-200{background-color:var(--surface)!important}
         .border-slate-100,.border-slate-200,.border-slate-300{border-color:var(--bujhi-border)!important}
         .text-slate-900,.text-slate-800,.text-slate-700{color:var(--bujhi-ink)!important}
         .text-slate-600,.text-slate-500,.text-slate-400{color:var(--bujhi-muted)!important}
-        .bg-indigo-600{background-color:var(--bujhi-red)!important}
+        .bg-indigo-600{background-color:var(--accent-solid)!important}
         .hover\:bg-indigo-500:hover{background-color:var(--bujhi-red-dark)!important}
         .text-indigo-700,.text-indigo-600{color:var(--bujhi-red)!important}
-        .bg-indigo-50{background-color:#fff1ec!important}
-        .bg-indigo-100{background-color:#f4dfdb!important}
+        .bg-indigo-50{background-color:var(--paper)!important}
+        .bg-indigo-100{background-color:var(--surface)!important}
         .border-indigo-200,.border-indigo-300{border-color:#d9b0a5!important}
-        body>header .bg-slate-800{background:var(--bujhi-red)!important}
+        body>header .bg-slate-800{background:var(--accent-solid)!important}
         body>header .hover\:bg-slate-700:hover{background:var(--bujhi-red-dark)!important}
         .mode-tab-btn,.exp-tab-btn{border-radius:999px!important}
         .mode-tab-btn.bg-white{
-            background:var(--bujhi-red)!important;color:white!important;border-color:var(--bujhi-red)!important
+            background:var(--accent-solid)!important;color:white!important;border-color:var(--bujhi-red)!important
         }
-        #sound-btn{background:#fff8ef!important;border-color:var(--bujhi-border)!important;color:#674d43!important}
-        #guided-banner{background:#fff1ec!important;border-color:#d9b0a5!important;color:#5c2d26!important}
-        #guided-step-badge,#guided-next,#play-btn{background:var(--bujhi-red)!important;color:white!important}
+        #sound-btn{background:var(--paper)!important;border-color:var(--bujhi-border)!important;color:var(--muted)!important}
+        #guided-banner{background:var(--paper)!important;border-color:#d9b0a5!important;color:var(--muted)!important}
+        #guided-step-badge,#guided-next,#play-btn{background:var(--accent-solid)!important;color:white!important}
         select{background:var(--bujhi-paper)!important;color:var(--bujhi-ink)!important;border-color:var(--bujhi-border)!important}
         input[type="range"]{accent-color:var(--bujhi-red)}
         button:focus-visible,select:focus-visible,input:focus-visible{
             outline:3px solid rgba(153,0,0,.20)!important;outline-offset:2px
         }
-        .custom-scrollbar::-webkit-scrollbar-track{background:#f1e5d5!important}
+        .custom-scrollbar::-webkit-scrollbar-track{background:var(--surface)!important}
         .custom-scrollbar::-webkit-scrollbar-thumb{background:#cbb39c!important}
         .custom-scrollbar::-webkit-scrollbar-thumb:hover{background:#a98973!important}
 

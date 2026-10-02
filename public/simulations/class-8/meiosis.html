@@ -10,65 +10,65 @@
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Hind Siliguri', 'Inter', sans-serif;
-            background-color: #f8fafc;
-            color: #1e293b;
+            font-family:'Hind Siliguri', 'Inter', sans-serif;
+            background-color:#f8fafc;
+            color:#1e293b;
         }
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        ::-webkit-scrollbar { width:6px; height:6px; }
+        ::-webkit-scrollbar-track { background:#f1f5f9; }
+        ::-webkit-scrollbar-thumb { background:#cbd5e1; border-radius:3px; }
+        ::-webkit-scrollbar-thumb:hover { background:#94a3b8; }
         
         .glow-track {
-            filter: drop-shadow(0px 0px 8px #f59e0b);
-            stroke-width: 3.5px !important;
+            filter:drop-shadow(0px 0px 8px #f59e0b);
+            stroke-width:3.5px !important;
         }
         .chromosome-hover {
-            cursor: pointer;
-            transition: transform 0.2s ease, filter 0.2s ease;
+            cursor:pointer;
+            transition:transform 0.2s ease, filter 0.2s ease;
         }
         .chromosome-hover:hover {
-            filter: drop-shadow(0px 0px 5px rgba(0,0,0,0.3));
+            filter:drop-shadow(0px 0px 5px rgba(0,0,0,0.3));
         }
     </style>
 
     <style id="bujhiTheme">
       :root { --wine:#990000; --wine-dark:#620e13; --ink:#342c29; --paper:#fffaf0; --cream:#f6ead4; --edge:#ddc8ab; }
       html,body {min-height:100%;}
-      .bujhi-app {background:#f2e7d3; color:var(--ink); font-family:'Hind Siliguri','Inter',sans-serif;}
+      .bujhi-app {background:var(--surface); color:var(--ink); font-family:'Hind Siliguri','Inter',sans-serif;}
       .desk-topline {height:6px; background:repeating-linear-gradient(90deg,#990000 0 80px,#bd6a4b 80px 110px,#e1bb77 110px 160px); flex:none;}
       .bujhi-app > header {background:var(--paper)!important; border-color:var(--edge)!important; padding:13px 22px; box-shadow:0 4px 18px #633b1820;}
       .bujhi-app > header > div:first-child {gap:9px;}
-      .brand-mark {width:37px;height:37px;display:grid;place-items:center;border-radius:7px;background:var(--wine);color:white;font-weight:700;font-size:18px;box-shadow:3px 3px 0 #e0b98b;}
-      .chapter-tag {background:#ebddc5;color:var(--wine-dark);padding:6px 9px;border:1px solid #d5b98f;border-radius:6px;font-size:11px;font-weight:700;white-space:nowrap;}
+      .brand-mark {width:37px;height:37px;display:grid;place-items:center;border-radius:7px;background:var(--accent-solid);color:white;font-weight:700;font-size:18px;box-shadow:3px 3px 0 #e0b98b;}
+      .chapter-tag {background:var(--surface);color:var(--wine-dark);padding:6px 9px;border:1px solid #d5b98f;border-radius:6px;font-size:11px;font-weight:700;white-space:nowrap;}
       h1,h2,h3 {letter-spacing:0!important;}
-      .bujhi-app > div.flex-1 {background:repeating-linear-gradient(90deg,#ded0b83d 0 2px,transparent 2px 120px),linear-gradient(#f5ebda,#e9d8bc);}
+      .bujhi-app > div.flex-1 {background:repeating-linear-gradient(90deg,rgba(var(--surface-rgb),0.239) 0 2px,transparent 2px 120px),linear-gradient(var(--surface),var(--surface));}
       .bujhi-app aside {background:var(--paper)!important;border-color:var(--edge)!important;}
       .bujhi-app main {background:transparent!important;}
-      .bujhi-app aside > div:first-child {background:#eee2cd!important;border-color:var(--edge)!important;}
-      #stageTimeline button {border-color:#ddcbb0!important;background:#fffbf4!important;}
+      .bujhi-app aside > div:first-child {background:var(--surface)!important;border-color:var(--edge)!important;}
+      #stageTimeline button {border-color:var(--line)!important;background:var(--paper)!important;}
       #stageTimeline button:hover {border-color:var(--wine)!important;transform:translateX(2px);}
-      #stageTimeline button[class*="border-indigo"] {border-color:var(--wine)!important;background:#f8e8dd!important;color:var(--wine-dark)!important;box-shadow:inset 3px 0 var(--wine);}
-      #stageTimeline button span[class*="bg-indigo"] {background:var(--wine)!important;}
-      .simulation-frame {margin:12px 18px 14px;border:1px solid #d4bd9a;border-radius:15px;background:radial-gradient(circle at 50% 35%,#fffef9,#f8f0df 72%);box-shadow:0 16px 28px #8e694b22,inset 0 0 0 7px #fffaf1;min-height:340px;}
-      .simulation-frame > div:first-of-type {background:#fffaf1ee!important;border-color:#ddc5a4!important;}
+      #stageTimeline button[class*="border-indigo"] {border-color:var(--wine)!important;background:var(--surface)!important;color:var(--wine-dark)!important;box-shadow:inset 3px 0 var(--wine);}
+      #stageTimeline button span[class*="bg-indigo"] {background:var(--accent-solid)!important;}
+      .simulation-frame {margin:12px 18px 14px;border:1px solid #d4bd9a;border-radius:15px;background:radial-gradient(circle at 50% 35%,var(--paper),var(--surface) 72%);box-shadow:0 16px 28px #8e694b22,inset 0 0 0 7px #fffaf1;min-height:340px;}
+      .simulation-frame > div:first-of-type {background:rgba(var(--surface-rgb),0.933)!important;border-color:#ddc5a4!important;}
       #meiosisSvg {filter:drop-shadow(0 3px 4px #75624916);}
       #meiosisSvg.stage-enter {animation:stageEnter .45s ease-out;}
       @keyframes stageEnter {from {opacity:.38;transform:scale(.975)}to {opacity:1;transform:scale(1)}}
-      .lab-intro {display:flex;gap:9px;align-items:center;padding:11px 20px 0;color:#685448;font-size:12px;}
+      .lab-intro {display:flex;gap:9px;align-items:center;padding:11px 20px 0;color:var(--muted);font-size:12px;}
       .lab-intro strong {color:var(--wine-dark);}
       .lab-dot {width:8px;height:8px;background:#8f9e64;border-radius:50%;box-shadow:0 0 0 4px #8f9e6428;}
-      .experiment-strip {display:flex;align-items:center;flex-wrap:wrap;gap:10px;padding:10px 17px;background:#eee1c9;border-top:1px solid #d9c3a3;border-bottom:1px solid #d9c3a3;font-size:12px;}
-      .experiment-label {display:flex;flex-direction:column;min-width:195px;flex:1;}.experiment-label strong {color:var(--wine-dark)} .experiment-label small {color:#66574e;}
-      .experiment-strip button {border:1px solid var(--wine);border-radius:7px;color:var(--wine-dark);background:#fff9ed;padding:8px 10px;font-weight:700;}
-      .experiment-strip button:hover,.experiment-strip button[aria-pressed="true"] {background:var(--wine);color:white;}
-      #assortmentStatus {color:#5b493e;min-width:230px;}
-      .scrub-wrap {display:flex;align-items:center;gap:13px;padding:9px 17px;background:#fff9ed;color:#705547;font-size:12px;font-weight:700;}
+      .experiment-strip {display:flex;align-items:center;flex-wrap:wrap;gap:10px;padding:10px 17px;background:var(--surface);border-top:1px solid #d9c3a3;border-bottom:1px solid #d9c3a3;font-size:12px;}
+      .experiment-label {display:flex;flex-direction:column;min-width:195px;flex:1;}.experiment-label strong {color:var(--wine-dark)} .experiment-label small {color:var(--muted);}
+      .experiment-strip button {border:1px solid var(--wine);border-radius:7px;color:var(--wine-dark);background:var(--paper);padding:8px 10px;font-weight:700;}
+      .experiment-strip button:hover,.experiment-strip button[aria-pressed="true"] {background:var(--accent-solid);color:white;}
+      #assortmentStatus {color:var(--muted);min-width:230px;}
+      .scrub-wrap {display:flex;align-items:center;gap:13px;padding:9px 17px;background:var(--paper);color:var(--muted);font-size:12px;font-weight:700;}
       .scrub-wrap input {flex:1;accent-color:var(--wine);cursor:pointer;}.scrub-wrap span {font-variant-numeric:tabular-nums;}
-      .bujhi-app main > div:last-child {background:#fffaf1!important;border-color:var(--edge)!important;}
-      .bujhi-app #btnPlay,.bujhi-app #guidedModeBtn[class*="bg-indigo-600"] {background:var(--wine)!important;color:white!important;}
+      .bujhi-app main > div:last-child {background:var(--paper)!important;border-color:var(--edge)!important;}
+      .bujhi-app #btnPlay,.bujhi-app #guidedModeBtn[class*="bg-indigo-600"] {background:var(--accent-solid)!important;color:white!important;}
       .bujhi-app #btnPlay:hover {background:var(--wine-dark)!important;}
-      .bujhi-app #guidedBanner,.bujhi-app #checkpointModal > div > div:first-child {background:var(--wine)!important;}
+      .bujhi-app #guidedBanner,.bujhi-app #checkpointModal > div > div:first-child {background:var(--accent-solid)!important;}
       .bujhi-app #stagePhaseHeader,.bujhi-app #statPloidy {color:var(--wine)!important;}
       .bujhi-app #compareModal button,.bujhi-app #checkpointModal button {cursor:pointer;}
       .bujhi-app button:focus-visible,.bujhi-app [role="button"]:focus-visible,.bujhi-app input:focus-visible {outline:3px solid #b76324;outline-offset:2px;}

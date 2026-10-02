@@ -1,3 +1,8 @@
+@font-face{font-family:"Bujhi Bangla";font-weight:400;font-style:normal;font-display:swap;src:url("/fonts/bangla-400.woff2") format("woff2")}
+@font-face{font-family:"Bujhi Bangla";font-weight:700;font-style:normal;font-display:swap;src:url("/fonts/bangla-700.woff2") format("woff2")}
+:root{--paper:#fffdfa;--surface:#f0e5d6;--muted:#6b5e57;--line:#dccdc1;--accent-solid:#990000;--surface-rgb:255,253,250}
+:root[data-theme="dark"]{--paper:#2b211e;--surface:#352825;--muted:#c2afa1;--line:#61483f;--accent-solid:#842d2d;--surface-rgb:43,33,30}
+body,button,input,select,textarea,h1,h2,h3,h4,p,span,strong,b,small,div,a,label,li,td,th,summary{font-family:"Bujhi Bangla",system-ui,sans-serif!important}
 :root[data-theme="dark"]{color-scheme:dark;--bujhi-red:#eda99d;--bujhi-red-dark:#f0b0a5;--bujhi-red-soft:#402725;--bujhi-cream:#1e1715;--bujhi-paper:#2b211e;--bujhi-paper-2:#352825;--bujhi-paper-3:#402e28;--bujhi-ink:#f3e9dd;--bujhi-muted:#c2afa1;--bujhi-border:#61483f;--wine:#eda99d;--wine-dark:#f0b0a5;--ink:#f3e9dd;--paper:#2b211e;--cream:#1e1715;--edge:#61483f;--red:#eda99d;--dark:#f0b0a5;--line:#61483f}
 html[data-theme="dark"] body{background:#1e1715!important;color:#f3e9dd!important}
 html[data-theme="dark"] :is(.bg-white,.bg-slate-50,.bg-gray-50,.bg-stone-50,.bg-amber-50){background:#2b211e!important;color:#f3e9dd}
