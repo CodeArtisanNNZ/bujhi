@@ -894,7 +894,7 @@ export default function BgsChapterOne(){
   return <main className={styles.page}>
     <header className={styles.topbar}>
       <Link href={back} className={styles.back}><ArrowLeft/> {role==="teacher"?"শিক্ষক ডেস্কে ফিরি":"বইয়ের পাঠে ফিরি"}</Link>
-      <Link href="/" className={styles.brand}><img src="/optimized/bujhi-icon-96.webp" alt=""/><strong>বুঝি</strong></Link>
+      <Link href="/" className={styles.brand}><img src="/optimized/bujhi-icon-96.webp" alt=""/><strong>বুঝি?</strong></Link>
       <span className={styles.rolePill}>{role==="teacher"?"শিক্ষক ভিউ":"শিক্ষার্থী ভিউ"}</span>
     </header>
 
@@ -1497,7 +1497,7 @@ export default function BgsChapterOne(){
 
         <div className={styles.practiceRule}>
           <CheckCircle2/>
-          <div><small>BUJHI PRACTICE RULE</small><h3>Model answer মুখস্থ নয়—structure শিখো</h3><p>একই প্রশ্ন অন্যভাবে এলে যেন নিজের ভাষায় উত্তর দিতে পারো। আগে বই/lesson দেখে key points লিখবে, তারপর ৩–৫টি বাক্যে যুক্ত করবে, শেষে conclusion দেবে।</p></div>
+          <div><small>BUJHI? PRACTICE RULE</small><h3>Model answer মুখস্থ নয়—structure শিখো</h3><p>একই প্রশ্ন অন্যভাবে এলে যেন নিজের ভাষায় উত্তর দিতে পারো। আগে বই/lesson দেখে key points লিখবে, তারপর ৩–৫টি বাক্যে যুক্ত করবে, শেষে conclusion দেবে।</p></div>
         </div>
       </section>}
 
