@@ -1,6 +1,6 @@
 "use client";
 
-import {useEffect,useMemo,useRef,useState,type CSSProperties} from "react";
+import {useEffect,useMemo,useRef,useState,type CSSProperties,type PointerEvent as ReactPointerEvent} from "react";
 
 type Props={running:boolean;onFact?:(text:string)=>void};
 
@@ -58,18 +58,18 @@ export default function CellZoomPreview({running,onFact}:Props){
     onFact?.(FACTS[lang][next]);
   }
 
-  function pointerDown(event:React.PointerEvent<HTMLDivElement>){
+  function pointerDown(event:ReactPointerEvent<HTMLDivElement>){
     dragStart.current=event.clientX;
     dragOrigin.current=drag;
     event.currentTarget.setPointerCapture(event.pointerId);
   }
 
-  function pointerMove(event:React.PointerEvent<HTMLDivElement>){
+  function pointerMove(event:ReactPointerEvent<HTMLDivElement>){
     if(dragStart.current===null)return;
     setDrag(dragOrigin.current+(event.clientX-dragStart.current)*.65);
   }
 
-  function pointerUp(event:React.PointerEvent<HTMLDivElement>){
+  function pointerUp(event:ReactPointerEvent<HTMLDivElement>){
     dragStart.current=null;
     if(event.currentTarget.hasPointerCapture(event.pointerId))event.currentTarget.releasePointerCapture(event.pointerId);
   }
@@ -84,7 +84,7 @@ export default function CellZoomPreview({running,onFact}:Props){
       onPointerMove={pointerMove}
       onPointerUp={pointerUp}
       onPointerCancel={pointerUp}
-      style={{"--drag-turn":`${drag}deg`} as CSSProperties}
+      style={{"--drag-turn":`${drag}deg`} as CSSProperties & {"--drag-turn":string}}
       role="img"
       aria-label={lang==="bn"?"ঘূর্ণায়মান ত্রিমাত্রিক DNA ডাবল হেলিক্স":"Rotating three-dimensional DNA double helix"}
     >
