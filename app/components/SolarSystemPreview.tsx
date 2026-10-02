@@ -69,8 +69,9 @@ export default function SolarSystemPreview({running,onFact}:Props){
   useEffect(()=>{
     const canvas=canvasRef.current;
     if(!canvas)return;
-    const ctx=canvas.getContext("2d");
-    if(!ctx)return;
+    const context=canvas.getContext("2d");
+    if(!context)return;
+    const ctx=context;
 
     let width=1,height=1,dpr=1;
     const stars=Array.from({length:95},(_,i)=>{
