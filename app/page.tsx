@@ -20,19 +20,12 @@ export default function Home(){
   return()=>window.removeEventListener("bujhi-language-changed",sync);
  },[]);
  useEffect(()=>{
-  const loadId=String(Math.round(window.performance.timeOrigin));
-  const handledLoad=sessionStorage.getItem("bujhi-home-preview-load");
-  const currentForLoad=sessionStorage.getItem("bujhi-home-preview-current");
-  if(handledLoad===loadId&&(currentForLoad==="solar"||currentForLoad==="cell"||currentForLoad==="map")){
-   setHomeDemo(currentForLoad);
-   return;
-  }
-  const last=localStorage.getItem("bujhi-home-preview-last");
-  const next:"solar"|"cell"|"map"=last==="map"?"solar":last==="solar"?"cell":"map";
-  localStorage.setItem("bujhi-home-preview-last",next);
-  sessionStorage.setItem("bujhi-home-preview-load",loadId);
-  sessionStorage.setItem("bujhi-home-preview-current",next);
+  const raw=Number(localStorage.getItem("bujhi-home-preview-count")||"0");
+  const count=Number.isFinite(raw)&&raw>=0?Math.floor(raw):0;
+  const demos:["map","solar","cell"]=["map","solar","cell"];
+  const next=demos[count%3];
   setHomeDemo(next);
+  localStorage.setItem("bujhi-home-preview-count",String((count+1)%3));
  },[]);
  function openRandomThought(){let next=Math.floor(Math.random()*openThoughtFacts.length);if(openThoughtFacts.length>1&&next===lastThoughtIndex)next=(next+1)%openThoughtFacts.length;setLastThoughtIndex(next);const fact=openThoughtFacts[next];note(thoughtLang==="bn"?fact.bn:fact.en)}
  function openRandomQuiz(){setAnswer(null);setQuizIndex(current=>{let next=Math.floor(Math.random()*hiddenQuizQuestions.length);if(hiddenQuizQuestions.length>1&&next===current)next=(next+1)%hiddenQuizQuestions.length;return next});setQuiz(true)}
