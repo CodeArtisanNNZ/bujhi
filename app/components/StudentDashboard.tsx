@@ -107,7 +107,7 @@ export default function StudentDashboard(){
   }
 
   return <main className={`${styles.page} ${lightOn?"":styles.pageDim}`}>
-    <section ref={sceneRef} className={styles.referenceDesk} aria-label={`Bujhi ${studentClassLabels[classKey]} study desk`}>
+    <section ref={sceneRef} className={styles.referenceDesk} aria-label={`Bujhi? ${studentClassLabels[classKey]} study desk`}>
       <div className={styles.dynamicClass}>
         <div className={styles.classPill}>
           <strong>{studentClassLabels[classKey]}</strong>
