@@ -28,7 +28,7 @@ export default function Home(){
    return;
   }
   const last=localStorage.getItem("bujhi-home-preview-last");
-  const next:"solar"|"cell"|"map"=last==="solar"?"cell":last==="cell"?"map":"solar";
+  const next:"solar"|"cell"|"map"=last==="map"?"solar":last==="solar"?"cell":"map";
   localStorage.setItem("bujhi-home-preview-last",next);
   sessionStorage.setItem("bujhi-home-preview-load",loadId);
   sessionStorage.setItem("bujhi-home-preview-current",next);
@@ -50,7 +50,7 @@ export default function Home(){
        <span>{homeDemo==="cell"?(thoughtLang==="bn"?"কোষের নিউক্লিয়াসে জুম করে DNA কীভাবে কাজ করে দেখুন।":"Zoom into the nucleus and see DNA transcription in action."):(homeDemo==="solar"?(thoughtLang==="bn"?"গ্রহগুলোকে সূর্যের চারদিকে ঘুরতে দেখুন।":"Watch the planets orbit the Sun."):(thoughtLang==="bn"?"প্রিভিউ প্রস্তুত হচ্ছে…":"Preparing your preview…"))}</span>
       </div>
       {homeDemo==="cell"?<CellZoomPreview running={running} onFact={note}/>:homeDemo==="solar"?<SolarSystemPreview running={running} onFact={note}/>:<div className="science-preview-loading" aria-hidden="true"/>}</div>}
-    <footer className="book-footer">{homeDemo==="solar"?<button onClick={()=>setRunning(!running)}>{running?<Pause/>:<Play/>}{running?"Pause orbit":"Play orbit"}</button>:homeDemo==="cell"?<span className="bio-model-label">Interactive biology model</span>:homeDemo==="map"?<Link href="/explore/bangladesh">Open full map <ArrowRight/></Link>:<span/>}<span>{homeDemo==="cell"?"Use the model controls inside":homeDemo==="solar"?"Tap a planet for a fact":homeDemo==="map"?"Tap a division to explore":"Loading preview…"}</span></footer>
+    <footer className="book-footer">{homeDemo==="solar"?<button onClick={()=>setRunning(!running)}>{running?<Pause/>:<Play/>}{running?"Pause orbit":"Play orbit"}</button>:homeDemo==="cell"?<span className="bio-model-label">Interactive biology model</span>:homeDemo==="map"?<Link href="/explore/bangladesh">{thoughtLang==="bn"?"পুরো মানচিত্র খুলুন":"Open full map"} <ArrowRight/></Link>:<span/>}<span>{homeDemo==="cell"?"Use the model controls inside":homeDemo==="solar"?"Tap a planet for a fact":homeDemo==="map"?(thoughtLang==="bn"?"জানতে একটি বিভাগে চাপ দিন":"Tap a division to explore"):"Loading preview…"}</span></footer>
    </article></div>
   </section>
   <section className="touch-strip"><button onClick={openRandomThought} title="Open one of 1,000 learning facts"><BookOpen/><span>Open a thought</span></button><button onClick={openRandomQuiz}><Brain/><span>Try a hidden quiz</span></button><button onClick={openRandomThought} title="Find one of 1,000 tiny facts"><Sparkles/><span>Find a tiny fact</span></button><button onClick={()=>{location.href="/login?role=student"}}><FlaskConical/><span>Open your learning desk</span></button></section>
