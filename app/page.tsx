@@ -1,7 +1,7 @@
 "use client";
 import ResponsiveImage from "./components/ResponsiveImage";
 import Link from "next/link";
-import {useState} from "react";
+import {useEffect,useState} from "react";
 import {ArrowRight,BookOpen,Brain,Compass,FlaskConical,Menu,Pause,PenLine,Play,PlayCircle,Sparkles,X} from "lucide-react";
 import {openThoughtFacts} from "./data/openThoughtFacts";
 
@@ -9,9 +9,15 @@ const modes={Read:{title:"A tiny universe on paper",copy:"Follow one clear idea 
 const planetFacts=["Mercury finishes a year in only 88 Earth days.","Venus rotates in the opposite direction to most planets.","Earth is the only known world with liquid surface oceans.","Saturn would float in water if an ocean could hold it."];
 
 export default function Home(){
- const[menu,setMenu]=useState(false);const[mode,setMode]=useState<keyof typeof modes>("Explore");const[running,setRunning]=useState(true);const[planet,setPlanet]=useState(0);const[toast,setToast]=useState("");const[quiz,setQuiz]=useState(false);const[answer,setAnswer]=useState<number|null>(null);const[lastThoughtIndex,setLastThoughtIndex]=useState(-1);
+ const[menu,setMenu]=useState(false);const[mode,setMode]=useState<keyof typeof modes>("Explore");const[running,setRunning]=useState(true);const[planet,setPlanet]=useState(0);const[toast,setToast]=useState("");const[quiz,setQuiz]=useState(false);const[answer,setAnswer]=useState<number|null>(null);const[lastThoughtIndex,setLastThoughtIndex]=useState(-1);const[thoughtLang,setThoughtLang]=useState<"en"|"bn">("en");
  function note(text:string){setToast(text);window.setTimeout(()=>setToast(""),4200)}
- function openRandomThought(){let next=Math.floor(Math.random()*openThoughtFacts.length);if(openThoughtFacts.length>1&&next===lastThoughtIndex)next=(next+1)%openThoughtFacts.length;setLastThoughtIndex(next);note(openThoughtFacts[next])}
+ useEffect(()=>{
+  const sync=()=>setThoughtLang(document.documentElement.lang==="bn"?"bn":"en");
+  sync();
+  window.addEventListener("bujhi-language-changed",sync);
+  return()=>window.removeEventListener("bujhi-language-changed",sync);
+ },[]);
+ function openRandomThought(){let next=Math.floor(Math.random()*openThoughtFacts.length);if(openThoughtFacts.length>1&&next===lastThoughtIndex)next=(next+1)%openThoughtFacts.length;setLastThoughtIndex(next);const fact=openThoughtFacts[next];note(thoughtLang==="bn"?fact.bn:fact.en)}
  return <main>
 
   <section className="hero">
