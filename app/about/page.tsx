@@ -2,7 +2,7 @@
 import ResponsiveImage from "../components/ResponsiveImage";
 import Link from "next/link";
 import {ArrowLeft,ArrowRight,BookOpen,ChevronLeft,ChevronRight,GraduationCap,Lightbulb,MousePointer2} from "lucide-react";
-import {useRef,useState} from "react";
+import {useRef,useState,type CSSProperties} from "react";
 const teamMembers=[
  {name:"Nusaiba Nusrat Zaman",role:"Founder · Bujhi",bio:"Building Bujhi around one belief: students should have more than one way to understand the same idea.",image:"/about-founder-nusaiba.webp"},
  {name:"Saif Mahmud Hasib",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null},
@@ -59,7 +59,7 @@ export default function About(){
         "--team-z":teamMembers.length-relative,
         opacity:visible?1:0,
         pointerEvents:visible?"auto":"none"
-       } as React.CSSProperties}
+       } as CSSProperties}
        onClick={()=>setTeamIndex(index)}
        aria-label={`Show ${member.name}`}
       >
