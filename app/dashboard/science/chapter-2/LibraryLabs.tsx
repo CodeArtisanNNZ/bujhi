@@ -45,11 +45,11 @@ const PROVIDED_RESOURCES:Record<ResourceKind,ResourceTab[]>={
   meiosis:[
     {
       id:"sim",
-      label:"Bujhi meiosis tracker",
+      label:"Bujhi? meiosis tracker",
       url:"/simulations/class-8/meiosis.html",
       embed:"/simulations/class-8/meiosis.html",
       kind:"site",
-      note:"Track maternal and paternal chromosomes through Meiosis I and II in Bujhi."
+      note:"Track maternal and paternal chromosomes through Meiosis I and II in Bujhi?."
     },
     {
       id:"video",
@@ -77,7 +77,7 @@ function ProvidedResourceLab({kind,focus}:{kind:ResourceKind;focus:string}){
   return <section className={styles.resourceLab}>
     <div className={styles.resourceHead}>
       <div>
-        <span>{kind==="meiosis"?"BUJHI · LIVE LAB":"YOUR PROVIDED REFERENCES"}</span>
+        <span>{kind==="meiosis"?"BUJHI? · LIVE LAB":"YOUR PROVIDED REFERENCES"}</span>
         <h3>{kind==="mitosis"?"Mitosis":"Meiosis"} · watch, control, compare</h3>
         <p>{focus}</p>
       </div>
@@ -116,7 +116,7 @@ function ProvidedResourceLab({kind,focus}:{kind:ResourceKind;focus:string}){
     <div className={styles.resourceNote}>
       <span>{current.kind==="video"?"VIDEO":current.kind==="site"?"INTERACTIVE":"REFERENCE"}</span>
       <p>{current.note}</p>
-      {current.kind==="site"&&kind==="mitosis"&&<small>বুঝির ভেতরে এম্বেড করা সাইট না খুললে উপরের “বড় করে দেখো” ব্যবহার করো—মূল সিমুলেশন সরাসরি খুলবে।</small>}
+      {current.kind==="site"&&kind==="mitosis"&&<small>বুঝি?-এর ভেতরে এম্বেড করা সাইট না খুললে উপরের “বড় করে দেখো” ব্যবহার করো—মূল সিমুলেশন সরাসরি খুলবে।</small>}
     </div>
   </section>;
 }
@@ -143,7 +143,7 @@ input[type=range]{width:100%;accent-color:var(--red)}
 `;
 
 function page(title:string, subtitle:string, body:string, script:string, libs:string){
-  return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>${sharedCss}</style>${libs}</head><body><main class="app"><header class="top"><div><div class="kicker">মুক্ত ওপেন-সোর্স লাইব্রেরি</div><h2>${title}</h2><p>${subtitle}</p></div><div class="badge">বুঝি · অষ্টম শ্রেণি</div></header>${body}</main><script>${script}<\/script></body></html>`;
+  return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>${sharedCss}</style>${libs}</head><body><main class="app"><header class="top"><div><div class="kicker">মুক্ত ওপেন-সোর্স লাইব্রেরি</div><h2>${title}</h2><p>${subtitle}</p></div><div class="badge">বুঝি? · অষ্টম শ্রেণি</div></header>${body}</main><script>${script}<\/script></body></html>`;
 }
 
 const animeLib = '<script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"><\/script>';
@@ -244,35 +244,35 @@ export default function LibraryLabs({lesson}:{lesson:number}){
   }
   if(lesson===5||lesson===6){
     const focus=lesson===5
-      ?"বুঝির মিয়োসিস ট্র্যাকার ও ভিডিওতে মিয়োসিস-I অনুসরণ করো: সমসংস্থ ক্রোমোজোমের জোড়া বাঁধা, সারিবদ্ধ হওয়া, পৃথক হওয়া এবং 2n → n পরিবর্তন।"
+      ?"বুঝি?-এর মিয়োসিস ট্র্যাকার ও ভিডিওতে মিয়োসিস-I অনুসরণ করো: সমসংস্থ ক্রোমোজোমের জোড়া বাঁধা, সারিবদ্ধ হওয়া, পৃথক হওয়া এবং 2n → n পরিবর্তন।"
       :"মিয়োসিস-II অনুসরণ করে দেখো কীভাবে দুইটি হ্যাপ্লয়েড কোষ থেকে চারটি হ্যাপ্লয়েড কোষ তৈরি হয়।";
     return <ProvidedResourceLab kind="meiosis" focus={focus}/>;
   }
   if(lesson===7)return <div className={styles.frameShell}>
     <iframe
       className={styles.frame}
-      title="Bujhi Cell to Gene continuous zoom simulator"
+      title="Bujhi? Cell to Gene continuous zoom simulator"
       src="/simulations/class-8/hereditary-hierarchy.html"
       loading="lazy"
       allow="fullscreen"
       allowFullScreen
     />
     <div className={styles.sourceNote}>
-      বুঝি · অধ্যায় ২ · পাঠ ৭ · কোষ → নিউক্লিয়াস → ক্রোমোজোম → DNA → জিন · <a href="/simulations/class-8/hereditary-hierarchy.html" target="_blank" rel="noreferrer">বড় করে দেখো ↗</a>
+      বুঝি? · অধ্যায় ২ · পাঠ ৭ · কোষ → নিউক্লিয়াস → ক্রোমোজোম → DNA → জিন · <a href="/simulations/class-8/hereditary-hierarchy.html" target="_blank" rel="noreferrer">বড় করে দেখো ↗</a>
     </div>
   </div>;
 
   if(lesson===9)return <div className={styles.frameShell}>
     <iframe
       className={styles.frame}
-      title="Bujhi heredity and gene transfer simulator"
+      title="Bujhi? heredity and gene transfer simulator"
       src="/simulations/class-8/heredity-gene-transfer.html"
       loading="lazy"
       allow="fullscreen"
       allowFullScreen
     />
     <div className={styles.sourceNote}>
-      বুঝি · অধ্যায় ২ · পাঠ ৯ · পিতামাতা → গ্যামেট → নিষেক → সন্তান → বৈশিষ্ট্য · <a href="/simulations/class-8/heredity-gene-transfer.html" target="_blank" rel="noreferrer">বড় করে দেখো ↗</a>
+      বুঝি? · অধ্যায় ২ · পাঠ ৯ · পিতামাতা → গ্যামেট → নিষেক → সন্তান → বৈশিষ্ট্য · <a href="/simulations/class-8/heredity-gene-transfer.html" target="_blank" rel="noreferrer">বড় করে দেখো ↗</a>
     </div>
   </div>;
 
@@ -280,10 +280,10 @@ export default function LibraryLabs({lesson}:{lesson:number}){
     <iframe
       key={lesson}
       className={styles.frame}
-      title={"Bujhi Chapter 2 interactive simulation "+lesson}
+      title={"Bujhi? Chapter 2 interactive simulation "+lesson}
       sandbox="allow-scripts"
       srcDoc={getDoc(lesson).replace("</head>",'<link rel="stylesheet" href="/simulation-theme.css"><script src="/theme-sync.js"></script></head>')}
     />
-    <div className={styles.sourceNote}>পাঠ ৮-এ DNA শেখার ভিউয়ার ব্যবহার করা হয়েছে; পাঠ ৭ ও ৯-এ বুঝির দেওয়া সিমুলেশন ব্যবহার করা হয়েছে।</div>
+    <div className={styles.sourceNote}>পাঠ ৮-এ DNA শেখার ভিউয়ার ব্যবহার করা হয়েছে; পাঠ ৭ ও ৯-এ বুঝি?-এর দেওয়া সিমুলেশন ব্যবহার করা হয়েছে।</div>
   </div>;
 }
