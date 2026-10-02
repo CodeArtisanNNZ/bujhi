@@ -10,7 +10,7 @@ import {
 import styles from "./chapter.module.css";
 
 type Role="teacher"|"student";
-type SectionId="concept"|"background"|"europe"|"palashi"|"exploitation"|"crown"|"renaissance"|"movement"|"recap";
+type SectionId="concept"|"background"|"europe"|"palashi"|"exploitation"|"crown"|"renaissance"|"movement"|"lahore"|"tasks"|"recap";
 
 const commons=(file:string)=>`https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file)}`;
 const commonsPage=(file:string)=>`https://commons.wikimedia.org/wiki/File:${encodeURIComponent(file.replaceAll(" ","_"))}`;
@@ -707,6 +707,124 @@ const curzonPerson:Person={
   imageFile:"Portrait of George Curzon, 1st Marquess Curzon of Kedleston.jpg",license:"Public domain"
 };
 
+
+const lahorePeople:Person[]=[
+  {
+    name:"শের-ই-বাংলা এ. কে. ফজলুল হক",
+    identity:"বঙ্গীয় রাজনীতিক · তৎকালীন বাংলার প্রধানমন্ত্রী",
+    action:"১৯৪০ সালের লাহোর অধিবেশনে মুসলিম লীগের ঐতিহাসিক প্রস্তাবটি আনুষ্ঠানিকভাবে উত্থাপন করেন।",
+    significance:"লাহোর প্রস্তাব ভারতীয় মুসলমানদের ভবিষ্যৎ রাজনৈতিক কাঠামো নিয়ে বিতর্কে বড় মোড় তৈরি করে।",
+    period:"লাহোর প্রস্তাব · ১৯৪০",
+    imageFile:"A k fazlul hoque.jpg",license:"PD-Bangladesh"
+  },
+  {
+    name:"হোসেন শহীদ সোহরাওয়ার্দী",
+    identity:"বাঙালি রাজনীতিক",
+    action:"১৯৪০-এর দশকে বাংলার রাজনীতি ও মুসলিম লীগের গুরুত্বপূর্ণ নেতা ছিলেন; ১৯৪৭ সালে অখণ্ড বাংলার একটি পৃথক রাজনৈতিক ব্যবস্থার প্রস্তাবেও যুক্ত হন।",
+    significance:"বঙ্গভাগ ও বাংলার ভবিষ্যৎ রাষ্ট্রকাঠামো নিয়ে শেষ পর্যায়ের আলোচনায় গুরুত্বপূর্ণ ব্যক্তি।",
+    period:"১৯৪০-এর দশক",
+    imageFile:"Huseyn Shaheed Suhrawardy.png",license:"Public domain"
+  },
+  {
+    name:"শরৎচন্দ্র বসু",
+    identity:"বাঙালি জাতীয়তাবাদী রাজনীতিক",
+    action:"১৯৪৭ সালে সোহরাওয়ার্দীর সঙ্গে বাংলাকে অবিভক্ত রাখার একটি স্বাধীন/সার্বভৌম বঙ্গের পরিকল্পনায় কাজ করেন।",
+    significance:"বাংলা ভাগই একমাত্র সম্ভাব্য পথ ছিল না—অখণ্ড বাংলার বিকল্প রাজনৈতিক চিন্তাও ছিল, তা বোঝাতে গুরুত্বপূর্ণ।",
+    period:"অখণ্ড বাংলা উদ্যোগ · ১৯৪৭",
+    imageFile:"Sarat Chandra Bose.jpg",license:"Public domain"
+  }
+];
+
+const lahoreStory=[
+  {
+    year:"১৯৪০",
+    title:"লাহোর প্রস্তাব",
+    text:"লাহোরে অল ইন্ডিয়া মুসলিম লীগের অধিবেশনে এ. কে. ফজলুল হক প্রস্তাবটি উত্থাপন করেন। এতে উত্তর-পশ্চিম ও পূর্বাঞ্চলের মুসলিম-সংখ্যাগরিষ্ঠ অঞ্চলগুলোকে পৃথক রাজনৈতিক এককে সংগঠিত করার কথা বলা হয়।",
+    change:"ভারতের ভবিষ্যৎ রাষ্ট্রকাঠামো নিয়ে মুসলিম লীগের দাবি নতুন ও স্পষ্ট সাংবিধানিক রূপ পায়।"
+  },
+  {
+    year:"মূল ভাষা",
+    title:"‘Pakistan’ শব্দটি ছিল না",
+    text:"মূল ১৯৪০ সালের প্রস্তাবে ‘Pakistan’ শব্দটি ব্যবহার করা হয়নি; সেখানে ‘Independent States’ এবং স্বায়ত্তশাসিত ও সার্বভৌম constituent units-এর ভাষা ছিল।",
+    change:"পরে রাজনৈতিক প্রচার ও সিদ্ধান্তে এই প্রস্তাব পাকিস্তান দাবির প্রধান ভিত্তি হিসেবে ব্যাখ্যা ও রূপান্তরিত হয়।"
+  },
+  {
+    year:"১৯৪৭",
+    title:"ভারতবর্ষ বিভক্ত",
+    text:"British rule শেষ হওয়ার সময় ভারতবর্ষ ভাগ হয়ে India ও Pakistan নামে দুটি স্বাধীন dominion গঠিত হয়।",
+    change:"শুধু ব্রিটিশ শাসনের অবসান নয়—একই সঙ্গে রাষ্ট্রসীমা, প্রশাসন, জনসংখ্যা ও রাজনৈতিক পরিচয়ের বড় পরিবর্তন ঘটে।"
+  },
+  {
+    year:"১৯৪৭",
+    title:"বাংলাও দুই ভাগ",
+    text:"হিন্দু-সংখ্যাগরিষ্ঠ পশ্চিমবাংলা ভারতের অংশ হয় এবং মুসলিম-সংখ্যাগরিষ্ঠ পূর্ববাংলা পাকিস্তানের অংশ হয়।",
+    change:"বাংলার রাজনৈতিক ও অর্থনৈতিক ভূগোল বদলে যায়; কলকাতা পশ্চিমবঙ্গে থেকে যায় এবং পূর্ববাংলা নতুন রাষ্ট্র পাকিস্তানের পূর্বাংশ হয়।"
+  },
+  {
+    year:"বিকল্প প্রস্তাব",
+    title:"অখণ্ড বাংলা উদ্যোগ",
+    text:"শরৎচন্দ্র বসু ও হোসেন শহীদ সোহরাওয়ার্দী বাংলাকে অবিভক্ত রাখার বিকল্প পরিকল্পনা নিয়ে কাজ করেন, কিন্তু সেই পরিকল্পনা রাজনৈতিক সমর্থন পায়নি।",
+    change:"এটি দেখায় যে ১৯৪৭-এর সিদ্ধান্তের আগে একাধিক রাজনৈতিক সম্ভাবনা নিয়ে আলোচনা হয়েছিল।"
+  },
+  {
+    year:"১৪ আগস্টের পর",
+    title:"পূর্ববাংলায় নতুন রাজনৈতিক অধ্যায়",
+    text:"পাঠ্যবই এই অংশকে পরবর্তী ভাষা, স্বায়ত্তশাসন ও রাজনৈতিক অধিকার আন্দোলনের সূচনার সঙ্গে যুক্ত করে।",
+    change:"Chapter 1 এখানেই শেষ হলেও পরবর্তী অধ্যায়ে পূর্ববাংলার রাজনৈতিক সংগ্রাম নতুন রূপে এগিয়ে যাবে।"
+  }
+];
+
+const chapterTasks=[
+  {
+    n:"১",
+    lesson:"পাঠ ৬–৭ · নবজাগরণ",
+    question:"বাংলায় সমাজ সংস্কারক ১০ জন মনীষীর নাম উল্লেখ করো।",
+    instruction:[
+      "প্রথমে ‘নবজাগরণ’ অংশের মানুষগুলোর নাম আলাদা করো।",
+      "প্রশ্নে ১০ জন চাওয়া হয়েছে—তাই ১০টি নাম নম্বর দিয়ে লেখো।",
+      "শুধু নাম চাওয়া হলে দীর্ঘ জীবনী লিখতে হবে না; চাইলে প্রতিটি নামের পাশে ২–৩ শব্দে পরিচয় দিতে পারো।"
+    ],
+    answer:"পাঠে আলোচিত নবজাগরণ, সমাজসংস্কার ও সাহিত্যজাগরণের মনীষীদের মধ্যে যে কোনো ১০ জন লেখা যায়: রাজা রামমোহন রায়, ঈশ্বরচন্দ্র বিদ্যাসাগর, হেনরি লুই ভিভিয়ান ডিরোজিও, নওয়াব আবদুল লতিফ, সৈয়দ আমীর আলী, বঙ্কিমচন্দ্র চট্টোপাধ্যায়, মাইকেল মধুসূদন দত্ত, রবীন্দ্রনাথ ঠাকুর, শরৎচন্দ্র চট্টোপাধ্যায়, মীর মশাররফ হোসেন, কাজী নজরুল ইসলাম।",
+    tip:"Exam tip: ‘১০ জন’ লিখতে বললে ১১টি নাম না লিখলেও হবে—এই তালিকা থেকে যেকোনো ১০টি বেছে নাও।"
+  },
+  {
+    n:"২",
+    lesson:"পাঠ ৬ · বাংলার নবজাগরণ",
+    question:"বাংলায় নবজাগরণে কোন কোন প্রতিষ্ঠান গুরুত্বপূর্ণ ভূমিকা পালন করে?",
+    instruction:[
+      "প্রতিষ্ঠান/মাধ্যমগুলো সালসহ সাজাও।",
+      "শুধু নাম নয়—প্রতিটি কীভাবে জ্ঞান ও জনমত ছড়িয়েছে, এক লাইনে লিখলে উত্তর শক্তিশালী হবে।",
+      "শেষে একটি conclusion দাও: এসব প্রতিষ্ঠানের মাধ্যমে নতুন শিক্ষিত ও সচেতন সমাজ তৈরি হয়।"
+    ],
+    answer:"বাংলার নবজাগরণে ১৭৮১ সালের কলকাতা মাদ্রাসা, ১৭৯১ সালের সংস্কৃত কলেজ, ১৮২১ সালে শ্রীরামপুরের মুদ্রণযন্ত্র ও মুদ্রণ-সংস্কৃতি, বাংলা সংবাদপত্র, বিভিন্ন স্কুল-কলেজ এবং ১৮৫৭ সালের কলকাতা বিশ্ববিদ্যালয় গুরুত্বপূর্ণ ভূমিকা পালন করে। মিশনারিদের শিক্ষা ও মুদ্রণ উদ্যোগ, বিশেষত উইলিয়াম কেরির ভাষা ও মুদ্রণ-সংক্রান্ত কাজও জ্ঞানচর্চার বিস্তারে ভূমিকা রাখে। এসব প্রতিষ্ঠান ও মাধ্যম শিক্ষিত সমাজে প্রশ্ন, আত্মসমালোচনা, সমাজসংস্কার ও নতুন রাজনৈতিক সচেতনতার পথ খুলে দেয়।",
+    tip:"Memory line: ১৭৮১ মাদ্রাসা → ১৭৯১ সংস্কৃত কলেজ → ১৮২১ মুদ্রণ → ১৮৫৭ বিশ্ববিদ্যালয়।"
+  },
+  {
+    n:"৩",
+    lesson:"পাঠ ৭ · বঙ্গভঙ্গবিরোধী আন্দোলন",
+    question:"বঙ্গভঙ্গ রদের কারণ ব্যাখ্যা করো।",
+    instruction:[
+      "উত্তরকে ‘একটি কারণ’ না বানিয়ে ৩–৪টি কারণ দেখাও।",
+      "প্রথমে ১৯০৫ বঙ্গভঙ্গ, তারপর প্রতিবাদ, তারপর ১৯১১ রদ—এই chronology রাখো।",
+      "সরকারি সিদ্ধান্তের সঙ্গে জনআন্দোলন ও রাজনৈতিক চাপের সম্পর্ক ব্যাখ্যা করো।"
+    ],
+    answer:"১৯০৫ সালের বঙ্গভঙ্গের বিরুদ্ধে বাংলায় শক্তিশালী বঙ্গভঙ্গবিরোধী ও স্বদেশী আন্দোলন গড়ে ওঠে। বিদেশি পণ্য বয়কট, স্বদেশী পণ্য ব্যবহার, সভা-সমাবেশ, সংবাদপত্রে প্রচার এবং জাতীয় শিক্ষার উদ্যোগ আন্দোলনকে বিস্তৃত করে। একই সময়ে বিপ্লবী কর্মকাণ্ড ও রাজনৈতিক অস্থিরতাও ব্রিটিশ প্রশাসনের ওপর চাপ বাড়ায়। দীর্ঘস্থায়ী বিরোধিতা ও রাজনৈতিক পরিস্থিতি পুনর্বিবেচনার ফলে ব্রিটিশ সরকার ১৯১১ সালে বঙ্গভঙ্গ রদ করে।",
+    tip:"Short structure: আন্দোলন + বয়কট/স্বদেশী + জনমত/রাজনৈতিক চাপ + প্রশাসনিক পুনর্বিবেচনা = ১৯১১ রদ।"
+  },
+  {
+    n:"৪",
+    lesson:"পাঠ ৮ · লাহোর প্রস্তাব ও পাকিস্তান প্রতিষ্ঠা",
+    question:"ভারত বিভক্তির কারণ ব্যাখ্যা করো।",
+    instruction:[
+      "এটি বহু-কারণভিত্তিক প্রশ্ন—একটি দল বা একটি ঘটনাকে একমাত্র কারণ লিখবে না।",
+      "পাঠ্যবইয়ের divide-and-rule ব্যাখ্যাকে ‘পাঠ্যবইয়ের একটি ব্যাখ্যা’ হিসেবে উল্লেখ করো।",
+      "তারপর ১৯৪০ লাহোর প্রস্তাব, কংগ্রেস-লীগের মতভেদ, ১৯৪৬–৪৭ রাজনৈতিক অচলাবস্থা/সাম্প্রদায়িক সহিংসতা এবং ব্রিটিশদের দ্রুত ক্ষমতা হস্তান্তরের সিদ্ধান্ত জুড়ে দাও।"
+    ],
+    answer:"ভারত বিভক্তি ছিল দীর্ঘ রাজনৈতিক দ্বন্দ্ব ও একাধিক কারণের ফল। পাঠ্যবই ব্রিটিশ ‘ভাগ করো, শাসন করো’ নীতিকে হিন্দু-মুসলিম রাজনৈতিক দূরত্ব বৃদ্ধির একটি পটভূমি হিসেবে তুলে ধরে। এর সঙ্গে মুসলিম লীগের পৃথক রাজনৈতিক দাবির বিকাশ ও ১৯৪০ সালের লাহোর প্রস্তাব, কংগ্রেস ও মুসলিম লীগের মধ্যে ভবিষ্যৎ রাষ্ট্রকাঠামো ও ক্ষমতা ভাগাভাগি নিয়ে মতভেদ, ১৯৪৬–৪৭ সালের রাজনৈতিক সংকট ও সাম্প্রদায়িক সহিংসতা, এবং ব্রিটিশ সরকারের দ্রুত ক্ষমতা হস্তান্তরের সিদ্ধান্ত মিলিত হয়। শেষ পর্যন্ত ১৯৪৭ সালের পরিকল্পনা ও Indian Independence Act-এর মাধ্যমে British India ভাগ হয়ে India ও Pakistan গঠিত হয়; Bengal-ও East Bengal ও West Bengal-এ বিভক্ত হয়।",
+    tip:"Strong answer = background + political demands + failed agreement + 1946–47 crisis + British transfer plan + 1947 result."
+  }
+];
+
 function Portrait({person,large=false}:{person:Person;large?:boolean}){
   if(!person.imageFile)return <div className={large?styles.portraitFallbackLarge:styles.portraitFallback}><span>{person.name.slice(0,1)}</span><small>মুক্ত ও নির্ভরযোগ্য প্রতিকৃতি পাওয়া যায়নি</small></div>;
   return <figure className={large?styles.portraitLarge:styles.portrait}>
@@ -730,6 +848,8 @@ export default function BgsChapterOne(){
   const[selectedMovement,setSelectedMovement]=useState(0);
   const[selectedResistance,setSelectedResistance]=useState(0);
   const[selectedRevolutionary,setSelectedRevolutionary]=useState(0);
+  const[selectedLahoreStep,setSelectedLahoreStep]=useState(0);
+  const[selectedLahorePerson,setSelectedLahorePerson]=useState(0);
 
   useEffect(()=>{
     void (async()=>{
@@ -766,6 +886,8 @@ export default function BgsChapterOne(){
     {id:"crown" as SectionId,label:"পাঠ ৫ · ১৮৫৮–১৯৪৭",icon:<Landmark/>},
     {id:"renaissance" as SectionId,label:"পাঠ ৬ · নবজাগরণ",icon:<BookOpen/>},
     {id:"movement" as SectionId,label:"পাঠ ৭ · বঙ্গভঙ্গ",icon:<UsersRound/>},
+    {id:"lahore" as SectionId,label:"পাঠ ৮ · লাহোর প্রস্তাব",icon:<Landmark/>},
+    {id:"tasks" as SectionId,label:"অধ্যায়ের কাজ",icon:<CheckCircle2/>},
     {id:"recap" as SectionId,label:"মনে রাখি",icon:<CheckCircle2/>}
   ];
 
@@ -788,7 +910,7 @@ export default function BgsChapterOne(){
 
       {role==="teacher"&&<aside className={styles.teacherGuide}>
         <div><BookOpen/><strong>শিক্ষকের পাঠ পরিকল্পনা · ৪৫–৫০ মিনিট</strong></div>
-        <p><b>প্রথম সেশন:</b> উপনিবেশের ধারণা → অশোক থেকে সিরাজ → ইউরোপীয় বাণিজ্য → পলাশী। <b>দ্বিতীয় সেশন:</b> ১৭৬৫–১৭৭৩ দ্বৈত শাসন → দুর্ভিক্ষ ও রাজস্বচাপ → গভর্নর জেনারেল → ১৮৫৮–১৯৪৭ Crown rule ও তার সামাজিক-অর্থনৈতিক প্রভাব। প্রতিটি অংশে আগে শিক্ষার্থীর অনুমান নিন, পরে evidence reveal করুন। <b>তৃতীয় সেশন:</b> ঔপনিবেশিক শিক্ষা ও মুদ্রণ → নবজাগরণের ব্যক্তিত্ব → সাহিত্য ও জাতীয় চেতনা → ১৯০৩–১৯০৬ বঙ্গভঙ্গ ও রাজনৈতিক সংগঠন → স্বাধিকার আন্দোলনের bridge।</p>
+        <p><b>প্রথম সেশন:</b> উপনিবেশের ধারণা → অশোক থেকে সিরাজ → ইউরোপীয় বাণিজ্য → পলাশী। <b>দ্বিতীয় সেশন:</b> ১৭৬৫–১৭৭৩ দ্বৈত শাসন → দুর্ভিক্ষ ও রাজস্বচাপ → গভর্নর জেনারেল → ১৮৫৮–১৯৪৭ Crown rule ও তার সামাজিক-অর্থনৈতিক প্রভাব। প্রতিটি অংশে আগে শিক্ষার্থীর অনুমান নিন, পরে evidence reveal করুন। <b>তৃতীয় সেশন:</b> ঔপনিবেশিক শিক্ষা ও মুদ্রণ → নবজাগরণের ব্যক্তিত্ব → সাহিত্য ও জাতীয় চেতনা → ১৯০৩–১৯০৬ বঙ্গভঙ্গ ও রাজনৈতিক সংগঠন। <b>চতুর্থ সেশন:</b> স্বাধিকার আন্দোলন → ১৯৪০ লাহোর প্রস্তাব → ১৯৪৭ ভারত ও বাংলা বিভাগ → chapter-এর ৪টি কাজ guided practice হিসেবে সমাধান।</p>
       </aside>}
 
       <nav className={styles.lessonNav} aria-label="Chapter 1 learning path">
@@ -1279,6 +1401,106 @@ export default function BgsChapterOne(){
         </div>
       </section>}
 
+
+      {section==="lahore"&&<section className={styles.panel}>
+        <div className={styles.sectionTitle}>
+          <span>পাঠ ৮ · লাহোর প্রস্তাব ও পাকিস্তান প্রতিষ্ঠা</span>
+          <h2>একটি প্রস্তাব কীভাবে ১৯৪৭-এর রাষ্ট্রবিভাগের পথে বড় রাজনৈতিক মোড় হয়ে উঠল?</h2>
+          <p>এই lesson-এ <b>১৯৪০ → রাজনৈতিক ব্যাখ্যার পরিবর্তন → ১৯৪৭ → বাংলা ভাগ → অখণ্ড বাংলার বিকল্প → পূর্ববাংলার নতুন রাজনৈতিক অধ্যায়</b> একসঙ্গে দেখা হবে।</p>
+        </div>
+
+        <div className={styles.lahoreContext}>
+          <article><small>পাঠ্যবইয়ের ব্যাখ্যা</small><h3>‘ভাগ করো, শাসন করো’</h3><p>পাঠ্যবই ব্রিটিশ নীতিকে হিন্দু-মুসলিম রাজনৈতিক মেরুকরণ বাড়ার একটি গুরুত্বপূর্ণ পটভূমি হিসেবে ব্যাখ্যা করে।</p></article>
+          <article><small>আরও যা মনে রাখতে হবে</small><h3>বিভাজনের কারণ ছিল বহুস্তরীয়</h3><p>কংগ্রেস, মুসলিম লীগ, প্রাদেশিক নেতৃত্ব, পৃথক রাজনৈতিক দাবি, ক্ষমতা ভাগাভাগির ব্যর্থতা, সাম্প্রদায়িক উত্তেজনা এবং ব্রিটিশ ক্ষমতা হস্তান্তরের সিদ্ধান্ত—সব মিলেই ১৯৪৭-এর ফল তৈরি হয়।</p></article>
+        </div>
+
+        <div className={styles.lahorePeopleTabs}>
+          {lahorePeople.map((person,i)=><button key={person.name} className={selectedLahorePerson===i?styles.lahorePersonActive:""} onClick={()=>setSelectedLahorePerson(i)}><Portrait person={person}/><span><small>{person.period}</small><strong>{person.name}</strong></span></button>)}
+        </div>
+        <div className={styles.lahorePersonFocus}>
+          <Portrait person={lahorePeople[selectedLahorePerson]} large/>
+          <div><small>{lahorePeople[selectedLahorePerson].period}</small><h3>{lahorePeople[selectedLahorePerson].name}</h3><p className={styles.identity}>{lahorePeople[selectedLahorePerson].identity}</p><dl><div><dt>কী করেছিলেন?</dt><dd>{lahorePeople[selectedLahorePerson].action}</dd></div><div><dt>কেন গুরুত্বপূর্ণ?</dt><dd>{lahorePeople[selectedLahorePerson].significance}</dd></div></dl></div>
+        </div>
+
+        <div className={styles.sectionMini}><small>INTERACTIVE STORY</small><h3>৬ ধাপে পাঠ ৮</h3><p>প্রতিটি ধাপ চাপলে কী ঘটল এবং তার ফলে কী বদলাল—দুটো আলাদা করে দেখো।</p></div>
+        <div className={styles.lahoreSteps}>
+          {lahoreStory.map((item,i)=><button key={item.title} className={selectedLahoreStep===i?styles.lahoreStepActive:""} onClick={()=>setSelectedLahoreStep(i)}><b>{item.year}</b><span>{item.title}</span></button>)}
+        </div>
+        <article className={styles.lahoreStoryFocus}>
+          <div><small>{lahoreStory[selectedLahoreStep].year}</small><h3>{lahoreStory[selectedLahoreStep].title}</h3><p>{lahoreStory[selectedLahoreStep].text}</p></div>
+          <div><strong>এর ফলে কী বদলাল?</strong><p>{lahoreStory[selectedLahoreStep].change}</p></div>
+        </article>
+
+        <div className={styles.resolutionCheck}>
+          <div><small>TEXT CHECK · ১৯৪০</small><h3>একটি গুরুত্বপূর্ণ পার্থক্য</h3></div>
+          <p>মূল লাহোর প্রস্তাবে <b>“Pakistan” শব্দটি ছিল না</b>। সেখানে মুসলিম-সংখ্যাগরিষ্ঠ উত্তর-পশ্চিম ও পূর্বাঞ্চলকে নিয়ে <b>“Independent States”</b> এবং স্বায়ত্তশাসিত ও সার্বভৌম constituent units-এর কথা বলা হয়েছিল। পরবর্তী রাজনৈতিক প্রক্রিয়ায় প্রস্তাবটি একক Pakistan রাষ্ট্রের দাবির প্রধান ভিত্তি হয়ে ওঠে।</p>
+        </div>
+
+        <div className={styles.partition1947}>
+          <article><small>১৯৪৭-এর আগে</small><strong>British India</strong><span>এক ঔপনিবেশিক রাষ্ট্রকাঠামো</span></article>
+          <ChevronRight/>
+          <article><small>আগস্ট ১৯৪৭</small><strong>India</strong><span>স্বাধীন রাষ্ট্র</span></article>
+          <article><small>আগস্ট ১৯৪৭</small><strong>Pakistan</strong><span>স্বাধীন রাষ্ট্র · পূর্ব ও পশ্চিম অংশ</span></article>
+        </div>
+
+        <div className={styles.bengalSplit}>
+          <div><small>একই সঙ্গে বাংলা</small><h3>বাংলাও বিভক্ত হলো</h3></div>
+          <div><article><span>পশ্চিমবাংলা</span><strong>→ India</strong><p>হিন্দু-সংখ্যাগরিষ্ঠ পশ্চিমাংশ</p></article><article><span>পূর্ববাংলা</span><strong>→ Pakistan</strong><p>মুসলিম-সংখ্যাগরিষ্ঠ পূর্বাংশ</p></article></div>
+          <p>এই বিভাজন শুধু মানচিত্রের রেখা ছিল না; প্রশাসন, বাণিজ্য, যোগাযোগ, নাগরিকত্ব এবং মানুষের দৈনন্দিন জীবনেও বড় পরিবর্তন আনে।</p>
+        </div>
+
+        <div className={styles.unitedBengal}>
+          <div><small>ALTERNATIVE HISTORY PATH</small><h3>অখণ্ড বাংলা রাখার চেষ্টা হয়েছিল</h3><p>শরৎচন্দ্র বসু ও হোসেন শহীদ সোহরাওয়ার্দী ১৯৪৭ সালে বাংলাকে অবিভক্ত রেখে একটি পৃথক রাজনৈতিক ব্যবস্থার পক্ষে উদ্যোগ নেন। পরিকল্পনাটি পর্যাপ্ত রাজনৈতিক সমর্থন না পাওয়ায় বাস্তবায়িত হয়নি।</p></div>
+          <div><Portrait person={lahorePeople[2]}/><span>+</span><Portrait person={lahorePeople[1]}/></div>
+        </div>
+
+        <div className={styles.nextChapterBridge}>
+          <small>CHAPTER 1 → CHAPTER 2</small><h3>ব্রিটিশ শাসনের অবসান মানেই পূর্ববাংলার সব রাজনৈতিক প্রশ্নের সমাধান হয়নি</h3>
+          <p>পাঠ্যবই এখান থেকে ভাষা, স্বায়ত্তশাসন ও রাজনৈতিক অধিকারের পরবর্তী সংগ্রামের দিকে নিয়ে যায়। সেই ধারাই পরের অধ্যায়ে বাংলাদেশের মুক্তিযুদ্ধের পটভূমি বোঝাতে সাহায্য করবে।</p>
+        </div>
+      </section>}
+
+      {section==="tasks"&&<section className={styles.panel}>
+        <div className={styles.sectionTitle}>
+          <span>CHAPTER 1 · GUIDED PRACTICE</span>
+          <h2>বইয়ের সব “কাজ” — lesson-wise instruction + model solution</h2>
+          <p>প্রথমে নির্দেশনা দেখে নিজে চেষ্টা করো। তারপর model answer খুলে নিজের উত্তরের সঙ্গে মিলিয়ে নাও।</p>
+        </div>
+
+        <div className={styles.taskOverview}>
+          {chapterTasks.map(task=><button key={task.n} onClick={()=>document.getElementById(`chapter-task-${task.n}`)?.scrollIntoView({behavior:"smooth",block:"center"})}><b>কাজ-{task.n}</b><span>{task.lesson}</span><strong>{task.question}</strong></button>)}
+        </div>
+
+        <div className={styles.chapterTasks}>
+          {chapterTasks.map(task=><article key={task.n} id={`chapter-task-${task.n}`} className={styles.chapterTaskCard}>
+            <header><div><small>{task.lesson}</small><h3>কাজ-{task.n}: {task.question}</h3></div><span>{task.n}</span></header>
+
+            <div className={styles.taskInstructions}>
+              <strong>কীভাবে করবে?</strong>
+              <ol>{task.instruction.map(step=><li key={step}>{step}</li>)}</ol>
+            </div>
+
+            <details className={styles.taskSolution}>
+              <summary>মডেল সমাধান দেখো</summary>
+              <p>{task.answer}</p>
+              <div><b>মনে রাখার কৌশল:</b> {task.tip}</div>
+            </details>
+
+            <div className={styles.taskSelfCheck}>
+              <span>□ প্রশ্নের সব অংশের উত্তর দিয়েছি</span>
+              <span>□ সাল/নাম ঠিক আছে</span>
+              <span>□ নিজের ভাষায় লিখেছি</span>
+              <span>□ কারণ হলে কারণ → ফলাফল দেখিয়েছি</span>
+            </div>
+          </article>)}
+        </div>
+
+        <div className={styles.practiceRule}>
+          <CheckCircle2/>
+          <div><small>BUJHI PRACTICE RULE</small><h3>Model answer মুখস্থ নয়—structure শিখো</h3><p>একই প্রশ্ন অন্যভাবে এলে যেন নিজের ভাষায় উত্তর দিতে পারো। আগে বই/lesson দেখে key points লিখবে, তারপর ৩–৫টি বাক্যে যুক্ত করবে, শেষে conclusion দেবে।</p></div>
+        </div>
+      </section>}
+
       {section==="recap"&&<section className={styles.panel}>
         <div className={styles.sectionTitle}><span>RECAP</span><h2>এখন পর্যন্ত পুরো গল্পটা একসঙ্গে জুড়ে দাও</h2><p>নাম ও সাল আলাদা আলাদা না রেখে পরিবর্তনের ধারাটি ধরো।</p></div>
 
@@ -1286,11 +1508,11 @@ export default function BgsChapterOne(){
           <article><Compass/><span>১</span><strong>উপনিবেশ কী?</strong><p>বাইরের শক্তির নিয়ন্ত্রণ যখন অর্থনীতি, প্রশাসন ও রাজনৈতিক সিদ্ধান্তে পৌঁছে যায়।</p></article>
           <article><Crown/><span>২</span><strong>বাংলা আগে কী ছিল?</strong><p>দীর্ঘ সময় ধরে বিভিন্ন স্বাধীন ও সাম্রাজ্যিক রাজনৈতিক কাঠামোর মধ্য দিয়ে বদলেছে।</p></article>
           <article><Ship/><span>৩</span><strong>ইউরোপীয়রা কেন এল?</strong><p>প্রথমে বাণিজ্যের জন্য—বাংলার মূল্যবান পণ্য ও বাজার তাদের আকৃষ্ট করে।</p></article>
-          <article><Swords/><span>৪</span><strong>কীভাবে ক্ষমতা বদলাল?</strong><p>বাণিজ্যিক দ্বন্দ্ব + কর্তৃত্বের দ্বন্দ্ব + অভ্যন্তরীণ ষড়যন্ত্র → পলাশী → কোম্পানির রাজনৈতিক প্রভাব।</p></article><article><CircleDollarSign/><span>৫</span><strong>দ্বৈত শাসনে কী হলো?</strong><p>কোম্পানির হাতে ক্ষমতা, নবাবের হাতে দায়িত্ব → রাজস্বচাপ → ১৭৭০-এর দুর্ভিক্ষে মানুষের সংকট আরও গভীর।</p></article><article><Landmark/><span>৬</span><strong>১৮৫৮-এর পর কী বদলাল?</strong><p>কোম্পানির বদলে British Crown সরাসরি শাসন নেয়; ঔপনিবেশিক নিয়ন্ত্রণ প্রশাসন, রাজস্ব ও রাষ্ট্রীয় প্রতিষ্ঠানে বহাল থাকে।</p></article><article><BookOpen/><span>৭</span><strong>নবজাগরণ কীভাবে এলো?</strong><p>শিক্ষা + মুদ্রণ + জনমত → সমাজসংস্কার + সাহিত্য → নতুন সামাজিক ও জাতীয় চেতনা।</p></article><article><UsersRound/><span>৮</span><strong>বঙ্গভঙ্গ কী করল?</strong><p>১৯০৩-এর প্রস্তাব ও ১৯০৫-এর বঙ্গভঙ্গ তীব্র প্রতিবাদ, স্বদেশী/বয়কট এবং সংগঠিত রাজনীতিকে আরও শক্তিশালী করে।</p></article>
+          <article><Swords/><span>৪</span><strong>কীভাবে ক্ষমতা বদলাল?</strong><p>বাণিজ্যিক দ্বন্দ্ব + কর্তৃত্বের দ্বন্দ্ব + অভ্যন্তরীণ ষড়যন্ত্র → পলাশী → কোম্পানির রাজনৈতিক প্রভাব।</p></article><article><CircleDollarSign/><span>৫</span><strong>দ্বৈত শাসনে কী হলো?</strong><p>কোম্পানির হাতে ক্ষমতা, নবাবের হাতে দায়িত্ব → রাজস্বচাপ → ১৭৭০-এর দুর্ভিক্ষে মানুষের সংকট আরও গভীর।</p></article><article><Landmark/><span>৬</span><strong>১৮৫৮-এর পর কী বদলাল?</strong><p>কোম্পানির বদলে British Crown সরাসরি শাসন নেয়; ঔপনিবেশিক নিয়ন্ত্রণ প্রশাসন, রাজস্ব ও রাষ্ট্রীয় প্রতিষ্ঠানে বহাল থাকে।</p></article><article><BookOpen/><span>৭</span><strong>নবজাগরণ কীভাবে এলো?</strong><p>শিক্ষা + মুদ্রণ + জনমত → সমাজসংস্কার + সাহিত্য → নতুন সামাজিক ও জাতীয় চেতনা।</p></article><article><UsersRound/><span>৮</span><strong>বঙ্গভঙ্গ কী করল?</strong><p>১৯০৩-এর প্রস্তাব ও ১৯০৫-এর বঙ্গভঙ্গ তীব্র প্রতিবাদ, স্বদেশী/বয়কট এবং সংগঠিত রাজনীতিকে আরও শক্তিশালী করে।</p></article><article><Landmark/><span>৯</span><strong>লাহোর প্রস্তাব কোথায় যুক্ত হলো?</strong><p>১৯৪০-এর লাহোর প্রস্তাব মুসলিম লীগের ভবিষ্যৎ রাষ্ট্রকাঠামোর দাবিকে নতুন রূপ দেয়; ১৯৪৭-এ British India ও Bengal বিভক্ত হয়।</p></article>
         </div>
 
         <div className={styles.bigChain}>
-          <span>আগমন</span><ChevronRight/><span>বাণিজ্য</span><ChevronRight/><span>পলাশী</span><ChevronRight/><span>দ্বৈত শাসন</span><ChevronRight/><span>Crown rule</span><ChevronRight/><span>নবজাগরণ</span><ChevronRight/><span>জাতীয়তাবাদ</span><ChevronRight/><span>বঙ্গভঙ্গ</span><ChevronRight/><span>স্বাধিকার</span>
+          <span>আগমন</span><ChevronRight/><span>বাণিজ্য</span><ChevronRight/><span>পলাশী</span><ChevronRight/><span>দ্বৈত শাসন</span><ChevronRight/><span>Crown rule</span><ChevronRight/><span>নবজাগরণ</span><ChevronRight/><span>জাতীয়তাবাদ</span><ChevronRight/><span>বঙ্গভঙ্গ</span><ChevronRight/><span>স্বাধিকার</span><ChevronRight/><span>লাহোর প্রস্তাব</span><ChevronRight/><span>১৯৪৭</span>
         </div>
 
         <div className={styles.checks}>
@@ -1303,11 +1525,11 @@ export default function BgsChapterOne(){
           ].map(([q,a])=><details key={q}><summary>{q}</summary><p>{a}</p></details>)}
         </div>
 
-        <div className={styles.nextLesson}><CheckCircle2/><div><small>NEXT</small><h3>স্বাধিকার আন্দোলন</h3><p>নবজাগরণ ও বঙ্গভঙ্গবিরোধী আন্দোলনের পর রাজনৈতিক দাবি কীভাবে স্বরাজ, অসহযোগ এবং স্বাধীনতার বৃহত্তর আন্দোলনে রূপ নিল?</p></div></div>
+        <div className={styles.nextLesson}><CheckCircle2/><div><small>CHAPTER 1 COMPLETE</small><h3>এবার অধ্যায়ের “কাজ”গুলো করো</h3><p>“অধ্যায়ের কাজ” tab-এ ৪টি textbook activity lesson-wise instruction ও model solutionসহ দেওয়া আছে।</p></div></div>
       </section>}
 
       <footer className={styles.footer}>
-        <p>পাঠ কাঠামো: NCTB Class 8 Bangladesh and Global Studies · Chapter 1-এর আলোচিত অংশ। Lesson 4–7-এ দ্বৈত শাসন, ১৭৭০-এর দুর্ভিক্ষ, গভর্নর জেনারেল, British Crown rule, বাংলার নবজাগরণ, প্রধান সমাজসংস্কারক ও সাহিত্যিক, ১৯০৩–১৯০৬ বঙ্গভঙ্গ timeline, ইংরেজ শাসনামলের প্রধান আন্দোলনের interactive chart, শহীদ ও বিপ্লবীদের real historical portrait tribute, এবং স্বাধিকার আন্দোলনের পূর্ণ spotlight timeline যোগ করা হয়েছে। ঐতিহাসিক চিত্রগুলো মুক্ত লাইসেন্স / public-domain Wikimedia Commons উৎস থেকে দেখানো হয়েছে।</p>
+        <p>পাঠ কাঠামো: NCTB Class 8 Bangladesh and Global Studies · Chapter 1-এর আলোচিত অংশ। Lesson 4–7-এ দ্বৈত শাসন, ১৭৭০-এর দুর্ভিক্ষ, গভর্নর জেনারেল, British Crown rule, বাংলার নবজাগরণ, প্রধান সমাজসংস্কারক ও সাহিত্যিক, ১৯০৩–১৯০৬ বঙ্গভঙ্গ timeline, ইংরেজ শাসনামলের প্রধান আন্দোলনের interactive chart, শহীদ ও বিপ্লবীদের real historical portrait tribute, স্বাধিকার আন্দোলনের পূর্ণ spotlight timeline, পাঠ ৮-এর লাহোর প্রস্তাব–১৯৪৭ interactive story এবং chapter-end ৪টি কাজের guided solutions যোগ করা হয়েছে। ঐতিহাসিক চিত্রগুলো মুক্ত লাইসেন্স / public-domain Wikimedia Commons উৎস থেকে দেখানো হয়েছে।</p>
       </footer>
     </div>
   </main>;
