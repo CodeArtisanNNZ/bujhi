@@ -10,6 +10,7 @@ import {openThoughtFacts} from "./data/openThoughtFacts";
 import {hiddenQuizQuestions} from "./data/hiddenQuizQuestions";
 
 
+// Deployment refresh: Bangladesh map rotation
 export default function Home(){
  const[running,setRunning]=useState(true);const[homeDemo,setHomeDemo]=useState<"solar"|"cell"|"map"|null>(null);const[toast,setToast]=useState("");const[quiz,setQuiz]=useState(false);const[quizIndex,setQuizIndex]=useState(0);const[answer,setAnswer]=useState<number|null>(null);const[lastThoughtIndex,setLastThoughtIndex]=useState(-1);const[thoughtLang,setThoughtLang]=useState<"en"|"bn">("en");
  function note(text:string){setToast(text);window.setTimeout(()=>setToast(""),4200)}
