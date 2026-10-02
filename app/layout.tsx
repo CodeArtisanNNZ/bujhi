@@ -14,7 +14,7 @@ export const metadata:Metadata={
 export default function Layout({children}:{children:React.ReactNode}){
   return <html lang="en" suppressHydrationWarning>
     <head>
-      <script dangerouslySetInnerHTML={{__html:`try{var t=localStorage.getItem('bujhi-theme');document.documentElement.dataset.theme=t==='light'||t==='dark'?t:matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}catch{document.documentElement.dataset.theme='light'}`}} />
+      <script dangerouslySetInnerHTML={{__html:`try{var t=localStorage.getItem('bujhi-theme');document.documentElement.dataset.theme=t==='light'||t==='dark'?t:matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}catch{document.documentElement.dataset.theme='light'}try{document.documentElement.lang=localStorage.getItem('bujhi-language')==='bn'?'bn':'en'}catch{}`}} />
     </head>
     <body><SiteShell>{children}</SiteShell></body>
   </html>

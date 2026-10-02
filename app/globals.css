@@ -938,7 +938,7 @@ html,body{max-width:100%;overflow-x:hidden}.hero>*{min-width:0}.hero-actions a{b
   box-shadow:0 8px 24px rgba(48,27,16,.14);
   backdrop-filter:blur(12px);
   -webkit-backdrop-filter:blur(12px);
-  font:800 11px/1 Inter,"Bujhi Bangla",system-ui,sans-serif;
+  font:800 11px/1 Inter,"Bujhi Bangla",system-ui,"Bujhi Bangla",sans-serif;
 }
 .language-toggle>svg{
   width:15px;
@@ -953,7 +953,7 @@ html,body{max-width:100%;overflow-x:hidden}.hero>*{min-width:0}.hero-actions a{b
   color:var(--muted);
   padding:6px 8px;
   cursor:pointer;
-  font:800 11px/1 Inter,"Bujhi Bangla",system-ui,sans-serif;
+  font:800 11px/1 Inter,"Bujhi Bangla",system-ui,"Bujhi Bangla",sans-serif;
   transition:background .18s ease,color .18s ease,transform .18s ease;
 }
 .language-toggle button:hover{transform:translateY(-1px)}
@@ -963,7 +963,7 @@ html,body{max-width:100%;overflow-x:hidden}.hero>*{min-width:0}.hero-actions a{b
 }
 .language-toggle>span{color:#b09a8b;font-weight:600}
 html[lang="bn"] body{
-  font-family:"Noto Sans Bengali","Nirmala UI","Vrinda",Inter,"Bujhi Bangla",system-ui,sans-serif;
+  font-family:"Bujhi Bangla","Nirmala UI","Vrinda",Inter,"Bujhi Bangla",system-ui,"Bujhi Bangla",sans-serif;
 }
 html[lang="bn"] button,
 html[lang="bn"] input,

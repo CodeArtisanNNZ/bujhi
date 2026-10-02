@@ -46,4 +46,27 @@ html[lang="bn"] #bujhi-content :where(h1,h2,h3,h4,p,span,strong,b,small,a,button
 html[lang="bn"] #bujhi-content h1{font-size:clamp(1.5rem,3.5vw,2.2rem);line-height:1.5}
 html[lang="bn"] #bujhi-content .hero-copy h1{font-size:clamp(1.8rem,7.6vw,3.6rem);line-height:1.45}
 html[lang="bn"] #bujhi-content .auth-notebook h1{font-size:clamp(1.35rem,2vw,1.8rem);line-height:1.55}
-:root[data-theme="dark"] [class*="stickyHotspot"]{background:#ebd89b;color:#493629}
+:root[data-theme="dark"] [class*="stickyHotspot"]{background:#56432e;color:#f3e9dd}
+
+/* Native Bengali lessons use the same face even when the header is set to English. */
+#bujhi-content :where(p,li,input,select,textarea){line-height:1.65}
+.bujhi-links a{font-size:.875rem}
+:root[data-theme="dark"] [class*="stickyHotspot"]{background:#56432e;color:#f3e9dd}
+:root[data-theme="dark"] .cup-name{background:var(--paper);color:var(--red)}
+:root[data-theme="dark"] :is(.quiz-option,.toast){background:var(--paper);color:var(--ink);border-color:var(--line)}
+html[lang="bn"] #bujhi-content :where(h2,h3,h4){line-height:1.55;letter-spacing:normal}
+@media(max-width:700px){
+  .bujhi-nav .language-toggle>svg,.bujhi-nav .language-toggle>span{display:none}
+  .bujhi-nav .language-toggle{padding:3px}
+  .bujhi-nav .language-toggle button{font-size:.75rem;min-height:38px}
+  html[lang="bn"] .bujhi-links a{font-size:.875rem}
+  .auth-notebook label>span,.auth-swap{font-size:.875rem;line-height:1.6}
+  .auth-notebook h1{font-size:1.6rem;line-height:1.4}
+  html[lang="bn"] #bujhi-content .auth-notebook h1{font-size:1.4rem}
+}
+
+:root[data-theme="dark"] .solar .sun,:root[data-theme="dark"] [class*="geneFlag"]{color:#241c18}
+
+html[lang="bn"] #bujhi-content .hero-copy h1{font-size:clamp(1.8rem,3.2vw,2.65rem);line-height:1.5}
+html[lang="bn"] #bujhi-content :is(.about-hero,.classroom-intro) h1{font-size:clamp(1.6rem,3vw,2.25rem);line-height:1.5}
+@media(max-width:700px){html[lang="bn"] #bujhi-content .hero-copy h1{font-size:clamp(1.6rem,6.8vw,2rem)}}
