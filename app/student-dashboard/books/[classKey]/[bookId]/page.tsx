@@ -92,7 +92,7 @@ export default function StudentBookPage(){
         <p className={styles.eyebrow}>{ui("আমার পাঠ্যবই","My textbook")}</p>
         <h2>{book.title}</h2>
         <p className={styles.english}>{book.englishTitle}</p>
-        <p className={styles.note}>{ui("এই বইটি কীভাবে ব্যবহার করবে বেছে নাও। PDF বোতাম মূল আপলোড করা পাঠ্যবই খুলবে, আর ‘পাঠ শিখি’ বুঝির এই বইয়ের পাঠের জায়গা খুলবে।","Choose how you want to use this book. The PDF button checks for the actual uploaded textbook file. Learn Lesson opens Bujhi's lesson space for this exact book.")}</p>
+        <p className={styles.note}>{ui("এই বইটি কীভাবে ব্যবহার করবে বেছে নাও। PDF বোতাম মূল আপলোড করা পাঠ্যবই খুলবে, আর ‘পাঠ শিখি’ বুঝি?-এর এই বইয়ের পাঠের জায়গা খুলবে।","Choose how you want to use this book. The PDF button checks for the actual uploaded textbook file. Learn Lesson opens the Bujhi? lesson space for this exact book.")}</p>
 
         <div className={styles.actions}>
           <button type="button" className={styles.action} onClick={openPdf} disabled={checkingPdf}>
