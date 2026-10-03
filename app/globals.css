@@ -2135,9 +2135,9 @@ linear-gradient(180deg,var(--paper),var(--surface))}
   position:absolute;
   z-index:3;
   top:290px;
-  left:-4.5%;
-  width:330px;
-  height:365px;
+  left:0.8%;
+  width:315px;
+  height:350px;
   pointer-events:none;
   filter:drop-shadow(8px 12px 10px #4b1b182c);
 }
@@ -2392,7 +2392,7 @@ linear-gradient(180deg,var(--paper),var(--surface))}
   .login-bookshelf b{font-size:14px}
   .login-shelf-board{top:233px;left:3%;width:94%;height:18px}
   .login-desk-surface{inset:300px 0 0}
-  .login-lamp{top:250px;left:-58px;width:280px;height:305px}
+  .login-lamp{top:250px;left:-24px;width:255px;height:285px}
   .login-light-switch{top:535px;left:18px}
   .login-left-plant{top:315px;left:42%;width:118px;height:175px}
   .login-left-drink{top:380px;left:63%;width:125px;min-height:150px}
