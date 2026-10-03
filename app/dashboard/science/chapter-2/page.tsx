@@ -5,7 +5,7 @@ import {useEffect,useState} from "react";
 import {
  ArrowLeft,ArrowRight,Atom,BookOpen,CheckCircle2,ChevronLeft,ChevronRight,
  CircleHelp,Dna,FlaskConical,GitBranch,GraduationCap,Lightbulb,
- RefreshCcw,Sparkles,Target
+ RefreshCcw,Target
 } from "lucide-react";
 import styles from "./chapter2.module.css";
 import LibraryLabs from "./LibraryLabs";
@@ -191,7 +191,7 @@ function GrowthLab(){
  const[round,setRound]=useState(5);
  const count=2**round;
  return <div className={styles.simCard}>
-  <div className={styles.simHead}><div><span>সংখ্যায় দেখো</span><strong>বারবার মাইটোসিসে কোষ কত দ্রুত বাড়ে?</strong></div><Sparkles/></div>
+  <div className={styles.simHead}><div><span>সংখ্যায় দেখো</span><strong>বারবার মাইটোসিসে কোষ কত দ্রুত বাড়ে?</strong></div></div>
   <div className={styles.growthNumber}><span>১টি কোষ</span><strong>{count.toLocaleString("bn-BD")}টি কোষ</strong></div>
   <input className={styles.range} type="range" min="0" max="10" value={round} onChange={e=>setRound(Number(e.target.value))}/>
   <div className={styles.rangeLabels}><span>শুরু</span><span>{round} বার বিভাজন</span><span>১০ বার</span></div>
@@ -392,7 +392,7 @@ export default function ChapterTwo(){
     </section>
 
     {active===9&&<section className={styles.chapterSummary}>
-     <Sparkles/><div><span>অধ্যায় সম্পন্ন</span><h3>পুরো অধ্যায়টি একসাথে</h3><p><b>বৃদ্ধি:</b> মাইটোসিসে কোষের সংখ্যা বাড়ে। <b>জনন:</b> মিয়োসিসে গ্যামেটের ক্রোমোজোম সংখ্যা অর্ধেক হয়। <b>বংশগতি:</b> ক্রোমোজোম DNA ও জিন বহন করে; RNA জিনের তথ্য ব্যবহারের প্রক্রিয়ায় গুরুত্বপূর্ণ।</p></div>
+     <div><span>অধ্যায় সম্পন্ন</span><h3>পুরো অধ্যায়টি একসাথে</h3><p><b>বৃদ্ধি:</b> মাইটোসিসে কোষের সংখ্যা বাড়ে। <b>জনন:</b> মিয়োসিসে গ্যামেটের ক্রোমোজোম সংখ্যা অর্ধেক হয়। <b>বংশগতি:</b> ক্রোমোজোম DNA ও জিন বহন করে; RNA জিনের তথ্য ব্যবহারের প্রক্রিয়ায় গুরুত্বপূর্ণ।</p></div>
     </section>}
 
     <footer className={styles.navFoot}>
