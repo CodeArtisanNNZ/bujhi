@@ -56,3 +56,14 @@
   .bookCover{min-height:260px}
   .notebook{padding-left:36px}
 }
+
+@media (max-width: 760px) {
+  .bookDesk, .notebook, .bookCover, .lessonHero, .lessonWorkspace { min-width: 0; }
+  .back { font-size: .875rem; line-height: 1.5; min-height: 44px; }
+  .bookCover { min-height: 260px; }
+  .bookCover h1, .notebook h2, .lessonHero h1 { font-size: 1.8rem; line-height: 1.5; }
+  .bookCover p, .english, .note, .lessonHero > span, .lessonCard p, .lessonNotice { font-size: 1rem; line-height: 1.65; }
+  .action { min-height: 120px; }
+  .action span { font-size: .875rem; line-height: 1.6; }
+  .filePath { font-size: .875rem; }
+}

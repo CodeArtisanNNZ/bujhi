@@ -192,103 +192,11 @@
 .lamp{left:-20px;top:315px;width:305px;height:320px}.roomLightSwitch{left:4.5%;right:auto;top:642px}.moneyPlant{right:0;width:164px;height:238px}.drinkArea{right:0;width:180px}
 .studyNotebook{left:23%;width:53%}.actionHotspots{left:23%;width:53%}.stickyHotspot{right:18%;width:125px}
 }
-@media(max-width:620px){
-.referenceDesk{min-height:1060px}.deskBrand{top:20px;left:5%;gap:8px}.deskBrand span{font-size:10px}.deskBrand a strong{font-size:24px}.deskBrand a img{width:32px;height:32px}
-.dynamicClass{left:5%;top:72px}.classPill{min-height:42px;padding:5px 13px}.dynamicProfile{top:20px;right:5%}
-.shelfMeta{top:122px;left:5%;right:5%}.shelfMeta span{display:none}
-.bookHotspots{top:145px;height:195px;left:4%;width:92%;overflow-x:auto;gap:7px;padding:0 5px 18px;scrollbar-width:thin;scrollbar-color:#9c7752 #dbc7aa}
-.bookHotspots button{flex:0 0 52px;width:52px;min-width:52px;height:150px}.bookHotspots button:nth-child(3n),.bookHotspots button:nth-child(4n){height:150px}.bookHotspots:after{position:fixed;display:none}
-.bookHotspots{border-bottom:12px solid #aa7e52;box-shadow:0 9px 12px #573c2422}.bookHotspots button:hover{transform:translateY(-4px)}
-.deskSurface{top:470px}.lamp{top:358px;left:-28px;width:245px;height:270px;transform:none}.roomLightSwitch{top:618px;left:4%;right:auto;min-height:38px;font-size:11px}.moneyPlant{top:312px;right:2%;width:148px;height:220px}
-.stickyHotspot{top:525px;right:6%;width:135px;min-height:90px}
-.studyNotebook{top:663px;left:5%;width:90%;min-height:242px;padding:21px 22px 20px 39px}.studyNotebook h1{font-size:29px}
-.actionHotspots{top:983px;left:5%;width:90%;gap:8px}.actionHotspots button{font-size:11px;gap:5px;min-height:44px}
-.drinkArea{top:525px;right:calc(50% - 75px);width:150px;transform:scale(.72);transform-origin:center bottom}.drinkMenu{transform:scale(1.35);transform-origin:bottom center;right:-8px}
-.readerBackdrop{padding:10px;align-items:start;overflow:auto}.openBook{width:96vw;margin:18px 0;grid-template-columns:1fr;filter:drop-shadow(0 16px 24px #1b0f0940)}.readerSpine{display:none}.readerLeft,.readerRight{min-height:auto;border-radius:13px;padding:28px 18px}.readerLeft{padding-top:42px}.readerRight h3{font-size:1.65rem}.panel{padding:23px 15px}.practiceCards{grid-template-columns:1fr}
-}
+
 @media(prefers-reduced-motion:reduce){.openBook,.moneyPlant,.drinkImageFrame,.steam i{animation:none}.steam i{opacity:.3}.pageDim:after{display:none}.bookHotspots button{transition:none}}
 
 .studentLoading{min-height:100vh;display:grid;place-items:center;color:var(--muted);font:700 1.1rem Georgia,"Bujhi Bangla",serif;background:var(--surface)}
 
-
-/* =========================================================
-   PHONE-FIRST STUDENT DESK
-   ========================================================= */
-@media(max-width:700px){
-  .page{min-height:100dvh;overflow-x:hidden}
-  .referenceDesk{width:100%;min-height:1010px;overflow:hidden}
-
-  .deskBrand{top:14px;left:14px;gap:8px}
-  .deskBrand a{gap:7px}
-  .deskBrand a img{width:30px;height:30px}
-  .deskBrand a strong{font-size:22px}
-  .deskBrand span{display:none}
-
-  .dynamicProfile{top:12px;right:10px;height:38px;max-width:46%;padding:0 4px}
-  .dynamicProfile>span{width:28px;height:28px}
-  .dynamicProfile strong{max-width:74px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px}
-  .dynamicProfile button{width:30px;height:30px}
-
-  .dynamicClass{top:62px;left:14px;right:14px}
-  .classPill{width:100%;min-height:42px;border-radius:12px;align-items:flex-start;padding:7px 12px}
-  .classPill strong{font-size:12px}
-  .classPill span{font-size:8px}
-
-  .shelfMeta{top:116px;left:14px;right:14px}
-  .shelfMeta strong{font-size:11px}
-  .shelfMeta span{display:none}
-  .bookHotspots{top:138px;left:0;width:100%;height:190px;padding:0 14px 14px;gap:7px;border-bottom-width:12px;border-radius:0;box-shadow:0 9px 14px #573c2422}
-  .bookHotspots button{flex:0 0 50px;width:50px;min-width:50px;height:145px!important;padding:9px 3px 8px}
-  .bookGlyph{font-size:17px}
-  .bookTitle{font-size:10px;max-height:100px}
-  .bookHotspots small{font-size:8px}
-
-  .deskSurface{top:365px}
-  .lamp{top:320px;left:-44px;width:205px;height:235px}
-  .moneyPlant{top:295px;right:-5px;width:128px;height:188px}
-  .roomLightSwitch{top:548px;left:4px;min-height:36px;padding:0 11px;font-size:10px}
-  .stickyHotspot{top:492px;right:16px;width:118px;min-height:80px;padding:10px;font-size:10px}
-  .stickyHotspot strong{font-size:11px}
-  .stickyHotspot span{font-size:9px;line-height:1.35}
-
-  .drinkArea{top:524px;right:calc(50% - 58px);width:116px;height:132px;transform:none}
-  .drinkImageFrame{width:105px;height:100px}
-  .steam{left:41px;transform:scale(.7)}
-  .drinkLabel{font-size:9px;padding:4px 8px}
-  .drinkMenu{right:50%;bottom:125px;transform:translateX(50%);width:180px}
-  .drinkMenu button{min-height:44px}
-
-  .studyNotebook{top:640px;left:14px;width:calc(100% - 28px);min-height:220px;padding:20px 16px 18px 36px;border-radius:6px 12px 12px 6px}
-  .notebookBinding{left:7px;width:14px}
-  .studyNotebook p{font-size:9px}
-  .studyNotebook h1{font-size:clamp(24px,8vw,31px);margin-bottom:9px}
-  .studyNotebook>span{font-size:11px;line-height:1.45;display:block}
-  .studyNotebook button{width:100%;min-height:42px;margin-top:14px}
-  .studyNotebook small{font-size:9px;line-height:1.4}
-
-  .actionHotspots{top:888px;left:14px;width:calc(100% - 28px);gap:7px}
-  .actionHotspots button{min-width:0;min-height:46px;padding:7px 5px;font-size:9px;gap:4px}
-  .actionHotspots svg{width:15px}
-
-  .overlay{padding:10px;align-items:end}
-  .panel{width:100%;max-height:88dvh;padding:22px 14px 18px;border-radius:18px 18px 10px 10px}
-  .panelHeader{padding-right:38px;gap:10px}
-  .panelHeader>span{width:48px;height:56px}
-  .panelHeader h2{font-size:1.7rem}
-  .practiceCards{grid-template-columns:1fr}
-  .noteEditor{min-height:180px;font-size:16px}
-}
-
-@media(max-width:390px){
-  .dynamicProfile strong{display:none}
-  .dynamicProfile{max-width:none}
-  .bookHotspots button{flex-basis:47px;width:47px;min-width:47px}
-  .lamp{width:190px;left:-54px}
-  .moneyPlant{width:118px;right:-10px}
-  .stickyHotspot{right:10px;width:110px}
-  .studyNotebook{left:10px;width:calc(100% - 20px)}
-  .actionHotspots{left:10px;width:calc(100% - 20px)}
-}
 
 /* Live full month desk calendar and refined left lamp placement */
 .liveCalendar{
@@ -315,17 +223,82 @@
   .liveCalendar{top:494px;left:calc(14% - 28px);width:168px;min-height:158px;padding-left:7px;padding-right:7px}
   .liveCalendar :global(.deskCalendarHeader){margin-left:-6px;margin-right:-6px}
 }
-@media(max-width:700px){
-  .lamp{left:-44px!important;top:300px!important}
-  .liveCalendar{top:494px;left:calc(30% - 18px);width:146px;min-height:140px;padding:0 7px 8px}
-  .liveCalendar :global(.deskCalendarHeader){height:27px;margin:0 -6px 5px;padding:0 7px}
-  .liveCalendar :global(.deskCalendarHeader strong){font-size:9px}
-  .liveCalendar :global(.deskCalendarHeader small){font-size:6px}
-  .liveCalendar :global(.deskCalendarWeekdays){font-size:5.5px;gap:1px}
-  .liveCalendar :global(.deskCalendarGrid){gap:1px}
-  .liveCalendar :global(.deskCalendarGrid)>span{height:12px;font-size:6.5px}
+
+/* Mobile desk: the shelf, notebook and tools grow with their content. */
+@media (max-width: 1000px) {
+  .page { min-height: calc(100dvh - var(--nav-height)); }
+  .referenceDesk {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas: "class profile" "meta meta" "shelf shelf" "notebook notebook" "actions actions" "lamp plant" "switch drink" "calendar note";
+    gap: 16px;
+    width: 100%; min-height: 0; padding: 16px 16px 28px;
+    overflow: visible;
+  }
+  .referenceDesk > :not(.deskSurface) { position: relative; inset: auto; min-width: 0; }
+  .deskSurface { inset: 0; border-top: 0; }
+  .dynamicProfile { grid-area: profile; display: flex; align-items: center; justify-content: flex-end; max-width: none; padding: 0; gap: 6px; }
+  .dynamicProfile > span { width: 28px; height: 28px; flex-shrink: 0; }
+  .dynamicProfile strong { font-size: .875rem; max-width: 110px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .dynamicProfile button { width: 44px; height: 44px; flex-shrink: 0; }
+  .studyNotebook { grid-area: notebook; width: 100%; min-height: 0; padding: 24px 18px 24px 36px; }
+  .notebookBinding { left: 8px; width: 14px; }
+  .studyNotebook p { font-size: .875rem; letter-spacing: .04em; }
+  .studyNotebook h1 { max-width: 100%; font-size: 1.6rem; line-height: 1.5; overflow-wrap: anywhere; }
+  .studyNotebook > span { display: block; font-size: 1rem; line-height: 1.65; }
+  .studyNotebook button { width: 100%; min-height: 48px; padding: 12px; font-size: 1rem; }
+  .studyNotebook small { font-size: .875rem; line-height: 1.6; }
+  .actionHotspots { grid-area: actions; width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .actionHotspots button { min-width: 0; min-height: 64px; flex-direction: column; gap: 6px; padding: 10px 6px; font-size: .875rem; line-height: 1.5; overflow-wrap: anywhere; }
+  .actionHotspots svg { width: 18px; flex-shrink: 0; }
+  .referenceDesk > .lamp { grid-area: lamp; inset: auto!important; width: 100%; height: 170px; }
+  .moneyPlant { grid-area: plant; width: min(170px, 100%); height: 170px; justify-self: center; }
+  .roomLightSwitch { grid-area: switch; align-self: center; justify-self: center; padding: 4px; min-height: 44px; }
+  .drinkArea { grid-area: drink; width: 100%; height: auto; transform: none; }
+  .cupHotspot { height: auto; min-height: 44px; }
+  .drinkImageFrame { width: 100px; height: 100px; }
+  .steam { left: 38px; transform: scale(.7); }
+  .drinkLabel { font-size: .875rem; line-height: 1.5; padding: 6px 8px; }
+  .drinkMenu { right: 0; bottom: calc(100% + 8px); width: min(240px, calc(100vw - 32px)); transform: none; }
+  .drinkMenu button { min-height: 48px; font-size: 1rem; }
+  .liveCalendar { grid-area: calendar; width: 100%; min-height: 0; align-self: start; padding: 0 6px 8px; }
+  .liveCalendar :global(.deskCalendarHeader) { height: auto; min-height: 44px; margin: 0 -6px 6px; padding: 8px 6px; flex-wrap: wrap; justify-content: center; gap: 4px 8px; }
+  .liveCalendar :global(.deskCalendarHeader strong), .liveCalendar :global(.deskCalendarHeader small) { font-size: .875rem; line-height: 1.4; }
+  .liveCalendar :global(.deskCalendarWeekdays) { font-size: .75rem; gap: 1px; }
+  .liveCalendar :global(.deskCalendarGrid) { gap: 2px; }
+  .liveCalendar :global(.deskCalendarGrid) > span { height: 24px; font-size: .75rem; }
+  .stickyHotspot { grid-area: note; width: 100%; min-height: 140px; align-self: start; padding: 16px 12px; }
+  .stickyHotspot strong { font-size: 1rem; line-height: 1.5; }
+  .stickyHotspot span { font-size: .875rem; line-height: 1.6; }
+  .overlay { padding: 12px; padding-bottom: max(12px, env(safe-area-inset-bottom)); align-items: end; }
+  .closeButton { width: 44px; height: 44px; right: 10px; top: 10px; }
 }
-@media(max-width:390px){
-  .lamp{left:-52px!important;top:305px!important}
-  .liveCalendar{left:calc(29% - 16px);width:138px;min-height:134px}
+@media (max-width: 360px) {
+  .dynamicProfile strong { display: none; }
+  .actionHotspots { grid-template-columns: minmax(0, 1fr); }
+  .actionHotspots button { flex-direction: row; min-height: 48px; }
+}
+
+@media (max-width: 1000px) {
+  .dynamicClass { grid-area: class; }
+  .classPill { width: 100%; min-height: 48px; padding: 8px 12px; border-radius: 12px; }
+  .classPill strong { font-size: .875rem; line-height: 1.5; }
+  .classPill span { font-size: .75rem; }
+  .shelfMeta { grid-area: meta; flex-wrap: wrap; gap: 6px; }
+  .shelfMeta strong { font-size: .875rem; }
+  .shelfMeta span { display: block; font-size: .75rem; }
+  .bookHotspots { grid-area: shelf; width: 100%; height: 185px; gap: 8px; padding: 8px 6px 12px; border-bottom-width: 12px; overscroll-behavior-x: contain; }
+  .bookHotspots button { flex: 0 0 54px; width: 54px; min-width: 54px; height: 150px; }
+  .bookHotspots button:nth-child(3n), .bookHotspots button:nth-child(4n) { height: 150px; }
+  .bookTitle { font-size: .875rem; max-height: 105px; }
+  .bookHotspots small { font-size: .75rem; }
+  .bookHotspots button:hover { transform: none; }
+  .panel { width: 100%; max-height: calc(100dvh - 24px); padding: 24px 16px; }
+  .panelHeader { gap: 10px; padding-right: 38px; }
+  .panelHeader > span { flex-shrink: 0; width: 44px; height: 52px; }
+  .panelHeader h2 { font-size: 1.5rem; line-height: 1.5; overflow-wrap: anywhere; }
+  .panelHeader small { font-size: .875rem; }
+  .practiceCards { grid-template-columns: minmax(0, 1fr); }
+  .practiceCards p, .practiceCards button { font-size: .875rem; }
+  .noteEditor { min-height: 180px; font-size: 16px; }
 }
