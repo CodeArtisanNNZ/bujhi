@@ -76,7 +76,6 @@ export default function StudentBookPage(){
 
   return <main className={styles.page}>
     <header className={styles.topbar}>
-      <Link className={styles.brand} href="/">বুঝি</Link>
       <Link className={styles.back} href="/student-dashboard"><ArrowLeft/>{ui(`${classLabel} ডেস্কে ফিরি`,`Back to ${classLabel} desk`)}</Link>
     </header>
 
