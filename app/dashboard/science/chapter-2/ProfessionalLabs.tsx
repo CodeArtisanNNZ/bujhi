@@ -3,7 +3,7 @@
 import {useEffect,useMemo,useState} from "react";
 import {
  ArrowRight,Check,ChevronLeft,ChevronRight,Dna,Gamepad2,Lightbulb,
- Pause,Play,RefreshCcw,Rotate3D,Sparkles,Target,Zap
+ Pause,Play,RefreshCcw,Rotate3D,Target,Zap
 } from "lucide-react";
 import styles from "./professional.module.css";
 
@@ -132,7 +132,7 @@ function GrowthLab(){
  const cells=Math.pow(2,round);
  const height=95+(round/10)*240;
  return <div className={styles.proLab}>
-  <div className={styles.proHead}><div><span className={styles.eyebrow}><Sparkles/>GROWTH LAB</span><h3>Cell division দিয়ে একটি চারা বড় করো</h3><p>Slider সরাও—cell number, root এবং shoot একসাথে কীভাবে বদলায় দেখো।</p></div></div>
+  <div className={styles.proHead}><div><span className={styles.eyebrow}>GROWTH LAB</span><h3>Cell division দিয়ে একটি চারা বড় করো</h3><p>Slider সরাও—cell number, root এবং shoot একসাথে কীভাবে বদলায় দেখো।</p></div></div>
   <div className={styles.growthArea}>
    <div className={styles.plantWorld}><div className={styles.sun}/><div className={styles.cloud+" "+styles.cloud1}/><div className={styles.cloud+" "+styles.cloud2}/><div className={styles.soil}/><div className={styles.plant} style={{height}}><div className={styles.stem}/><div className={styles.leaf+" "+styles.l1}/><div className={styles.leaf+" "+styles.l2}/>{round>5&&<><div className={styles.leaf+" "+styles.l3}/><div className={styles.leaf+" "+styles.l4}/></>}<div className={styles.root+" "+styles.r1}/><div className={styles.root+" "+styles.r2}/></div></div>
    <div className={styles.growthControl}><span>division round</span><strong>{round}</strong><input type="range" min="0" max="10" value={round} onChange={e=>setRound(Number(e.target.value))}/><div><small>সরল model-এ cell</small><b>{cells.toLocaleString("bn-BD")}</b></div><p>প্রতি round-এ সব cell ভাগ হলে সংখ্যা হয় <b>2<sup>n</sup></b>। বাস্তব tissue-তে সব cell একই সময়ে ভাগ হয় না।</p></div>
