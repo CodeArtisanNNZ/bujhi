@@ -50,7 +50,7 @@ export default function Home(){
   <section className="touch-strip"><button onClick={openRandomThought} title="Open one of 1,000 learning facts"><BookOpen/><span>Open a thought</span></button><button onClick={openRandomQuiz}><Brain/><span>Try a hidden quiz</span></button><button onClick={openRandomThought} title="Find one of 1,000 tiny facts"><span>Find a tiny fact</span></button><button onClick={()=>{location.href="/login?role=student"}}><FlaskConical/><span>Open your learning desk</span></button></section>
   <section className="promise" data-no-translate>
    <p className="eyebrow">{thoughtLang==="bn"?"পাঠ্যবইয়ের বাইরেও শেখা":"Learning beyond the textbook"}</p>
-   <h2>{thoughtLang==="bn"?"এমন পাঠ, যা বইয়ের পাতার বাইরেও গিয়ে ধারণাকে আরও সহজে বুঝতে সাহায্য করে।":"Lessons that go beyond the page and make ideas easier to understand."}</h2>
+   <h2>{thoughtLang==="bn"?"এমন পাঠ, যা বইয়ের পাতার বাইরেও গিয়ে ধারণাকে আরও সহজে বুঝতে সাহায্য করে।":"Lessons that go beyond the book and make ideas easier to understand."}</h2>
    <div>
     <article><b>01</b><h3>{thoughtLang==="bn"?"দেখুন":"See it"}</h3><p>{thoughtLang==="bn"?"কঠিন বিষয়কে এমন দৃশ্যে দেখুন, যা ধাপে ধাপে সহজে অনুসরণ করা যায়।":"Turn difficult topics into visuals you can actually follow."}</p></article>
     <article><b>02</b><h3>{thoughtLang==="bn"?"বুঝুন":"Understand it"}</h3><p>{thoughtLang==="bn"?"প্রতিটি পাঠকে এমন উদাহরণের সঙ্গে মিলিয়ে বুঝুন, যা ধারণাটিকে আরও পরিষ্কার করে।":"Connect each lesson to examples that make the idea clearer."}</p></article>
