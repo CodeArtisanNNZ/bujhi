@@ -129,39 +129,42 @@
   .actionHotspots{left:10px;width:calc(100% - 20px)}
 }
 
-
-/* Live desk calendar and refined left lamp placement */
+/* Live full month desk calendar and refined left lamp placement */
 .liveCalendar{
-  position:absolute;z-index:8;top:486px;left:20.8%;width:72px;height:104px;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:absolute;z-index:8;top:466px;left:17.1%;width:126px;min-height:146px;
   border:1px solid color-mix(in srgb,var(--line) 82%,#9b7658);
-  border-radius:7px;background:var(--paper);color:var(--ink);
-  box-shadow:0 10px 20px #4b2d1d24,0 3px 0 #9c704b;
-  overflow:visible;text-align:center;
+  border-radius:8px;background:var(--paper);color:var(--ink);
+  box-shadow:0 11px 22px #4b2d1d24,0 3px 0 #9c704b;
+  overflow:visible;text-align:center;padding:0 7px 8px;
 }
-.liveCalendar :global(.deskCalendarRings){position:absolute;top:-7px;left:12px;right:12px;display:flex;justify-content:space-between}
+.liveCalendar :global(.deskCalendarRings){position:absolute;z-index:2;top:-7px;left:16px;right:16px;display:flex;justify-content:space-between}
 .liveCalendar :global(.deskCalendarRings i){width:9px;height:15px;border-radius:999px;background:#6f5545;box-shadow:inset 0 1px #ffffff66}
-.liveCalendar :global(.deskCalendarMonth){position:absolute;top:0;left:0;right:0;height:25px;display:grid;place-items:center;border-radius:6px 6px 0 0;background:#8b201d;color:#fff7eb;font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:.04em}
-.liveCalendar :global(.deskCalendarDate){margin-top:16px;font:700 29px/1 Georgia,"Bujhi Bangla",serif;color:var(--ink)}
-.liveCalendar :global(.deskCalendarWeekday){margin-top:4px;font-size:8px;font-weight:800;color:var(--red)}
-.liveCalendar :global(.deskCalendarYear){margin-top:3px;font-size:7px;color:var(--muted)}
-
+.liveCalendar :global(.deskCalendarHeader){height:32px;margin:0 -7px 6px;padding:0 9px;border-radius:7px 7px 0 0;background:#8b201d;color:#fff7eb;display:flex;align-items:center;justify-content:space-between;gap:5px}
+.liveCalendar :global(.deskCalendarHeader strong){font:800 10px/1 Georgia,"Bujhi Bangla",serif}
+.liveCalendar :global(.deskCalendarHeader small){font-size:7px;color:#f0d6c8}
+.liveCalendar :global(.deskCalendarWeekdays),.liveCalendar :global(.deskCalendarGrid){display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.liveCalendar :global(.deskCalendarWeekdays){margin-bottom:3px;color:var(--muted);font-size:6px;font-weight:900}
+.liveCalendar :global(.deskCalendarGrid)>span{height:14px;display:grid;place-items:center;border-radius:50%;font-size:7px;font-weight:750;color:var(--ink)}
+.liveCalendar :global(.deskCalendarGrid .deskCalendarBlank){visibility:hidden}
+.liveCalendar :global(.deskCalendarGrid .deskCalendarToday){background:#8b201d;color:#fff7eb;box-shadow:0 2px 5px #8b201d38}
 .lamp{left:-4.5%!important}
 
 @media(max-width:1000px){
   .lamp{left:-32px!important}
-  .liveCalendar{top:492px;left:18.5%;width:66px;height:96px}
-  .liveCalendar :global(.deskCalendarDate){font-size:26px}
+  .liveCalendar{top:468px;left:14.5%;width:118px;min-height:139px;padding-left:6px;padding-right:6px}
+  .liveCalendar :global(.deskCalendarHeader){margin-left:-6px;margin-right:-6px}
 }
 @media(max-width:700px){
   .lamp{left:-56px!important}
-  .liveCalendar{top:432px;left:42%;width:60px;height:86px}
-  .liveCalendar :global(.deskCalendarMonth){height:21px;font-size:7px}
-  .liveCalendar :global(.deskCalendarDate){font-size:24px}
-  .liveCalendar :global(.deskCalendarWeekday){font-size:7px}
-  .liveCalendar :global(.deskCalendarYear){font-size:6px}
+  .liveCalendar{top:400px;left:31%;width:112px;min-height:124px;padding:0 6px 7px}
+  .liveCalendar :global(.deskCalendarHeader){height:27px;margin:0 -6px 5px;padding:0 7px}
+  .liveCalendar :global(.deskCalendarHeader strong){font-size:9px}
+  .liveCalendar :global(.deskCalendarHeader small){font-size:6px}
+  .liveCalendar :global(.deskCalendarWeekdays){font-size:5.5px;gap:1px}
+  .liveCalendar :global(.deskCalendarGrid){gap:1px}
+  .liveCalendar :global(.deskCalendarGrid)>span{height:12px;font-size:6.5px}
 }
 @media(max-width:390px){
   .lamp{left:-64px!important}
-  .liveCalendar{left:43%;width:56px;height:82px}
+  .liveCalendar{left:30%;width:106px;min-height:120px}
 }
