@@ -2712,4 +2712,75 @@ linear-gradient(180deg,var(--paper),var(--surface))}
   }
 }
 
-/* deploy retry: login plant shelf */  
+/* deploy retry: login plant shelf */
+
+/* ===== LOGIN DESK CLEAR CENTER ===== */
+/* Keep the middle of the login desk intentionally empty. */
+.login-mid-books{
+  left:10.5%!important;
+  top:520px!important;
+  transform:scale(.88)!important;
+  transform-origin:left top!important;
+}
+.login-left-drink{
+  top:566px!important;
+  left:45.8%!important;
+  width:138px!important;
+  min-height:178px!important;
+}
+.login-drink-frame{
+  width:128px!important;
+  height:120px!important;
+}
+
+@media(max-width:1000px){
+  .login-mid-books{
+    left:9%!important;
+    top:518px!important;
+    transform:scale(.78)!important;
+  }
+  .login-left-drink{
+    top:558px!important;
+    left:44.5%!important;
+    width:126px!important;
+  }
+  .login-drink-frame{
+    width:118px!important;
+    height:112px!important;
+  }
+}
+
+@media(max-width:720px){
+  .login-mid-books{
+    left:4%!important;
+    top:430px!important;
+    transform:scale(.55)!important;
+  }
+  .login-left-drink{
+    top:404px!important;
+    left:auto!important;
+    right:3%!important;
+    width:104px!important;
+    min-height:138px!important;
+  }
+  .login-drink-frame{
+    width:96px!important;
+    height:92px!important;
+  }
+}
+
+@media(max-width:430px){
+  .login-mid-books{
+    left:2%!important;
+    top:432px!important;
+    transform:scale(.5)!important;
+  }
+  .login-left-drink{
+    right:1%!important;
+    width:96px!important;
+  }
+  .login-drink-frame{
+    width:90px!important;
+    height:86px!important;
+  }
+}
