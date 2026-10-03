@@ -3,7 +3,7 @@
 import {useEffect,useMemo,useState} from "react";
 import {
  ArrowRight,Atom,Check,ChevronLeft,ChevronRight,Dna,Gamepad2,Lightbulb,
- Pause,Play,RefreshCcw,Sparkles,Target,Zap
+ Pause,Play,RefreshCcw,Target,Zap
 } from "lucide-react";
 import styles from "./cinematic.module.css";
 
@@ -142,7 +142,7 @@ function GrowthLab(){
  const cells=Math.pow(2,round);
  const height=Math.min(28+round*7,92);
  return <div className={styles.lab}>
-  <div className={styles.labTop}><div><span className={styles.badge}><Sparkles/>GROW IT</span><h3>একটি ছোট্ট চারা বড় করো</h3><p>slider বাড়াও। একই সাথে cell number আর plant growth বদলাবে।</p></div></div>
+  <div className={styles.labTop}><div><span className={styles.badge}>GROW IT</span><h3>একটি ছোট্ট চারা বড় করো</h3><p>slider বাড়াও। একই সাথে cell number আর plant growth বদলাবে।</p></div></div>
   <div className={styles.growthGrid}>
    <div className={styles.plantScene}>
     <div className={styles.sun}/>
@@ -234,7 +234,7 @@ function DnaPuzzle(){
    <div className={styles.answerBases}>{sequence.map((b,i)=><div key={i}><span className={answers[i]?styles["base"+answers[i]]:""}>{answers[i]||"?"}</span><div className={styles.baseChoices}>{["A","T","G","C"].map(x=><button key={x} onClick={()=>pick(i,x)}>{x}</button>)}</div></div>)}</div>
   </div>
   <div className={styles.rules}><div><strong>A ↔ T</strong><span>Adenine pairs with Thymine</span></div><div><strong>G ↔ C</strong><span>Guanine pairs with Cytosine</span></div></div>
-  {done&&<div className={styles.win}><Sparkles/><div><strong>Perfect match!</strong><span>সব complementary base ঠিক বসিয়েছ।</span></div></div>}
+  {done&&<div className={styles.win}><div><strong>Perfect match!</strong><span>সব complementary base ঠিক বসিয়েছ।</span></div></div>}
  </div>
 }
 
