@@ -892,7 +892,7 @@ const mentorNotes:Record<Exclude<SectionId,"tasks">,{title:string;explain:string
 function MentorNote({section}:{section:Exclude<SectionId,"tasks">}){
   const note=mentorNotes[section];
   return <aside className={styles.mentorNote}>
-    <div className={styles.mentorHeading}><Sparkles/><div><small>একটু থামি · শিক্ষক/আপু-ভাইয়ার কথা</small><h3>{note.title}</h3></div></div>
+    <div className={styles.mentorHeading}><Sparkles/><div><h3>{note.title}</h3></div></div>
     <p>{note.explain}</p>
     <div className={styles.mentorPrompts}>
       <article><strong>চোখ বন্ধ করে কল্পনা করো</strong><p>{note.imagine}</p></article>
