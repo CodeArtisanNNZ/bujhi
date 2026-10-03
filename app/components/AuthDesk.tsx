@@ -112,6 +112,72 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
   }
  }
 
+ if(kind==="login")return <main className={`auth-page login-study-page ${light?"lamp-on":"lamp-off"}`}>
+  <section className="login-study-desk" aria-label="Bujhi login study desk">
+   <div className="login-desk-class"><strong>Your study desk</strong><span>Student · Teacher</span></div>
+
+   <div className="login-bookshelf" aria-hidden="true">
+    {[
+      ["স","সাহিত্য","#8e2f2a"],["আ","আনন্দপাঠ","#a64f45"],["ব","বাংলা ব্যাকরণ","#6b543b"],
+      ["En","English","#476554"],["En","Grammar","#466873"],["গ","Mathematics","#55705f"],
+      ["ত","তথ্য ও যোগাযোগ","#76624f"],["ব","বাংলাদেশ","#6e7b58"],["ব","Science","#965443"],
+      ["শ","শারীরিক শিক্ষা","#a66e34"],["ক","Worklife","#3d6670"],["ক","Agriculture","#7d5f49"]
+    ].map(([glyph,title,color],index)=><span key={index} style={{background:color}}><b>{glyph}</b><em>{title}</em><small>NCTB</small></span>)}
+   </div>
+   <div className="login-shelf-board" aria-hidden="true"/>
+
+   <div className="login-desk-surface" aria-hidden="true"/>
+
+   <div className="login-lamp" aria-hidden="true">
+    <ResponsiveImage sizes="360px" src="/ef6af6f1-43c9-41fe-9c24-5f3873a95c33.png" alt="" draggable={false}/>
+   </div>
+
+   <button type="button" className="login-light-switch" onClick={toggleTheme} aria-pressed={light} aria-label={light?"Turn lamp off":"Turn lamp on"}>
+    <span>{light?"ON":"OFF"}</span>
+   </button>
+
+   <div className="login-left-plant" role="img" aria-label="Money plant">
+    <ResponsiveImage sizes="250px" src="/29e8b631-9c79-4996-b225-405227aa1153.png" alt="" draggable={false}/>
+   </div>
+
+   <aside className="login-left-drink">
+    <button type="button" className="login-drink-button" onClick={()=>setChooser(!chooser)} aria-expanded={chooser} aria-label={`Change drink: ${activeDrink.label}`}>
+     <span className="login-drink-frame" aria-hidden="true">
+      {(drink==="tea"||drink==="coffee")&&<span className="auth-drink-steam"><i/><i/><i/></span>}
+      <ResponsiveImage sizes="150px" src={activeDrink.image} alt="" draggable={false}/>
+     </span>
+     <span>{activeDrink.label} · Change</span>
+    </button>
+    {chooser&&<div className="login-drink-menu">
+     {drinks.map(item=><button type="button" key={item.id} className={drink===item.id?"active":""} onClick={()=>{setDrink(item.id);setChooser(false)}}>
+      <span className="auth-drink-thumb" aria-hidden="true"><ResponsiveImage sizes="70px" src={item.image} alt="" draggable={false}/></span>
+      <span>{item.label}</span>
+     </button>)}
+    </div>}
+   </aside>
+
+   <article className="login-desk-notebook">
+    <div className="login-notebook-binding" aria-hidden="true"/>
+    <p className="eyebrow">Welcome back</p>
+    <h1>Open your desk</h1>
+
+    <div className="role-switch">
+     <button type="button" className={role==="student"?"active":""} onClick={()=>setRole("student")}>Student</button>
+     <button type="button" className={role==="teacher"?"active":""} onClick={()=>setRole("teacher")}>Teacher</button>
+    </div>
+
+    <form onSubmit={submit}>
+     <label><span>Email</span><div><Mail/><input required type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="you@example.com"/></div></label>
+     <label><span>Password</span><div><LockKeyhole/><input required type={show?"text":"password"} minLength={6} value={password} onChange={e=>setPassword(e.target.value)} placeholder="At least 6 characters"/><button type="button" onClick={()=>setShow(!show)} aria-label="Show password">{show?<EyeOff/>:<Eye/>}</button></div></label>
+     {error&&<p className="auth-error">{error}</p>}
+     <button type="submit" className="submit-auth" disabled={loading}>{loading?"Opening…":"Log in"}</button>
+    </form>
+
+    <p className="auth-swap">New here? <Link href={`/signup?role=${role}`}>{role==="teacher"?"Create teacher account":"Create student account"}</Link></p>
+   </article>
+  </section>
+ </main>;
+
  return <main className={`auth-page ${light?"lamp-on":"lamp-off"}`}>
 
 
