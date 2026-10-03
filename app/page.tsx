@@ -5,7 +5,7 @@ import CellZoomPreview from "./components/CellZoomPreview";
 import BangladeshMapPreview from "./components/BangladeshMapPreview";
 import Link from "next/link";
 import {useEffect,useState} from "react";
-import {ArrowRight,BookOpen,Brain,FlaskConical,Pause,Play,Sparkles,X} from "lucide-react";
+import {ArrowRight,BookOpen,Brain,FlaskConical,Pause,Play,X} from "lucide-react";
 import {openThoughtFacts} from "./data/openThoughtFacts";
 import {hiddenQuizQuestions} from "./data/hiddenQuizQuestions";
 
@@ -34,7 +34,7 @@ export default function Home(){
  return <main>
 
   <section className="hero">
-   <div className="hero-copy"><p className="eyebrow">Built for the Bangladeshi curriculum</p><h1>Learn it<br/>your way.</h1><div className="hero-actions"><Link href="/register?role=student">Join as a Student <ArrowRight/></Link><Link href="/register?role=teacher">Join as a Teacher <ArrowRight/></Link></div><button className="hidden-spark" onClick={openRandomQuiz}><Sparkles/> I found something</button></div>
+   <div className="hero-copy"><p className="eyebrow">Built for the Bangladeshi curriculum</p><h1>Learn it<br/>your way.</h1><div className="hero-actions"><Link href="/register?role=student">Join as a Student <ArrowRight/></Link><Link href="/register?role=teacher">Join as a Teacher <ArrowRight/></Link></div><button className="hidden-spark" onClick={openRandomQuiz}>I found something</button></div>
    <div className="notebook-wrap"><div className="paper back-one"/><div className="paper back-two"/><article className="notebook"><div className="rings">{Array.from({length:8}).map((_,i)=><i key={i}/>)}</div><div className="book-meta"><span>Interactive preview</span><span>Tap anything</span></div><h2>A peek inside Bujhi?</h2>
     {homeDemo==="map"
      ?<div className="lesson home-map-lesson"><BangladeshMapPreview compact/></div>
@@ -47,7 +47,7 @@ export default function Home(){
     {homeDemo!=="cell"&&<footer className="book-footer">{homeDemo==="solar"?<button onClick={()=>setRunning(!running)}>{running?<Pause/>:<Play/>}{running?"Pause orbit":"Play orbit"}</button>:homeDemo==="map"?<Link href="/explore/bangladesh">{thoughtLang==="bn"?"পুরো মানচিত্র খুলুন":"Open full map"} <ArrowRight/></Link>:<span/>}<span>{homeDemo==="solar"?"Tap a planet for a fact":homeDemo==="map"?(thoughtLang==="bn"?"জানতে একটি বিভাগে চাপ দিন":"Tap a division to explore"):"Loading preview…"}</span></footer>}
    </article></div>
   </section>
-  <section className="touch-strip"><button onClick={openRandomThought} title="Open one of 1,000 learning facts"><BookOpen/><span>Open a thought</span></button><button onClick={openRandomQuiz}><Brain/><span>Try a hidden quiz</span></button><button onClick={openRandomThought} title="Find one of 1,000 tiny facts"><Sparkles/><span>Find a tiny fact</span></button><button onClick={()=>{location.href="/login?role=student"}}><FlaskConical/><span>Open your learning desk</span></button></section>
+  <section className="touch-strip"><button onClick={openRandomThought} title="Open one of 1,000 learning facts"><BookOpen/><span>Open a thought</span></button><button onClick={openRandomQuiz}><Brain/><span>Try a hidden quiz</span></button><button onClick={openRandomThought} title="Find one of 1,000 tiny facts"><span>Find a tiny fact</span></button><button onClick={()=>{location.href="/login?role=student"}}><FlaskConical/><span>Open your learning desk</span></button></section>
   <section className="promise" data-no-translate>
    <p className="eyebrow">{thoughtLang==="bn"?"পাঠ্যবইয়ের বাইরেও শেখা":"Learning beyond the textbook"}</p>
    <h2>{thoughtLang==="bn"?"এমন পাঠ, যা বইয়ের পাতার বাইরেও গিয়ে ধারণাকে আরও সহজে বুঝতে সাহায্য করে।":"Lessons that go beyond the page and make ideas easier to understand."}</h2>
