@@ -329,7 +329,6 @@ export default function ChapterTwo(){
  return <main className={styles.page}>
   <header className={styles.topbar}>
    <Link href="/dashboard" className={styles.back}><ArrowLeft/>ডেস্কে ফিরি</Link>
-   <Link href="/" className={styles.brand}><img src="/optimized/bujhi-icon-96.webp" alt=""/>বুঝি</Link>
    <div className={styles.progressMini}><span>{score}/9 সম্পন্ন</span><i><b style={{width:progress+"%"}}/></i></div>
   </header>
 
