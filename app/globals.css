@@ -2668,3 +2668,46 @@ linear-gradient(180deg,var(--paper),var(--surface))}
     height:218px!important;
   }
 }
+
+/* ===== LOGIN PLANT ON BOOKSHELF ===== */
+.login-left-plant{
+  top:105px!important;
+  left:46.5%!important;
+  right:auto!important;
+  bottom:auto!important;
+  width:150px!important;
+  height:190px!important;
+  z-index:7!important;
+}
+.login-left-plant img{
+  object-fit:contain!important;
+  object-position:center bottom!important;
+}
+@media(max-width:1000px){
+  .login-left-plant{
+    top:108px!important;
+    left:44%!important;
+    right:auto!important;
+    bottom:auto!important;
+    width:138px!important;
+    height:176px!important;
+  }
+}
+@media(max-width:720px){
+  .login-left-plant{
+    top:88px!important;
+    left:auto!important;
+    right:4%!important;
+    bottom:auto!important;
+    width:104px!important;
+    height:142px!important;
+  }
+}
+@media(max-width:430px){
+  .login-left-plant{
+    top:91px!important;
+    right:2%!important;
+    width:94px!important;
+    height:132px!important;
+  }
+}
