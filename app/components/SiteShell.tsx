@@ -113,7 +113,7 @@ export default function SiteShell({children}:{children:React.ReactNode}){
         </nav>
         <div className="bujhi-nav-actions">
           <LanguageToggle/>
-          <button type="button" className="theme-switch" onClick={toggleTheme} aria-label={bn?(theme==="dark"?"হালকা মোড চালু করো":"ডার্ক মোড চালু করো"):(theme==="dark"?"Switch to light mode":"Switch to dark mode")} aria-pressed={theme==="dark"}>{theme==="dark"?<Sun size={20}/>:<Moon size={20}/>}</button>
+          <button type="button" className={`theme-switch ${theme==="dark"?"is-dark":"is-light"}`} onClick={toggleTheme} aria-label={bn?(theme==="dark"?"হালকা মোড চালু করো":"ডার্ক মোড চালু করো"):(theme==="dark"?"Switch to light mode":"Switch to dark mode")} aria-pressed={theme==="dark"}><span className="theme-switch-knob" aria-hidden="true"/><span className="theme-switch-icon theme-switch-sun" aria-hidden="true"><Sun/></span><span className="theme-switch-icon theme-switch-moon" aria-hidden="true"><Moon/></span></button>
           <button ref={menuButton} type="button" className="bujhi-menu" aria-label={bn?"নেভিগেশন মেনু":"Navigation menu"} aria-expanded={open} aria-controls="bujhi-navigation" onClick={()=>setOpen(!open)}>{open?<X/>:<Menu/>}</button>
         </div>
       </div>
