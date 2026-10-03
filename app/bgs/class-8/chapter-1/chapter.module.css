@@ -238,10 +238,10 @@
 .mentorNote{margin-top:22px;padding:20px;border:1px solid #d8c2a6;border-radius:18px;background:
 linear-gradient(135deg,rgba(153,0,0,.055),transparent 42%),
 linear-gradient(180deg,var(--paper),var(--surface));box-shadow:0 12px 30px rgba(72,39,25,.07)}
-.mentorHeading{display:grid;grid-template-columns:42px 1fr;gap:12px;align-items:start}
-.mentorHeading>svg{width:38px;height:38px;padding:8px;border-radius:12px;background:#990000;color:#fff;box-shadow:0 6px 18px rgba(153,0,0,.18)}
+.mentorHeading{display:block}
+
 .mentorHeading small{display:block;color:var(--red);font-size:9px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
-.mentorHeading h3{margin:4px 0 0;font:700 24px/1.25 Georgia,"Bujhi Bangla",serif;color:var(--ink)}
+.mentorHeading h3{margin:0;font:700 24px/1.28 Georgia,"Bujhi Bangla",serif;color:var(--ink);max-width:760px}
 .mentorNote>p{margin:14px 0 0;color:var(--ink);font-size:14px;line-height:1.75}
 .mentorPrompts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
 .mentorPrompts article{padding:15px;border:1px solid var(--line);border-radius:13px;background:var(--paper)}
@@ -250,8 +250,6 @@ linear-gradient(180deg,var(--paper),var(--surface));box-shadow:0 12px 30px rgba(
 .mirJafarCard>div>p+p{margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
 @media(max-width:700px){
   .mentorNote{padding:16px}
-  .mentorHeading{grid-template-columns:34px 1fr}
-  .mentorHeading>svg{width:32px;height:32px;padding:7px}
   .mentorHeading h3{font-size:20px}
   .mentorPrompts{grid-template-columns:1fr}
   .mentorNote>p{font-size:13px}
