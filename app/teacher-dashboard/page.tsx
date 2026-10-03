@@ -1,7 +1,6 @@
 "use client";
 import ResponsiveImage from "../components/ResponsiveImage";
 import DeskCalendar from "../components/DeskCalendar";
-import {useTheme} from "../components/SiteShell";
 
 // Production teacher desk route
 
@@ -43,8 +42,7 @@ export default function TeacherDashboard(){
   const[selectedClass,setSelectedClass]=useState(8);
   const[selectedBook,setSelectedBook]=useState<NctbBook|null>(null);
   const[folderOpen,setFolderOpen]=useState(false);
-  const {theme,toggleTheme}=useTheme();
-  const lightOn=theme==="light";
+  const[deskLightOn,setDeskLightOn]=useState(true);
   const[drink,setDrink]=useState<Drink>("coffee");
   const[drinkOpen,setDrinkOpen]=useState(false);
   const[note,setNote]=useState("");
@@ -74,6 +72,8 @@ export default function TeacherDashboard(){
       if(savedNote)setNote(savedNote);
       const savedDrink=localStorage.getItem("bujhi-teacher-drink") as Drink|null;
       if(savedDrink&&drinkOptions.some(item=>item.id===savedDrink))setDrink(savedDrink);
+      const savedLamp=localStorage.getItem("bujhi-teacher-desk-lamp");
+      if(savedLamp==="off")setDeskLightOn(false);
     }catch{}
   },[]);
 
@@ -110,7 +110,15 @@ export default function TeacherDashboard(){
     try{localStorage.setItem("bujhi-teacher-note",value)}catch{}
   }
 
-  return <main className={`${styles.page} ${lightOn?"":styles.pageDim}`}>
+  function toggleDeskLamp(){
+    setDeskLightOn(current=>{
+      const next=!current;
+      try{localStorage.setItem("bujhi-teacher-desk-lamp",next?"on":"off")}catch{}
+      return next;
+    });
+  }
+
+  return <main className={`${styles.page} ${deskLightOn?"":styles.pageDim}`}>
     <section className={styles.referenceDesk} aria-label="বুঝি? শিক্ষক ডেস্ক">
       <div className={styles.teacherBadge}>
         <FolderOpen/><span>তোমার শ্রেণিগুলো</span>
@@ -146,10 +154,10 @@ export default function TeacherDashboard(){
 
       <button
         type="button"
-        className={`${styles.roomLightSwitch} ${lightOn?styles.lightOn:styles.lightOff}`}
-        onClick={toggleTheme}
-        aria-pressed={lightOn}
-        aria-label={lightOn?"বাতি বন্ধ করো":"বাতি চালু করো"}
+        className={`${styles.roomLightSwitch} ${deskLightOn?styles.lightOn:styles.lightOff}`}
+        onClick={toggleDeskLamp}
+        aria-pressed={deskLightOn}
+        aria-label={deskLightOn?"ডেস্কের আলো কমাও":"ডেস্কের আলো বাড়াও"}
       >
         <span className={styles.roomLightTrack} aria-hidden="true">
           <span className={`${styles.roomLightState} ${styles.roomLightOff}`}>বন্ধ</span>

@@ -1,7 +1,6 @@
 "use client";
 import ResponsiveImage from "./ResponsiveImage";
 import DeskCalendar from "./DeskCalendar";
-import {useTheme} from "./SiteShell";
 
 import {useEffect,useMemo,useRef,useState} from "react";
 import {useRouter} from "next/navigation";
@@ -31,8 +30,7 @@ export default function StudentDashboard(){
   const[profile,setProfile]=useState<Profile>({class_level:"8"});
   const[profileReady,setProfileReady]=useState(false);
   const[selectedBookId,setSelectedBookId]=useState("");
-  const {theme,toggleTheme}=useTheme();
-  const lightOn=theme==="light";
+  const[deskLightOn,setDeskLightOn]=useState(true);
   const[drink,setDrink]=useState<Drink>("tea");
   const[drinkOpen,setDrinkOpen]=useState(false);
   const[panel,setPanel]=useState<Panel>(null);
@@ -65,6 +63,8 @@ export default function StudentDashboard(){
       if(savedNote)setNote(savedNote);
       const savedDrink=localStorage.getItem("bujhi-student-drink") as Drink|null;
       if(savedDrink&&drinkOptions.some(item=>item.id===savedDrink))setDrink(savedDrink);
+      const savedLamp=localStorage.getItem("bujhi-student-desk-lamp");
+      if(savedLamp==="off")setDeskLightOn(false);
     }catch{}
   },[]);
 
@@ -103,11 +103,19 @@ export default function StudentDashboard(){
     try{localStorage.setItem("bujhi-student-sticky-note",value)}catch{}
   }
 
+  function toggleDeskLamp(){
+    setDeskLightOn(current=>{
+      const next=!current;
+      try{localStorage.setItem("bujhi-student-desk-lamp",next?"on":"off")}catch{}
+      return next;
+    });
+  }
+
   if(!profileReady){
     return <main className={styles.page}><div className={styles.studentLoading}>Opening your study desk…</div></main>;
   }
 
-  return <main className={`${styles.page} ${lightOn?"":styles.pageDim}`}>
+  return <main className={`${styles.page} ${deskLightOn?"":styles.pageDim}`}>
     <section ref={sceneRef} className={styles.referenceDesk} aria-label={`Bujhi? ${studentClassLabels[classKey]} study desk`}>
       <div className={styles.dynamicClass}>
         <div className={styles.classPill}>
@@ -150,10 +158,10 @@ export default function StudentDashboard(){
 
       <button
         type="button"
-        className={`${styles.roomLightSwitch} ${lightOn?styles.lightOn:styles.lightOff}`}
-        onClick={toggleTheme}
-        aria-pressed={lightOn}
-        aria-label={lightOn?"Turn lamp off":"Turn lamp on"}
+        className={`${styles.roomLightSwitch} ${deskLightOn?styles.lightOn:styles.lightOff}`}
+        onClick={toggleDeskLamp}
+        aria-pressed={deskLightOn}
+        aria-label={deskLightOn?"Dim the desk":"Brighten the desk"}
       >
         <span className={styles.roomLightTrack} aria-hidden="true">
           <span className={`${styles.roomLightState} ${styles.roomLightOff}`}>OFF</span>
