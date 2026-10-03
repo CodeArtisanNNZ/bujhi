@@ -292,7 +292,7 @@
 
 /* Live full month desk calendar and refined left lamp placement */
 .liveCalendar{
-  position:absolute;z-index:8;top:508px;left:17.1%;width:126px;min-height:146px;
+  position:absolute;z-index:8;top:508px;left:16.6%;width:142px;min-height:146px;
   border:1px solid color-mix(in srgb,var(--line) 82%,#9b7658);
   border-radius:8px;background:var(--paper);color:var(--ink);
   box-shadow:0 11px 22px #4b2d1d24,0 3px 0 #9c704b;
@@ -312,12 +312,12 @@
 
 @media(max-width:1000px){
   .lamp{left:-18px!important;top:282px!important}
-  .liveCalendar{top:505px;left:14.5%;width:118px;min-height:139px;padding-left:6px;padding-right:6px}
+  .liveCalendar{top:505px;left:14%;width:130px;min-height:139px;padding-left:6px;padding-right:6px}
   .liveCalendar :global(.deskCalendarHeader){margin-left:-6px;margin-right:-6px}
 }
 @media(max-width:700px){
   .lamp{left:-44px!important;top:300px!important}
-  .liveCalendar{top:505px;left:31%;width:112px;min-height:124px;padding:0 6px 7px}
+  .liveCalendar{top:505px;left:30%;width:120px;min-height:124px;padding:0 6px 7px}
   .liveCalendar :global(.deskCalendarHeader){height:27px;margin:0 -6px 5px;padding:0 7px}
   .liveCalendar :global(.deskCalendarHeader strong){font-size:9px}
   .liveCalendar :global(.deskCalendarHeader small){font-size:6px}
@@ -327,5 +327,5 @@
 }
 @media(max-width:390px){
   .lamp{left:-52px!important;top:305px!important}
-  .liveCalendar{left:30%;width:106px;min-height:120px}
+  .liveCalendar{left:29%;width:114px;min-height:120px}
 }
