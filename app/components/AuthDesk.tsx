@@ -210,8 +210,8 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
 
    <article className="auth-notebook">
     <div className="auth-rings">{Array.from({length:7}).map((_,i)=><i key={i}/>)}</div>
-    <p className="eyebrow">{kind==="login"?"Welcome back":"Begin your Bujhi? journey"}</p>
-    <h1>{kind==="login"?"Log in to your desk":"Create your account"}</h1>
+    <p className="eyebrow">Begin your Bujhi? journey</p>
+    <h1>Create your account</h1>
 
     <div className="role-switch">
      <button type="button" className={role==="student"?"active":""} onClick={()=>setRole("student")}>Student</button>
@@ -219,21 +219,21 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
     </div>
 
     <form onSubmit={submit}>
-     {kind==="signup"&&<label><span>Full name</span><div><UserRound/><input required value={fullName} onChange={e=>setFullName(e.target.value)} placeholder="Your name"/></div></label>}
+     <label><span>Full name</span><div><UserRound/><input required value={fullName} onChange={e=>setFullName(e.target.value)} placeholder="Your name"/></div></label>
 
      <label><span>Email address</span><div><Mail/><input required type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="you@example.com"/></div></label>
 
      <label><span>Password</span><div><LockKeyhole/><input required type={show?"text":"password"} minLength={6} value={password} onChange={e=>setPassword(e.target.value)} placeholder="At least 6 characters"/><button type="button" onClick={()=>setShow(!show)} aria-label="Show password">{show?<EyeOff/>:<Eye/>}</button></div></label>
 
-     {kind==="signup"&&role==="student"&&<label><span>Class</span><select className="plain-input" value={classLevel} onChange={e=>setClassLevel(e.target.value)}><option value="6">Class 6</option><option value="7">Class 7</option><option value="8">Class 8</option><option value="9">Class 9 · uses Class 9 to 10 books</option><option value="10">Class 10 · uses Class 9 to 10 books</option></select></label>}
-     {kind==="signup"&&role==="teacher"&&<label><span>Subject</span><input className="plain-input" value={subject} onChange={e=>setSubject(e.target.value)} placeholder="For example: Science"/></label>}
+     {role==="student"&&<label><span>Class</span><select className="plain-input" value={classLevel} onChange={e=>setClassLevel(e.target.value)}><option value="6">Class 6</option><option value="7">Class 7</option><option value="8">Class 8</option><option value="9">Class 9 · uses Class 9 to 10 books</option><option value="10">Class 10 · uses Class 9 to 10 books</option></select></label>}
+     {role==="teacher"&&<label><span>Subject</span><input className="plain-input" value={subject} onChange={e=>setSubject(e.target.value)} placeholder="For example: Science"/></label>}
 
      {error&&<p className="auth-error">{error}</p>}
      <p className="auth-preview-note">Your Bujhi? account is used to open the correct student or teacher desk.</p>
-     <button type="submit" className="submit-auth" disabled={loading}>{loading?"Opening your desk…":kind==="login"?"Log in":"Create account"}</button>
+     <button type="submit" className="submit-auth" disabled={loading}>{loading?"Creating account…":"Create account"}</button>
     </form>
 
-    <p className="auth-swap">{kind==="login"?"New to Bujhi? ":"Already have an account? "}<Link href={kind==="login"?`/signup?role=${role}`:`/login?role=${role}`}>{kind==="login"?(role==="teacher"?"Create teacher account":"Create student account"):"Log in"}</Link></p>
+    <p className="auth-swap">Already have an account? <Link href={`/login?role=${role}`}>Log in</Link></p>
    </article>
   </section>
  </main>
