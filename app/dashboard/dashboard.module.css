@@ -292,7 +292,7 @@
 
 /* Live full month desk calendar and refined left lamp placement */
 .liveCalendar{
-  position:absolute;z-index:8;top:508px;left:calc(16.6% - 20px);width:162px;min-height:146px;
+  position:absolute;z-index:8;top:496px;left:calc(16.6% - 42px);width:190px;min-height:170px;
   border:1px solid color-mix(in srgb,var(--line) 82%,#9b7658);
   border-radius:8px;background:var(--paper);color:var(--ink);
   box-shadow:0 11px 22px #4b2d1d24,0 3px 0 #9c704b;
@@ -300,24 +300,24 @@
 }
 .liveCalendar :global(.deskCalendarRings){position:absolute;z-index:2;top:-7px;left:16px;right:16px;display:flex;justify-content:space-between}
 .liveCalendar :global(.deskCalendarRings i){width:9px;height:15px;border-radius:999px;background:#6f5545;box-shadow:inset 0 1px #ffffff66}
-.liveCalendar :global(.deskCalendarHeader){height:32px;margin:0 -7px 6px;padding:0 9px;border-radius:7px 7px 0 0;background:#8b201d;color:#fff7eb;display:flex;align-items:center;justify-content:space-between;gap:5px}
-.liveCalendar :global(.deskCalendarHeader strong){font:800 10px/1 Georgia,"Bujhi Bangla",serif}
-.liveCalendar :global(.deskCalendarHeader small){font-size:7px;color:#f0d6c8}
-.liveCalendar :global(.deskCalendarWeekdays),.liveCalendar :global(.deskCalendarGrid){display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
-.liveCalendar :global(.deskCalendarWeekdays){margin-bottom:3px;color:var(--muted);font-size:6px;font-weight:900}
-.liveCalendar :global(.deskCalendarGrid)>span{height:14px;display:grid;place-items:center;border-radius:50%;font-size:7px;font-weight:750;color:var(--ink)}
+.liveCalendar :global(.deskCalendarHeader){height:36px;margin:0 -7px 8px;padding:0 10px;border-radius:7px 7px 0 0;background:#8b201d;color:#fff7eb;display:flex;align-items:center;justify-content:space-between;gap:5px}
+.liveCalendar :global(.deskCalendarHeader strong){font:800 11px/1 Georgia,"Bujhi Bangla",serif}
+.liveCalendar :global(.deskCalendarHeader small){font-size:7.5px;color:#f0d6c8}
+.liveCalendar :global(.deskCalendarWeekdays),.liveCalendar :global(.deskCalendarGrid){display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.liveCalendar :global(.deskCalendarWeekdays){margin-bottom:5px;color:var(--muted);font-size:6.5px;font-weight:900}
+.liveCalendar :global(.deskCalendarGrid)>span{height:17px;display:grid;place-items:center;border-radius:50%;font-size:7.5px;font-weight:750;color:var(--ink)}
 .liveCalendar :global(.deskCalendarGrid .deskCalendarBlank){visibility:hidden}
 .liveCalendar :global(.deskCalendarGrid .deskCalendarToday){background:#8b201d;color:#fff7eb;box-shadow:0 2px 5px #8b201d38}
 .lamp{left:-1.2%!important;top:260px!important}
 
 @media(max-width:1000px){
   .lamp{left:-18px!important;top:282px!important}
-  .liveCalendar{top:505px;left:calc(14% - 16px);width:146px;min-height:139px;padding-left:6px;padding-right:6px}
+  .liveCalendar{top:494px;left:calc(14% - 28px);width:168px;min-height:158px;padding-left:7px;padding-right:7px}
   .liveCalendar :global(.deskCalendarHeader){margin-left:-6px;margin-right:-6px}
 }
 @media(max-width:700px){
   .lamp{left:-44px!important;top:300px!important}
-  .liveCalendar{top:505px;left:calc(30% - 12px);width:132px;min-height:124px;padding:0 6px 7px}
+  .liveCalendar{top:494px;left:calc(30% - 18px);width:146px;min-height:140px;padding:0 7px 8px}
   .liveCalendar :global(.deskCalendarHeader){height:27px;margin:0 -6px 5px;padding:0 7px}
   .liveCalendar :global(.deskCalendarHeader strong){font-size:9px}
   .liveCalendar :global(.deskCalendarHeader small){font-size:6px}
@@ -327,5 +327,5 @@
 }
 @media(max-width:390px){
   .lamp{left:-52px!important;top:305px!important}
-  .liveCalendar{left:calc(29% - 10px);width:124px;min-height:120px}
+  .liveCalendar{left:calc(29% - 16px);width:138px;min-height:134px}
 }
