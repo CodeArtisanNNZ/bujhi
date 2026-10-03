@@ -41,7 +41,7 @@
 .studyNotebook p{margin:0 0 10px;text-transform:uppercase;letter-spacing:.15em;font-size:10px;color:var(--red);font-weight:700}.studyNotebook h1{font:400 clamp(24px,2.8vw,32px)/1.45 Georgia,"Bujhi Bangla",serif;color:var(--ink);margin:0 0 12px}.studyNotebook>span{font-size:12px;color:var(--muted)}.studyNotebook button{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:17px;padding:11px 16px;border:0;border-radius:7px;background:#8b201d;color:#fff4e3;cursor:pointer;font-size:12px}.studyNotebook small{display:block;margin-top:13px;font-size:10px;color:var(--muted)}
 .stickyHotspot{position:absolute;z-index:4;top:342px;right:22%;width:140px;min-height:100px;padding:12px;border:0;border-radius:2px;background:#ebd89b;color:var(--muted);box-shadow:2px 5px 9px #65452126;text-align:left;cursor:pointer}.stickyHotspot strong{display:block;font:600 12px Georgia,"Bujhi Bangla",serif;margin:5px 0}.stickyHotspot span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:10px;line-height:1.5}
 .actionHotspots{position:absolute;top:731px;left:26%;width:47%;display:flex;gap:12px;justify-content:center}.actionHotspots button{display:flex;align-items:center;justify-content:center;gap:0;flex:1;min-height:43px;border:1px solid #a57d56;border-radius:8px;background:var(--surface);color:var(--ink);box-shadow:0 3px 0 #9f734d;cursor:pointer;font-size:12px}
-.drinkArea{position:absolute;z-index:10;right:1.2%;top:548px;width:215px;height:195px}
+.drinkArea{position:absolute;z-index:10;right:1.2%;top:572px;width:215px;height:195px}
 .cupHotspot{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;width:100%;height:100%;border:0;background:transparent;cursor:pointer;color:var(--ink);padding:0}
 .drinkImageFrame{position:relative;display:block;width:172px;height:150px;margin:0 auto 2px;overflow:hidden;animation:cupChange .45s cubic-bezier(.2,.78,.25,1);filter:drop-shadow(0 11px 8px #42251a33)}
 .drinkImage{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center bottom;user-select:none;pointer-events:none}
@@ -186,7 +186,7 @@
 .stickyHotspot{top:525px;right:6%;width:135px;min-height:90px}
 .studyNotebook{top:663px;left:5%;width:90%;min-height:242px;padding:21px 22px 20px 39px}.studyNotebook h1{font-size:29px}
 .actionHotspots{top:983px;left:5%;width:90%;gap:8px}.actionHotspots button{font-size:11px;gap:5px;min-height:44px}
-.drinkArea{top:501px;right:calc(50% - 75px);width:150px;transform:scale(.72);transform-origin:center bottom}.drinkMenu{transform:scale(1.35);transform-origin:bottom center;right:-8px}
+.drinkArea{top:525px;right:calc(50% - 75px);width:150px;transform:scale(.72);transform-origin:center bottom}.drinkMenu{transform:scale(1.35);transform-origin:bottom center;right:-8px}
 .readerBackdrop{padding:10px;align-items:start;overflow:auto}.openBook{width:96vw;margin:18px 0;grid-template-columns:1fr;filter:drop-shadow(0 16px 24px #1b0f0940)}.readerSpine{display:none}.readerLeft,.readerRight{min-height:auto;border-radius:13px;padding:28px 18px}.readerLeft{padding-top:42px}.readerRight h3{font-size:1.65rem}.panel{padding:23px 15px}.practiceCards{grid-template-columns:1fr}
 }
 @media(prefers-reduced-motion:reduce){.openBook,.moneyPlant,.drinkImageFrame,.steam i{animation:none}.steam i{opacity:.3}.pageDim:after{display:none}.bookHotspots button{transition:none}}
@@ -234,7 +234,7 @@
   .stickyHotspot strong{font-size:11px}
   .stickyHotspot span{font-size:9px;line-height:1.35}
 
-  .drinkArea{top:500px;right:calc(50% - 58px);width:116px;height:132px;transform:none}
+  .drinkArea{top:524px;right:calc(50% - 58px);width:116px;height:132px;transform:none}
   .drinkImageFrame{width:105px;height:100px}
   .steam{left:41px;transform:scale(.7)}
   .drinkLabel{font-size:9px;padding:4px 8px}
