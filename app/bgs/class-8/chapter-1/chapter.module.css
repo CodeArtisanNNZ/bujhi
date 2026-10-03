@@ -243,10 +243,10 @@ linear-gradient(180deg,var(--paper),var(--surface));box-shadow:0 12px 30px rgba(
 .mentorHeading small{display:block;color:var(--red);font-size:9px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
 .mentorHeading h3{margin:0;font:700 24px/1.28 Georgia,"Bujhi Bangla",serif;color:var(--ink);max-width:760px}
 .mentorNote>p{margin:14px 0 0;color:var(--ink);font-size:14px;line-height:1.75}
-.mentorPrompts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.mentorPrompts{display:grid;grid-template-columns:1fr;gap:10px;margin-top:14px}
 .mentorPrompts article{padding:15px;border:1px solid var(--line);border-radius:13px;background:var(--paper)}
-.mentorPrompts strong{display:block;margin-bottom:6px;color:var(--red);font-size:11px}
-.mentorPrompts p{margin:0;color:var(--muted);font-size:12px;line-height:1.65}
+.mentorPrompts strong{display:block;margin-bottom:7px;color:var(--red);font-size:13px}
+.mentorPrompts p{margin:0;color:var(--muted);font-size:14px;line-height:1.72}
 .mirJafarCard>div>p+p{margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
 @media(max-width:700px){
   .mentorNote{padding:16px}
