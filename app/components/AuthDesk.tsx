@@ -141,6 +141,12 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
     <ResponsiveImage sizes="250px" src="/29e8b631-9c79-4996-b225-405227aa1153.png" alt="" draggable={false}/>
    </div>
 
+   <div className="login-mid-books" aria-hidden="true">
+    <span className="login-mid-book login-mid-book-one"><i/></span>
+    <span className="login-mid-book login-mid-book-two"><i/></span>
+    <span className="login-mid-book login-mid-book-three"><i/></span>
+   </div>
+
    <RotatingDeskGlobe onFact={()=>tell(worldFacts[Math.floor(Math.random()*worldFacts.length)])}/>
 
    <aside className="login-left-drink">
