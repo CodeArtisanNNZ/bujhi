@@ -1,5 +1,6 @@
 "use client";
 import ResponsiveImage from "./ResponsiveImage";
+import RotatingDeskGlobe from "./RotatingDeskGlobe";
 
 import Link from "next/link";
 import {useTheme} from "./SiteShell";
@@ -139,6 +140,8 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
    <div className="login-left-plant" role="img" aria-label="Money plant">
     <ResponsiveImage sizes="250px" src="/29e8b631-9c79-4996-b225-405227aa1153.png" alt="" draggable={false}/>
    </div>
+
+   <RotatingDeskGlobe onFact={()=>tell(worldFacts[Math.floor(Math.random()*worldFacts.length)])}/>
 
    <aside className="login-left-drink">
     <button type="button" className="login-drink-button" onClick={()=>setChooser(!chooser)} aria-expanded={chooser} aria-label={`Change drink: ${activeDrink.label}`}>

@@ -2184,6 +2184,7 @@ linear-gradient(180deg,var(--paper),var(--surface))}
 .login-study-desk .login-light-switch,
 .login-study-desk .login-left-plant,
 .login-study-desk .login-left-drink,
+.login-study-desk .login-rotating-globe,
 .login-study-desk .login-desk-notebook{z-index:5}
 .login-left-plant{
   top:390px;
@@ -2413,4 +2414,131 @@ linear-gradient(180deg,var(--paper),var(--surface))}
   .login-bookshelf>span:nth-child(n+9){display:none}
   .login-left-plant{left:39%;width:105px}
   .login-left-drink{left:65%;width:108px}
+}
+
+
+/* ===== ROTATING LOGIN DESK GLOBE ===== */
+.login-rotating-globe{
+  position:absolute!important;
+  z-index:7!important;
+  top:382px;
+  left:43.2%;
+  width:172px;
+  height:286px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  color:var(--ink);
+  pointer-events:auto;
+}
+.login-globe-axis{
+  position:relative;
+  width:168px;
+  height:168px;
+  padding:8px;
+  border:6px solid #8b201d;
+  border-right-color:#a85a4f;
+  border-radius:50%;
+  background:color-mix(in srgb,var(--paper) 82%,#d9bc91 18%);
+  box-shadow:0 13px 22px #3b211b30,inset 0 0 0 1px #fff7eb66;
+  transform:rotate(-12deg);
+}
+.login-globe-axis:before,.login-globe-axis:after{
+  content:"";
+  position:absolute;
+  left:50%;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#6d4034;
+  transform:translateX(-50%);
+  z-index:4;
+}
+.login-globe-axis:before{top:-8px}
+.login-globe-axis:after{bottom:-8px}
+.login-globe-canvas{
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  overflow:hidden;
+  opacity:0;
+  transform:rotate(12deg) scale(.96);
+  background:#6f9299;
+  transition:opacity .28s ease,transform .28s ease;
+  box-shadow:inset -13px -9px 18px #1d35404d,inset 7px 5px 14px #ffffff20;
+}
+.login-globe-canvas.is-ready{opacity:1;transform:rotate(12deg) scale(1)}
+.login-globe-neck{
+  width:12px;
+  height:34px;
+  margin-top:-3px;
+  border-radius:0 0 7px 7px;
+  background:linear-gradient(90deg,#6d4034,#a85a4f,#6d4034);
+  box-shadow:0 5px 8px #3820182e;
+}
+.login-globe-base{
+  width:92px;
+  height:18px;
+  margin-top:-2px;
+  border:1px solid #6d4034;
+  border-radius:50%;
+  background:linear-gradient(180deg,#a85a4f,#7b2c29);
+  box-shadow:0 7px 12px #38201838,inset 0 2px #d88a7b66;
+}
+.login-globe-fact{
+  margin-top:7px;
+  min-height:29px;
+  padding:5px 11px;
+  border:1px solid color-mix(in srgb,var(--red) 34%,var(--line));
+  border-radius:999px;
+  background:var(--paper);
+  color:var(--red);
+  font-size:9px;
+  font-weight:850;
+  cursor:pointer;
+  box-shadow:0 4px 10px #44271b1c;
+}
+.login-globe-fact:hover{background:var(--surface)}
+.login-globe-credit{
+  margin-top:4px;
+  color:var(--muted);
+  font-size:6px;
+  text-decoration:none;
+  opacity:.75;
+}
+.login-globe-credit:hover{text-decoration:underline}
+:root[data-theme="dark"] .login-globe-axis{
+  background:#352825;
+  border-color:#842d2d;
+  border-right-color:#b65c54;
+}
+:root[data-theme="dark"] .login-globe-neck{
+  background:linear-gradient(90deg,#642323,#9d4642,#642323);
+}
+:root[data-theme="dark"] .login-globe-base{
+  border-color:#642323;
+  background:linear-gradient(180deg,#9d4642,#642323);
+}
+
+@media(max-width:1000px){
+  .login-rotating-globe{left:42%;width:150px;top:395px}
+  .login-globe-axis{width:148px;height:148px}
+}
+@media(max-width:720px){
+  .login-rotating-globe{top:366px;left:24%;width:106px;height:190px}
+  .login-globe-axis{width:104px;height:104px;padding:5px;border-width:4px}
+  .login-globe-axis:before,.login-globe-axis:after{width:7px;height:7px}
+  .login-globe-axis:before{top:-6px}.login-globe-axis:after{bottom:-6px}
+  .login-globe-neck{width:8px;height:22px}
+  .login-globe-base{width:62px;height:13px}
+  .login-globe-fact{margin-top:4px;min-height:24px;padding:4px 8px;font-size:7px}
+  .login-globe-credit{font-size:5px}
+  .login-left-plant{left:48%}
+  .login-left-drink{left:70%;width:112px}
+}
+@media(max-width:430px){
+  .login-rotating-globe{left:25%;width:98px}
+  .login-globe-axis{width:96px;height:96px}
+  .login-left-plant{left:49%;width:100px}
+  .login-left-drink{left:71%;width:100px}
 }
