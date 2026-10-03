@@ -5,7 +5,7 @@ import {useEffect,useState} from "react";
 import {
   ArrowLeft,BookOpen,CheckCircle2,ChevronRight,CircleDollarSign,
   Compass,Crown,ExternalLink,Landmark,PauseCircle,PlayCircle,
-  RotateCcw,Shield,Ship,Store,Swords,UsersRound,Sparkles
+  RotateCcw,Shield,Ship,Store,Swords,UsersRound
 } from "lucide-react";
 import styles from "./chapter.module.css";
 
@@ -892,7 +892,7 @@ const mentorNotes:Record<Exclude<SectionId,"tasks">,{title:string;explain:string
 function MentorNote({section}:{section:Exclude<SectionId,"tasks">}){
   const note=mentorNotes[section];
   return <aside className={styles.mentorNote}>
-    <div className={styles.mentorHeading}><Sparkles/><div><h3>{note.title}</h3></div></div>
+    <div className={styles.mentorHeading}><div><h3>{note.title}</h3></div></div>
     <p>{note.explain}</p>
     <div className={styles.mentorPrompts}>
       <article><strong>চোখ বন্ধ করে কল্পনা করো</strong><p>{note.imagine}</p></article>
@@ -1397,7 +1397,7 @@ export default function BgsChapterOne(){
             {revolutionaryPeople.map((person,i)=><button key={person.name} className={`${selectedRevolutionary===i?styles.revolutionaryActive:""} ${person.category==="martyr"?styles.martyrCard:styles.leaderCard}`} onClick={()=>setSelectedRevolutionary(i)}>
               <div className={person.category==="martyr"?styles.goldenPortrait:styles.dignifiedPortrait}>
                 <Portrait person={person}/>
-                {person.category==="martyr"&&<span className={styles.sparkleBadge}><Sparkles/> শ্রদ্ধাঞ্জলি</span>}
+                {person.category==="martyr"&&<span className={styles.sparkleBadge}>শ্রদ্ধাঞ্জলি</span>}
               </div>
               <span><small>{person.badge}</small><strong>{person.name}</strong><em>{person.year}</em></span>
             </button>)}
@@ -1406,7 +1406,7 @@ export default function BgsChapterOne(){
           <article className={`${styles.revolutionaryFocus} ${revolutionaryPeople[selectedRevolutionary].category==="martyr"?styles.revolutionaryFocusMartyr:""}`}>
             <div className={revolutionaryPeople[selectedRevolutionary].category==="martyr"?styles.goldenPortraitLarge:styles.dignifiedPortraitLarge}>
               <Portrait person={revolutionaryPeople[selectedRevolutionary]} large/>
-              {revolutionaryPeople[selectedRevolutionary].category==="martyr"&&<span className={styles.memorialRibbon}><Sparkles/> শহীদ হিসেবে স্মরণীয়</span>}
+              {revolutionaryPeople[selectedRevolutionary].category==="martyr"&&<span className={styles.memorialRibbon}>শহীদ হিসেবে স্মরণীয়</span>}
             </div>
             <div>
               <small>{revolutionaryPeople[selectedRevolutionary].badge} · {revolutionaryPeople[selectedRevolutionary].year}</small>
@@ -1426,7 +1426,6 @@ export default function BgsChapterOne(){
           </div>
 
           <div className={styles.patriotismPanel}>
-            <Sparkles/>
             <div>
               <small>তাঁদের প্রতি শ্রদ্ধা · আমাদের দায়িত্ব</small>
               <h3>দেশপ্রেম শুধু আত্মত্যাগে নয়—দায়িত্বশীল জীবনযাপনেও প্রকাশ পায়</h3>
