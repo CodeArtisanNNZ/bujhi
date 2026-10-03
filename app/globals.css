@@ -2043,7 +2043,7 @@ linear-gradient(180deg,var(--paper),var(--surface))}
   position:absolute;
   z-index:20;
   top:20px;
-  left:50%;
+  left:31%;
   transform:translateX(-50%);
   min-width:150px;
   padding:7px 18px;
@@ -2069,8 +2069,8 @@ linear-gradient(180deg,var(--paper),var(--surface))}
   position:absolute;
   z-index:4;
   top:91px;
-  left:7%;
-  width:86%;
+  left:6%;
+  width:54%;
   height:205px;
   display:flex;
   align-items:flex-end;
@@ -2113,8 +2113,8 @@ linear-gradient(180deg,var(--paper),var(--surface))}
   position:absolute;
   z-index:3;
   top:278px;
-  left:7%;
-  width:86%;
+  left:6%;
+  width:54%;
   height:22px;
   background:#a9784d;
   border-top:4px solid #c49a70;
@@ -2134,8 +2134,8 @@ linear-gradient(180deg,var(--paper),var(--surface))}
   position:absolute;
   z-index:3;
   top:290px;
-  left:-1.5%;
-  width:350px;
+  left:-2.5%;
+  width:330px;
   height:365px;
   pointer-events:none;
   filter:drop-shadow(8px 12px 10px #4b1b182c);
@@ -2186,8 +2186,8 @@ linear-gradient(180deg,var(--paper),var(--surface))}
 .login-study-desk .login-desk-notebook{z-index:5}
 .login-left-plant{
   top:390px;
-  left:17%;
-  width:160px;
+  left:15%;
+  width:145px;
   height:230px;
   transform-origin:bottom center;
   animation:plantSway 7s ease-in-out infinite;
@@ -2202,8 +2202,8 @@ linear-gradient(180deg,var(--paper),var(--surface))}
 }
 .login-left-drink{
   top:535px;
-  left:28%;
-  width:165px;
+  left:26%;
+  width:150px;
   min-height:190px;
 }
 .login-drink-button{
@@ -2273,8 +2273,9 @@ linear-gradient(180deg,var(--paper),var(--surface))}
 .login-drink-menu button.active{background:#8b201d;color:white}
 .login-desk-notebook{
   top:365px;
-  left:42%;
-  width:50%;
+  left:43%;
+  right:2%;
+  width:auto;
   min-height:360px;
   padding:28px 34px 27px 48px;
   border:1px solid #c7b899;
@@ -2370,9 +2371,12 @@ linear-gradient(180deg,var(--paper),var(--surface))}
   font-size:.78rem;
 }
 @media(max-width:1000px){
-  .login-desk-notebook{left:40%;width:56%}
-  .login-left-plant{left:14%}
-  .login-left-drink{left:24%}
+  .login-desk-notebook{left:41%;right:2%;width:auto}
+  .login-bookshelf{left:4%;width:58%}
+  .login-shelf-board{left:4%;width:58%}
+  .login-desk-class{left:33%}
+  .login-left-plant{left:12%}
+  .login-left-drink{left:23%}
 }
 @media(max-width:720px){
   .login-study-desk{min-height:1040px}
