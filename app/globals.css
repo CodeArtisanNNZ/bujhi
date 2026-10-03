@@ -2030,9 +2030,10 @@ linear-gradient(180deg,var(--paper),var(--surface))}
 .login-study-desk{
   position:relative;
   isolation:isolate;
-  width:min(1440px,100%);
+  width:100%;
+  max-width:none;
   min-height:800px;
-  margin:0 auto;
+  margin:0;
   overflow:hidden;
   background:
     radial-gradient(ellipse at 24% 18%,rgba(var(--surface-rgb),.66),transparent 62%),
@@ -2043,7 +2044,7 @@ linear-gradient(180deg,var(--paper),var(--surface))}
   position:absolute;
   z-index:20;
   top:20px;
-  left:31%;
+  left:29%;
   transform:translateX(-50%);
   min-width:150px;
   padding:7px 18px;
@@ -2069,8 +2070,8 @@ linear-gradient(180deg,var(--paper),var(--surface))}
   position:absolute;
   z-index:4;
   top:91px;
-  left:6%;
-  width:54%;
+  left:0;
+  width:57%;
   height:205px;
   display:flex;
   align-items:flex-end;
@@ -2113,8 +2114,8 @@ linear-gradient(180deg,var(--paper),var(--surface))}
   position:absolute;
   z-index:3;
   top:278px;
-  left:6%;
-  width:54%;
+  left:0;
+  width:57%;
   height:22px;
   background:#a9784d;
   border-top:4px solid #c49a70;
@@ -2134,7 +2135,7 @@ linear-gradient(180deg,var(--paper),var(--surface))}
   position:absolute;
   z-index:3;
   top:290px;
-  left:-2.5%;
+  left:-4.5%;
   width:330px;
   height:365px;
   pointer-events:none;
@@ -2186,7 +2187,7 @@ linear-gradient(180deg,var(--paper),var(--surface))}
 .login-study-desk .login-desk-notebook{z-index:5}
 .login-left-plant{
   top:390px;
-  left:15%;
+  left:13%;
   width:145px;
   height:230px;
   transform-origin:bottom center;
@@ -2202,7 +2203,7 @@ linear-gradient(180deg,var(--paper),var(--surface))}
 }
 .login-left-drink{
   top:535px;
-  left:26%;
+  left:27%;
   width:150px;
   min-height:190px;
 }
@@ -2272,14 +2273,17 @@ linear-gradient(180deg,var(--paper),var(--surface))}
 .login-drink-menu button:hover{background:var(--surface)}
 .login-drink-menu button.active{background:#8b201d;color:white}
 .login-desk-notebook{
-  top:365px;
-  left:43%;
-  right:2%;
+  top:38px;
+  bottom:0;
+  left:57%;
+  right:0;
   width:auto;
-  min-height:360px;
-  padding:28px 34px 27px 48px;
+  min-height:0;
+  padding:92px 44px 42px 58px;
   border:1px solid #c7b899;
-  border-radius:6px 15px 15px 6px;
+  border-right:0;
+  border-bottom:0;
+  border-radius:18px 0 0 0;
   background:
     repeating-linear-gradient(180deg,transparent 0 31px,#9e8e7319 32px),
     var(--surface);
@@ -2371,12 +2375,12 @@ linear-gradient(180deg,var(--paper),var(--surface))}
   font-size:.78rem;
 }
 @media(max-width:1000px){
-  .login-desk-notebook{left:41%;right:2%;width:auto}
-  .login-bookshelf{left:4%;width:58%}
-  .login-shelf-board{left:4%;width:58%}
-  .login-desk-class{left:33%}
-  .login-left-plant{left:12%}
-  .login-left-drink{left:23%}
+  .login-desk-notebook{top:30px;bottom:0;left:56%;right:0;width:auto;padding:84px 28px 36px 48px}
+  .login-bookshelf{left:0;width:56%}
+  .login-shelf-board{left:0;width:56%}
+  .login-desk-class{left:28%}
+  .login-left-plant{left:11%}
+  .login-left-drink{left:27%}
 }
 @media(max-width:720px){
   .login-study-desk{min-height:1040px}
