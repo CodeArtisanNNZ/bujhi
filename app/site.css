@@ -87,3 +87,22 @@ html[lang="bn"] #bujhi-content :is(.about-hero,.classroom-intro) h1{font-size:cl
 #bujhi-content iframe{display:block;width:100%;max-width:100%;border:0;color-scheme:light}
 :root[data-theme="dark"] #bujhi-content iframe{color-scheme:dark}
 @media(max-width:700px){#bujhi-content iframe{max-width:100%;margin-inline:0}}
+
+
+/* Dark mode sticky notes: full Bujhi red */
+:root[data-theme="dark"] [class*="stickyHotspot"]{
+  background:#8b201d!important;
+  color:#fff7eb!important;
+  border-color:#b8645e!important;
+  border-top-color:#d98b80!important;
+  box-shadow:0 12px 26px #160b093d,inset 0 1px #ffffff18!important;
+}
+:root[data-theme="dark"] [class*="stickyHotspot"] strong,
+:root[data-theme="dark"] [class*="stickyHotspot"] span,
+:root[data-theme="dark"] [class*="stickyHotspot"] svg{
+  color:#fff7eb!important;
+}
+:root[data-theme="dark"] [class*="stickyHotspot"]:before{
+  background:#a6403c!important;
+  border-color:#cf7b72!important;
+}
