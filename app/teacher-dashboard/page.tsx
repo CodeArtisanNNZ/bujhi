@@ -251,7 +251,7 @@ export default function TeacherDashboard(){
                 : <span>PDF এখনো যুক্ত হয়নি</span>}</div>
             </div>
             {selectedClass===8&&selectedBook.id==="bangladesh-global-studies"&&<div className={styles.choiceList}>
-              <strong>অধ্যায় ১ · উপনিবেশিক যুগ ও বাংলার স্বাধীনতা সংগ্রাম</strong>
+              <strong>অধ্যায় ১ · ঔপনিবেশিক যুগ ও বাংলার স্বাধীনতা সংগ্রাম</strong>
               <div><a href="/bgs/class-8/chapter-1">Bujhi? lesson plan · ধারণা, timeline, ইউরোপীয় বাণিজ্য ও পলাশীর ৮-block story খোলো →</a></div>
             </div>}
             {selectedClass===8&&selectedBook.id==="science"&&<div className={styles.choiceList}>
