@@ -4,12 +4,12 @@ Bujhi is a research-driven education platform for the Bangladesh school curricul
 
 ## Current routes
 
-- `/` — interactive homepage.
-- `/about` — project story and research context.
-- `/register` — choose student or teacher entry.
-- `/signup` — create an account.
-- `/login` — log in.
-- `/dashboard` — first Class 8 student learning desk.
+- `/`, interactive homepage.
+- `/about`, project story and research context.
+- `/register`, choose student or teacher entry.
+- `/signup`, create an account.
+- `/login`, log in.
+- `/dashboard`, first Class 8 student learning desk.
 
 ## Class 8 dashboard MVP
 

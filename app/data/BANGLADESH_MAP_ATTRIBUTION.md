@@ -2,9 +2,9 @@
 
 Bujhi's Bangladesh interactive atlas uses simplified Bangladesh administrative geometry adapted from:
 
-- **bd-map** by Farhan Sadik Galib — MIT License
+- **bd-map** by Farhan Sadik Galib, MIT License
   https://github.com/farhansadikgalib/bd-map
-- Geometry source documented by bd-map: **geoBoundaries gbOpen, Bangladesh ADM1–ADM4** — CC BY 4.0
+- Geometry source documented by bd-map: **geoBoundaries gbOpen, Bangladesh ADM1 to ADM4**, CC BY 4.0
   https://www.geoboundaries.org/
 
 The copied Bujhi data files are:

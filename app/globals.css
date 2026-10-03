@@ -496,7 +496,7 @@ html,body{max-width:100%;overflow-x:hidden}.hero>*{min-width:0}.hero-actions a{b
 }
 
 /* =========================================================
-   FINAL AUTH DESK BOOK ALIGNMENT — DESKTOP TUNED
+   FINAL AUTH DESK BOOK ALIGNMENT, DESKTOP TUNED
    Based on the current deployed desktop artwork.
    Keep this block LAST in globals.css.
    ========================================================= */
@@ -540,7 +540,7 @@ html,body{max-width:100%;overflow-x:hidden}.hero>*{min-width:0}.hero-actions a{b
   text-shadow:0 1px 2px rgba(34, 18, 12, 0.65);
 }
 
-/* TOP CREAM BOOK — move DOWN onto the actual spine */
+/* TOP CREAM BOOK, move DOWN onto the actual spine */
 .book-spots button:nth-child(1) {
   left:34.7%;
   top:62.7%;
@@ -629,7 +629,7 @@ html,body{max-width:100%;overflow-x:hidden}.hero>*{min-width:0}.hero-actions a{b
     width:41%;
   }
 }
-/* MOVE BOOK TITLES LEFT — FINAL OVERRIDE */
+/* MOVE BOOK TITLES LEFT, FINAL OVERRIDE */
 
 .book-spots button:nth-child(1) {
   left:25.5% !important;
@@ -771,7 +771,7 @@ html,body{max-width:100%;overflow-x:hidden}.hero>*{min-width:0}.hero-actions a{b
 
 /* =========================================================
    PHONE-FIRST RESPONSIVE PASS
-   Keeps every public/auth/register/about page usable at 320–480px.
+   Keeps every public/auth/register/about page usable at 320 to 480px.
    ========================================================= */
 @media (max-width:700px){
   html,body{width:100%;max-width:100%;overflow-x:hidden}

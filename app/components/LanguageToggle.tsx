@@ -28,7 +28,7 @@ const pairs:[string,string][]=[
  ["Hidden desk quiz","গোপন ডেস্ক কুইজ"],["Why do we experience seasons?","ঋতু পরিবর্তন কেন হয়?"],
  ["Earth moves closer to the Sun","পৃথিবী সূর্যের আরও কাছে চলে যায়"],["Earth’s axis is tilted","পৃথিবীর অক্ষ হেলানো"],["The Sun becomes colder","সূর্য আরও ঠান্ডা হয়ে যায়"],
  ["Exactly. The tilt changes how directly sunlight reaches each hemisphere.","ঠিক। অক্ষের হেলানো অবস্থার কারণে দুই গোলার্ধে সূর্যালোকের সরাসরি পড়ার পরিমাণ বদলে যায়।"],
- ["Not quite. Distance is not the main reason—try the tilt.","ঠিক নয়। দূরত্ব প্রধান কারণ নয়—অক্ষের হেলানো অবস্থাটি ভাবুন।"],
+ ["Not quite. Distance is not the main reason, try the tilt.","ঠিক নয়। দূরত্ব প্রধান কারণ নয়, অক্ষের হেলানো অবস্থাটি ভাবুন।"],
 
  ["Back home","হোমে ফিরুন"],["Our story","আমাদের গল্প"],["Bujhi? began with a frustration I knew personally.","বুঝি?-এর শুরু এমন একটি হতাশা থেকে, যা আমি নিজে অনুভব করেছি।"],
  ["I learned how to prepare the expected answer. But preparing an answer and understanding an idea were not always the same thing.","আমি পরীক্ষায় প্রত্যাশিত উত্তর তৈরি করতে শিখেছিলাম। কিন্তু উত্তর তৈরি করা আর একটি ধারণা সত্যি বোঝা সব সময় এক ছিল না।"],

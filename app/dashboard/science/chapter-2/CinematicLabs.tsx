@@ -113,7 +113,7 @@ function MitosisLab({start=0}:{start?:number}){
   </div>
   {challenge==="asking"&&<div className={styles.challengeChoices}>{mito.map((x,i)=><button key={x.key} onClick={()=>{setIndex(i);setChallenge(i===3?"correct":"wrong")}}>{x.name}</button>)}</div>}
   {challenge==="correct"&&<div className={styles.correct}><Check/>ঠিক! সেটাই মেটাফেজ।</div>}
-  {challenge==="wrong"&&<div className={styles.wrong}>আরেকবার দেখো—মাঝখানে এক সরল রেখায় সাজা ধাপটি খুঁজে বের করো।</div>}
+  {challenge==="wrong"&&<div className={styles.wrong}>আরেকবার দেখো, মাঝখানে এক সরল রেখায় সাজা ধাপটি খুঁজে বের করো।</div>}
  </div>
 }
 
@@ -125,7 +125,7 @@ function DivisionTypes(){
   meiosis:{title:"মিয়োসিস",sub:"হ্রাসমূলক বিভাজন",cells:4,label:"2n → 4 × n",copy:"জনন মাতৃকোষ দুই দফা বিভাজিত হয়ে চারটি haploid কোষ তৈরি করে।"}
  }[type];
  return <div className={styles.lab}>
-  <div className={styles.labTop}><div><span className={styles.badge}><Gamepad2/>PICK AND COMPARE</span><h3>একই 'কোষ বিভাজন'—কিন্তু তিন রকম গল্প</h3><p>একটি বেছে দেখো, তারপর অন্যটির সঙ্গে তুলনা করো।</p></div></div>
+  <div className={styles.labTop}><div><span className={styles.badge}><Gamepad2/>PICK AND COMPARE</span><h3>একই 'কোষ বিভাজন', কিন্তু তিন রকম গল্প</h3><p>একটি বেছে দেখো, তারপর অন্যটির সঙ্গে তুলনা করো।</p></div></div>
   <div className={styles.switcher}>{(["amitosis","mitosis","meiosis"] as const).map(k=><button key={k} className={type===k?styles.on:""} onClick={()=>setType(k)}>{k==="amitosis"?"অ্যামাইটোসিস":k==="mitosis"?"মাইটোসিস":"মিয়োসিস"}</button>)}</div>
   <div className={styles.divisionPlayground}>
    <div className={styles.parentCell}><div className={styles.nucleus}/><span>মাতৃকোষ</span></div>
@@ -204,7 +204,7 @@ function ZoomLab(){
   {name:"জিন",copy:"জিন হলো DNA-এর নির্দিষ্ট কার্যকর অংশ।"}
  ];
  return <div className={styles.lab}>
-  <div className={styles.labTop}><div><span className={styles.badge}><Dna/>ZOOM JOURNEY</span><h3>কোষ থেকে জিন পর্যন্ত</h3><p>প্রতিটি layer ট্যাপ করো—ভেতরে ঢুকে যাও।</p></div></div>
+  <div className={styles.labTop}><div><span className={styles.badge}><Dna/>ZOOM JOURNEY</span><h3>কোষ থেকে জিন পর্যন্ত</h3><p>প্রতিটি layer ট্যাপ করো, ভেতরে ঢুকে যাও।</p></div></div>
   <div className={styles.zoomWorld}>
    <div className={styles.zoomVisual}>
     <div className={styles.bigCell} style={{opacity:level===0?1:.18}}/>
@@ -243,7 +243,7 @@ function HeredityGame(){
  const[dad,setDad]=useState<"A"|"a">("a");
  const child=mom+dad;
  return <div className={styles.lab}>
-  <div className={styles.labTop}><div><span className={styles.badge}><Gamepad2/>MIX THE GENES</span><h3>বংশগতি: allele mix করে দেখো</h3><p>এটি inheritance বোঝানোর সরল model—বাস্তব বৈশিষ্ট্য অনেক সময় বহু gene ও environment দ্বারা প্রভাবিত হয়।</p></div></div>
+  <div className={styles.labTop}><div><span className={styles.badge}><Gamepad2/>MIX THE GENES</span><h3>বংশগতি: allele mix করে দেখো</h3><p>এটি inheritance বোঝানোর সরল model, বাস্তব বৈশিষ্ট্য অনেক সময় বহু gene ও environment দ্বারা প্রভাবিত হয়।</p></div></div>
   <div className={styles.parentPickers}>
    <div><span>মায়ের allele</span><div>{["A","a"].map(x=><button key={x} onClick={()=>setMom(x as "A"|"a")} className={mom===x?styles.on:""}>{x}</button>)}</div></div>
    <ArrowRight/>

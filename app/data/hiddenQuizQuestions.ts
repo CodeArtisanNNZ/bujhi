@@ -217,7 +217,7 @@ const coreRaw=[
     "6",
     "৬",
     "The human heart has two atria and two ventricles, for a total of four chambers.",
-    "মানুষের হৃদপিণ্ডে দুটি atrium ও দুটি ventricle—মোট চারটি প্রকোষ্ঠ থাকে।"
+    "মানুষের হৃদপিণ্ডে দুটি atrium ও দুটি ventricle, মোট চারটি প্রকোষ্ঠ থাকে।"
   ],
   [
     "Biology",

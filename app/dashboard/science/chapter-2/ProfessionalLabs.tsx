@@ -104,7 +104,7 @@ function MitosisMovie({start=0}:{start?:number}){
   <div className={styles.stageRail}>{mitoStages.map((s,i)=><button key={s.name} className={stage===i?styles.activeStage:""} onClick={()=>{setStage(i);setPlaying(false)}}><b>{i+1}</b><span>{s.name}</span></button>)}</div>
   <div className={styles.miniChallenge}><Target/><div><strong>Quick challenge</strong><span>কোন stage-এ chromosome equator-এ সারি বাঁধে?</span></div><button onClick={()=>setQuiz("ask")}>Answer</button></div>
   {quiz==="ask"&&<div className={styles.answerRow}>{["প্রোফেজ","মেটাফেজ","অ্যানাফেজ"].map((x,i)=><button key={x} onClick={()=>setQuiz(i===1?"ok":"no")}>{x}</button>)}</div>}
-  {quiz==="ok"&&<div className={styles.good}><Check/>ঠিক — মেটাফেজ।</div>}
+  {quiz==="ok"&&<div className={styles.good}><Check/>ঠিক, মেটাফেজ।</div>}
   {quiz==="no"&&<div className={styles.retry}>মেটাফেজ stage-টা আবার play করে দেখো।</div>}
  </div>
 }
@@ -132,7 +132,7 @@ function GrowthLab(){
  const cells=Math.pow(2,round);
  const height=95+(round/10)*240;
  return <div className={styles.proLab}>
-  <div className={styles.proHead}><div><span className={styles.eyebrow}>GROWTH LAB</span><h3>Cell division দিয়ে একটি চারা বড় করো</h3><p>Slider সরাও—cell number, root এবং shoot একসাথে কীভাবে বদলায় দেখো।</p></div></div>
+  <div className={styles.proHead}><div><span className={styles.eyebrow}>GROWTH LAB</span><h3>Cell division দিয়ে একটি চারা বড় করো</h3><p>Slider সরাও, cell number, root এবং shoot একসাথে কীভাবে বদলায় দেখো।</p></div></div>
   <div className={styles.growthArea}>
    <div className={styles.plantWorld}><div className={styles.sun}/><div className={styles.cloud+" "+styles.cloud1}/><div className={styles.cloud+" "+styles.cloud2}/><div className={styles.soil}/><div className={styles.plant} style={{height}}><div className={styles.stem}/><div className={styles.leaf+" "+styles.l1}/><div className={styles.leaf+" "+styles.l2}/>{round>5&&<><div className={styles.leaf+" "+styles.l3}/><div className={styles.leaf+" "+styles.l4}/></>}<div className={styles.root+" "+styles.r1}/><div className={styles.root+" "+styles.r2}/></div></div>
    <div className={styles.growthControl}><span>division round</span><strong>{round}</strong><input type="range" min="0" max="10" value={round} onChange={e=>setRound(Number(e.target.value))}/><div><small>সরল model-এ cell</small><b>{cells.toLocaleString("bn-BD")}</b></div><p>প্রতি round-এ সব cell ভাগ হলে সংখ্যা হয় <b>2<sup>n</sup></b>। বাস্তব tissue-তে সব cell একই সময়ে ভাগ হয় না।</p></div>
@@ -167,7 +167,7 @@ function MeiosisMovie({start=0}:{start?:number}){
  const d=meiStages[stage];
  const centers=d.cells===1?[[400,230]]:d.cells===2?[[255,230],[545,230]]:[[165,230],[325,230],[485,230],[645,230]];
  return <div className={styles.proLab}>
-  <div className={styles.proHead}><div><span className={styles.eyebrow}><Zap/>TWO-DIVISION ENGINE</span><h3>মিয়োসিস · chromosome tracker</h3><p>maternal আর paternal chromosome আলাদা colour-এ follow করো—pairing থেকে চারটি haploid cell পর্যন্ত।</p></div><button className={crossover?styles.toolOn:""} onClick={()=>setCrossover(v=>!v)}>Crossing-over</button></div>
+  <div className={styles.proHead}><div><span className={styles.eyebrow}><Zap/>TWO-DIVISION ENGINE</span><h3>মিয়োসিস · chromosome tracker</h3><p>maternal আর paternal chromosome আলাদা colour-এ follow করো, pairing থেকে চারটি haploid cell পর্যন্ত।</p></div><button className={crossover?styles.toolOn:""} onClick={()=>setCrossover(v=>!v)}>Crossing-over</button></div>
   <div className={styles.svgStage}>
    <svg viewBox="0 0 800 460" role="img" aria-label={"Meiosis "+d.name}>
     <defs><radialGradient id="meiCell" cx="35%" cy="28%"><stop offset="0" stopColor="#ffe6d8"/><stop offset=".72" stopColor="#efaa9d"/><stop offset="1" stopColor="#c96a66"/></radialGradient></defs>
@@ -201,7 +201,7 @@ function ZoomJourney(){
   {name:"জিন",copy:"gene হলো DNA-এর নির্দিষ্ট কার্যকর অংশ।"}
  ];
  return <div className={styles.proLab}>
-  <div className={styles.proHead}><div><span className={styles.eyebrow}><Dna/>ZOOM JOURNEY</span><h3>একটি কোষের ভিতরে ঢুকে যাও</h3><p>Level ট্যাপ করো—camera যেন cell থেকে gene পর্যন্ত zoom করছে।</p></div></div>
+  <div className={styles.proHead}><div><span className={styles.eyebrow}><Dna/>ZOOM JOURNEY</span><h3>একটি কোষের ভিতরে ঢুকে যাও</h3><p>Level ট্যাপ করো, camera যেন cell থেকে gene পর্যন্ত zoom করছে।</p></div></div>
   <div className={styles.zoomStage}>
    <div className={styles.zoomArt} data-level={level}><div className={styles.zCell}/><div className={styles.zNucleus}/><div className={styles.zChromosome}>X</div><div className={styles.zDna}>{Array.from({length:13},(_,i)=><i key={i}/>)}</div><div className={styles.geneBand}>GENE</div></div>
    <div className={styles.zoomCopy}><span>LEVEL {level+1}/5</span><h4>{levels[level].name}</h4><p>{levels[level].copy}</p><div className={styles.zoomHint}>Next layer →</div></div>

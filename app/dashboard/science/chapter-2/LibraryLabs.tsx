@@ -116,7 +116,7 @@ function ProvidedResourceLab({kind,focus}:{kind:ResourceKind;focus:string}){
     <div className={styles.resourceNote}>
       <span>{current.kind==="video"?"VIDEO":current.kind==="site"?"INTERACTIVE":"REFERENCE"}</span>
       <p>{current.note}</p>
-      {current.kind==="site"&&kind==="mitosis"&&<small>বুঝি?-এর ভেতরে এম্বেড করা সাইট না খুললে উপরের “বড় করে দেখো” ব্যবহার করো—মূল সিমুলেশন সরাসরি খুলবে।</small>}
+      {current.kind==="site"&&kind==="mitosis"&&<small>বুঝি?-এর ভেতরে এম্বেড করা সাইট না খুললে উপরের “বড় করে দেখো” ব্যবহার করো, মূল সিমুলেশন সরাসরি খুলবে।</small>}
     </div>
   </section>;
 }
@@ -159,7 +159,7 @@ function divisionDoc(){
   const box=document.getElementById('children'),result=document.getElementById('result'),desc=document.getElementById('desc');
   function render(t){document.querySelectorAll('#types button').forEach(b=>b.classList.toggle('active',b.dataset.type===t));box.innerHTML='';for(let i=0;i<cfg[t].n;i++){const d=document.createElement('div');d.className='mini';d.innerHTML='<div class="nucleus" style="width:48px;height:48px;border-width:3px"></div><b>'+(t==='meiosis'?'n':'2n')+'</b>';box.appendChild(d)}result.textContent=cfg[t].r;desc.textContent=cfg[t].d;anime({targets:'#children .mini',scale:[.2,1],opacity:[0,1],delay:anime.stagger(90),duration:650,easing:'easeOutBack'})}
   document.querySelectorAll('#types button').forEach(b=>b.addEventListener('click',()=>render(b.dataset.type)));render('mitosis');`;
-  return page("Cell Division Compare","একই 'কোষ বিভাজন'—কিন্তু outcome এক নয়। বেছে দেখে তুলনা করো।",body,script,animeLib);
+  return page("Cell Division Compare","একই 'কোষ বিভাজন', কিন্তু outcome এক নয়। বেছে দেখে তুলনা করো।",body,script,animeLib);
 }
 
 function mitosisDoc(start:number){
@@ -195,7 +195,7 @@ function meiosisDoc(start:number){
   const names=${JSON.stringify(stages)},counts=${JSON.stringify(cells)};let s=${start},timer=null;const rail=document.getElementById('rail');names.forEach((n,i)=>{const b=document.createElement('button');b.textContent=(i+1)+' · '+n;b.onclick=()=>go(i);rail.appendChild(b)});
   function go(n){s=n;const box=document.getElementById('mei');box.innerHTML='';for(let i=0;i<counts[s];i++){const d=document.createElement('div');d.className='mini';d.innerHTML='<div style="display:flex;gap:8px;align-items:center;justify-content:center;height:100%;font:900 34px Arial"><span style="color:#4d7898">X</span><span style="color:#a94c7b">X</span></div><b>'+(s>=4?'n':'2n')+'</b>';box.appendChild(d)}document.getElementById('nm').textContent=names[s];document.getElementById('pl').textContent=s<4?'diploid phase':'haploid phase';[...rail.children].forEach((b,i)=>b.classList.toggle('active',i===s));anime({targets:'#mei .mini',scale:[.4,1],opacity:[0,1],delay:anime.stagger(90),duration:650,easing:'easeOutBack'})}
   document.getElementById('prev').onclick=()=>go((s+8)%9);document.getElementById('next').onclick=()=>go((s+1)%9);document.getElementById('play').onclick=e=>{if(timer){clearInterval(timer);timer=null;e.currentTarget.textContent='চালাও'}else{timer=setInterval(()=>go((s+1)%9),2100);e.currentTarget.textContent='Pause'}};go(s);`;
-  return page("Meiosis · Anime.js Tracker","2n থেকে n এবং শেষে চারটি haploid cell—stage ধরে follow করো।",body,script,animeLib);
+  return page("Meiosis · Anime.js Tracker","2n থেকে n এবং শেষে চারটি haploid cell, stage ধরে follow করো।",body,script,animeLib);
 }
 
 function zoomDoc(){

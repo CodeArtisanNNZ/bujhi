@@ -20,7 +20,7 @@ export default function StudentBookPage(){
   const book=useMemo(()=>classKey?findNctbBook(classKey,bookId):undefined,[classKey,bookId]);
   const bookUsesEnglish=Boolean(book&&/^[A-Za-z]/.test(book.title));
   const ui=(bn:string,en:string)=>bookUsesEnglish?en:bn;
-  const classLabelBn:Record<StudentClassKey,string>={"6":"ষষ্ঠ শ্রেণি","7":"সপ্তম শ্রেণি","8":"অষ্টম শ্রেণি","9-10":"নবম–দশম শ্রেণি"};
+  const classLabelBn:Record<StudentClassKey,string>={"6":"ষষ্ঠ শ্রেণি","7":"সপ্তম শ্রেণি","8":"অষ্টম শ্রেণি","9-10":"নবম থেকে দশম শ্রেণি"};
   const classLabel=classKey?(bookUsesEnglish?studentClassLabels[classKey]:classLabelBn[classKey]):"";
   const[ready,setReady]=useState(false);
   const[pdfStatus,setPdfStatus]=useState("");

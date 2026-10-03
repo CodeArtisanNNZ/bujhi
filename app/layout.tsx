@@ -6,7 +6,7 @@ import "./site.css";
 export const viewport:Viewport={width:"device-width",initialScale:1,viewportFit:"cover"};
 
 export const metadata:Metadata={
-  title:"Bujhi? — Less memorizing. More understanding.",
+  title:"Bujhi?: Less memorizing. More understanding.",
   description:"Multiple ways to understand and explain every subject.",
   icons:{icon:"/optimized/bujhi-icon-96.webp"}
 };

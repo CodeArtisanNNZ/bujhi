@@ -24,7 +24,7 @@ const facts:Record<string,FactSet>={
   dhaka:{
     history:{en:"Dhaka became an important Mughal administrative centre in the early 17th century, when the city was known as Jahangirnagar.",bn:"১৭শ শতকের শুরুতে ঢাকা মোগল বাংলার একটি গুরুত্বপূর্ণ প্রশাসনিক কেন্দ্র হয়ে ওঠে; তখন শহরটি জাহাঙ্গীরনগর নামেও পরিচিত ছিল।"},
     geography:{en:"Dhaka Division sits in central Bangladesh within a landscape shaped by the Padma, Jamuna and Meghna river systems.",bn:"ঢাকা বিভাগ বাংলাদেশের মধ্যভাগে অবস্থিত; পদ্মা, যমুনা ও মেঘনা নদী ব্যবস্থার প্রভাবে এ অঞ্চলের ভূপ্রকৃতি গড়ে উঠেছে।"},
-    culture:{en:"Jamdani weaving around the Dhaka–Narayanganj area is one of the region’s best-known textile traditions.",bn:"ঢাকা–নারায়ণগঞ্জ অঞ্চলের জামদানি বয়ন এই এলাকার সবচেয়ে পরিচিত ঐতিহ্যবাহী বস্ত্রশিল্পগুলোর একটি।"}
+    culture:{en:"Jamdani weaving around the Dhaka to Narayanganj area is one of the region’s best-known textile traditions.",bn:"ঢাকা থেকে নারায়ণগঞ্জ অঞ্চলের জামদানি বয়ন এই এলাকার সবচেয়ে পরিচিত ঐতিহ্যবাহী বস্ত্রশিল্পগুলোর একটি।"}
   },
   chattagram:{
     history:{en:"Chattogram has long connected Bengal with maritime trade across the Bay of Bengal.",bn:"চট্টগ্রাম দীর্ঘদিন ধরে বঙ্গোপসাগরকেন্দ্রিক সমুদ্রবাণিজ্যের মাধ্যমে বাংলাকে বাইরের বিশ্বের সঙ্গে যুক্ত করেছে।"},
@@ -33,7 +33,7 @@ const facts:Record<string,FactSet>={
   },
   sylhet:{
     history:{en:"Sylhet grew as an important regional centre shaped by trade, migration and long-standing Sufi traditions.",bn:"বাণিজ্য, অভিবাসন এবং দীর্ঘদিনের সুফি ঐতিহ্যের প্রভাবে সিলেট একটি গুরুত্বপূর্ণ আঞ্চলিক কেন্দ্র হিসেবে গড়ে ওঠে।"},
-    geography:{en:"The Surma–Kushiyara river system, haor wetlands and tea-growing hills define much of Sylhet’s landscape.",bn:"সুরমা–কুশিয়ারা নদী ব্যবস্থা, হাওর এবং চা-বাগানের টিলা সিলেটের ভূদৃশ্যের বড় বৈশিষ্ট্য।"},
+    geography:{en:"The Surma to Kushiyara river system, haor wetlands and tea-growing hills define much of Sylhet’s landscape.",bn:"সুরমা থেকে কুশিয়ারা নদী ব্যবস্থা, হাওর এবং চা-বাগানের টিলা সিলেটের ভূদৃশ্যের বড় বৈশিষ্ট্য।"},
     culture:{en:"Tea gardens, regional cuisine and a distinctive local language are central parts of Sylhet’s cultural identity.",bn:"চা-বাগান, আঞ্চলিক খাবার এবং স্বতন্ত্র স্থানীয় ভাষা সিলেটের সাংস্কৃতিক পরিচয়ের গুরুত্বপূর্ণ অংশ।"}
   },
   rajshahi:{

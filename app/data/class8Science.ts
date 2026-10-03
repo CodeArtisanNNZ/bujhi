@@ -1,5 +1,5 @@
 // Transcribed from the supplied NCTB Class 8 Science textbook (2026),
-// Chapter 1, printed pages 1–12 (PDF pages 6–17).
+// Chapter 1, printed pages 1 to 12 (PDF pages 6 to 17).
 export type Localized={bn:string;en:string};
 export type Group={id:string;name:Localized;feature:Localized;example:Localized;branch:"invertebrate"|"vertebrate"};
 export const chapterOne={number:1,title:{bn:"প্রাণিজগতের শ্রেণিবিন্যাস",en:"Classification of the Animal Kingdom"},startPage:6,endPage:17};

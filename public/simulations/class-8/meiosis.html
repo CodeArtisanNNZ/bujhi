@@ -879,7 +879,7 @@
             const isPair1 = trackedChromosomeId.startsWith("P1");
             const isMaternal = trackedChromosomeId.endsWith("M");
 
-            const chrName = `${isMaternal ? 'মাতৃক (🔴 লাল)' : 'পিতৃক (🔵 নীল)'} — জোড় ${isPair1 ? '১ (দীর্ঘ)' : '২ (সংক্ষিপ্ত)'}`;
+            const chrName = `${isMaternal ? 'মাতৃক (🔴 লাল)' : 'পিতৃক (🔵 নীল)'}, জোড় ${isPair1 ? '১ (দীর্ঘ)' : '২ (সংক্ষিপ্ত)'}`;
 
             let locationNote = "";
             if (currentStageIndex <= 4) {
