@@ -1,5 +1,6 @@
 "use client";
 import ResponsiveImage from "./ResponsiveImage";
+import DeskCalendar from "./DeskCalendar";
 import {useTheme} from "./SiteShell";
 
 import {useEffect,useMemo,useRef,useState} from "react";
@@ -160,6 +161,8 @@ export default function StudentDashboard(){
           <span className={styles.roomLightThumb}><i/></span>
         </span>
       </button>
+
+      <DeskCalendar className={styles.liveCalendar}/>
 
       <div className={styles.moneyPlant} role="img" aria-label="Money plant">
         <ResponsiveImage sizes="360px" src="/29e8b631-9c79-4996-b225-405227aa1153.png" alt="" draggable={false} loading="eager"/>

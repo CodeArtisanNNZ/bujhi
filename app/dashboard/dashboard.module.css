@@ -272,3 +272,40 @@
   .studyNotebook{left:10px;width:calc(100% - 20px)}
   .actionHotspots{left:10px;width:calc(100% - 20px)}
 }
+
+
+/* Live desk calendar and refined left lamp placement */
+.liveCalendar{
+  position:absolute;z-index:8;top:486px;left:20.8%;width:72px;height:104px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  border:1px solid color-mix(in srgb,var(--line) 82%,#9b7658);
+  border-radius:7px;background:var(--paper);color:var(--ink);
+  box-shadow:0 10px 20px #4b2d1d24,0 3px 0 #9c704b;
+  overflow:visible;text-align:center;
+}
+.liveCalendar :global(.deskCalendarRings){position:absolute;top:-7px;left:12px;right:12px;display:flex;justify-content:space-between}
+.liveCalendar :global(.deskCalendarRings i){width:9px;height:15px;border-radius:999px;background:#6f5545;box-shadow:inset 0 1px #ffffff66}
+.liveCalendar :global(.deskCalendarMonth){position:absolute;top:0;left:0;right:0;height:25px;display:grid;place-items:center;border-radius:6px 6px 0 0;background:#8b201d;color:#fff7eb;font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:.04em}
+.liveCalendar :global(.deskCalendarDate){margin-top:16px;font:700 29px/1 Georgia,"Bujhi Bangla",serif;color:var(--ink)}
+.liveCalendar :global(.deskCalendarWeekday){margin-top:4px;font-size:8px;font-weight:800;color:var(--red)}
+.liveCalendar :global(.deskCalendarYear){margin-top:3px;font-size:7px;color:var(--muted)}
+
+.lamp{left:-4.5%!important}
+
+@media(max-width:1000px){
+  .lamp{left:-32px!important}
+  .liveCalendar{top:492px;left:18.5%;width:66px;height:96px}
+  .liveCalendar :global(.deskCalendarDate){font-size:26px}
+}
+@media(max-width:700px){
+  .lamp{left:-56px!important}
+  .liveCalendar{top:432px;left:42%;width:60px;height:86px}
+  .liveCalendar :global(.deskCalendarMonth){height:21px;font-size:7px}
+  .liveCalendar :global(.deskCalendarDate){font-size:24px}
+  .liveCalendar :global(.deskCalendarWeekday){font-size:7px}
+  .liveCalendar :global(.deskCalendarYear){font-size:6px}
+}
+@media(max-width:390px){
+  .lamp{left:-64px!important}
+  .liveCalendar{left:43%;width:56px;height:82px}
+}

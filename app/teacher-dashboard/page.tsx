@@ -1,5 +1,6 @@
 "use client";
 import ResponsiveImage from "../components/ResponsiveImage";
+import DeskCalendar from "../components/DeskCalendar";
 import {useTheme} from "../components/SiteShell";
 
 // Production teacher desk route
@@ -156,6 +157,8 @@ export default function TeacherDashboard(){
           <span className={styles.roomLightThumb}><i/></span>
         </span>
       </button>
+
+      <DeskCalendar className={styles.liveCalendar}/>
 
       <div className={styles.moneyPlant} aria-hidden="true">
         <ResponsiveImage sizes="360px" src="/29e8b631-9c79-4996-b225-405227aa1153.png" alt="" draggable={false}/>
