@@ -32,6 +32,7 @@ const drinks:{id:AuthDrink;label:string;image:string}[]=[
 export default function AuthDesk({kind}:{kind:"login"|"signup"}){
  const {theme,toggleTheme}=useTheme();
  const light=theme==="light";
+ const[loginDeskLightOn,setLoginDeskLightOn]=useState(true);
  const[show,setShow]=useState(false);
  const[drink,setDrink]=useState<AuthDrink>("tea");
  const[chooser,setChooser]=useState(false);
@@ -49,9 +50,22 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
  useEffect(()=>{
   const q=new URLSearchParams(window.location.search);
   setRole(q.get("role")==="teacher"?"teacher":"student");
+  try{
+   const savedLamp=localStorage.getItem("bujhi-login-desk-lamp");
+   if(savedLamp==="off")setLoginDeskLightOn(false);
+   if(savedLamp==="on")setLoginDeskLightOn(true);
+  }catch{}
  },[]);
 
  function tell(text:string){setNote(text)}
+
+ function toggleLoginDeskLamp(){
+  setLoginDeskLightOn(current=>{
+   const next=!current;
+   try{localStorage.setItem("bujhi-login-desk-lamp",next?"on":"off")}catch{}
+   return next;
+  });
+ }
 
  async function submit(e:React.FormEvent<HTMLFormElement>){
   e.preventDefault();
@@ -113,7 +127,7 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
   }
  }
 
- if(kind==="login")return <main className={`auth-page login-study-page ${light?"lamp-on":"lamp-off"}`}>
+ if(kind==="login")return <main className={`auth-page login-study-page ${loginDeskLightOn?"lamp-on":"lamp-off"}`}>
   <section className="login-study-desk" aria-label="Bujhi login study desk">
    <div className="login-desk-class"><strong>Your study desk</strong><span>Student · Teacher</span></div>
 
@@ -133,8 +147,8 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
     <ResponsiveImage sizes="360px" src="/ef6af6f1-43c9-41fe-9c24-5f3873a95c33.png" alt="" draggable={false}/>
    </div>
 
-   <button type="button" className="login-light-switch" onClick={toggleTheme} aria-pressed={light} aria-label={light?"Turn lamp off":"Turn lamp on"}>
-    <span>{light?"ON":"OFF"}</span>
+   <button type="button" className="login-light-switch" onClick={toggleLoginDeskLamp} aria-pressed={loginDeskLightOn} aria-label={loginDeskLightOn?"Dim the desk light":"Brighten the desk light"}>
+    <span>{loginDeskLightOn?"ON":"OFF"}</span>
    </button>
 
    <div className="login-left-plant" role="img" aria-label="Money plant">
