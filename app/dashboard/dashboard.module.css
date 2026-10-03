@@ -39,7 +39,7 @@
 .studyNotebook{position:absolute;top:396px;left:26%;width:47%;min-height:258px;padding:24px 30px 24px 43px;border:1px solid #c7b899;border-radius:6px 15px 15px 6px;background:repeating-linear-gradient(180deg,transparent 0 27px,#9e8e7319 28px),var(--surface);box-shadow:3px 4px var(--line),5px 7px #f6ead2,9px 16px 24px #51361e33}
 .notebookBinding{position:absolute;left:9px;top:12px;bottom:12px;width:16px;background:repeating-linear-gradient(180deg,transparent 0 15px,#867762 16px 19px,transparent 20px 28px);border-right:1px solid #bfae92}
 .studyNotebook p{margin:0 0 10px;text-transform:uppercase;letter-spacing:.15em;font-size:10px;color:var(--red);font-weight:700}.studyNotebook h1{font:400 clamp(24px,2.8vw,32px)/1.45 Georgia,"Bujhi Bangla",serif;color:var(--ink);margin:0 0 12px}.studyNotebook>span{font-size:12px;color:var(--muted)}.studyNotebook button{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:17px;padding:11px 16px;border:0;border-radius:7px;background:#8b201d;color:#fff4e3;cursor:pointer;font-size:12px}.studyNotebook small{display:block;margin-top:13px;font-size:10px;color:var(--muted)}
-.stickyHotspot{position:absolute;z-index:4;top:342px;right:22%;width:140px;min-height:100px;padding:12px;border:0;border-radius:2px;background:#ebd89b;color:var(--muted);box-shadow:2px 5px 9px #65452126;text-align:left;cursor:pointer}.stickyHotspot strong{display:block;font:600 12px Georgia,"Bujhi Bangla",serif;margin:5px 0}.stickyHotspot span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:10px;line-height:1.5}
+.stickyHotspot{position:absolute;z-index:4;top:342px;right:22%;width:140px;min-height:100px;padding:12px;border:1px solid color-mix(in srgb,var(--red) 28%,var(--line));border-top:4px solid var(--red);border-radius:9px;background:linear-gradient(180deg,color-mix(in srgb,var(--paper) 96%,#fff 4%),var(--surface));color:var(--ink);box-shadow:0 10px 24px #4b24151c,inset 0 1px #ffffff55;text-align:left;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}.stickyHotspot:hover{transform:translateY(-2px);box-shadow:0 14px 28px #4b241526,inset 0 1px #ffffff66;border-color:color-mix(in srgb,var(--red) 48%,var(--line))}.stickyHotspot>svg{color:var(--red)}.stickyHotspot strong{display:block;color:var(--red);font:700 12px Georgia,"Bujhi Bangla",serif;margin:5px 0}.stickyHotspot span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;color:var(--muted);font-size:10px;line-height:1.5}
 .actionHotspots{position:absolute;top:731px;left:26%;width:47%;display:flex;gap:12px;justify-content:center}.actionHotspots button{display:flex;align-items:center;justify-content:center;gap:0;flex:1;min-height:43px;border:1px solid #a57d56;border-radius:8px;background:var(--surface);color:var(--ink);box-shadow:0 3px 0 #9f734d;cursor:pointer;font-size:12px}
 .drinkArea{position:absolute;z-index:10;right:1.2%;top:572px;width:215px;height:195px}
 .cupHotspot{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;width:100%;height:100%;border:0;background:transparent;cursor:pointer;color:var(--ink);padding:0}
@@ -142,17 +142,18 @@
 .panelHeader p{margin:0 0 4px;color:var(--red);text-transform:uppercase;letter-spacing:.13em;font-size:.61rem;font-weight:900}
 .panelHeader h2{margin:0;color:var(--ink);font:700 clamp(1.8rem,4vw,2.65rem)/1 Georgia,"Bujhi Bangla",serif}
 .panelHeader small{display:block;margin-top:6px;color:var(--muted);font-size:.78rem}
-.noteHeaderIcon{background:#b08a43!important}
+.noteHeaderIcon{background:var(--red)!important;box-shadow:0 7px 18px color-mix(in srgb,var(--red) 24%,transparent)}
 .noteHeaderIcon svg{width:25px}
 .noteEditor{
-  width:100%;min-height:230px;resize:vertical;outline:none;border:1px solid #d7bc80;border-radius:13px;
-  background:repeating-linear-gradient(180deg,transparent 0 31px,rgba(124,103,67,.12) 32px),#f1dc99;
-  color:#3f2b1d;caret-color:#3f2b1d;padding:18px;font:600 1rem/2 Georgia,"Bujhi Bangla",serif;
+  width:100%;min-height:230px;resize:vertical;outline:none;border:1px solid color-mix(in srgb,var(--red) 30%,var(--line));border-radius:13px;
+  background:repeating-linear-gradient(180deg,transparent 0 31px,color-mix(in srgb,var(--red) 9%,transparent) 32px),var(--paper);
+  color:var(--ink);caret-color:var(--red);padding:18px;font:600 1rem/2 Georgia,"Bujhi Bangla",serif;
+  box-shadow:inset 4px 0 0 color-mix(in srgb,var(--red) 78%,transparent);
 }
-.noteEditor::placeholder{color:#7a624d;opacity:1}
-.noteEditor:focus{border-color:#9b742e;box-shadow:0 0 0 3px rgba(155,116,46,.12)}
+.noteEditor::placeholder{color:var(--muted);opacity:.78}
+.noteEditor:focus{border-color:var(--red);box-shadow:inset 4px 0 0 var(--red),0 0 0 3px color-mix(in srgb,var(--red) 13%,transparent)}
 .noteMeta{display:flex;justify-content:space-between;margin-top:8px;color:var(--muted);font-size:.7rem}
-.noteMeta strong{color:var(--muted)}
+.noteMeta strong{color:var(--red)}
 .practiceCards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .practiceCards article{
   min-height:170px;padding:18px;border:1px solid var(--line);border-radius:13px;background:var(--paper);
