@@ -57,7 +57,7 @@ export default function LearnBookPage(){
       <div className={styles.lessonWorkspace}>
         <Link className={styles.lessonCard} href="/bgs/class-8/chapter-1">
           <BookOpen/>
-          <strong>১. উপনিবেশিক যুগ ও বাংলার স্বাধীনতা সংগ্রাম</strong>
+          <strong>১. ঔপনিবেশিক যুগ ও বাংলার স্বাধীনতা সংগ্রাম</strong>
           <p>উপনিবেশের ধারণা → অশোক থেকে সিরাজ → ইউরোপীয়দের আগমন ও বাণিজ্য → পলাশীর কারণ ও ৮-block story।</p>
         </Link>
       </div>
