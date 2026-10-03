@@ -50,7 +50,7 @@
 .pageDim .roomLightTrack{background:linear-gradient(180deg,#2f2521,#211a17);border-color:#57463e}
 .pageDim .roomLightOff{color:#d2c4b8}
 .pageDim .roomLightOn{color:#9f8b78}
-.moneyPlant{position:absolute;z-index:2;top:316px;right:3.2%;width:184px;height:258px;transform-origin:bottom center;animation:plantSway 7s ease-in-out infinite;pointer-events:none}
+.moneyPlant{position:absolute;z-index:2;top:286px;right:3.2%;width:184px;height:258px;transform-origin:bottom center;animation:plantSway 7s ease-in-out infinite;pointer-events:none}
 .moneyPlant img{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom;filter:drop-shadow(7px 10px 7px #39231324);user-select:none;pointer-events:none}
 .studyNotebook{position:absolute;top:396px;left:26%;width:47%;min-height:258px;padding:24px 30px 24px 43px;border:1px solid #c7b899;border-radius:6px 15px 15px 6px;background:repeating-linear-gradient(180deg,transparent 0 27px,#9e8e7319 28px),var(--surface);box-shadow:3px 4px var(--line),5px 7px #f6ead2,9px 16px 24px #51361e33}
 .notebookBinding{position:absolute;left:9px;top:12px;bottom:12px;width:16px;background:repeating-linear-gradient(180deg,transparent 0 15px,#867762 16px 19px,transparent 20px 28px);border-right:1px solid #bfae92}
@@ -199,7 +199,7 @@
 .bookHotspots{top:145px;height:195px;left:4%;width:92%;overflow-x:auto;gap:7px;padding:0 5px 18px;scrollbar-width:thin;scrollbar-color:#9c7752 #dbc7aa}
 .bookHotspots button{flex:0 0 52px;width:52px;min-width:52px;height:150px}.bookHotspots button:nth-child(3n),.bookHotspots button:nth-child(4n){height:150px}.bookHotspots:after{position:fixed;display:none}
 .bookHotspots{border-bottom:12px solid #aa7e52;box-shadow:0 9px 12px #573c2422}.bookHotspots button:hover{transform:translateY(-4px)}
-.deskSurface{top:470px}.lamp{top:358px;left:-28px;width:245px;height:270px;transform:none}.roomLightSwitch{top:618px;left:4%;right:auto;min-height:38px;font-size:11px}.moneyPlant{top:342px;right:2%;width:148px;height:220px}
+.deskSurface{top:470px}.lamp{top:358px;left:-28px;width:245px;height:270px;transform:none}.roomLightSwitch{top:618px;left:4%;right:auto;min-height:38px;font-size:11px}.moneyPlant{top:312px;right:2%;width:148px;height:220px}
 .stickyHotspot{top:525px;right:6%;width:135px;min-height:90px}
 .studyNotebook{top:663px;left:5%;width:90%;min-height:242px;padding:21px 22px 20px 39px}.studyNotebook h1{font-size:29px}
 .actionHotspots{top:983px;left:5%;width:90%;gap:8px}.actionHotspots button{font-size:11px;gap:5px;min-height:44px}
@@ -245,7 +245,7 @@
 
   .deskSurface{top:365px}
   .lamp{top:320px;left:-44px;width:205px;height:235px}
-  .moneyPlant{top:325px;right:-5px;width:128px;height:188px}
+  .moneyPlant{top:295px;right:-5px;width:128px;height:188px}
   .roomLightSwitch{top:548px;left:4px;min-height:36px;padding:0 11px;font-size:10px}
   .stickyHotspot{top:492px;right:16px;width:118px;min-height:80px;padding:10px;font-size:10px}
   .stickyHotspot strong{font-size:11px}
