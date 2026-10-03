@@ -101,17 +101,16 @@ export default function CellZoomPreview({running,onFact}:Props){
           <i className="dna3d-backbone right"/>
         </div>)}
       </div>
-      <div className="dna3d-gene-bracket" aria-hidden="true"><span>{lang==="bn"?"জিন অঞ্চল":"GENE REGION"}</span></div>
+      <div className="dna3d-gene-bracket" aria-hidden="true"><span>{lang==="bn"?"জিন":"GENE"}</span></div>
     </div>
 
     <div className="dna3d-label">
-      <small>{lang==="bn"?"আণবিক দৃশ্য":"Molecular view"}</small>
-      <strong>{lang==="bn"?"DNA ডাবল হেলিক্স":"DNA Double Helix"}</strong>
+      <strong>{"DNA"}</strong>
     </div>
 
     <button type="button" className="dna3d-fact" onClick={showFact}>
-      {lang==="bn"?"তথ্যের জন্য চাপ দিন":"Tap for a fact"}
+      {lang==="bn"?"তথ্য":"Fact"}
     </button>
-    <span className="dna3d-drag-hint">{lang==="bn"?"ঘোরাতে টানুন":"Drag to rotate"}</span>
+    <span className="dna3d-drag-hint">{lang==="bn"?"টানুন":"Drag"}</span>
   </div>;
 }
