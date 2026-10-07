@@ -2848,3 +2848,33 @@ linear-gradient(180deg,var(--paper),var(--surface))}
     font-size:2.2rem!important;
   }
 }
+
+/* ===== SIGNUP MOBILE CUSTOM ARTWORK ===== */
+.desk-art-mobile{display:none!important}
+@media(max-width:650px){
+  .desk-scene{
+    padding-top:360px!important;
+  }
+  .desk-art-desktop{
+    display:none!important;
+  }
+  .desk-art-mobile{
+    display:block!important;
+    position:absolute!important;
+    inset:0 0 auto 0!important;
+    width:100%!important;
+    height:360px!important;
+    object-fit:cover!important;
+    object-position:center 43%!important;
+    filter:none!important;
+  }
+}
+@media(max-width:390px){
+  .desk-scene{
+    padding-top:330px!important;
+  }
+  .desk-art-mobile{
+    height:330px!important;
+    object-position:center 44%!important;
+  }
+}
