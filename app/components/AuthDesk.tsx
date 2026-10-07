@@ -3,7 +3,7 @@ import ResponsiveImage from "./ResponsiveImage";
 import Link from "next/link";
 import {useTheme} from "./SiteShell";
 import {useEffect,useState} from "react";
-import {ArrowLeft,Eye,EyeOff,Globe2,LampDesk,LockKeyhole,Mail,UserRound} from "lucide-react";
+import {ArrowLeft,Eye,EyeOff,Globe2,LockKeyhole,Mail,UserRound} from "lucide-react";
 
 const worldFacts=[
  "Earth's maps are flat models of a round world, so every map projection changes some shapes or distances.",
@@ -11,12 +11,6 @@ const worldFacts=[
  "About 71% of Earth's surface is covered by water.",
  "Bangladesh sits on the world's largest river delta."
 ];
-
-const bookFacts={
- "History of Bangladesh":["The Language Movement of 1952 helped establish Bangla as a state language and shaped Bangladesh's national identity.","Bangladesh became independent in 1971 after a nine-month Liberation War."],
- "People & Culture":["Pohela Boishakh welcomes the Bengali New Year with music, art, food and colourful processions.","Nakshi kantha turns layers of old cloth into embroidered stories of everyday life."],
- "Bangladesh Tomorrow":["Bangladesh launched Bangabandhu Satellite-1 in 2018.","Young Bangladeshis are building solutions in climate resilience, health, education and technology."]
-};
 
 type AuthDrink="boba"|"tea"|"coffee"|"water"|"lemonade";
 const drinks:{id:AuthDrink;label:string;image:string}[]=[
@@ -28,7 +22,7 @@ const drinks:{id:AuthDrink;label:string;image:string}[]=[
 ];
 
 export default function AuthDesk({kind}:{kind:"login"|"signup"}){
- const {theme,toggleTheme}=useTheme();
+ const {theme}=useTheme();
  const light=theme==="light";
  const[show,setShow]=useState(false);
  const[drink,setDrink]=useState<AuthDrink>("tea");
@@ -142,27 +136,8 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
    <ResponsiveImage loading="eager" fetchPriority="high" sizes="100vw" className="desk-art" src="/auth-desk-clean.png" alt="A study desk with a lamp, globe and books"/>
    <div className="lamp-glow" aria-hidden="true"/>
 
-   <button type="button" className="object-hotspot lamp-spot" onClick={toggleTheme} aria-label="Turn lamp on or off"><LampDesk/><span>{light?"Turn off":"Turn on"}</span></button>
    <button type="button" className="object-hotspot globe-spot" onClick={()=>tell(worldFacts[Math.floor(Math.random()*worldFacts.length)])} aria-label="Discover a world fact"><Globe2/><span>World fact</span></button>
 
-   <div className="book-spots">
-    {Object.entries(bookFacts).map(([title,facts])=><button type="button" key={title} onClick={()=>tell(facts[Math.floor(Math.random()*facts.length)])}><span>{title}</span></button>)}
-   </div>
-
-   <button type="button" className="mug-spot auth-drink-button" onClick={()=>setChooser(!chooser)} aria-label={`Current beverage: ${activeDrink.label}. Choose another beverage`}>
-    <span className="auth-drink-frame" aria-hidden="true">
-     {(drink==="tea"||drink==="coffee")&&<span className="auth-drink-steam"><i/><i/><i/></span>}
-     <ResponsiveImage sizes="180px" src={activeDrink.image} alt="" draggable={false}/>
-    </span>
-    <span className="cup-name">{activeDrink.label}</span>
-   </button>
-
-   {chooser&&<div className="drink-menu auth-drink-menu">
-    {drinks.map(item=><button type="button" key={item.id} className={drink===item.id?"active":""} onClick={()=>{setDrink(item.id);setChooser(false);tell(`${item.label} selected. Choose whatever helps your study desk feel comfortable.`)}}>
-     <span className="auth-drink-thumb" aria-hidden="true"><ResponsiveImage sizes="80px" src={item.image} alt="" draggable={false}/></span>
-     <span>{item.label}</span>
-    </button>)}
-   </div>}
    {note&&<aside className="desk-note"><button type="button" onClick={()=>setNote("")}>×</button><p>{note}</p></aside>}
 
    <article className="auth-notebook">
