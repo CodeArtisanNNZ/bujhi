@@ -177,8 +177,8 @@
 .revolutionaryFocus dl{margin:12px 0}.revolutionaryFocus dl>div{padding:11px 0;border-top:1px solid #ffffff1c}.revolutionaryFocus dt{color:#efc778;font-size:9px;font-weight:900;text-transform:uppercase}.revolutionaryFocus dd{margin:4px 0 0;color:#eaded4}
 .respectLine{margin:13px 0 0;padding:13px 15px;border-left:4px solid #e0b84e;border-radius:0 10px 10px 0;background:rgba(var(--surface-rgb),0.051);color:#f7e7c2;font:700 14px/1.55 Georgia,"Bujhi Bangla",serif}
 .revolutionaryOrgs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}.revolutionaryOrgs article{padding:17px;border:1px solid var(--line);border-radius:14px;background:var(--paper)}.revolutionaryOrgs article small{color:var(--red);font-size:9px;font-weight:900}.revolutionaryOrgs article h3{font:700 20px Georgia,"Bujhi Bangla",serif;margin:5px 0}.revolutionaryOrgs article p{margin:0;color:var(--muted)}
-.patriotismPanel{display:grid;grid-template-columns:52px 1fr;gap:14px;align-items:start;margin-top:16px;padding:20px;border-radius:16px;background:linear-gradient(135deg,#8f621c,#b9862e 35%,#5b3b15 100%);color:#fff8e6;box-shadow:0 10px 28px #8a5d1f20}
-.patriotismPanel>svg{width:42px;height:42px;color:#ffe08a;filter:drop-shadow(0 0 8px #ffd76c99)}.patriotismPanel small{font-weight:900;color:#ffe39c}.patriotismPanel h3{margin:4px 0 7px;font:700 26px Georgia,"Bujhi Bangla",serif}.patriotismPanel p{margin:0;color:#f5e8cf}
+.patriotismPanel{display:block;margin-top:16px;padding:22px 24px;border-radius:16px;background:linear-gradient(135deg,#8f621c,#b9862e 35%,#5b3b15 100%);color:#fff8e6;box-shadow:0 10px 28px #8a5d1f20;overflow:hidden}.patriotismPanel>div{width:100%;min-width:0;max-width:100%}
+.patriotismPanel>svg{width:42px;height:42px;color:#ffe08a;filter:drop-shadow(0 0 8px #ffd76c99)}.patriotismPanel small{display:block;font-weight:900;color:#ffe39c}.patriotismPanel h3{max-width:900px;margin:5px 0 9px;font:700 26px/1.35 Georgia,"Bujhi Bangla",serif}.patriotismPanel p{max-width:980px;margin:0;color:#f5e8cf;line-height:1.75;white-space:normal;word-break:normal;overflow-wrap:normal}
 @keyframes tributeTwinkle{0%,100%{opacity:.45;transform:scale(.85) rotate(0)}50%{opacity:1;transform:scale(1.18) rotate(12deg)}}
 @media(max-width:1100px){
   .revolutionaryTimeline{grid-template-columns:repeat(3,1fr)}
@@ -186,7 +186,7 @@
 }
 @media(max-width:760px){
   .revolutionaryFocus{grid-template-columns:1fr}.goldenPortraitLarge,.dignifiedPortraitLarge{min-height:300px}.goldenPortraitLarge .portraitLarge,.dignifiedPortraitLarge .portraitLarge{min-height:288px;height:288px}
-  .revolutionaryOrgs{grid-template-columns:1fr}.patriotismPanel{grid-template-columns:1fr}.patriotismPanel>svg{width:34px;height:34px}
+  .revolutionaryOrgs{grid-template-columns:1fr}.patriotismPanel{padding:18px}.patriotismPanel>svg{width:34px;height:34px}
 }
 @media(max-width:560px){
   .revolutionaryTimeline{grid-template-columns:1fr 1fr}.revolutionaryGallery{grid-template-columns:1fr}.revolutionaryGallery>button{grid-template-columns:86px 1fr}.goldenPortrait .portrait,.goldenPortrait .portraitFallback,.dignifiedPortrait .portrait,.dignifiedPortrait .portraitFallback{width:86px;height:100px}
