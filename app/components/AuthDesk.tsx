@@ -3,7 +3,7 @@ import ResponsiveImage from "./ResponsiveImage";
 import Link from "next/link";
 import {useTheme} from "./SiteShell";
 import {useEffect,useState} from "react";
-import {ArrowLeft,Eye,EyeOff,Globe2,LockKeyhole,Mail,UserRound} from "lucide-react";
+import {ArrowLeft,Eye,EyeOff,LockKeyhole,Mail,UserRound} from "lucide-react";
 
 const worldFacts=[
  "Earth's maps are flat models of a round world, so every map projection changes some shapes or distances.",
@@ -136,7 +136,6 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
    <ResponsiveImage loading="eager" fetchPriority="high" sizes="100vw" className="desk-art" src="/auth-desk-clean.png" alt="A study desk with a lamp, globe and books"/>
    <div className="lamp-glow" aria-hidden="true"/>
 
-   <button type="button" className="object-hotspot globe-spot" onClick={()=>tell(worldFacts[Math.floor(Math.random()*worldFacts.length)])} aria-label="Discover a world fact"><Globe2/><span>World fact</span></button>
 
    {note&&<aside className="desk-note"><button type="button" onClick={()=>setNote("")}>×</button><p>{note}</p></aside>}
 
