@@ -134,7 +134,6 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
 
   <section className="desk-scene">
    <ResponsiveImage loading="eager" fetchPriority="high" sizes="100vw" className="desk-art" src="/auth-desk-clean.png" alt="A study desk with a lamp, globe and books"/>
-   <div className="lamp-glow" aria-hidden="true"/>
 
 
    {note&&<aside className="desk-note"><button type="button" onClick={()=>setNote("")}>×</button><p>{note}</p></aside>}
