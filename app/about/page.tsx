@@ -5,15 +5,15 @@ import {ArrowLeft,ArrowRight,BookOpen,ChevronLeft,ChevronRight,GraduationCap,Lig
 import {useRef,useState,type CSSProperties} from "react";
 const teamMembers=[
  {name:"Nusaiba Nusrat Zaman",role:"Founder · Bujhi",bio:"Building Bujhi around one belief: students should have more than one way to understand the same idea.",image:"/about-founder-nusaiba.webp"},
- {name:"Syed Mohammad Samiul Haque",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/syed-mohammad-samiul-haque.jpg"},
+ {name:"Talukder Khaleed Bin Hasan",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/talukder-khaleed-bin-hasan.webp"},
  {name:"Mrittika Rahman",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/mrittika-rahman.jpg"},
+ {name:"Syed Mohammad Samiul Haque",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/syed-mohammad-samiul-haque.jpg"},
  {name:"Syed Muhtasim Abrar Sahosh",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null},
  {name:"Adriana Arif",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/adriana-arif.webp"},
  {name:"Akira Jannat Faiza",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team-akira-jannat-faiza.jpg"},
  {name:"Sidratul Muntaha",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/sidratul-muntaha.webp"},
  {name:"Nowrin Tanhiad",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null},
- {name:"Azwad Akhlak",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null},
- {name:"Talukder Khaleed Bin Hasan",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/talukder-khaleed-bin-hasan.webp"}
+ {name:"Azwad Akhlak",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null}
 ] as const;
 
 // deploy retry: team photos 2
