@@ -30,7 +30,11 @@ function loadMappo(){
   return window.__bujhiMappoPromise;
 }
 
-export default function RotatingDeskGlobe({onFact}:{onFact:()=>void}){
+export default function RotatingDeskGlobe({
+  onFact,
+  className="",
+  showFact=true
+}:{onFact?:()=>void;className?:string;showFact?:boolean}){
   const mountRef=useRef<HTMLDivElement|null>(null);
   const[ready,setReady]=useState(false);
 
@@ -77,13 +81,13 @@ export default function RotatingDeskGlobe({onFact}:{onFact:()=>void}){
     return()=>{cancelled=true};
   },[]);
 
-  return <aside className="login-rotating-globe" aria-label="Rotating desk globe">
+  return <aside className={`login-rotating-globe ${className}`.trim()} aria-label="Rotating desk globe">
     <div className="login-globe-axis" aria-hidden={!ready}>
       <div ref={mountRef} className={ready?"login-globe-canvas is-ready":"login-globe-canvas"}/>
     </div>
     <span className="login-globe-neck" aria-hidden="true"/>
     <span className="login-globe-base" aria-hidden="true"/>
-    <button type="button" className="login-globe-fact" onClick={onFact}>World fact</button>
+    {showFact&&<button type="button" className="login-globe-fact" onClick={()=>onFact?.()}>World fact</button>}
     <a className="login-globe-credit" href="https://mappojs.com/" target="_blank" rel="noopener noreferrer">Globe by Mappo.js</a>
   </aside>;
 }

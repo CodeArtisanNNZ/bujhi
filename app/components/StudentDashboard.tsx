@@ -1,6 +1,7 @@
 "use client";
 import ResponsiveImage from "./ResponsiveImage";
 import DeskCalendar from "./DeskCalendar";
+import RotatingDeskGlobe from "./RotatingDeskGlobe";
 
 import {useEffect,useMemo,useRef,useState} from "react";
 import {useRouter} from "next/navigation";
@@ -175,6 +176,8 @@ export default function StudentDashboard(){
       <div className={styles.moneyPlant} role="img" aria-label="Money plant">
         <ResponsiveImage sizes="360px" src="/29e8b631-9c79-4996-b225-405227aa1153.png" alt="" draggable={false} loading="eager"/>
       </div>
+
+      <RotatingDeskGlobe className={styles.studentGlobe} showFact={false}/>
 
       <div className={styles.studyNotebook}>
         <div className={styles.notebookBinding} aria-hidden="true"/>
