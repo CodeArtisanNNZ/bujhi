@@ -2786,3 +2786,65 @@ linear-gradient(180deg,var(--paper),var(--surface))}
 }
 
 /* deploy retry: login desk lamp local dim */
+
+/* ===== NOTEBOOK-ONLY LOGIN PAGE ===== */
+.login-notebook-only-page{
+  min-height:calc(100vh - var(--nav-height,0px));
+  background:
+    radial-gradient(circle at 50% 18%,color-mix(in srgb,var(--surface) 88%,#fff 12%),transparent 48%),
+    var(--surface);
+}
+.login-notebook-only{
+  position:relative!important;
+  display:grid!important;
+  place-items:center!important;
+  width:100%!important;
+  min-height:calc(100vh - var(--nav-height,0px))!important;
+  margin:0!important;
+  padding:40px 24px!important;
+  overflow:auto!important;
+  background:transparent!important;
+}
+.login-notebook-only:after{
+  display:none!important;
+}
+.login-notebook-only>.login-desk-notebook{
+  position:relative!important;
+  inset:auto!important;
+  z-index:2!important;
+  width:min(760px,100%)!important;
+  min-height:560px!important;
+  padding:72px 64px 54px 78px!important;
+  border:1px solid #c7b899!important;
+  border-radius:18px!important;
+  background:
+    repeating-linear-gradient(180deg,transparent 0 31px,#9e8e7319 32px),
+    var(--surface)!important;
+  box-shadow:3px 4px var(--line),5px 7px #f6ead2,0 26px 55px #51361e24!important;
+}
+.login-notebook-only .login-desk-notebook .role-switch{
+  max-width:none!important;
+}
+.login-notebook-only .login-desk-notebook form{
+  gap:16px!important;
+}
+.login-notebook-only .login-desk-notebook input{
+  min-height:48px;
+}
+.login-notebook-only .login-desk-notebook .submit-auth{
+  min-height:48px;
+}
+@media(max-width:720px){
+  .login-notebook-only{
+    padding:18px 14px 28px!important;
+  }
+  .login-notebook-only>.login-desk-notebook{
+    width:100%!important;
+    min-height:0!important;
+    padding:38px 22px 34px 44px!important;
+    border-radius:14px!important;
+  }
+  .login-notebook-only .login-desk-notebook h1{
+    font-size:2.2rem!important;
+  }
+}

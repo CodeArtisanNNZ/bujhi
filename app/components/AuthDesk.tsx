@@ -1,7 +1,5 @@
 "use client";
 import ResponsiveImage from "./ResponsiveImage";
-import RotatingDeskGlobe from "./RotatingDeskGlobe";
-
 import Link from "next/link";
 import {useTheme} from "./SiteShell";
 import {useEffect,useState} from "react";
@@ -32,7 +30,6 @@ const drinks:{id:AuthDrink;label:string;image:string}[]=[
 export default function AuthDesk({kind}:{kind:"login"|"signup"}){
  const {theme,toggleTheme}=useTheme();
  const light=theme==="light";
- const[loginDeskLightOn,setLoginDeskLightOn]=useState(true);
  const[show,setShow]=useState(false);
  const[drink,setDrink]=useState<AuthDrink>("tea");
  const[chooser,setChooser]=useState(false);
@@ -50,22 +47,9 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
  useEffect(()=>{
   const q=new URLSearchParams(window.location.search);
   setRole(q.get("role")==="teacher"?"teacher":"student");
-  try{
-   const savedLamp=localStorage.getItem("bujhi-login-desk-lamp");
-   if(savedLamp==="off")setLoginDeskLightOn(false);
-   if(savedLamp==="on")setLoginDeskLightOn(true);
-  }catch{}
  },[]);
 
  function tell(text:string){setNote(text)}
-
- function toggleLoginDeskLamp(){
-  setLoginDeskLightOn(current=>{
-   const next=!current;
-   try{localStorage.setItem("bujhi-login-desk-lamp",next?"on":"off")}catch{}
-   return next;
-  });
- }
 
  async function submit(e:React.FormEvent<HTMLFormElement>){
   e.preventDefault();
@@ -127,58 +111,8 @@ export default function AuthDesk({kind}:{kind:"login"|"signup"}){
   }
  }
 
- if(kind==="login")return <main className={`auth-page login-study-page ${loginDeskLightOn?"lamp-on":"lamp-off"}`}>
-  <section className="login-study-desk" aria-label="Bujhi login study desk">
-   <div className="login-desk-class"><strong>Your study desk</strong><span>Student · Teacher</span></div>
-
-   <div className="login-bookshelf" aria-hidden="true">
-    {[
-      ["স","সাহিত্য","#8e2f2a"],["আ","আনন্দপাঠ","#a64f45"],["ব","বাংলা ব্যাকরণ","#6b543b"],
-      ["En","English","#476554"],["En","Grammar","#466873"],["গ","Mathematics","#55705f"],
-      ["ত","তথ্য ও যোগাযোগ","#76624f"],["ব","বাংলাদেশ","#6e7b58"],["ব","Science","#965443"],
-      ["শ","শারীরিক শিক্ষা","#a66e34"],["ক","Worklife","#3d6670"],["ক","Agriculture","#7d5f49"]
-    ].map(([glyph,title,color],index)=><span key={index} style={{background:color}}><b>{glyph}</b><em>{title}</em><small>NCTB</small></span>)}
-   </div>
-   <div className="login-shelf-board" aria-hidden="true"/>
-
-   <div className="login-desk-surface" aria-hidden="true"/>
-
-   <div className="login-lamp" aria-hidden="true">
-    <ResponsiveImage sizes="360px" src="/ef6af6f1-43c9-41fe-9c24-5f3873a95c33.png" alt="" draggable={false}/>
-   </div>
-
-   <button type="button" className="login-light-switch" onClick={toggleLoginDeskLamp} aria-pressed={loginDeskLightOn} aria-label={loginDeskLightOn?"Dim the desk light":"Brighten the desk light"}>
-    <span>{loginDeskLightOn?"ON":"OFF"}</span>
-   </button>
-
-   <div className="login-left-plant" role="img" aria-label="Money plant">
-    <ResponsiveImage sizes="250px" src="/29e8b631-9c79-4996-b225-405227aa1153.png" alt="" draggable={false}/>
-   </div>
-
-   <div className="login-mid-books" aria-hidden="true">
-    <span className="login-mid-book login-mid-book-one"><i/></span>
-    <span className="login-mid-book login-mid-book-two"><i/></span>
-    <span className="login-mid-book login-mid-book-three"><i/></span>
-   </div>
-
-   <RotatingDeskGlobe onFact={()=>tell(worldFacts[Math.floor(Math.random()*worldFacts.length)])}/>
-
-   <aside className="login-left-drink">
-    <button type="button" className="login-drink-button" onClick={()=>setChooser(!chooser)} aria-expanded={chooser} aria-label={`Change drink: ${activeDrink.label}`}>
-     <span className="login-drink-frame" aria-hidden="true">
-      {(drink==="tea"||drink==="coffee")&&<span className="auth-drink-steam"><i/><i/><i/></span>}
-      <ResponsiveImage sizes="150px" src={activeDrink.image} alt="" draggable={false}/>
-     </span>
-     <span>{activeDrink.label} · Change</span>
-    </button>
-    {chooser&&<div className="login-drink-menu">
-     {drinks.map(item=><button type="button" key={item.id} className={drink===item.id?"active":""} onClick={()=>{setDrink(item.id);setChooser(false)}}>
-      <span className="auth-drink-thumb" aria-hidden="true"><ResponsiveImage sizes="70px" src={item.image} alt="" draggable={false}/></span>
-      <span>{item.label}</span>
-     </button>)}
-    </div>}
-   </aside>
-
+ if(kind==="login")return <main className="auth-page login-study-page login-notebook-only-page">
+  <section className="login-study-desk login-notebook-only" aria-label="Bujhi login">
    <article className="login-desk-notebook">
     <div className="login-notebook-binding" aria-hidden="true"/>
     <p className="eyebrow">Welcome back</p>
