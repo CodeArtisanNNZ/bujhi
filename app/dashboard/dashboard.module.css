@@ -331,3 +331,32 @@
   .practiceCards p, .practiceCards button { font-size: .875rem; }
   .noteEditor { min-height: 180px; font-size: 16px; }
 }
+
+/* Phone-first student desk: learning controls lead; ornaments never crowd the page. */
+@media (max-width: 600px) {
+  .referenceDesk {
+    grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+    grid-template-areas: "class profile" "meta meta" "shelf shelf" "notebook notebook" "actions actions" "calendar calendar" "note note" "lamp plant" "switch drink";
+    gap: 11px;
+    padding: 12px 10px 26px;
+  }
+  .referenceDesk > .studentGlobe { display: none; }
+  .studyNotebook { padding: 19px 14px 19px 29px; }
+  .studyNotebook h1 { font-size: 1.4rem; }
+  .actionHotspots { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  .actionHotspots button { min-height: 52px; padding: 9px 4px; }
+  .liveCalendar { justify-self: stretch; max-width: 100%; min-height: 180px; }
+  .liveCalendar :global(.deskCalendarGrid) > span { height: 30px; }
+  .stickyHotspot { min-height: 92px; }
+  .referenceDesk > .lamp { max-height: 110px; overflow: hidden; }
+  .moneyPlant { max-height: 110px; }
+  .drinkImageFrame { width: 78px; height: 78px; }
+  .bookHotspots { height: 162px; gap: 7px; }
+  .bookHotspots button,.bookHotspots button:nth-child(3n),.bookHotspots button:nth-child(4n) { height: 132px; }
+  .dynamicProfile strong { max-width: 85px; }
+  .referenceDesk,.referenceDesk>* { min-width: 0; }
+}
+@media (max-width: 360px) {
+  .actionHotspots { grid-template-columns: minmax(0,1fr); }
+  .actionHotspots button { flex-direction: row; }
+}
