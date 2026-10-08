@@ -52,16 +52,18 @@ export default function LearnBookPage(){
       <div className={styles.lessonHero} style={{"--accent":book.accent} as React.CSSProperties}>
         <p>অষ্টম শ্রেণি · বাংলাদেশ ও বিশ্বপরিচয় · NCTB ২০২৬</p>
         <h1>বাংলাদেশ ও বিশ্বপরিচয়</h1>
-        <span>নাম-সাল মুখস্থের আগে ঘটনাগুলোর সম্পর্ক বুঝে নাও।</span>
+        <span>১৩টি অধ্যায় · প্রতিটি অধ্যায়ের লক্ষ্য, সহজ ব্যাখ্যা, হাতে-কলমে কাজ ও নিজে যাচাই।</span>
       </div>
       <div className={styles.lessonWorkspace}>
+        <Link className={styles.lessonCard} href="/bgs/class-8">
+          <BookOpen/><strong>সব ১৩টি অধ্যায় একসঙ্গে দেখো</strong>
+          <p>তোমার পছন্দের অধ্যায় বেছে নাও এবং ছোট ছোট ধাপে শিখো।</p>
+        </Link>
         <Link className={styles.lessonCard} href="/bgs/class-8/chapter-1">
-          <BookOpen/>
-          <strong>১. ঔপনিবেশিক যুগ ও বাংলার স্বাধীনতা সংগ্রাম</strong>
-          <p>উপনিবেশের ধারণা → অশোক থেকে সিরাজ → ইউরোপীয়দের আগমন ও বাণিজ্য → পলাশীর কারণ ও ৮-block story।</p>
+          <BookOpen/><strong>১. ঔপনিবেশিক যুগ ও বাংলার স্বাধীনতা সংগ্রাম</strong>
+          <p>আগের ইন্টারেক্টিভ timeline, ইউরোপীয় বাণিজ্য ও পলাশীর গল্প অক্ষত আছে।</p>
         </Link>
       </div>
-      <div className={styles.lessonNotice}>অধ্যায় ১-এর এখন পর্যন্ত আলোচিত প্রথম চারটি অংশ Bujhi? lesson plan-এ যুক্ত হয়েছে। পরের অংশগুলো একই chapter route-এ যোগ হবে।</div>
     </section>
   </main>;
 
