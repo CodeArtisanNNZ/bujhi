@@ -1,0 +1,11 @@
+.tracker{margin:18px 0;background:#fffaf1;color:#302720;border:1px solid #e5d8c4;border-radius:17px;padding:clamp(16px,3vw,25px)}
+.heading{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.heading h2{font-size:clamp(17px,2.4vw,23px);margin:0;line-height:1.4}
+.heading strong{font-size:14px;white-space:nowrap;background:#efe3d4;padding:9px 12px;border-radius:9px}
+.kicker{margin:0 0 4px;font-size:11px;letter-spacing:.1em;color:#98574c;font-weight:800}
+.tracker progress{width:100%;height:12px;accent-color:#99654f;border-radius:10px;margin:17px 0 13px}
+.checks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.checks label{display:flex;gap:11px;align-items:start;padding:13px;border:1px solid #e5d8c4;border-radius:10px;cursor:pointer;line-height:1.5;font-size:14px}
+.checks input{width:20px;height:20px;min-width:20px;margin:0;accent-color:#8d5149}
+.note{font-size:13px;color:#64594d;margin:14px 0 0;line-height:1.6}
+@media(max-width:700px){.checks{grid-template-columns:1fr}.heading{align-items:flex-start;flex-wrap:wrap}.checks label{min-height:48px}}
