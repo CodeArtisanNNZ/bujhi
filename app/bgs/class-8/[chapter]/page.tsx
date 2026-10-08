@@ -2,6 +2,7 @@ import Link from "next/link";
 import {notFound} from "next/navigation";
 import {class8BgsPlans,findBgsPlan} from "../../../data/class8BgsPlans";
 import styles from "../bgs.module.css";
+import BgsLessonTracker from "./BgsLessonTracker";
 
 export function generateStaticParams() {
   return class8BgsPlans.filter(c => c.number !== 1).map(c => ({chapter:"chapter-"+c.number}));
@@ -43,6 +44,7 @@ export default async function BgsChapterPlan({params}:{params:Promise<{chapter:s
         <details className={styles.check}><summary>আমি বুঝেছি কি? — প্রশ্ন দেখো</summary><p>{lesson.check}</p></details>
       </article>)}
     </section>
+    <BgsLessonTracker chapter={plan.number} lessonNames={plan.lessons.map(lesson=>lesson.title)}/>
     <section className={styles.panel}>
       <h2>শেষের যাচাই</h2>
       <ol>{plan.assessment.map(item=><li key={item}>{item}</li>)}</ol>
