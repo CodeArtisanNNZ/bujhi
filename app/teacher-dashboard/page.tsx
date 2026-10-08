@@ -10,6 +10,7 @@ import {
   LogOut,NotebookPen,StickyNote,UsersRound,X
 } from "lucide-react";
 import styles from "./teacher.module.css";
+import {class8BgsPlans} from "../data/class8BgsPlans";
 import {studentBookCatalog,type NctbBook,type StudentClassKey} from "../data/nctbBooks";
 
 type Profile={full_name?:string;role?:string;subject?:string};
@@ -262,8 +263,13 @@ export default function TeacherDashboard(){
                 : <span>PDF এখনো যুক্ত হয়নি</span>}</div>
             </div>
             {selectedClass===8&&selectedBook.id==="bangladesh-global-studies"&&<div className={styles.choiceList}>
-              <strong>অধ্যায় ১ · ঔপনিবেশিক যুগ ও বাংলার স্বাধীনতা সংগ্রাম</strong>
-              <div><a href="/bgs/class-8/chapter-1">Bujhi? lesson plan · ধারণা, timeline, ইউরোপীয় বাণিজ্য ও পলাশীর ৮-block story খোলো →</a></div>
+              <strong>১৩টি অধ্যায়ের পাঠ পরিকল্পনা</strong>
+              <div><a href="/bgs/class-8">সব অধ্যায়ের লক্ষ্য, সময়, কার্যক্রম ও মূল্যায়ন →</a></div>
+              {class8BgsPlans.map(chapter=><div key={chapter.number}>
+                <a href={chapter.number===1?"/bgs/class-8/chapter-1":"/bgs/class-8/chapter-"+chapter.number}>
+                  {chapter.number.toLocaleString("bn-BD")}. {chapter.title} →
+                </a>
+              </div>)}
             </div>}
             {selectedClass===8&&selectedBook.id==="science"&&<div className={styles.choiceList}>
               <strong>অধ্যায় ৪ · বীজ ও অঙ্কুরোদ্গম</strong>
