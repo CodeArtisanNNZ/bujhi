@@ -8,6 +8,7 @@ import styles from "../../../book.module.css";
 import {
   findNctbBook,studentClassKey,studentClassLabels,type StudentClassKey
 } from "../../../../../data/nctbBooks";
+import {class8BgsPlans} from "../../../../../data/class8BgsPlans";
 
 const validClasses:StudentClassKey[]=["6","7","8","9-10"];
 
@@ -47,23 +48,16 @@ export default function LearnBookPage(){
   if(!ready)return <main className={styles.page}><div className={styles.loading}>{ui("পাঠ খোলা হচ্ছে…","Opening lesson…")}</div></main>;
 
   if(classKey==="8"&&book.id==="bangladesh-global-studies")return <main className={styles.page}>
-    <header className={styles.topbar}><Link className={styles.back} href="/student-dashboard/books/8/bangladesh-global-studies"><ArrowLeft/>বাংলাদেশ ও বিশ্বপরিচয়ের বইয়ে ফিরি</Link></header>
-    <section className={styles.lessonPage}>
-      <div className={styles.lessonHero} style={{"--accent":book.accent} as React.CSSProperties}>
-        <p>অষ্টম শ্রেণি · বাংলাদেশ ও বিশ্বপরিচয় · NCTB ২০২৬</p>
-        <h1>বাংলাদেশ ও বিশ্বপরিচয়</h1>
-        <span>১৩টি অধ্যায় · প্রতিটি অধ্যায়ের লক্ষ্য, সহজ ব্যাখ্যা, হাতে-কলমে কাজ ও নিজে যাচাই।</span>
-      </div>
-      <div className={styles.lessonWorkspace}>
-        <Link className={styles.lessonCard} href="/bgs/class-8">
-          <BookOpen/><strong>সব ১৩টি অধ্যায় একসঙ্গে দেখো</strong>
-          <p>তোমার পছন্দের অধ্যায় বেছে নাও এবং ছোট ছোট ধাপে শিখো।</p>
-        </Link>
-        <Link className={styles.lessonCard} href="/bgs/class-8/chapter-1">
-          <BookOpen/><strong>১. ঔপনিবেশিক যুগ ও বাংলার স্বাধীনতা সংগ্রাম</strong>
-          <p>আগের ইন্টারেক্টিভ timeline, ইউরোপীয় বাণিজ্য ও পলাশীর গল্প অক্ষত আছে।</p>
-        </Link>
-      </div>
+    <section className={styles.lessonWorkspace} aria-label="বাংলাদেশ ও বিশ্বপরিচয়ের ১৩টি অধ্যায়">
+      {class8BgsPlans.map(chapter=><Link
+        key={chapter.number}
+        className={styles.lessonCard}
+        href={chapter.number===1?"/bgs/class-8/chapter-1":`/bgs/class-8/chapter-${chapter.number}`}
+      >
+        <BookOpen/>
+        <strong>{chapter.number.toLocaleString("bn-BD")}. {chapter.title}</strong>
+        <p>{chapter.question}</p>
+      </Link>)}
     </section>
   </main>;
 
