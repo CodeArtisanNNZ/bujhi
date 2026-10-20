@@ -179,6 +179,17 @@ export default function StudentDashboard(){
 
       <RotatingDeskGlobe className={styles.studentGlobe} showFact={false}/>
 
+      <div className={styles.mobileDeskBooks} aria-hidden="true">
+        {books.slice(0,5).map(book=><i key={book.id} style={{backgroundColor:book.accent}}><span>{book.glyph}</span></i>)}
+        <b><span/><span/><span/></b>
+      </div>
+
+      <div className={styles.mobileOpenNotebook} aria-hidden="true">
+        <div className={styles.mobileNotebookLeft}><span>Don&apos;t forget!<br/>You got this! :)</span></div>
+        <div className={styles.mobileNotebookSpine}/>
+        <div className={styles.mobileNotebookRight}><i/></div>
+      </div>
+
       <div className={styles.studyNotebook}>
         <div className={styles.notebookBinding} aria-hidden="true"/>
         <p>{studentClassLabels[classKey]} · My study desk</p>
