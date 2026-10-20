@@ -193,12 +193,12 @@ export default function TeacherDashboard(){
         <h1>{selectedBook?selectedBook.title:"পরিকল্পনা করো। শেখাও। বুঝতে সাহায্য করো।"}</h1>
         <span>
           {selectedBook
-            ?`শ্রেণি ${selectedClass} · ${selectedBook.title} · NCTB ২০২৬`
+            ?`${studentClassLabels[teacherClassKey(selectedClass)]} · ${selectedBook.title} · NCTB ২০২৬`
             :"NCTB ২০২৬-এর পাঠ্যবই দেখতে শ্রেণির ফোল্ডার খোলো।"}
         </span>
         <button type="button" onClick={()=>openClass(selectedClass)}>
           <FolderOpen size={17}/>
-          {selectedBook?"শ্রেণির ফোল্ডার খোলো":`শ্রেণি ${selectedClass} খোলো`}
+          {selectedBook?"শ্রেণির ফোল্ডার খোলো":`${studentClassLabels[teacherClassKey(selectedClass)]} খোলো`}
           <ChevronRight size={16}/>
         </button>
         <small>শ্রেণি → NCTB ২০২৬ পাঠ্যবই → বই</small>
@@ -239,7 +239,7 @@ export default function TeacherDashboard(){
         <header>
           <div className={styles.panelFolderIcon}><FolderOpen/></div>
           <div>
-            <p>শ্রেণি {selectedClass} · NCTB ২০২৬</p>
+            <p>{studentClassLabels[teacherClassKey(selectedClass)]} · NCTB ২০২৬</p>
             <h2>{selectedBook?selectedBook.title:`${booksForClass.length}টি পাঠ্যবই`}</h2>
           </div>
         </header>
@@ -266,7 +266,7 @@ export default function TeacherDashboard(){
             <p>NCTB 2026 · {selectedBook.category}</p>
             <h3>{selectedBook.title}</h3>
             <div className={styles.detailStats}>
-              <span><b>শ্রেণি {selectedClass}</b></span>
+              <span><b>{studentClassLabels[teacherClassKey(selectedClass)]}</b></span>
               <span><b>{selectedBook.englishTitle}</b></span>
               <span><b>NCTB 2026</b></span>
             </div>
