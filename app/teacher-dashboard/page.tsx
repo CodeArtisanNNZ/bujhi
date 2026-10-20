@@ -16,11 +16,10 @@ import {studentBookCatalog,type NctbBook,type StudentClassKey} from "../data/nct
 type Profile={full_name?:string;role?:string;subject?:string};
 type Drink="boba"|"tea"|"coffee"|"water"|"lemonade";
 const classFolders=[
-  {value:6,accent:"#566b59"},
-  {value:7,accent:"#4d6788"},
-  {value:8,accent:"#8e332f"},
-  {value:9,accent:"#a77534"},
-  {value:10,accent:"#665574"}
+  {value:6,label:"Class 6 new",accent:"#566b59"},
+  {value:7,label:"Class 7 new",accent:"#4d6788"},
+  {value:8,label:"Class 8 new",accent:"#8e332f"},
+  {value:9,label:"Class 9&10",accent:"#a77534"}
 ];
 
 function teacherClassKey(value:number):StudentClassKey{
@@ -152,12 +151,12 @@ export default function TeacherDashboard(){
           className={styles.classFolder}
           style={{backgroundColor:folder.accent}}
           onClick={()=>openClass(folder.value)}
-          aria-label={`শ্রেণি ${folder.value}-এর ফোল্ডার খোলো`}
+          aria-label={`${folder.label} folder খোলো`}
         >
           <span className={styles.folderTab}/>
           <span className={styles.folderPapers}><i/><i/><i/></span>
           <span className={styles.folderHole}/>
-          <strong>শ্রেণি {folder.value}</strong>
+          <strong>{folder.label}</strong>
           <small>{teacherBooksForClass(folder.value).length}টি বই · NCTB ২০২৬</small>
         </button>)}
       </div>
