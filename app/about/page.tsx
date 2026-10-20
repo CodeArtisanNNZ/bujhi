@@ -12,7 +12,7 @@ const teamMembers=[
  {name:"Akira Jannat Faiza",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team-akira-jannat-faiza.jpg"},
  {name:"Sidratul Muntaha",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/sidratul-muntaha.webp"},
  {name:"Nowrin Tanhiad",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/nowrin-tanhiad.jpg"},
- {name:"Azwad Akhlak",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null}
+ {name:"Azwad Akhlak",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/azwad-akhlak.jpg"}
 ] as const;
 
 // deploy retry: team photos 2
