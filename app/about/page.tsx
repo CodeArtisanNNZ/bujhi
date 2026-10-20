@@ -8,7 +8,7 @@ const teamMembers=[
  {name:"Talukder Khaleed Bin Hasan",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/talukder-khaleed-bin-hasan.webp"},
  {name:"Mrittika Rahman",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/mrittika-rahman.jpg"},
  {name:"Syed Mohammad Samiul Haque",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/syed-mohammad-samiul-haque.jpg"},
- {name:"Syed Muhtasim Abrar Sahosh",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null},
+ {name:"Syed Muhtasim Abrar Sahosh",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/syed-muhtasim-abrar-sahosh.jpg"},
  {name:"Akira Jannat Faiza",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team-akira-jannat-faiza.jpg"},
  {name:"Sidratul Muntaha",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/sidratul-muntaha.webp"},
  {name:"Nowrin Tanhiad",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null},
