@@ -226,10 +226,10 @@ export const studentBookCatalog:Record<StudentClassKey,NctbBook[]>={
 };
 
 export const studentClassLabels:Record<StudentClassKey,string>={
-  "6":"Class 6",
-  "7":"Class 7",
-  "8":"Class 8",
-  "9-10":"Class 9 to 10"
+  "6":"Class 6 new",
+  "7":"Class 7 new",
+  "8":"Class 8 new",
+  "9-10":"Class 9&10"
 };
 
 export function studentClassKey(level?:string|null):StudentClassKey{
