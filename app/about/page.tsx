@@ -3,7 +3,8 @@ import ResponsiveImage from "../components/ResponsiveImage";
 import Link from "next/link";
 import {ArrowLeft,ArrowRight,BookOpen,ChevronLeft,ChevronRight,GraduationCap,Lightbulb,MousePointer2} from "lucide-react";
 import {useRef,useState,type CSSProperties} from "react";
-const teamMembers=[
+type TeamMember={name:string;role:string;bio:string;image:string|null};
+const teamMembers:TeamMember[]=[
  {name:"Nusaiba Nusrat Zaman",role:"Founder · Bujhi",bio:"Building Bujhi around one belief: students should have more than one way to understand the same idea.",image:"/about-founder-nusaiba.webp"},
  {name:"Talukder Khaleed Bin Hasan",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/talukder-khaleed-bin-hasan.webp"},
  {name:"Mrittika Rahman",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/mrittika-rahman.jpg"},
@@ -13,7 +14,7 @@ const teamMembers=[
  {name:"Sidratul Muntaha",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/sidratul-muntaha.webp"},
  {name:"Nowrin Tanhiad",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/nowrin-tanhiad.jpg"},
  {name:"Azwad Akhlak",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/azwad-akhlak.jpg"}
-] as const;
+];
 
 // deploy retry: team photos 2
 export default function About(){
