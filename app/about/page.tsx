@@ -11,7 +11,7 @@ const teamMembers=[
  {name:"Syed Muhtasim Abrar Sahosh",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/syed-muhtasim-abrar-sahosh.jpg"},
  {name:"Akira Jannat Faiza",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team-akira-jannat-faiza.jpg"},
  {name:"Sidratul Muntaha",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/sidratul-muntaha.webp"},
- {name:"Nowrin Tanhiad",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null},
+ {name:"Nowrin Tanhiad",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/nowrin-tanhiad.jpg"},
  {name:"Azwad Akhlak",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:null}
 ] as const;
 
