@@ -360,3 +360,280 @@
   .actionHotspots { grid-template-columns: minmax(0,1fr); }
   .actionHotspots button { flex-direction: row; }
 }
+
+
+/* ===== APPROVED PHONE DESK LAYOUT ===== */
+.mobileDeskBooks,.mobileOpenNotebook{display:none}
+
+@media (max-width:600px){
+  .referenceDesk{
+    grid-template-columns:repeat(6,minmax(0,1fr));
+    grid-template-areas:
+      "class class class profile profile profile"
+      "meta meta meta meta meta meta"
+      "shelf shelf shelf shelf shelf shelf"
+      "notebook notebook notebook notebook notebook notebook"
+      "actions actions actions actions actions actions"
+      "lamp lamp globe globe plant plant"
+      "books books decor decor drink drink"
+      "calendar calendar calendar note note note";
+    column-gap:8px;
+    row-gap:10px;
+    padding:12px 10px 18px;
+    align-items:start;
+  }
+
+  .dynamicClass{grid-area:class}
+  .dynamicProfile{grid-area:profile}
+  .shelfMeta{grid-area:meta}
+  .bookHotspots{grid-area:shelf}
+  .studyNotebook{grid-area:notebook}
+  .actionHotspots{grid-area:actions}
+
+  .referenceDesk>.studentGlobe{
+    display:block;
+    grid-area:globe;
+    position:relative!important;
+    inset:auto!important;
+    justify-self:center;
+    align-self:end;
+    width:112px!important;
+    height:142px!important;
+    transform:none;
+    margin:0;
+    overflow:visible;
+  }
+  .studentGlobe :global(.login-globe-credit){display:none}
+
+  .referenceDesk>.lamp{
+    grid-area:lamp;
+    width:100%;
+    height:150px;
+    max-height:none;
+    overflow:visible;
+    align-self:end;
+    justify-self:start;
+    transform:none;
+  }
+  .studentLampImage{
+    width:100%!important;
+    height:100%!important;
+    object-fit:contain!important;
+    object-position:left bottom!important;
+  }
+
+  .moneyPlant{
+    grid-area:plant;
+    width:100%;
+    height:150px;
+    max-height:none;
+    justify-self:end;
+    align-self:end;
+    overflow:visible;
+  }
+  .moneyPlant img{object-position:right bottom}
+
+  .roomLightSwitch{display:none}
+
+  .mobileDeskBooks{
+    grid-area:books;
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    gap:2px;
+    width:100%;
+    height:106px;
+    align-self:end;
+    padding:0 2px 4px;
+  }
+  .mobileDeskBooks>i{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:18px;
+    min-width:18px;
+    height:78px;
+    border:1px solid #432d2433;
+    border-radius:3px 4px 2px 2px;
+    box-shadow:inset 3px 0 #ffffff18,inset -2px 0 #0002,2px 2px 3px #3d25172a;
+    color:#fff7e9;
+    font-style:normal;
+  }
+  .mobileDeskBooks>i:nth-child(2){height:84px}
+  .mobileDeskBooks>i:nth-child(3){height:74px}
+  .mobileDeskBooks>i:nth-child(4){height:88px}
+  .mobileDeskBooks>i:nth-child(5){height:81px}
+  .mobileDeskBooks>i span{
+    writing-mode:vertical-rl;
+    font:700 8px/1 Georgia,"Bujhi Bangla",serif;
+    opacity:.9;
+  }
+  .mobileDeskBooks>b{
+    position:relative;
+    display:block;
+    width:29px;
+    height:50px;
+    margin-left:4px;
+    border-radius:4px 4px 7px 7px;
+    background:#d9c5a5;
+    border:1px solid #8f74587a;
+    box-shadow:inset 0 4px #f5e9d5,1px 3px 4px #3e251625;
+  }
+  .mobileDeskBooks>b span{
+    position:absolute;
+    bottom:43px;
+    width:3px;
+    height:34px;
+    border-radius:3px;
+    background:#c99130;
+    transform-origin:bottom center;
+  }
+  .mobileDeskBooks>b span:nth-child(1){left:7px;transform:rotate(-8deg)}
+  .mobileDeskBooks>b span:nth-child(2){left:14px;height:38px;background:#6f4a2e}
+  .mobileDeskBooks>b span:nth-child(3){left:21px;transform:rotate(9deg);background:#d8a132}
+
+  .mobileOpenNotebook{
+    grid-area:decor;
+    position:relative;
+    display:grid;
+    grid-template-columns:1fr 4px 1fr;
+    width:100%;
+    height:104px;
+    align-self:end;
+    border:1px solid #9d826554;
+    border-radius:8px;
+    background:#f8ecd8;
+    box-shadow:0 5px 10px #4c2c1a26,0 2px 0 #8d6a48;
+    overflow:hidden;
+    transform:rotate(-1deg);
+  }
+  .mobileNotebookLeft,.mobileNotebookRight{
+    position:relative;
+    min-width:0;
+    background:
+      repeating-linear-gradient(180deg,transparent 0 14px,#c8b59b55 15px 16px),
+      #f9edd8;
+  }
+  .mobileNotebookLeft span{
+    position:absolute;
+    left:8px;
+    top:14px;
+    padding:6px 5px;
+    max-width:58px;
+    background:#efc85c;
+    color:#5d472f;
+    font:700 7px/1.25 Georgia,"Bujhi Bangla",serif;
+    box-shadow:1px 2px 3px #4d331d2c;
+    transform:rotate(-4deg);
+  }
+  .mobileNotebookSpine{
+    background:repeating-linear-gradient(180deg,#78624d 0 3px,#dac5aa 3px 7px);
+    box-shadow:inset 1px 0 #fff8;
+  }
+  .mobileNotebookRight i{
+    position:absolute;
+    right:16px;
+    bottom:14px;
+    width:5px;
+    height:55px;
+    border-radius:4px;
+    background:#2d211b;
+    transform:rotate(24deg);
+    box-shadow:0 1px 2px #0004;
+  }
+  .mobileNotebookRight i:after{
+    content:"";
+    position:absolute;
+    top:-7px;
+    left:0;
+    width:5px;
+    height:9px;
+    clip-path:polygon(50% 0,100% 100%,0 100%);
+    background:#b98a53;
+  }
+
+  .drinkArea{
+    grid-area:drink;
+    width:100%;
+    height:106px;
+    align-self:end;
+    justify-self:end;
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+  }
+  .cupHotspot{
+    width:100%;
+    min-height:0;
+    height:106px;
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+  }
+  .drinkImageFrame{
+    width:82px;
+    height:96px;
+    margin:0;
+  }
+  .drinkLabel{display:none}
+  .drinkMenu{
+    right:0;
+    bottom:calc(100% + 6px);
+    width:min(220px,calc(100vw - 24px));
+  }
+
+  .liveCalendar{
+    grid-area:calendar;
+    width:100%;
+    min-height:0;
+    align-self:stretch;
+    padding:0 5px 6px;
+  }
+  .liveCalendar :global(.deskCalendarHeader){
+    min-height:34px;
+    padding:5px 6px;
+    margin:0 -5px 5px;
+    flex-wrap:nowrap;
+  }
+  .liveCalendar :global(.deskCalendarHeader strong){font-size:.78rem}
+  .liveCalendar :global(.deskCalendarHeader small){font-size:.68rem}
+  .liveCalendar :global(.deskCalendarWeekdays){font-size:.62rem}
+  .liveCalendar :global(.deskCalendarGrid)>span{height:22px;font-size:.68rem}
+
+  .stickyHotspot{
+    grid-area:note;
+    width:100%;
+    min-height:0;
+    height:100%;
+    align-self:stretch;
+    padding:12px 10px;
+  }
+  .stickyHotspot strong{font-size:.9rem;margin:4px 0}
+  .stickyHotspot span{font-size:.75rem;line-height:1.45;-webkit-line-clamp:3}
+
+  .bookHotspots{height:160px}
+  .bookHotspots button,
+  .bookHotspots button:nth-child(3n),
+  .bookHotspots button:nth-child(4n){height:130px}
+}
+
+@media (max-width:420px){
+  .referenceDesk{
+    grid-template-columns:repeat(6,minmax(0,1fr));
+    column-gap:6px;
+    row-gap:8px;
+    padding-left:8px;
+    padding-right:8px;
+  }
+  .referenceDesk>.lamp,.moneyPlant{height:128px}
+  .referenceDesk>.studentGlobe{width:96px!important;height:126px!important}
+  .mobileDeskBooks{height:94px;transform:scale(.92);transform-origin:bottom center}
+  .mobileOpenNotebook{height:92px}
+  .drinkArea,.cupHotspot{height:94px}
+  .drinkImageFrame{width:72px;height:86px}
+  .liveCalendar :global(.deskCalendarGrid)>span{height:20px;font-size:.64rem}
+  .stickyHotspot{padding:10px 8px}
+  .stickyHotspot strong{font-size:.82rem}
+  .stickyHotspot span{font-size:.7rem}
+}
