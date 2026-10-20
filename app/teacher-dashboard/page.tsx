@@ -30,6 +30,17 @@ function teacherClassKey(value:number):StudentClassKey{
   return "9-10";
 }
 
+function teacherBooksForClass(value:number):NctbBook[]{
+  const books=studentBookCatalog[teacherClassKey(value)];
+  if(value===6||value===7||value===8){
+    return books.filter(book=>
+      book.pdfPath.startsWith("https://drive.google.com/file/d/")||
+      (value===8&&book.id==="science"&&book.pdfPath==="/nctb/2026/class-8/science.pdf")
+    );
+  }
+  return books;
+}
+
 const drinkOptions:{id:Drink;label:string;image:string}[]=[
   {id:"boba",label:"বাবল টি",image:"/bobatea.png"},
   {id:"tea",label:"চা",image:"/classictea.png"},
@@ -81,7 +92,7 @@ export default function TeacherDashboard(){
   const teacherName=profile.full_name?.trim().split(" ")[0]||"শিক্ষক";
   const activeDrink=drinkOptions.find(item=>item.id===drink)||drinkOptions[2];
   const booksForClass=useMemo(
-    ()=>studentBookCatalog[teacherClassKey(selectedClass)],
+    ()=>teacherBooksForClass(selectedClass),
     [selectedClass]
   );
 
@@ -98,6 +109,10 @@ export default function TeacherDashboard(){
     setSelectedClass(value);
     setSelectedBook(null);
     setFolderOpen(true);
+  }
+
+  function openBookPdf(book:NctbBook){
+    window.open(book.pdfPath,"_blank","noopener,noreferrer");
   }
 
   function chooseDrink(next:Drink){
@@ -143,7 +158,7 @@ export default function TeacherDashboard(){
           <span className={styles.folderPapers}><i/><i/><i/></span>
           <span className={styles.folderHole}/>
           <strong>শ্রেণি {folder.value}</strong>
-          <small>{studentBookCatalog[teacherClassKey(folder.value)].length}টি বই · NCTB ২০২৬</small>
+          <small>{teacherBooksForClass(folder.value).length}টি বই · NCTB ২০২৬</small>
         </button>)}
       </div>
 
@@ -233,9 +248,9 @@ export default function TeacherDashboard(){
         {!selectedBook?<div className={styles.subjectGrid}>
           {booksForClass.map(book=><button
             key={book.id}
-            onClick={()=>setSelectedBook(book)}
+            onClick={()=>selectedClass>=6&&selectedClass<=8?openBookPdf(book):setSelectedBook(book)}
             style={{"--accent":book.accent} as React.CSSProperties}
-            aria-label={`${book.title} খোলো`}
+            aria-label={selectedClass>=6&&selectedClass<=8?`${book.title} PDF খোলো`:`${book.title} খোলো`}
           >
             <span className={styles.subjectTab}/>
             <FileText/>
