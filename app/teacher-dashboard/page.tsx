@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import styles from "./teacher.module.css";
 import {class8BgsPlans} from "../data/class8BgsPlans";
-import {studentBookCatalog,type NctbBook,type StudentClassKey} from "../data/nctbBooks";
+import {studentBookCatalog,studentClassLabels,type NctbBook,type StudentClassKey} from "../data/nctbBooks";
 
 type Profile={full_name?:string;role?:string;subject?:string};
 type Drink="boba"|"tea"|"coffee"|"water"|"lemonade";
