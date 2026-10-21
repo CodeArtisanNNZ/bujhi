@@ -319,18 +319,18 @@ html[lang="bn"] #bujhi-content :is(.about-hero,.classroom-intro) h1{font-size:cl
   gap:64px;
 }
 .hero-copy{
-  order:1;
+  order:2;
   align-self:end;
   max-width:650px;
   padding-bottom:20px;
   text-align:left;
 }
 .notebook-wrap{
-  order:2;
+  order:1;
   align-self:end;
   width:100%;
   min-height:500px;
-  place-items:end;
+  place-items:start;
 }
 .hero-copy .eyebrow{
   color:#f2d0cd;
@@ -364,7 +364,7 @@ html[lang="bn"] #bujhi-content :is(.about-hero,.classroom-intro) h1{font-size:cl
 .notebook{
   width:100%;
   max-width:610px;
-  margin-left:auto;
+  margin-right:auto;
   box-shadow:0 24px 58px #4b111a55;
   border:1px solid #ffffff2b;
 }
