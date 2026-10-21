@@ -307,3 +307,124 @@ html[lang="bn"] #bujhi-content :is(.about-hero,.classroom-intro) h1{font-size:cl
   background:linear-gradient(145deg,#6e232b,#36141a);
   border-color:#7b454a;
 }
+
+
+/* ===== HOME HERO ALIGNED WITH RESEARCH PAGE ===== */
+.hero{
+  min-height:620px;
+  background:var(--accent-solid)!important;
+  grid-template-columns:minmax(0,1.05fr) minmax(480px,.95fr);
+  align-items:end;
+  padding:92px max(5vw,calc((100vw - 1180px)/2));
+  gap:64px;
+}
+.hero-copy{
+  order:1;
+  align-self:end;
+  max-width:650px;
+  padding-bottom:20px;
+  text-align:left;
+}
+.notebook-wrap{
+  order:2;
+  align-self:end;
+  width:100%;
+  min-height:500px;
+  place-items:end;
+}
+.hero-copy .eyebrow{
+  color:#f2d0cd;
+}
+.hero-copy h1{
+  font-size:clamp(4rem,5.4vw,6rem);
+  line-height:.95;
+  letter-spacing:-.035em;
+  margin:18px 0 30px;
+}
+.hero-actions{
+  justify-content:flex-start;
+}
+.hero-actions a{
+  background:transparent;
+  color:white;
+  border-color:#ffffffaa;
+  min-height:48px;
+}
+.hero-actions a:first-child{
+  background:#fffaf6;
+  color:#8f252b;
+  border-color:#fffaf6;
+}
+.hero-actions a:hover{
+  border-color:white;
+}
+.hidden-spark{
+  color:#ffe2df;
+}
+.notebook{
+  width:100%;
+  max-width:610px;
+  margin-left:auto;
+  box-shadow:0 24px 58px #4b111a55;
+  border:1px solid #ffffff2b;
+}
+:root[data-theme="dark"] .hero{
+  background:var(--accent-solid)!important;
+}
+:root[data-theme="dark"] .hero-copy .eyebrow,
+:root[data-theme="dark"] .hero-copy h1{
+  color:#fff7f2;
+}
+:root[data-theme="dark"] .hero-actions a:first-child{
+  background:#fff7f0;
+  color:#8f252b;
+  border-color:#fff7f0;
+}
+
+@media(max-width:1050px){
+  .hero{
+    grid-template-columns:1fr;
+    padding:72px 24px;
+    gap:36px;
+    align-items:start;
+  }
+  .hero-copy{
+    order:1;
+    max-width:760px;
+    padding-bottom:0;
+  }
+  .notebook-wrap{
+    order:2;
+    width:min(760px,100%);
+    min-height:500px;
+    margin:0;
+    place-items:center;
+  }
+  .notebook{
+    margin:0 auto;
+  }
+}
+@media(max-width:650px){
+  .hero{
+    min-height:0;
+    padding:56px 20px 64px;
+    gap:30px;
+  }
+  .hero-copy{
+    text-align:left;
+  }
+  .hero-copy h1{
+    font-size:clamp(3.1rem,14vw,4.4rem);
+    line-height:.98;
+  }
+  .hero-actions{
+    display:grid;
+    grid-template-columns:1fr;
+  }
+  .hidden-spark{
+    margin:20px 0 0;
+  }
+  .notebook-wrap{
+    min-height:500px;
+  }
+}
