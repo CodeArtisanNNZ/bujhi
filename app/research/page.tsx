@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import {ArrowRight,BookOpen,Lightbulb,MessageSquareQuote,Search,School} from "lucide-react";
+import {ArrowRight,BookOpen,Camera,Image as ImageIcon,Lightbulb,MessageSquareQuote,Search,School} from "lucide-react";
 
 const researchSteps=[
   {number:"01",title:"Listen first",copy:"We begin with the people already inside the learning environment: teachers and students."},
@@ -26,7 +26,13 @@ export default function ResearchPage(){
    <a href="#teacher-voices">Start with Teacher Voices <ArrowRight/></a>
   </section>
 
-  <section className="research-intro">
+  <nav className="research-subnav" aria-label="Research page sections">
+   <a href="#research-overview">Overview</a>
+   <a href="#teacher-voices">Teacher Voices</a>
+   <a href="#photo-gallery">Photo Gallery</a>
+  </nav>
+
+  <section className="research-intro" id="research-overview">
    <div className="research-intro-title">
     <span>FIELD NOTES</span>
     <h2>From a classroom problem to a Bujhi decision.</h2>
@@ -69,6 +75,40 @@ export default function ResearchPage(){
      <p>Repeated difficulties, moments where students lose the idea, explanations teachers already use successfully, and places where a digital lesson could genuinely help.</p>
     </div>
    </div>
+  </section>
+
+  
+  <section className="research-gallery" id="photo-gallery">
+   <div className="research-gallery-heading">
+    <div>
+     <p className="eyebrow">Photo Gallery</p>
+     <h2>Research is not only notes. It is the places, people and moments that shape Bujhi.</h2>
+     <p>Field visits, teacher conversations, classroom observations and the work behind each research decision will live here.</p>
+    </div>
+    <Camera aria-hidden="true"/>
+   </div>
+
+   <div className="research-gallery-grid">
+    {[
+      {label:"Teacher interview",note:"Conversation and classroom insight",size:"wide"},
+      {label:"School visit",note:"Learning from the environment",size:"tall"},
+      {label:"Field notes",note:"What we noticed and wrote down",size:"small"},
+      {label:"Classroom observation",note:"Seeing how students respond",size:"small"},
+      {label:"Research team",note:"The people documenting the process",size:"wide"},
+      {label:"Behind the lesson",note:"Turning findings into a Bujhi feature",size:"small"}
+    ].map((item,index)=><article className={`research-gallery-card ${item.size}`} key={item.label}>
+      <div className="research-gallery-placeholder">
+       <ImageIcon aria-hidden="true"/>
+       <span>Photo {String(index+1).padStart(2,"0")}</span>
+      </div>
+      <div className="research-gallery-caption">
+       <strong>{item.label}</strong>
+       <span>{item.note}</span>
+      </div>
+    </article>)}
+   </div>
+
+   <p className="research-gallery-note">Real Bujhi research photos will replace these frames as the fieldwork archive grows.</p>
   </section>
 
   <section className="research-evidence">
