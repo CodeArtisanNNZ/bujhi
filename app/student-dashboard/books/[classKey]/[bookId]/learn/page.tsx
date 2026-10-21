@@ -80,7 +80,17 @@ export default function LearnBookPage(){
           {number:3,title:"তথ্য ও যোগাযোগ প্রযুক্তির নিরাপদ ও নৈতিক ব্যবহার",detail:"পাসওয়ার্ড, ভাইরাস, অনলাইন নিরাপত্তা, গোপনীয়তা ও দায়িত্বশীল ডিজিটাল আচরণ শিখো।"},
           {number:4,title:"স্প্রেডশিটের ব্যবহার",detail:"সারি, কলাম, সেল, সূত্র ও হিসাবের মাধ্যমে তথ্য সাজানো এবং বিশ্লেষণ করা শিখো।"},
           {number:5,title:"শিক্ষা ও দৈনন্দিন জীবনে ইন্টারনেটের ব্যবহার",detail:"তথ্য খোঁজা, ই-মেইল, অনলাইন শিক্ষা ও দৈনন্দিন ডিজিটাল সেবার ব্যবহার বোঝো।"}
-        ].map(chapter=><a
+        ].map(chapter=>chapter.number===1?<Link
+          className={styles.ictCard}
+          key={chapter.number}
+          href="/ict/class-8/chapter-1"
+        >
+          <span className={styles.chapterBadge}>অধ্যায় {chapter.number.toLocaleString("bn-BD")}</span>
+          <BookOpen/>
+          <strong>{chapter.title}</strong>
+          <p>{chapter.detail}</p>
+          <small>৭টি পাঠে ভাগ করে পড়ো →</small>
+        </Link>:<a
           className={styles.ictCard}
           key={chapter.number}
           href={book.pdfPath}
