@@ -1,5 +1,7 @@
 "use client";
 
+// deploy retry: class 8 ICT chapter cards
+
 import Link from "next/link";
 import {useParams,useRouter} from "next/navigation";
 import {useEffect,useMemo,useState} from "react";
