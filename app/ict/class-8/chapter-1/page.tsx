@@ -74,7 +74,7 @@ export default function IctClassEightChapterOne(){
 
   return <main className={styles.page}>
     <header className={styles.topbar}>
-      <Link href="/student-dashboard/books/8/ict/learn"><ArrowLeft/>ICT অধ্যায়গুলোতে ফিরি</Link>
+      <Link href="/ict/class-8"><ArrowLeft/>ICT অধ্যায়গুলোতে ফিরি</Link>
       {ictBook&&<a href={ictBook.pdfPath} target="_blank" rel="noopener noreferrer"><BookOpen/>মূল বই</a>}
     </header>
 
