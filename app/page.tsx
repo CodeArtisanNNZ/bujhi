@@ -8,6 +8,7 @@ import {useEffect,useState} from "react";
 import {ArrowRight,BookOpen,Brain,FlaskConical,Pause,Play,X} from "lucide-react";
 import {openThoughtFacts} from "./data/openThoughtFacts";
 import {hiddenQuizQuestions} from "./data/hiddenQuizQuestions";
+import styles from "./home.module.css";
 
 
 // Deployment refresh: Bangladesh map rotation
@@ -33,10 +34,10 @@ export default function Home(){
  const currentQuiz=hiddenQuizQuestions[quizIndex];
  return <main>
 
-  <section className="hero">
-   <div className="hero-copy"><p className="eyebrow">Built for the Bangladeshi curriculum</p><h1>Learn it<br/>your way.</h1><div className="hero-actions"><Link href="/register?role=student">Join as a Student <ArrowRight/></Link><Link href="/register?role=teacher">Join as a Teacher <ArrowRight/></Link></div><button className="hidden-spark" onClick={openRandomQuiz}>I found something</button></div>
-   <div className="home-lamp-photo" aria-hidden="true"><img src="/homepage-red-lamp.webp" alt=""/></div>
-   <div className="notebook-wrap"><div className="paper back-one"/><div className="paper back-two"/><article className="notebook"><span className="home-paperclip" aria-hidden="true"/><span className="home-binderclip" aria-hidden="true"><i/><b/><em/></span><div className="rings">{Array.from({length:8}).map((_,i)=><i key={i}/>)}</div><div className="book-meta"><span>Interactive preview</span><span>Tap anything</span></div><h2>A peek inside Bujhi?</h2>
+  <section className={styles.stage} aria-label="Welcome to Bujhi">
+   <div className={styles.copy}><p className="eyebrow">Built for the Bangladeshi curriculum</p><h1>Learn it<br/>your way.</h1><div className={styles.actions}><Link href="/register?role=student">Join as a Student <ArrowRight/></Link><Link href="/register?role=teacher">Join as a Teacher <ArrowRight/></Link></div><button className={styles.discovery} onClick={openRandomQuiz}>I found something<span aria-hidden="true"/></button></div>
+   <div className={styles.lamp} aria-hidden="true"><img src="/homepage-lamp-reference.webp" width="820" height="1230" alt="" fetchPriority="high" decoding="async"/></div>
+   <div className={`notebook-wrap ${styles.preview}`}><div className="paper back-one"/><div className="paper back-two"/><article className="notebook"><span className={styles.paperclip} aria-hidden="true"/><span className={styles.binderclip} aria-hidden="true"><i/><b/><em/></span><div className="rings" aria-hidden="true">{Array.from({length:8}).map((_,i)=><i key={i}/>)}</div><div className="book-meta"><span>Interactive preview</span><span>Tap anything</span></div><h2>A peek inside Bujhi?</h2>
     {homeDemo==="map"
      ?<div className="lesson home-map-lesson"><BangladeshMapPreview compact/></div>
      :<div className="lesson"><div className="lesson-copy">
