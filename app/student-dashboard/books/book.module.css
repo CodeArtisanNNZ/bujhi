@@ -67,3 +67,85 @@
   .action span { font-size: .875rem; line-height: 1.6; }
   .filePath { font-size: .875rem; }
 }
+
+
+/* ===== CLASS 8 ICT CHAPTER CARDS ===== */
+.ictWorkspace{
+  margin-top:20px;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+.ictCard{
+  position:relative;
+  min-height:210px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:17px;
+  background:
+    linear-gradient(145deg,color-mix(in srgb,var(--paper) 96%,#fff 4%),var(--surface));
+  color:var(--ink);
+  padding:22px;
+  text-decoration:none;
+  box-shadow:0 12px 28px #3d271716;
+  transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;
+}
+.ictCard:before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:5px;
+  background:var(--red);
+}
+.ictCard:hover{
+  transform:translateY(-3px);
+  border-color:color-mix(in srgb,var(--red) 45%,var(--line));
+  box-shadow:0 17px 34px #3d271724;
+}
+.ictCard>svg{
+  width:28px;
+  height:28px;
+  margin-top:24px;
+  color:var(--red);
+}
+.ictCard strong{
+  display:block;
+  margin-top:15px;
+  max-width:90%;
+  font:700 21px/1.45 Georgia,"Bujhi Bangla",serif;
+}
+.ictCard p{
+  margin:9px 0 0;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.65;
+}
+.ictCard small{
+  display:block;
+  margin-top:18px;
+  color:var(--red);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.04em;
+}
+.chapterBadge{
+  position:absolute;
+  top:16px;
+  right:16px;
+  padding:6px 9px;
+  border-radius:999px;
+  background:color-mix(in srgb,var(--red) 10%,var(--paper));
+  color:var(--red);
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+@media(max-width:760px){
+  .ictWorkspace{grid-template-columns:1fr;gap:10px}
+  .ictCard{min-height:170px;padding:18px}
+  .ictCard strong{font-size:19px;max-width:100%}
+  .ictCard p{font-size:14px}
+}
