@@ -243,7 +243,6 @@
 }
 
 .deskScene,.deskFooter{display:contents}
-.mobileDeskBooks,.mobileOpenNotebook{display:none}
 
 /* One flowing layout for phones, landscape phones and tablets. Only the
    decorative scene uses coordinates, relative to its own aspect ratio. */
@@ -254,8 +253,9 @@
     display:grid;
     grid-template-columns:minmax(0,1fr) auto;
     grid-template-areas:"class profile" "meta meta" "shelf shelf" "notebook notebook" "actions actions" "scene scene" "footer footer";
+    align-content:start;
     gap:12px 10px;
-    width:100%;max-width:760px;min-height:0;
+    width:100%;max-width:none;min-height:calc(100dvh - var(--nav-height));
     padding:14px max(var(--desk-gutter),env(safe-area-inset-right)) max(20px,env(safe-area-inset-bottom)) max(var(--desk-gutter),env(safe-area-inset-left));
     overflow:clip;
   }
@@ -304,32 +304,19 @@
   .actionHotspots{grid-area:actions;width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;}
   .actionHotspots button{min-width:0;min-height:60px;flex-direction:column;gap:5px;padding:9px 4px;font-size:12px;line-height:1.4;overflow-wrap:anywhere;background:var(--paper);border-color:#d8b78e;border-radius:9px;}
   .actionHotspots svg{width:20px;height:20px;flex-shrink:0;}
-  .deskScene{grid-area:scene;display:block;position:relative;width:100%;min-width:0;aspect-ratio:1.6;container-type:inline-size;}
-  .deskScene>.lamp{inset:1% auto auto -1%!important;width:34%;height:57%;max-height:none;overflow:visible;transform:none;}
+  .deskScene{grid-area:scene;display:block;position:relative;width:100%;min-width:0;min-height:190px;aspect-ratio:2.4;container-type:inline-size;}
+  .deskScene>.lamp{inset:1% auto auto -1%!important;width:34%;height:72%;max-height:none;overflow:visible;transform:none;}
   .studentLampImage{width:100%;height:100%;object-fit:contain;object-position:left bottom;}
-  .moneyPlant{inset:0 -1% auto auto;width:31%;height:68%;max-height:none;overflow:visible;}
+  .moneyPlant{inset:0 -1% auto auto;width:31%;height:87%;max-height:none;overflow:visible;}
   .moneyPlant img{object-position:right top;}
-  .deskScene>.studentGlobe{position:absolute!important;inset:19% auto auto 42%!important;display:flex;width:23%!important;height:auto!important;transform:none;margin:0;}
+  .deskScene>.studentGlobe{position:absolute!important;inset:2% auto auto 40%!important;display:flex;width:23%!important;height:auto!important;transform:none;margin:0;}
   .studentGlobe :global(.login-globe-axis){width:94%;height:auto;aspect-ratio:1;padding:5%;border-width:4px;}
   .studentGlobe :global(.login-globe-neck){width:8%;height:20px;height:5cqw;margin-top:-2px;}
   .studentGlobe :global(.login-globe-base){width:64%;height:12px;height:3cqw;}
   .studentGlobe :global(.login-globe-credit){position:absolute;top:100%;margin:2px 0 0;font-size:5px;line-height:1.2;white-space:nowrap;}
   /* The lamp itself is the touch target; keep the scene free of extra controls. */
-  .deskScene .roomLightSwitch{inset:1% auto auto 0;width:34%;height:57%;min-height:44px;display:block;padding:0;border:0;border-radius:8px;background:transparent;box-shadow:none;backdrop-filter:none;transform:none;}
+  .deskScene .roomLightSwitch{inset:1% auto auto 0;width:34%;height:72%;min-height:44px;display:block;padding:0;border:0;border-radius:8px;background:transparent;box-shadow:none;backdrop-filter:none;transform:none;}
   .deskScene .roomLightTrack{display:none;}
-  .mobileDeskBooks{position:absolute;inset:auto auto 3% 0;display:flex;align-items:flex-end;justify-content:flex-start;width:33%;height:35%;gap:2px;}
-  .mobileDeskBooks>i{position:relative;display:flex;align-items:center;justify-content:center;width:14%;min-width:0;height:80%;border:1px solid #432d2433;border-radius:3px 4px 2px 2px;box-shadow:inset 3px 0 #ffffff18,inset -2px 0 #0002,2px 2px 3px #3d25172a;color:#fff7e9;font-style:normal;}
-  .mobileDeskBooks>i:nth-child(2){height:86%;}.mobileDeskBooks>i:nth-child(3){height:76%;}.mobileDeskBooks>i:nth-child(4){height:89%;}.mobileDeskBooks>i:nth-child(5){height:83%;}
-  .mobileDeskBooks>i span{writing-mode:vertical-rl;font:700 8px/1 Georgia,"Bujhi Bangla",serif;opacity:.9;}
-  .mobileDeskBooks>b{position:relative;display:block;width:17%;height:48%;margin-left:2%;flex-shrink:0;border-radius:4px 4px 7px 7px;background:#d9c5a5;border:1px solid #8f74587a;box-shadow:inset 0 4px #f5e9d5,1px 3px 4px #3e251625;}
-  .mobileDeskBooks>b span{position:absolute;bottom:90%;left:25%;width:2px;height:65%;border-radius:3px;background:#c99130;transform-origin:bottom center;transform:rotate(-8deg);}
-  .mobileDeskBooks>b span:nth-child(2){left:50%;height:75%;background:#6f4a2e;transform:none;}.mobileDeskBooks>b span:nth-child(3){left:75%;background:#d8a132;transform:rotate(9deg);}
-  .mobileOpenNotebook{position:absolute;inset:auto auto 1% 35%;display:grid;grid-template-columns:1fr 5px 1fr;width:45%;height:29%;border:1px solid #9d826554;border-radius:8px;background:#f8ecd8;box-shadow:0 5px 10px #4c2c1a26,0 2px 0 #8d6a48;transform:perspective(300px) rotateX(12deg) rotate(-2deg);}
-  .mobileNotebookLeft,.mobileNotebookRight{position:relative;min-width:0;border-radius:5px;background:repeating-linear-gradient(180deg,transparent 0 14px,#c8b59b55 15px 16px),#f9edd8;}
-  .mobileNotebookLeft span{position:absolute;left:10%;top:16%;max-width:85%;padding:7%;background:#efc85c;color:#5d472f;font:700 7px/1.25 Georgia,"Bujhi Bangla",serif;font-size:clamp(5px,1.4cqw,10px);box-shadow:1px 2px 3px #4d331d2c;transform:rotate(-4deg);}
-  .mobileNotebookSpine{background:repeating-linear-gradient(180deg,#78624d 0 3px,#dac5aa 3px 7px);box-shadow:inset 1px 0 #fff8;}
-  .mobileNotebookRight i{position:absolute;right:27%;bottom:17%;width:5px;height:65%;border-radius:4px;background:#2d211b;transform:rotate(24deg);box-shadow:0 1px 2px #0004;}
-  .mobileNotebookRight i:after{content:"";position:absolute;top:-7px;left:0;width:5px;height:9px;clip-path:polygon(50% 0,100% 100%,0 100%);background:#b98a53;}
   .drinkArea{inset:auto 0 0 auto;width:19%;height:38%;display:block;transform:none;}
   .cupHotspot{width:100%;height:100%;min-height:44px;justify-content:flex-end;}
   .drinkImageFrame{width:100%;height:100%;margin:0;overflow:visible;}
@@ -345,7 +332,7 @@
   .liveCalendar :global(.deskCalendarHeader small){font-size:11px;line-height:1.4;}
   .liveCalendar :global(.deskCalendarWeekdays){font-size:10px;gap:1px;margin-bottom:4px;}
   .liveCalendar :global(.deskCalendarGrid){gap:2px;}
-  .liveCalendar :global(.deskCalendarGrid)>span{height:clamp(21px,4.5vw,30px);font-size:11px;line-height:1.3;}
+  .liveCalendar :global(.deskCalendarGrid)>span{height:clamp(24px,4vw,44px);font-size:clamp(11px,1.5vw,14px);line-height:1.3;}
   .stickyHotspot{position:relative;inset:auto;width:100%;min-width:0;min-height:120px;padding:13px 11px;border-radius:9px;background:var(--paper);}
   .stickyHotspot strong{font-size:14px;line-height:1.5;margin:6px 0;overflow-wrap:anywhere;}
   .stickyHotspot span{font-size:12px;line-height:1.6;-webkit-line-clamp:4;overflow-wrap:anywhere;}
