@@ -734,3 +734,101 @@
   .visualMomentArt{height:108px}
   .visualMoment figcaption span{font-size:13px}
 }
+
+/* ===== ICT interactive instructions ===== */
+.interactionGuide{
+  margin:0 0 16px;
+  padding:15px 16px;
+  border:1px solid color-mix(in srgb,var(--red) 24%,var(--line));
+  border-radius:14px;
+  background:color-mix(in srgb,var(--red) 4%,var(--paper));
+}
+.interactionGuideHead{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+}
+.interactionGuideHead>svg{
+  width:22px;
+  height:22px;
+  flex:0 0 auto;
+  margin-top:2px;
+  color:var(--red);
+}
+.interactionGuideHead small,
+.interactionGuideHead strong{display:block}
+.interactionGuideHead small{
+  color:var(--red);
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+}
+.interactionGuideHead strong{
+  margin-top:2px;
+  color:var(--ink);
+  font-size:14px;
+  line-height:1.55;
+}
+.interactionGuide ol{
+  list-style:none;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;
+  margin:12px 0 0;
+  padding:0;
+}
+.interactionGuide li{
+  display:grid;
+  grid-template-columns:24px minmax(0,1fr);
+  gap:7px;
+  align-items:start;
+  min-width:0;
+  padding:10px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:var(--paper);
+}
+.interactionGuide li>span{
+  display:grid;
+  place-items:center;
+  width:24px;
+  height:24px;
+  border-radius:50%;
+  background:var(--red);
+  color:white;
+  font-size:10px;
+  font-weight:900;
+}
+.interactionGuide li p{
+  margin:1px 0 0;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.6;
+}
+.interactionGuideTip{
+  display:flex;
+  align-items:flex-start;
+  gap:7px;
+  margin:10px 0 0;
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.6;
+}
+.interactionGuideTip svg{
+  width:15px;
+  height:15px;
+  flex:0 0 auto;
+  margin-top:1px;
+  color:#a97408;
+}
+:global(:root[data-theme="dark"]) .interactionGuide{
+  background:color-mix(in srgb,var(--red) 8%,var(--paper));
+}
+@media(max-width:700px){
+  .interactionGuide{padding:13px}
+  .interactionGuide ol{grid-template-columns:1fr}
+  .interactionGuide li p{font-size:12px}
+  .interactionGuideTip{font-size:11px}
+}
+

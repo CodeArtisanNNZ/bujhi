@@ -100,6 +100,27 @@ const patriotismByLesson:Record<number,{title:string;text:string}>={
   7:{title:"দেশের সমস্যা তথ্য দিয়ে বুঝি",text:"গবেষণায় সঠিক তথ্য ব্যবহার করে শিক্ষা, পরিবেশ, কৃষি বা জনসেবার বাস্তব সমস্যা বুঝে সমাধান খোঁজা—জ্ঞানকে দেশের উন্নয়নে কাজে লাগানোর শক্তিশালী উপায়।"}
 };
 
+const labInstructions:Record<number,{title:string;steps:string[]}>={
+  1:{title:"একদিন ICT ছাড়া? — কীভাবে ব্যবহার করবে",steps:["ICT ON অবস্থায় সময়রেখাটি একবার পড়ো।","ICT ON/OFF বোতাম চাপ দিয়ে একই দিনের পরিবর্তন তুলনা করো।","কোন কাজগুলোতে সময়, যাতায়াত বা তথ্য পাওয়ার ধরন বদলেছে—নিজে বলো।"]},
+  2:{title:"Skill → Job Explorer — কীভাবে ব্যবহার করবে",steps:["একটি পেশার কার্ডে চাপ দাও।","নিচে প্রয়োজনীয় দক্ষতা ও কাজের ধরন পড়ো।","আরেকটি পেশা বেছে দুটির দক্ষতা ও সুযোগ তুলনা করো।"]},
+  3:{title:"যোগাযোগ সিমুলেটর — কীভাবে ব্যবহার করবে",steps:["রেডিও, ইমেইল বা ভিডিও কল—একটি মাধ্যম বেছে নাও।","বার্তা কীভাবে প্রেরক থেকে প্রাপকের কাছে যায় দেখো।","ধরন, প্রতিক্রিয়ার সময় ও ইন্টারনেট প্রয়োজন—তিনটি তথ্য তুলনা করো।"]},
+  4:{title:"Mini Digital Shop — কীভাবে ব্যবহার করবে",steps:["শুরুর মজুদ ও বিক্রির পরিমাণ দেখে নাও।","‘স্ক্যান করে ১টি বিক্রি’ চাপ দিয়ে মজুদ ও মোট বিক্রি কীভাবে বদলায় দেখো।","কয়েকবার বিক্রি করে দেখার পর রিসেট চাপ দিয়ে আবার শুরু করো।"]},
+  5:{title:"Digital Service Journey — কীভাবে ব্যবহার করবে",steps:["১ নম্বর ধাপ থেকে শুরু করো।","পরের ধাপগুলো একে একে চাপ দিয়ে সেবার অগ্রগতি অনুসরণ করো।","শেষে কাগজভিত্তিক ও ডিজিটাল সেবার পার্থক্য পড়ো।"]},
+  6:{title:"Telemedicine Flow — কীভাবে ব্যবহার করবে",steps:["‘রোগীর তথ্য’ ধাপটি আগে দেখো।","পরের ধাপগুলো একে একে চাপ দিয়ে তথ্যের যাত্রা অনুসরণ করো।","শেষে ডিজিটাল স্বাস্থ্যরেকর্ড কেন দরকার তা নিজের ভাষায় বলো।"]},
+  7:{title:"Mini Research Lab — কীভাবে ব্যবহার করবে",steps:["‘একটি উত্তর সংগ্রহ করি’ চাপ দিয়ে একটি করে নমুনা যোগ করো।","প্রতিটি উত্তরের সঙ্গে বার চার্ট কীভাবে বদলায় দেখো।","১০টি উত্তর পূর্ণ হলে কোন ব্যবহার-সময় সবচেয়ে বেশি এসেছে তা ব্যাখ্যা করো।"]}
+};
+
+function InteractionGuide({lessonNumber}:{lessonNumber:number}){
+ const guide=labInstructions[lessonNumber];
+ if(!guide)return null;
+ return <aside className={styles.interactionGuide} aria-label="ইন্টারঅ্যাকটিভ অংশ ব্যবহারের নির্দেশনা">
+  <div className={styles.interactionGuideHead}><ListChecks aria-hidden="true"/><div><small>শুরু করার আগে</small><strong>{guide.title}</strong></div></div>
+  <ol>{guide.steps.map((step,index)=><li key={step}><span>{bn(index+1)}</span><p>{step}</p></li>)}</ol>
+  <p className={styles.interactionGuideTip}><Lightbulb aria-hidden="true"/>টিপ: শুধু বোতাম চাপবে না—প্রতিবার কী বদলাচ্ছে সেটাও লক্ষ্য করো।</p>
+ </aside>;
+}
+
+
 function ChapterOneDigitalLab({lesson}:ChapterOneLabProps){
  const[ictOn,setIctOn]=useState(true);
  const[selectedCareer,setSelectedCareer]=useState(0);
@@ -133,6 +154,8 @@ function ChapterOneDigitalLab({lesson}:ChapterOneLabProps){
    <div><span>বইয়ের সীমার বাইরে</span><h3>দেখো · বদলাও · নিজে পরীক্ষা করো</h3></div>
    <MonitorSmartphone aria-hidden="true"/>
   </header>
+
+  <InteractionGuide lessonNumber={lesson.number}/>
 
   {lesson.number===1&&<div className={styles.labScene}>
    <div className={styles.labToolbar}><div><strong>একদিন ICT ছাড়া?</strong><span>একই দিনের দুই অভিজ্ঞতা তুলনা করো।</span></div>
