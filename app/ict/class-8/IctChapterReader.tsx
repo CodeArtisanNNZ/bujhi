@@ -22,6 +22,74 @@ type ChapterLink={number:number;title:string};
 
 type ChapterOneLabProps={lesson:IctLesson};
 
+type VisualKind="device"|"work"|"message"|"shop"|"service"|"health"|"research"|"book"|"data"|"network";
+const visualMomentsByLesson:Record<number,{kind:VisualKind;title:string;caption:string}[]>={
+  1:[
+    {kind:"device",title:"স্মার্ট দিন",caption:"অ্যালার্ম, ম্যাপ, অনলাইন ক্লাস ও ভিডিও কল—একই দিনে ICT-এর নানা ব্যবহার।"},
+    {kind:"network",title:"তথ্য চলাচল",caption:"তথ্য এক যন্ত্র থেকে আরেক যন্ত্রে গিয়ে সেবায় রূপ নেয়।"},
+    {kind:"book",title:"শেখা বদলে যায়",caption:"ডিজিটাল কনটেন্টে দেখা, শোনা ও নিজে পরীক্ষা করা সম্ভব।"}
+  ],
+  2:[
+    {kind:"work",title:"ডিজিটাল পেশা",caption:"কোড, ডিজাইন, বিপণন ও নেটওয়ার্ক—ভিন্ন দক্ষতা ভিন্ন কাজ তৈরি করে।"},
+    {kind:"device",title:"দূর থেকে কাজ",caption:"ইন্টারনেট অনেক কাজকে স্থাননিরপেক্ষ করে দিয়েছে।"},
+    {kind:"data",title:"দক্ষতা + সুযোগ",caption:"শুধু প্রযুক্তি নয়—দক্ষতা, যোগাযোগ ও দায়িত্বশীলতা দরকার।"}
+  ],
+  3:[
+    {kind:"message",title:"বার্তা পাঠাই",caption:"প্রেরক, মাধ্যম ও প্রাপক—যোগাযোগের তিনটি মূল অংশ।"},
+    {kind:"network",title:"লাইভ সংযোগ",caption:"ভিডিও কলে দুই পক্ষ একই সময়ে কথা বলতে ও প্রতিক্রিয়া দিতে পারে।"},
+    {kind:"data",title:"সঠিক মাধ্যম",caption:"জরুরি বার্তা, ঘোষণা ও প্রতিবেদন—সব কিছুর মাধ্যম এক নয়।"}
+  ],
+  4:[
+    {kind:"shop",title:"বারকোড স্ক্যান",caption:"একটি স্ক্যান দাম খুঁজে পায় এবং বিক্রির তথ্য রেকর্ড করে।"},
+    {kind:"data",title:"মজুদ আপডেট",caption:"পণ্য বিক্রি হলে স্টক কমে; তথ্য থেকেই পরের সিদ্ধান্ত আসে।"},
+    {kind:"device",title:"ডিজিটাল হিসাব",caption:"স্প্রেডশিট ও POS দ্রুত হিসাব ও বিশ্লেষণে সাহায্য করে।"}
+  ],
+  5:[
+    {kind:"service",title:"ডিজিটাল আবেদন",caption:"আবেদন থেকে সেবা পাওয়া পর্যন্ত ধাপ অনলাইনে অনুসরণ করা যায়।"},
+    {kind:"data",title:"ডিজিটাল রেকর্ড",caption:"নথি খোঁজা, সংরক্ষণ ও অগ্রগতি দেখা সহজ হয়।"},
+    {kind:"network",title:"দূরত্ব কমে",caption:"সেবার তথ্য দূরের মানুষও দ্রুত পেতে পারে।"}
+  ],
+  6:[
+    {kind:"health",title:"টেলিমেডিসিন",caption:"দূরের রোগী বিশেষজ্ঞের সঙ্গে অনলাইনে যুক্ত হতে পারে।"},
+    {kind:"data",title:"রোগীর রেকর্ড",caption:"অনুমতিসাপেক্ষ তথ্য নিরাপদে সংরক্ষণ ও দ্রুত খোঁজা যায়।"},
+    {kind:"network",title:"রিপোর্ট ভাগাভাগি",caption:"ডিজিটাল রিপোর্ট প্রয়োজনীয় চিকিৎসকের কাছে দ্রুত পৌঁছাতে পারে।"}
+  ],
+  7:[
+    {kind:"research",title:"তথ্য সংগ্রহ",caption:"গবেষণা প্রশ্নের উত্তর পেতে পরিকল্পিতভাবে ডেটা সংগ্রহ করা হয়।"},
+    {kind:"data",title:"চার্টে দেখি",caption:"সংখ্যাকে গ্রাফে দেখলে ধারা ও পার্থক্য দ্রুত বোঝা যায়।"},
+    {kind:"book",title:"প্রমাণ থেকে সিদ্ধান্ত",caption:"গবেষণায় মতামতের বদলে সংগৃহীত তথ্য ও বিশ্লেষণ গুরুত্বপূর্ণ।"}
+  ]
+};
+
+function VisualGlyph({kind}:{kind:VisualKind}){
+ const common={size:34,strokeWidth:1.7};
+ if(kind==="work")return <BriefcaseBusiness {...common}/>;
+ if(kind==="message")return <MessageCircleMore {...common}/>;
+ if(kind==="shop")return <Store {...common}/>;
+ if(kind==="service")return <Landmark {...common}/>;
+ if(kind==="health")return <HeartPulse {...common}/>;
+ if(kind==="research")return <Microscope {...common}/>;
+ if(kind==="book")return <BookOpen {...common}/>;
+ if(kind==="data")return <BarChart3 {...common}/>;
+ if(kind==="network")return <Wifi {...common}/>;
+ return <MonitorSmartphone {...common}/>;
+}
+
+function LessonVisualStrip({lesson}:{lesson:IctLesson}){
+ const items=visualMomentsByLesson[lesson.number]||[];
+ return <section className={styles.visualStory} aria-label="চিত্রে এই পাঠ">
+  <header><span>চিত্রে শেখো</span><strong>এক নজরে বাস্তব উদাহরণ</strong></header>
+  <div className={styles.visualStoryGrid}>
+   {items.map((item,index)=><figure key={item.title} className={styles.visualMoment} style={{"--visual-delay":String(index*110)+"ms"} as CSSProperties}>
+    <div className={styles.visualMomentArt+" "+styles["visual-"+item.kind]}>
+     <span className={styles.visualOrb}/><span className={styles.visualLine}/><VisualGlyph kind={item.kind}/>
+    </div>
+    <figcaption><b>{item.title}</b><span>{item.caption}</span></figcaption>
+   </figure>)}
+  </div>
+ </section>;
+}
+
 const patriotismByLesson:Record<number,{title:string;text:string}>={
   1:{title:"প্রযুক্তি যেন সবার কাজে লাগে",text:"দেশকে এগিয়ে নিতে প্রযুক্তির সুবিধা শুধু শহর বা সুবিধাপ্রাপ্ত মানুষের মধ্যে সীমাবদ্ধ না রেখে সবার কাছে সহজ, নিরাপদ ও ব্যবহারযোগ্য করে পৌঁছে দেওয়ার কথা ভাবো।"},
   2:{title:"দক্ষতা দিয়ে দেশের কাজের সুযোগ বাড়াই",text:"নিজে দক্ষ হওয়া শুধু ব্যক্তিগত সাফল্য নয়—নতুন কাজ তৈরি, স্থানীয় সমস্যা সমাধান এবং বাংলাদেশের তরুণদের জন্য আরও সুযোগ তৈরির পথও হতে পারে।"},
@@ -227,8 +295,9 @@ export default function IctChapterReader({chapter,chapters}:{chapter:IctChapter;
       <div><p className={styles.eyebrow}>পাঠ {lessonLabel(active)} <span>· বইয়ের পৃষ্ঠা {bn(active.pages[0])}–{bn(active.pages[1])}</span></p>
        <h2>{active.title}</h2><p className={styles.summary}>{active.summary}</p>
       </div>
-      <figure className={styles.lessonVisual}><IctChapterVisual chapter={chapter.number}/><figcaption>{chapter.title}</figcaption></figure>
+      <figure className={styles.lessonVisual}><IctChapterVisual chapter={chapter.number} lesson={active.number}/><figcaption>{chapter.number===1?active.title:chapter.title}</figcaption></figure>
      </section>
+     {chapter.number===1&&<LessonVisualStrip lesson={active}/>}
      {grouped&&<p className={styles.groupNote}><BookOpen size={17}/>মূল বইয়ে পাঠ {lessonLabel(active)} এই একটি শিরোনামের অধীনে একসঙ্গে দেওয়া আছে।</p>}
 
      <div className={styles.learningGrid}>
