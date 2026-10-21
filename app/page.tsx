@@ -5,7 +5,7 @@ import CellZoomPreview from "./components/CellZoomPreview";
 import BangladeshMapPreview from "./components/BangladeshMapPreview";
 import Link from "next/link";
 import {useEffect,useState} from "react";
-import {ArrowRight,BookOpen,Brain,FlaskConical,Pause,Play,X} from "lucide-react";
+import {ArrowRight,BookOpen,Brain,FlaskConical,Pause,Play,Power,X} from "lucide-react";
 import {openThoughtFacts} from "./data/openThoughtFacts";
 import {hiddenQuizQuestions} from "./data/hiddenQuizQuestions";
 import styles from "./home.module.css";
@@ -13,6 +13,7 @@ import styles from "./home.module.css";
 
 // Deployment refresh: Bangladesh map rotation
 export default function Home(){
+ const[lampOn,setLampOn]=useState(true);
  const[running,setRunning]=useState(true);const[homeDemo,setHomeDemo]=useState<"solar"|"cell"|"map"|null>(null);const[toast,setToast]=useState("");const[quiz,setQuiz]=useState(false);const[quizIndex,setQuizIndex]=useState(0);const[answer,setAnswer]=useState<number|null>(null);const[lastThoughtIndex,setLastThoughtIndex]=useState(-1);const[thoughtLang,setThoughtLang]=useState<"en"|"bn">("en");
  function note(text:string){setToast(text);window.setTimeout(()=>setToast(""),4200)}
  useEffect(()=>{
@@ -34,9 +35,10 @@ export default function Home(){
  const currentQuiz=hiddenQuizQuestions[quizIndex];
  return <main>
 
-  <section className={styles.stage} aria-label="Welcome to Bujhi">
-   <div className={styles.copy}><p className="eyebrow">Built for the Bangladeshi curriculum</p><h1>Learn it<br/>your way.</h1><div className={styles.actions}><Link href="/register?role=student">Join as a Student <ArrowRight/></Link><Link href="/register?role=teacher">Join as a Teacher <ArrowRight/></Link></div><button className={styles.discovery} onClick={openRandomQuiz}>I found something<span aria-hidden="true"/></button></div>
-   <div className={styles.lamp} aria-hidden="true"><img src="/homepage-lamp-reference.webp" width="820" height="1230" alt="" fetchPriority="high" decoding="async"/></div>
+  <section className={styles.stage} data-lamp-on={lampOn} aria-label="Welcome to Bujhi">
+   <div className={styles.ambientShade} aria-hidden="true"/>
+   <div className={styles.copy}><p className="eyebrow">Built for the Bangladeshi curriculum</p><h1>Learn it<br/>your way.</h1><div className={styles.actions}><Link href="/register?role=student">Join as a Student <ArrowRight/></Link><Link href="/register?role=teacher">Join as a Teacher <ArrowRight/></Link></div><div className={styles.extras}><button className={styles.discovery} onClick={openRandomQuiz}>I found something<span aria-hidden="true"/></button><button type="button" className={styles.lampSwitch} role="switch" aria-checked={lampOn} aria-label={thoughtLang==="bn"?"ডেস্কের আলো":"Desk light"} onClick={()=>setLampOn(on=>!on)} data-no-translate><Power aria-hidden="true"/><span>{thoughtLang==="bn"?(lampOn?"আলো চালু":"আলো বন্ধ"):(lampOn?"Light on":"Light off")}</span><i aria-hidden="true"/></button></div></div>
+   <div className={styles.lamp}><button type="button" className={styles.lampButton} aria-label={thoughtLang==="bn"?(lampOn?"ডেস্ক ল্যাম্প বন্ধ করুন":"ডেস্ক ল্যাম্প চালু করুন"):(lampOn?"Turn desk lamp off":"Turn desk lamp on")} onClick={()=>setLampOn(on=>!on)}><img src="/homepage-lamp-reference.webp" width="820" height="1230" alt="" fetchPriority="high" decoding="async"/><svg className={styles.unlitBulb} viewBox="0 0 820 1230" aria-hidden="true"><defs><radialGradient id="home-unlit-shade" cx="45%" cy="40%" r="65%"><stop stopColor="#625345"/><stop offset=".5" stopColor="#3e3127"/><stop offset="1" stopColor="#201a16"/></radialGradient></defs><ellipse cx="632" cy="362" rx="185" ry="43" transform="rotate(-29 632 362)" fill="url(#home-unlit-shade)"/></svg></button></div>
    <div className={`notebook-wrap ${styles.preview}`}><div className="paper back-one"/><div className="paper back-two"/><article className="notebook"><span className={styles.paperclip} aria-hidden="true"/><span className={styles.binderclip} aria-hidden="true"><i/><b/><em/></span><div className="rings" aria-hidden="true">{Array.from({length:8}).map((_,i)=><i key={i}/>)}</div><div className="book-meta"><span>Interactive preview</span><span>Tap anything</span></div><h2>A peek inside Bujhi?</h2>
     {homeDemo==="map"
      ?<div className="lesson home-map-lesson"><BangladeshMapPreview compact/></div>

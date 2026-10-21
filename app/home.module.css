@@ -36,7 +36,11 @@
   pointer-events: none;
   background: radial-gradient(ellipse at 34% 12%, #ff9c5354, transparent 68%), linear-gradient(180deg, #60000016, #f13e1a24 30%, #7c0b03a6);
   box-shadow: 0 -16px 40px #7400000a;
+  transition: opacity .7s ease;
 }
+.ambientShade {position: absolute; z-index: 0; inset: 0; background: #160506; opacity: 0; pointer-events: none; transition: opacity .7s ease;}
+.stage[data-lamp-on="false"] .ambientShade {opacity: .8;}
+.stage[data-lamp-on="false"]::after {opacity: 0;}
 .copy {
   position: relative;
   z-index: 4;
@@ -86,12 +90,13 @@
 .actions a:hover {background: #ffffff15; transform: translateY(-2px);}
 .actions a:first-child:hover {background: #f9e8d8;}
 .actions svg {width: 18px; height: 18px; flex-shrink: 0;}
+.extras {display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px 12px; margin-top: clamp(10px, calc(var(--scene-height) * .02), 20px);}
 .discovery {
   display: inline-flex;
   align-items: center;
   gap: 16px;
   min-height: 44px;
-  margin-top: clamp(10px, calc(var(--scene-height) * .02), 20px);
+  margin: 0;
   padding: 0;
   border: 0;
   background: transparent;
@@ -100,7 +105,15 @@
   font-size: 14px;
   cursor: pointer;
 }
-.discovery span {width: 68px; height: 1px; background: #fff0e970;}
+.discovery span {width: clamp(24px, 3vw, 40px); height: 1px; background: #fff0e970;}
+.lampSwitch {display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 44px; padding: 8px 10px; border: 1px solid #fff0e96b; border-radius: 999px; background: #3e080938; color: #fffaf4; font: 600 11px/1.4 "DM Sans", "Bujhi Bangla", sans-serif; white-space: nowrap; cursor: pointer; transition: background .2s, border-color .2s;}
+.lampSwitch:hover {background: #fff0e91a; border-color: #fff0e9;}
+.lampSwitch svg {width: 14px; height: 14px; flex-shrink: 0;}
+.lampSwitch i {position: relative; width: 24px; height: 14px; border-radius: 99px; background: #edc879; box-shadow: inset 0 1px 3px #3e08094a; transition: background .3s;}
+.lampSwitch i::after {content: ""; position: absolute; top: 2px; left: 2px; width: 10px; height: 10px; border-radius: 50%; background: #fffaf4; transform: translateX(10px); transition: transform .3s;}
+.lampSwitch[aria-checked="false"] i {background: #766365;}
+.lampSwitch[aria-checked="false"] i::after {transform: translateX(0);}
+.lampSwitch:focus-visible,.lampButton:focus-visible {outline: 3px solid #ffe4a3; outline-offset: 5px;}
 .lamp {
   position: absolute;
   z-index: 2;
@@ -112,7 +125,13 @@
   pointer-events: none;
   filter: drop-shadow(8px 16px 12px #49000065);
 }
-.lamp img {display: block; width: 100%; height: 100%; object-fit: contain; object-position: left bottom;}
+.lamp::after {content: ""; position: absolute; top: 23%; right: -9%; width: 64%; height: 22%; border-radius: 50%; background: radial-gradient(ellipse, #ffeab54d, #ffeab500 72%); filter: blur(12px); transform: rotate(-29deg); opacity: 1; transition: opacity .7s ease;}
+.lampButton {position: relative; display: block; width: 100%; height: 100%; margin: 0; padding: 0; border: 0; border-radius: 8px; background: none; pointer-events: auto; cursor: pointer; -webkit-tap-highlight-color: transparent;}
+.lamp img {display: block; width: 100%; height: 100%; object-fit: contain; object-position: left bottom; transition: filter .7s ease;}
+.unlitBulb {position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0; transition: opacity .7s ease;}
+.stage[data-lamp-on="false"] .lamp img {filter: brightness(.5) saturate(.75);}
+.stage[data-lamp-on="false"] .unlitBulb {opacity: 1;}
+.stage[data-lamp-on="false"] .lamp::after {opacity: 0;}
 .stage .preview {
   --paper: #fffaf2;
   --surface: #f0e4d1;
@@ -136,7 +155,9 @@
   margin: 0;
   padding: 0;
   transform: none;
+  transition: filter .7s ease;
 }
+.stage[data-lamp-on="false"] .preview {filter: brightness(.78) saturate(.9);}
 .stage .preview :global(.paper) {
   inset: 0;
   width: 100%;
@@ -227,7 +248,8 @@
   .copy :global(.eyebrow) {max-width: calc(100% - 70px); font-size: 10px; margin-bottom: 18px;}
   .actions {display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px;}
   .actions a {font-size: 14px; min-height: 48px; padding: 12px 16px;}
-  .discovery {margin-top: 16px; font-size: 13px;}
+  .extras {margin-top: 16px;}
+  .discovery {font-size: 13px;}
   .lamp {top: 64px; right: -24px; bottom: auto; left: auto; width: clamp(100px, 28vw, 160px); z-index: 1;}
   .stage .preview {aspect-ratio: auto;}
   .stage .preview :global(.notebook) {display: block; height: auto; min-height: 0; padding: 32px 14px 22px 34px; border-radius: 7px;}
@@ -250,4 +272,4 @@
   .stage .preview :global(.home-map-lesson .bd-map-intro p),.stage .preview :global(.home-map-lesson .bd-fact-card p) {font-size: 13px; line-height: 1.65;}
   :global(html[lang="bn"] #bujhi-content) .copy h1 {font-size: clamp(2rem, 8.7vw, 3rem);}
 }
-@media (prefers-reduced-motion: reduce) {.actions a {transition: none;}}
+@media (prefers-reduced-motion: reduce) {.actions a,.stage::after,.ambientShade,.lamp::after,.lamp img,.unlitBulb,.stage .preview,.lampSwitch,.lampSwitch i,.lampSwitch i::after {transition: none;}}
