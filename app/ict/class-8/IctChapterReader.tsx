@@ -122,7 +122,7 @@ function ChapterOneDigitalLab({lesson}:ChapterOneLabProps){
   {lesson.number===7&&<div className={styles.labScene}>
    <div className={styles.labToolbar}><div><strong>Mini Research Lab</strong><span>১০ জন শিক্ষার্থীর দৈনিক ইন্টারনেট ব্যবহারের নমুনা ডেটা বিশ্লেষণ করো।</span></div><Microscope/></div>
    <div className={styles.researchControls}><button type="button" onClick={()=>setResearchCount(value=>Math.min(survey.length,value+1))} disabled={researchCount===survey.length}>একটি উত্তর সংগ্রহ করি</button><span>{researchCount} / {survey.length} উত্তর</span><button type="button" className={styles.resetButton} onClick={()=>setResearchCount(0)}><RotateCcw/>রিসেট</button></div>
-   <div className={styles.researchChart} aria-label="ইন্টারনেট ব্যবহারের ঘণ্টা অনুযায়ী বার চার্ট">{frequencies.map((count,index)=>{const visible=survey.slice(0,researchCount).filter(value=>value===index+1).length;return <div key={index}><i style={{height:String(Math.max(6,visible*28))+"px"}}/><b>{index+1} ঘণ্টা</b><small>{visible} জন</small></div>})}</div>
+   <div className={styles.researchChart} aria-label="ইন্টারনেট ব্যবহারের ঘণ্টা অনুযায়ী বার চার্ট">{frequencies.map((_,index)=>{const visible=survey.slice(0,researchCount).filter(value=>value===index+1).length;return <div key={index}><i style={{height:String(Math.max(6,visible*28))+"px"}}/><b>{index+1} ঘণ্টা</b><small>{visible} জন</small></div>})}</div>
    {researchCount===survey.length&&<p className={styles.labInsight}><BarChart3/>সবচেয়ে বেশি শিক্ষার্থী ৩ ঘণ্টা ব্যবহার করেছে। ডেটা সংগ্রহ → সাজানো → বিশ্লেষণ → সিদ্ধান্ত—এটাই গবেষণায় ICT-এর একটি ছোট উদাহরণ।</p>}
   </div>}
 
