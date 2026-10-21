@@ -27,6 +27,7 @@ export default function LearnBookPage(){
   const classLabel=classKey?(bookUsesEnglish?studentClassLabels[classKey]:classLabelBn[classKey]):"";
   const[ready,setReady]=useState(false);
   const[ictChapter,setIctChapter]=useState<number|null>(null);
+  const[ictLesson,setIctLesson]=useState(0);
 
   useEffect(()=>{
     void (async()=>{
@@ -75,25 +76,60 @@ export default function LearnBookPage(){
       {number:7,title:"গবেষণা",detail:"তথ্য সংগ্রহ, বিশ্লেষণ, সংরক্ষণ ও গবেষণায় ICT কীভাবে সাহায্য করে।"}
     ];
 
-    if(ictChapter===1)return <main className={styles.page}>
-      <header className={styles.topbar}>
-        <button type="button" className={styles.back} onClick={()=>setIctChapter(null)}><ArrowLeft/>ICT অধ্যায়গুলোতে ফিরি</button>
-      </header>
-      <section className={styles.lessonPage}>
-        <div className={styles.lessonHero} style={{"--accent":book.accent} as React.CSSProperties}>
-          <p>অষ্টম শ্রেণি · তথ্য ও যোগাযোগ প্রযুক্তি · অধ্যায় ১</p>
-          <h1>তথ্য ও যোগাযোগ প্রযুক্তির গুরুত্ব</h1>
-          <span>অধ্যায়টি ৭টি ছোট পাঠে ভাগ করা হয়েছে। একটি পাঠ বেছে ধাপে ধাপে পড়ো।</span>
-        </div>
-        <div className={styles.lessonWorkspace} aria-label="অধ্যায় ১-এর ৭টি পাঠ">
-          {ictLessons.map(lesson=><article className={styles.lessonCard} key={lesson.number}>
-            <BookOpen/>
-            <strong>পাঠ {lesson.number.toLocaleString("bn-BD")} · {lesson.title}</strong>
-            <p>{lesson.detail}</p>
-          </article>)}
-        </div>
-      </section>
-    </main>;
+    if(ictChapter===1){
+      const activeLesson=ictLessons[ictLesson]||ictLessons[0];
+      return <main className={styles.page}>
+        <header className={styles.topbar}>
+          <button type="button" className={styles.back} onClick={()=>{setIctChapter(null);setIctLesson(0)}}><ArrowLeft/>ICT অধ্যায়গুলোতে ফিরি</button>
+        </header>
+        <section className={styles.lessonPage}>
+          <div className={styles.ictChapterHero} style={{"--accent":book.accent} as React.CSSProperties}>
+            <div>
+              <p>অষ্টম শ্রেণি · তথ্য ও যোগাযোগ প্রযুক্তি · অধ্যায় ১</p>
+              <h1>তথ্য ও যোগাযোগ প্রযুক্তির গুরুত্ব</h1>
+              <span>একটি পাঠ বেছে নাও। প্রতিটি পাঠ একই অধ্যায়ের ধারাবাহিক অংশ হিসেবে নিচে খুলবে।</span>
+            </div>
+            <div className={styles.ictChapterStamp}><small>CHAPTER</small><b>০১</b></div>
+          </div>
+
+          <nav className={styles.ictLessonNav} aria-label="অধ্যায় ১-এর ৭টি পাঠ">
+            {ictLessons.map((lesson,index)=><button
+              type="button"
+              key={lesson.number}
+              className={index===ictLesson?styles.ictLessonActive:""}
+              onClick={()=>setIctLesson(index)}
+            >
+              <BookOpen/>
+              <span>{lesson.number.toLocaleString("bn-BD")}. {lesson.title}</span>
+            </button>)}
+          </nav>
+
+          <article className={styles.ictLessonPanel}>
+            <div className={styles.ictLessonHeading}>
+              <span>পাঠ {activeLesson.number.toLocaleString("bn-BD")}</span>
+              <h2>{activeLesson.title}</h2>
+              <p>{activeLesson.detail}</p>
+            </div>
+
+            <div className={styles.ictLessonBody}>
+              <section>
+                <small>এই পাঠে কী বুঝবে</small>
+                <h3>{activeLesson.title}</h3>
+                <p>{activeLesson.detail}</p>
+              </section>
+              <section>
+                <small>মনে রাখো</small>
+                <p>তথ্য ও যোগাযোগ প্রযুক্তি শুধু কম্পিউটার ব্যবহার নয়—তথ্য সংগ্রহ, সংরক্ষণ, আদান-প্রদান এবং বাস্তব সমস্যার সমাধানে প্রযুক্তির ব্যবহারই এর মূল বিষয়।</p>
+              </section>
+              <section>
+                <small>নিজেকে জিজ্ঞেস করো</small>
+                <p>এই পাঠের ধারণাটি তোমার নিজের স্কুল, পরিবার বা দৈনন্দিন জীবনের কোন উদাহরণের সঙ্গে মেলে?</p>
+              </section>
+            </div>
+          </article>
+        </section>
+      </main>;
+    }
 
     return <main className={styles.page}>
       <header className={styles.topbar}>
@@ -116,7 +152,7 @@ export default function LearnBookPage(){
             type="button"
             className={styles.ictCard}
             key={chapter.number}
-            onClick={()=>setIctChapter(1)}
+            onClick={()=>{setIctChapter(1);setIctLesson(0)}}
           >
             <span className={styles.chapterBadge}>অধ্যায় {chapter.number.toLocaleString("bn-BD")}</span>
             <BookOpen/>
