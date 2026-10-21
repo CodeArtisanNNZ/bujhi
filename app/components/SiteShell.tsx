@@ -96,6 +96,7 @@ export default function SiteShell({children}:{children:React.ReactNode}){
   const links=[
     {href:"/",label:bn?"হোম":"Home"},
     {href:"/about",label:bn?"আমাদের সম্পর্কে":"About Us"},
+    {href:"/research",label:bn?"বুঝির পেছনের গবেষণা":"Research Behind Bujhi"},
     {href:"/register",label:bn?"সাইন আপ":"Sign Up"},
     {href:"/login",label:bn?"লগইন":"Login"},
     ...(role==="teacher"?[{href:"/teacher-dashboard",label:bn?"শিক্ষকের ডেস্ক":"Teacher Desk"}]
