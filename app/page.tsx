@@ -35,16 +35,8 @@ export default function Home(){
 
   <section className="hero">
    <div className="hero-copy"><p className="eyebrow">Built for the Bangladeshi curriculum</p><h1>Learn it<br/>your way.</h1><div className="hero-actions"><Link href="/register?role=student">Join as a Student <ArrowRight/></Link><Link href="/register?role=teacher">Join as a Teacher <ArrowRight/></Link></div><button className="hidden-spark" onClick={openRandomQuiz}>I found something</button></div>
-   <div className="home-red-lamp" aria-hidden="true">
-    <span className="home-lamp-glow"/>
-    <span className="home-lamp-base"/>
-    <span className="home-lamp-lower-arm"/>
-    <span className="home-lamp-elbow"/>
-    <span className="home-lamp-upper-arm"/>
-    <span className="home-lamp-head-joint"/>
-    <span className="home-lamp-shade"><i/></span>
-   </div>
-   <div className="notebook-wrap"><div className="paper back-one"/><div className="paper back-two"/><article className="notebook"><div className="rings">{Array.from({length:8}).map((_,i)=><i key={i}/>)}</div><div className="book-meta"><span>Interactive preview</span><span>Tap anything</span></div><h2>A peek inside Bujhi?</h2>
+   <div className="home-lamp-photo" aria-hidden="true"><img src="/homepage-red-lamp.webp" alt=""/></div>
+   <div className="notebook-wrap"><div className="paper back-one"/><div className="paper back-two"/><article className="notebook"><span className="home-paperclip" aria-hidden="true"/><div className="rings">{Array.from({length:8}).map((_,i)=><i key={i}/>)}</div><div className="book-meta"><span>Interactive preview</span><span>Tap anything</span></div><h2>A peek inside Bujhi?</h2>
     {homeDemo==="map"
      ?<div className="lesson home-map-lesson"><BangladeshMapPreview compact/></div>
      :<div className="lesson"><div className="lesson-copy">
