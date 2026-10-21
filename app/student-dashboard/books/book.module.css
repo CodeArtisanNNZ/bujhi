@@ -78,6 +78,9 @@
 }
 .ictCard{
   position:relative;
+  width:100%;
+  text-align:left;
+  cursor:pointer;
   min-height:210px;
   overflow:hidden;
   border:1px solid var(--line);
@@ -149,3 +152,5 @@
   .ictCard strong{font-size:19px;max-width:100%}
   .ictCard p{font-size:14px}
 }
+
+.topbar button.back{border:0;background:transparent;padding:0;cursor:pointer;font-family:inherit}
