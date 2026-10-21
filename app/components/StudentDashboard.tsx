@@ -117,7 +117,7 @@ export default function StudentDashboard(){
   }
 
   return <main className={`${styles.page} ${deskLightOn?"":styles.pageDim}`}>
-    <section ref={sceneRef} className={styles.referenceDesk} aria-label={`Bujhi? ${studentClassLabels[classKey]} study desk`}>
+    <section ref={sceneRef} className={styles.referenceDesk} aria-label={`Bujhi ${studentClassLabels[classKey]} study desk`}>
       <div className={styles.dynamicClass}>
         <div className={styles.classPill}>
           <strong>{studentClassLabels[classKey]}</strong>
@@ -152,44 +152,6 @@ export default function StudentDashboard(){
         </button>)}
       </div>
 
-      <div className={styles.deskSurface} aria-hidden="true"/>
-      <div className={styles.lamp} aria-hidden="true">
-        <ResponsiveImage className={styles.studentLampImage} sizes="360px" src="/ef6af6f1-43c9-41fe-9c24-5f3873a95c33.png" alt="" draggable={false}/>
-      </div>
-
-      <button
-        type="button"
-        className={`${styles.roomLightSwitch} ${deskLightOn?styles.lightOn:styles.lightOff}`}
-        onClick={toggleDeskLamp}
-        aria-pressed={deskLightOn}
-        aria-label={deskLightOn?"Dim the desk":"Brighten the desk"}
-      >
-        <span className={styles.roomLightTrack} aria-hidden="true">
-          <span className={`${styles.roomLightState} ${styles.roomLightOff}`}>OFF</span>
-          <span className={`${styles.roomLightState} ${styles.roomLightOn}`}>ON</span>
-          <span className={styles.roomLightThumb}><i/></span>
-        </span>
-      </button>
-
-      <DeskCalendar className={styles.liveCalendar}/>
-
-      <div className={styles.moneyPlant} role="img" aria-label="Money plant">
-        <ResponsiveImage sizes="360px" src="/29e8b631-9c79-4996-b225-405227aa1153.png" alt="" draggable={false} loading="eager"/>
-      </div>
-
-      <RotatingDeskGlobe className={styles.studentGlobe} showFact={false}/>
-
-      <div className={styles.mobileDeskBooks} aria-hidden="true">
-        {books.slice(0,5).map(book=><i key={book.id} style={{backgroundColor:book.accent}}><span>{book.glyph}</span></i>)}
-        <b><span/><span/><span/></b>
-      </div>
-
-      <div className={styles.mobileOpenNotebook} aria-hidden="true">
-        <div className={styles.mobileNotebookLeft}><span>Don&apos;t forget!<br/>You got this! :)</span></div>
-        <div className={styles.mobileNotebookSpine}/>
-        <div className={styles.mobileNotebookRight}><i/></div>
-      </div>
-
       <div className={styles.studyNotebook}>
         <div className={styles.notebookBinding} aria-hidden="true"/>
         <p>{studentClassLabels[classKey]} · My study desk</p>
@@ -199,31 +161,71 @@ export default function StudentDashboard(){
         <small>Every book has its own PDF + Learn Lesson page.</small>
       </div>
 
-      <button type="button" className={styles.stickyHotspot} onClick={()=>setPanel("notes")} aria-label="Open sticky note">
-        <StickyNote size={19}/><strong>A thought to keep</strong><span>{note||"Write something you want to remember…"}</span>
-      </button>
-
       <nav className={styles.actionHotspots} aria-label="Study tools">
         <button type="button" onClick={()=>openBook(selectedBook)}><FileText size={18}/>Selected book</button>
         <button type="button" onClick={()=>setPanel("practice")}><PenLine size={18}/>Practice</button>
         <button type="button" onClick={()=>setPanel("notes")}><StickyNote size={18}/>My notes</button>
       </nav>
 
-      <aside className={styles.drinkArea}>
-        <button type="button" className={styles.cupHotspot} onClick={()=>setDrinkOpen(value=>!value)} aria-expanded={drinkOpen} aria-label={`Change desk drink: ${activeDrink.label}`}>
-          <span key={drink} className={styles.drinkImageFrame} aria-hidden="true">
-            {(drink==="tea"||drink==="coffee")&&<span className={styles.steam}><i/><i/><i/></span>}
-            <ResponsiveImage className={styles.drinkImage} sizes="180px" src={activeDrink.image} alt="" draggable={false}/>
+      <div className={styles.deskSurface} aria-hidden="true"/>
+      <div className={styles.deskScene}>
+        <div className={styles.lamp} aria-hidden="true">
+          <ResponsiveImage className={styles.studentLampImage} sizes="360px" src="/ef6af6f1-43c9-41fe-9c24-5f3873a95c33.png" alt="" draggable={false}/>
+        </div>
+
+        <button
+          type="button"
+          className={`${styles.roomLightSwitch} ${deskLightOn?styles.lightOn:styles.lightOff}`}
+          onClick={toggleDeskLamp}
+          aria-pressed={deskLightOn}
+          aria-label={deskLightOn?"Dim the desk":"Brighten the desk"}
+        >
+          <span className={styles.roomLightTrack} aria-hidden="true">
+            <span className={`${styles.roomLightState} ${styles.roomLightOff}`}>OFF</span>
+            <span className={`${styles.roomLightState} ${styles.roomLightOn}`}>ON</span>
+            <span className={styles.roomLightThumb}><i/></span>
           </span>
-          <span className={styles.drinkLabel}>{activeDrink.label} · Change</span>
         </button>
-        {drinkOpen&&<div className={styles.drinkMenu}>
-          <div className={styles.drinkMenuTitle}>Choose a drink</div>
-          {drinkOptions.map(item=><button type="button" key={item.id} className={drink===item.id?styles.drinkActive:""} onClick={()=>chooseDrink(item.id)} aria-pressed={drink===item.id}>
-            <span className={styles.drinkThumb} aria-hidden="true"><ResponsiveImage sizes="80px" src={item.image} alt="" draggable={false}/></span><span>{item.label}</span>
-          </button>)}
-        </div>}
-      </aside>
+
+        <div className={styles.moneyPlant} role="img" aria-label="Money plant">
+          <ResponsiveImage sizes="360px" src="/29e8b631-9c79-4996-b225-405227aa1153.png" alt="" draggable={false} loading="eager"/>
+        </div>
+
+        <RotatingDeskGlobe className={styles.studentGlobe} showFact={false}/>
+
+        <div className={styles.mobileDeskBooks} aria-hidden="true">
+          {books.slice(0,5).map(book=><i key={book.id} style={{backgroundColor:book.accent}}><span>{book.glyph}</span></i>)}
+          <b><span/><span/><span/></b>
+        </div>
+
+        <div className={styles.mobileOpenNotebook} aria-hidden="true">
+          <div className={styles.mobileNotebookLeft}><span>Don&apos;t forget!<br/>You got this! :)</span></div>
+          <div className={styles.mobileNotebookSpine}/>
+          <div className={styles.mobileNotebookRight}><i/></div>
+        </div>
+
+        <aside className={styles.drinkArea}>
+          <button type="button" className={styles.cupHotspot} onClick={()=>setDrinkOpen(value=>!value)} aria-expanded={drinkOpen} aria-label={`Change desk drink: ${activeDrink.label}`}>
+            <span key={drink} className={styles.drinkImageFrame} aria-hidden="true">
+              {(drink==="tea"||drink==="coffee")&&<span className={styles.steam}><i/><i/><i/></span>}
+              <ResponsiveImage className={styles.drinkImage} sizes="180px" src={activeDrink.image} alt="" draggable={false}/>
+            </span>
+            <span className={styles.drinkLabel}>{activeDrink.label} · Change</span>
+          </button>
+          {drinkOpen&&<div className={styles.drinkMenu}>
+            <div className={styles.drinkMenuTitle}>Choose a drink</div>
+            {drinkOptions.map(item=><button type="button" key={item.id} className={drink===item.id?styles.drinkActive:""} onClick={()=>chooseDrink(item.id)} aria-pressed={drink===item.id}>
+              <span className={styles.drinkThumb} aria-hidden="true"><ResponsiveImage sizes="80px" src={item.image} alt="" draggable={false}/></span><span>{item.label}</span>
+            </button>)}
+          </div>}
+        </aside>
+      </div>
+      <div className={styles.deskFooter}>
+        <DeskCalendar className={styles.liveCalendar}/>
+        <button type="button" className={styles.stickyHotspot} onClick={()=>setPanel("notes")} aria-label="Open sticky note">
+          <StickyNote size={19}/><strong>A thought to keep</strong><span>{note||"Write something you want to remember…"}</span>
+        </button>
+      </div>
     </section>
 
     {panel&&<div className={styles.overlay} onMouseDown={event=>{if(event.currentTarget===event.target)setPanel(null)}}>

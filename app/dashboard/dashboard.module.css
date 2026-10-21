@@ -242,398 +242,129 @@
   .liveCalendar :global(.deskCalendarHeader){margin-left:-6px;margin-right:-6px}
 }
 
-/* Mobile desk: the shelf, notebook and tools grow with their content. */
-@media (max-width: 1000px) {
-  .page { min-height: calc(100dvh - var(--nav-height)); }
-  .referenceDesk {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-areas: "class profile" "meta meta" "shelf shelf" "notebook notebook" "actions actions" "globe globe" "lamp plant" "switch drink" "calendar note";
-    gap: 16px;
-    width: 100%; min-height: 0; padding: 16px 16px 28px;
-    overflow: visible;
-  }
-  .referenceDesk > :not(.deskSurface) { position: relative; inset: auto; min-width: 0; }
-  .deskSurface { inset: 0; border-top: 0; }
-  .dynamicProfile { grid-area: profile; display: flex; align-items: center; justify-content: flex-end; max-width: none; padding: 0; gap: 6px; }
-  .dynamicProfile > span { width: 28px; height: 28px; flex-shrink: 0; }
-  .dynamicProfile strong { font-size: .875rem; max-width: 110px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .dynamicProfile button { width: 44px; height: 44px; flex-shrink: 0; }
-  .studyNotebook { grid-area: notebook; width: 100%; min-height: 0; padding: 24px 18px 24px 36px; }
-  .notebookBinding { left: 8px; width: 14px; }
-  .studyNotebook p { font-size: .875rem; letter-spacing: .04em; }
-  .studyNotebook h1 { max-width: 100%; font-size: 1.6rem; line-height: 1.5; overflow-wrap: anywhere; }
-  .studyNotebook > span { display: block; font-size: 1rem; line-height: 1.65; }
-  .studyNotebook button { width: 100%; min-height: 48px; padding: 12px; font-size: 1rem; }
-  .studyNotebook small { font-size: .875rem; line-height: 1.6; }
-  .actionHotspots { grid-area: actions; width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
-  .actionHotspots button { min-width: 0; min-height: 64px; flex-direction: column; gap: 6px; padding: 10px 6px; font-size: .875rem; line-height: 1.5; overflow-wrap: anywhere; }
-  .actionHotspots svg { width: 18px; flex-shrink: 0; }
-  .referenceDesk > .lamp { grid-area: lamp; inset: auto!important; width: 100%; height: 170px; }
-  .studentGlobe {
-    grid-area: globe;
-    position: relative!important;
-    inset: auto!important;
-    width: 172px!important;
-    height: 246px!important;
-    transform: scale(.82);
-    transform-origin: top center;
-    justify-self: center;
-    margin-bottom: -28px;
-  }
-  .moneyPlant { grid-area: plant; width: min(170px, 100%); height: 170px; justify-self: end; }
-  .roomLightSwitch { grid-area: switch; align-self: center; justify-self: center; padding: 4px; min-height: 44px; }
-  .drinkArea { grid-area: drink; width: 100%; height: auto; transform: none; }
-  .cupHotspot { height: auto; min-height: 44px; }
-  .drinkImageFrame { width: 100px; height: 100px; }
-  .steam { left: 38px; transform: scale(.7); }
-  .drinkLabel { font-size: .875rem; line-height: 1.5; padding: 6px 8px; }
-  .drinkMenu { right: 0; bottom: calc(100% + 8px); width: min(240px, calc(100vw - 32px)); transform: none; }
-  .drinkMenu button { min-height: 48px; font-size: 1rem; }
-  .liveCalendar { grid-area: calendar; width: 100%; min-height: 0; align-self: start; padding: 0 6px 8px; }
-  .liveCalendar :global(.deskCalendarHeader) { height: auto; min-height: 44px; margin: 0 -6px 6px; padding: 8px 6px; flex-wrap: wrap; justify-content: center; gap: 4px 8px; }
-  .liveCalendar :global(.deskCalendarHeader strong), .liveCalendar :global(.deskCalendarHeader small) { font-size: .875rem; line-height: 1.4; }
-  .liveCalendar :global(.deskCalendarWeekdays) { font-size: .75rem; gap: 1px; }
-  .liveCalendar :global(.deskCalendarGrid) { gap: 2px; }
-  .liveCalendar :global(.deskCalendarGrid) > span { height: 24px; font-size: .75rem; }
-  .stickyHotspot { grid-area: note; width: 100%; min-height: 140px; align-self: start; padding: 16px 12px; }
-  .stickyHotspot strong { font-size: 1rem; line-height: 1.5; }
-  .stickyHotspot span { font-size: .875rem; line-height: 1.6; }
-  .overlay { padding: 12px; padding-bottom: max(12px, env(safe-area-inset-bottom)); align-items: end; }
-  .closeButton { width: 44px; height: 44px; right: 10px; top: 10px; }
-}
-@media (max-width: 360px) {
-  .dynamicProfile strong { display: none; }
-  .actionHotspots { grid-template-columns: minmax(0, 1fr); }
-  .actionHotspots button { flex-direction: row; min-height: 48px; }
-}
-
-@media (max-width: 1000px) {
-  .dynamicClass { grid-area: class; }
-  .classPill { width: 100%; min-height: 48px; padding: 8px 12px; border-radius: 12px; }
-  .classPill strong { font-size: .875rem; line-height: 1.5; }
-  .classPill span { font-size: .75rem; }
-  .shelfMeta { grid-area: meta; flex-wrap: wrap; gap: 6px; }
-  .shelfMeta strong { font-size: .875rem; }
-  .shelfMeta span { display: block; font-size: .75rem; }
-  .bookHotspots { grid-area: shelf; width: 100%; height: 185px; gap: 8px; padding: 8px 6px 12px; border-bottom-width: 12px; overscroll-behavior-x: contain; }
-  .bookHotspots button { flex: 0 0 54px; width: 54px; min-width: 54px; height: 150px; }
-  .bookHotspots button:nth-child(3n), .bookHotspots button:nth-child(4n) { height: 150px; }
-  .bookTitle { font-size: .875rem; max-height: 105px; }
-  .bookHotspots small { font-size: .75rem; }
-  .bookHotspots button:hover { transform: none; }
-  .panel { width: 100%; max-height: calc(100dvh - 24px); padding: 24px 16px; }
-  .panelHeader { gap: 10px; padding-right: 38px; }
-  .panelHeader > span { flex-shrink: 0; width: 44px; height: 52px; }
-  .panelHeader h2 { font-size: 1.5rem; line-height: 1.5; overflow-wrap: anywhere; }
-  .panelHeader small { font-size: .875rem; }
-  .practiceCards { grid-template-columns: minmax(0, 1fr); }
-  .practiceCards p, .practiceCards button { font-size: .875rem; }
-  .noteEditor { min-height: 180px; font-size: 16px; }
-}
-
-/* Phone-first student desk: learning controls lead; ornaments never crowd the page. */
-@media (max-width: 600px) {
-  .referenceDesk {
-    grid-template-columns: minmax(0,1fr) minmax(0,1fr);
-    grid-template-areas: "class profile" "meta meta" "shelf shelf" "notebook notebook" "actions actions" "calendar calendar" "note note" "lamp plant" "switch drink";
-    gap: 11px;
-    padding: 12px 10px 26px;
-  }
-  .referenceDesk > .studentGlobe { display: none; }
-  .studyNotebook { padding: 19px 14px 19px 29px; }
-  .studyNotebook h1 { font-size: 1.4rem; }
-  .actionHotspots { grid-template-columns: repeat(3,minmax(0,1fr)); }
-  .actionHotspots button { min-height: 52px; padding: 9px 4px; }
-  .liveCalendar { justify-self: stretch; max-width: 100%; min-height: 180px; }
-  .liveCalendar :global(.deskCalendarGrid) > span { height: 30px; }
-  .stickyHotspot { min-height: 92px; }
-  .referenceDesk > .lamp { max-height: 110px; overflow: hidden; }
-  .moneyPlant { max-height: 110px; }
-  .drinkImageFrame { width: 78px; height: 78px; }
-  .bookHotspots { height: 162px; gap: 7px; }
-  .bookHotspots button,.bookHotspots button:nth-child(3n),.bookHotspots button:nth-child(4n) { height: 132px; }
-  .dynamicProfile strong { max-width: 85px; }
-  .referenceDesk,.referenceDesk>* { min-width: 0; }
-}
-@media (max-width: 360px) {
-  .actionHotspots { grid-template-columns: minmax(0,1fr); }
-  .actionHotspots button { flex-direction: row; }
-}
-
-
-/* ===== APPROVED PHONE DESK LAYOUT ===== */
+.deskScene,.deskFooter{display:contents}
 .mobileDeskBooks,.mobileOpenNotebook{display:none}
 
-@media (max-width:600px){
+/* One flowing layout for phones, landscape phones and tablets. Only the
+   decorative scene uses coordinates, relative to its own aspect ratio. */
+@media (max-width:1000px){
+  .page{min-height:calc(100dvh - var(--nav-height));}
   .referenceDesk{
-    grid-template-columns:repeat(6,minmax(0,1fr));
-    grid-template-areas:
-      "class class class profile profile profile"
-      "meta meta meta meta meta meta"
-      "shelf shelf shelf shelf shelf shelf"
-      "notebook notebook notebook notebook notebook notebook"
-      "actions actions actions actions actions actions"
-      "lamp lamp globe globe plant plant"
-      "books books decor decor drink drink"
-      "calendar calendar calendar note note note";
-    column-gap:8px;
-    row-gap:10px;
-    padding:12px 10px 18px;
-    align-items:start;
-  }
-
-  .dynamicClass{grid-area:class}
-  .dynamicProfile{grid-area:profile}
-  .shelfMeta{grid-area:meta}
-  .bookHotspots{grid-area:shelf}
-  .studyNotebook{grid-area:notebook}
-  .actionHotspots{grid-area:actions}
-
-  .referenceDesk>.studentGlobe{
-    display:block;
-    grid-area:globe;
-    position:relative!important;
-    inset:auto!important;
-    justify-self:center;
-    align-self:end;
-    width:112px!important;
-    height:142px!important;
-    transform:none;
-    margin:0;
-    overflow:visible;
-  }
-  .studentGlobe :global(.login-globe-credit){display:none}
-
-  .referenceDesk>.lamp{
-    grid-area:lamp;
-    width:100%;
-    height:150px;
-    max-height:none;
-    overflow:visible;
-    align-self:end;
-    justify-self:start;
-    transform:none;
-  }
-  .studentLampImage{
-    width:100%!important;
-    height:100%!important;
-    object-fit:contain!important;
-    object-position:left bottom!important;
-  }
-
-  .moneyPlant{
-    grid-area:plant;
-    width:100%;
-    height:150px;
-    max-height:none;
-    justify-self:end;
-    align-self:end;
-    overflow:visible;
-  }
-  .moneyPlant img{object-position:right bottom}
-
-  .roomLightSwitch{display:none}
-
-  .mobileDeskBooks{
-    grid-area:books;
-    display:flex;
-    align-items:flex-end;
-    justify-content:center;
-    gap:2px;
-    width:100%;
-    height:106px;
-    align-self:end;
-    padding:0 2px 4px;
-  }
-  .mobileDeskBooks>i{
-    position:relative;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    width:18px;
-    min-width:18px;
-    height:78px;
-    border:1px solid #432d2433;
-    border-radius:3px 4px 2px 2px;
-    box-shadow:inset 3px 0 #ffffff18,inset -2px 0 #0002,2px 2px 3px #3d25172a;
-    color:#fff7e9;
-    font-style:normal;
-  }
-  .mobileDeskBooks>i:nth-child(2){height:84px}
-  .mobileDeskBooks>i:nth-child(3){height:74px}
-  .mobileDeskBooks>i:nth-child(4){height:88px}
-  .mobileDeskBooks>i:nth-child(5){height:81px}
-  .mobileDeskBooks>i span{
-    writing-mode:vertical-rl;
-    font:700 8px/1 Georgia,"Bujhi Bangla",serif;
-    opacity:.9;
-  }
-  .mobileDeskBooks>b{
-    position:relative;
-    display:block;
-    width:29px;
-    height:50px;
-    margin-left:4px;
-    border-radius:4px 4px 7px 7px;
-    background:#d9c5a5;
-    border:1px solid #8f74587a;
-    box-shadow:inset 0 4px #f5e9d5,1px 3px 4px #3e251625;
-  }
-  .mobileDeskBooks>b span{
-    position:absolute;
-    bottom:43px;
-    width:3px;
-    height:34px;
-    border-radius:3px;
-    background:#c99130;
-    transform-origin:bottom center;
-  }
-  .mobileDeskBooks>b span:nth-child(1){left:7px;transform:rotate(-8deg)}
-  .mobileDeskBooks>b span:nth-child(2){left:14px;height:38px;background:#6f4a2e}
-  .mobileDeskBooks>b span:nth-child(3){left:21px;transform:rotate(9deg);background:#d8a132}
-
-  .mobileOpenNotebook{
-    grid-area:decor;
-    position:relative;
+    --desk-gutter:clamp(10px,2.5vw,20px);
     display:grid;
-    grid-template-columns:1fr 4px 1fr;
-    width:100%;
-    height:104px;
-    align-self:end;
-    border:1px solid #9d826554;
-    border-radius:8px;
-    background:#f8ecd8;
-    box-shadow:0 5px 10px #4c2c1a26,0 2px 0 #8d6a48;
-    overflow:hidden;
-    transform:rotate(-1deg);
+    grid-template-columns:minmax(0,1fr) auto;
+    grid-template-areas:"class profile" "meta meta" "shelf shelf" "notebook notebook" "actions actions" "scene scene" "footer footer";
+    gap:12px 10px;
+    width:100%;max-width:760px;min-height:0;
+    padding:14px max(var(--desk-gutter),env(safe-area-inset-right)) max(20px,env(safe-area-inset-bottom)) max(var(--desk-gutter),env(safe-area-inset-left));
+    overflow:clip;
   }
-  .mobileNotebookLeft,.mobileNotebookRight{
-    position:relative;
-    min-width:0;
+  .deskSurface{
+    inset:0;border:0;
     background:
-      repeating-linear-gradient(180deg,transparent 0 14px,#c8b59b55 15px 16px),
-      #f9edd8;
+      radial-gradient(ellipse at 15% 74%,#ffe1a03b,transparent 38%),
+      repeating-linear-gradient(0deg,#72401c12 0 1px,transparent 1px 5px,#ffe0a017 6px 7px,transparent 7px 21px),
+      repeating-linear-gradient(1deg,transparent 0 27px,#6d36151a 28px,transparent 30px 63px),
+      linear-gradient(#d9b183,#ce9b63 43%,#af652f 74%,#b87742);
   }
-  .mobileNotebookLeft span{
-    position:absolute;
-    left:8px;
-    top:14px;
-    padding:6px 5px;
-    max-width:58px;
-    background:#efc85c;
-    color:#5d472f;
-    font:700 7px/1.25 Georgia,"Bujhi Bangla",serif;
-    box-shadow:1px 2px 3px #4d331d2c;
-    transform:rotate(-4deg);
+  .dynamicClass,.dynamicProfile,.shelfMeta,.bookHotspots,.studyNotebook,.actionHotspots{
+    position:relative;inset:auto;min-width:0;max-width:100%;
   }
-  .mobileNotebookSpine{
-    background:repeating-linear-gradient(180deg,#78624d 0 3px,#dac5aa 3px 7px);
-    box-shadow:inset 1px 0 #fff8;
+  .dynamicClass{grid-area:class;align-self:center;}
+  .classPill{width:100%;min-height:52px;padding:8px 12px;border-radius:10px;}
+  .classPill strong{font-size:14px;line-height:1.4;}
+  .classPill span{font-size:11px;line-height:1.5;letter-spacing:0;}
+  .dynamicProfile{grid-area:profile;display:flex;align-items:center;justify-content:flex-end;gap:6px;padding:0;}
+  .dynamicProfile>span{width:30px;height:30px;flex-shrink:0;}
+  .dynamicProfile strong{display:block;max-width:clamp(52px,12vw,110px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;}
+  .dynamicProfile button{width:44px;height:44px;padding:10px;flex-shrink:0;}
+  .shelfMeta{grid-area:meta;display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px;}
+  .shelfMeta strong{font-size:13px;line-height:1.5;}
+  .shelfMeta span{display:block;font-size:11px;line-height:1.5;letter-spacing:0;}
+  .bookHotspots{
+    grid-area:shelf;width:100%;height:clamp(146px,26vw,180px);gap:5px;
+    padding:5px 3px 8px;border-bottom:9px solid #aa713b;border-radius:3px;
+    background:linear-gradient(0deg,#b67c4440,transparent 70%);
+    box-shadow:0 5px 7px #573c2430;overscroll-behavior-x:contain;scroll-padding-inline:3px;
   }
-  .mobileNotebookRight i{
-    position:absolute;
-    right:16px;
-    bottom:14px;
-    width:5px;
-    height:55px;
-    border-radius:4px;
-    background:#2d211b;
-    transform:rotate(24deg);
-    box-shadow:0 1px 2px #0004;
+  .bookHotspots button,.bookHotspots button:nth-child(3n),.bookHotspots button:nth-child(4n){
+    flex:0 0 clamp(44px,8vw,58px);width:clamp(44px,8vw,58px);min-width:44px;height:100%;padding:8px 3px 6px;
   }
-  .mobileNotebookRight i:after{
-    content:"";
-    position:absolute;
-    top:-7px;
-    left:0;
-    width:5px;
-    height:9px;
-    clip-path:polygon(50% 0,100% 100%,0 100%);
-    background:#b98a53;
-  }
-
-  .drinkArea{
-    grid-area:drink;
-    width:100%;
-    height:106px;
-    align-self:end;
-    justify-self:end;
-    display:flex;
-    align-items:flex-end;
-    justify-content:center;
-  }
-  .cupHotspot{
-    width:100%;
-    min-height:0;
-    height:106px;
-    display:flex;
-    align-items:flex-end;
-    justify-content:center;
-  }
-  .drinkImageFrame{
-    width:82px;
-    height:96px;
-    margin:0;
-  }
-  .drinkLabel{display:none}
-  .drinkMenu{
-    right:0;
-    bottom:calc(100% + 6px);
-    width:min(220px,calc(100vw - 24px));
-  }
-
-  .liveCalendar{
-    grid-area:calendar;
-    width:100%;
-    min-height:0;
-    align-self:stretch;
-    padding:0 5px 6px;
-  }
-  .liveCalendar :global(.deskCalendarHeader){
-    min-height:34px;
-    padding:5px 6px;
-    margin:0 -5px 5px;
-    flex-wrap:nowrap;
-  }
-  .liveCalendar :global(.deskCalendarHeader strong){font-size:.78rem}
-  .liveCalendar :global(.deskCalendarHeader small){font-size:.68rem}
-  .liveCalendar :global(.deskCalendarWeekdays){font-size:.62rem}
-  .liveCalendar :global(.deskCalendarGrid)>span{height:22px;font-size:.68rem}
-
-  .stickyHotspot{
-    grid-area:note;
-    width:100%;
-    min-height:0;
-    height:100%;
-    align-self:stretch;
-    padding:12px 10px;
-  }
-  .stickyHotspot strong{font-size:.9rem;margin:4px 0}
-  .stickyHotspot span{font-size:.75rem;line-height:1.45;-webkit-line-clamp:3}
-
-  .bookHotspots{height:160px}
-  .bookHotspots button,
-  .bookHotspots button:nth-child(3n),
-  .bookHotspots button:nth-child(4n){height:130px}
+  .bookHotspots button:hover{transform:none;}
+  .bookGlyph{font-size:15px;line-height:1.3;}
+  .bookTitle{font-size:12px;line-height:1.25;max-height:95px;}
+  .bookHotspots small{font-size:9px;line-height:1.2;}
+  .studyNotebook{grid-area:notebook;width:100%;min-height:0;padding:16px 14px 16px 30px;border-radius:7px 12px 12px 7px;background-color:var(--paper);box-shadow:1px 3px #dfd1ba,3px 5px #eee1ca,0 8px 14px #51361e20;}
+  .notebookBinding{left:6px;top:10px;bottom:10px;width:12px;}
+  .studyNotebook p{font-size:11px;line-height:1.5;letter-spacing:.035em;margin:0 0 6px;}
+  .studyNotebook h1{font-size:clamp(23px,4vw,30px);line-height:1.5;margin:0 0 6px;overflow-wrap:anywhere;}
+  .studyNotebook>span{display:block;font-size:13px;line-height:1.6;overflow-wrap:anywhere;}
+  .studyNotebook button{width:100%;min-height:46px;margin-top:12px;padding:11px 12px;font-size:15px;}
+  .studyNotebook small{margin-top:9px;font-size:11px;line-height:1.5;}
+  .actionHotspots{grid-area:actions;width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;}
+  .actionHotspots button{min-width:0;min-height:60px;flex-direction:column;gap:5px;padding:9px 4px;font-size:12px;line-height:1.4;overflow-wrap:anywhere;background:var(--paper);border-color:#d8b78e;border-radius:9px;}
+  .actionHotspots svg{width:20px;height:20px;flex-shrink:0;}
+  .deskScene{grid-area:scene;display:block;position:relative;width:100%;min-width:0;aspect-ratio:1.6;container-type:inline-size;}
+  .deskScene>.lamp{inset:1% auto auto -1%!important;width:34%;height:57%;max-height:none;overflow:visible;transform:none;}
+  .studentLampImage{width:100%;height:100%;object-fit:contain;object-position:left bottom;}
+  .moneyPlant{inset:0 -1% auto auto;width:31%;height:68%;max-height:none;overflow:visible;}
+  .moneyPlant img{object-position:right top;}
+  .deskScene>.studentGlobe{position:absolute!important;inset:19% auto auto 42%!important;display:flex;width:23%!important;height:auto!important;transform:none;margin:0;}
+  .studentGlobe :global(.login-globe-axis){width:94%;height:auto;aspect-ratio:1;padding:5%;border-width:4px;}
+  .studentGlobe :global(.login-globe-neck){width:8%;height:20px;height:5cqw;margin-top:-2px;}
+  .studentGlobe :global(.login-globe-base){width:64%;height:12px;height:3cqw;}
+  .studentGlobe :global(.login-globe-credit){position:absolute;top:100%;margin:2px 0 0;font-size:5px;line-height:1.2;white-space:nowrap;}
+  /* The lamp itself is the touch target; keep the scene free of extra controls. */
+  .deskScene .roomLightSwitch{inset:1% auto auto 0;width:34%;height:57%;min-height:44px;display:block;padding:0;border:0;border-radius:8px;background:transparent;box-shadow:none;backdrop-filter:none;transform:none;}
+  .deskScene .roomLightTrack{display:none;}
+  .mobileDeskBooks{position:absolute;inset:auto auto 3% 0;display:flex;align-items:flex-end;justify-content:flex-start;width:33%;height:35%;gap:2px;}
+  .mobileDeskBooks>i{position:relative;display:flex;align-items:center;justify-content:center;width:14%;min-width:0;height:80%;border:1px solid #432d2433;border-radius:3px 4px 2px 2px;box-shadow:inset 3px 0 #ffffff18,inset -2px 0 #0002,2px 2px 3px #3d25172a;color:#fff7e9;font-style:normal;}
+  .mobileDeskBooks>i:nth-child(2){height:86%;}.mobileDeskBooks>i:nth-child(3){height:76%;}.mobileDeskBooks>i:nth-child(4){height:89%;}.mobileDeskBooks>i:nth-child(5){height:83%;}
+  .mobileDeskBooks>i span{writing-mode:vertical-rl;font:700 8px/1 Georgia,"Bujhi Bangla",serif;opacity:.9;}
+  .mobileDeskBooks>b{position:relative;display:block;width:17%;height:48%;margin-left:2%;flex-shrink:0;border-radius:4px 4px 7px 7px;background:#d9c5a5;border:1px solid #8f74587a;box-shadow:inset 0 4px #f5e9d5,1px 3px 4px #3e251625;}
+  .mobileDeskBooks>b span{position:absolute;bottom:90%;left:25%;width:2px;height:65%;border-radius:3px;background:#c99130;transform-origin:bottom center;transform:rotate(-8deg);}
+  .mobileDeskBooks>b span:nth-child(2){left:50%;height:75%;background:#6f4a2e;transform:none;}.mobileDeskBooks>b span:nth-child(3){left:75%;background:#d8a132;transform:rotate(9deg);}
+  .mobileOpenNotebook{position:absolute;inset:auto auto 1% 35%;display:grid;grid-template-columns:1fr 5px 1fr;width:45%;height:29%;border:1px solid #9d826554;border-radius:8px;background:#f8ecd8;box-shadow:0 5px 10px #4c2c1a26,0 2px 0 #8d6a48;transform:perspective(300px) rotateX(12deg) rotate(-2deg);}
+  .mobileNotebookLeft,.mobileNotebookRight{position:relative;min-width:0;border-radius:5px;background:repeating-linear-gradient(180deg,transparent 0 14px,#c8b59b55 15px 16px),#f9edd8;}
+  .mobileNotebookLeft span{position:absolute;left:10%;top:16%;max-width:85%;padding:7%;background:#efc85c;color:#5d472f;font:700 7px/1.25 Georgia,"Bujhi Bangla",serif;font-size:clamp(5px,1.4cqw,10px);box-shadow:1px 2px 3px #4d331d2c;transform:rotate(-4deg);}
+  .mobileNotebookSpine{background:repeating-linear-gradient(180deg,#78624d 0 3px,#dac5aa 3px 7px);box-shadow:inset 1px 0 #fff8;}
+  .mobileNotebookRight i{position:absolute;right:27%;bottom:17%;width:5px;height:65%;border-radius:4px;background:#2d211b;transform:rotate(24deg);box-shadow:0 1px 2px #0004;}
+  .mobileNotebookRight i:after{content:"";position:absolute;top:-7px;left:0;width:5px;height:9px;clip-path:polygon(50% 0,100% 100%,0 100%);background:#b98a53;}
+  .drinkArea{inset:auto 0 0 auto;width:19%;height:38%;display:block;transform:none;}
+  .cupHotspot{width:100%;height:100%;min-height:44px;justify-content:flex-end;}
+  .drinkImageFrame{width:100%;height:100%;margin:0;overflow:visible;}
+  .drinkImage{object-position:center bottom;}
+  .drinkLabel{display:none;}
+  .steam{left:40%;top:0;gap:5px;transform:scale(.6);transform-origin:bottom center;}
+  .drinkMenu{right:0;bottom:calc(100% + 8px);width:min(220px,calc(100vw - 32px));max-height:min(350px,65dvh);overflow:auto;overscroll-behavior:contain;transform:none;}
+  .drinkMenu button{min-height:48px;font-size:14px;}
+  .deskFooter{grid-area:footer;position:relative;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);align-items:start;gap:12px;min-width:0;}
+  .liveCalendar{position:relative;inset:auto;width:100%;min-width:0;min-height:0;padding:0 6px 8px;}
+  .liveCalendar :global(.deskCalendarHeader){height:auto;min-height:36px;margin:0 -6px 6px;padding:6px 8px;justify-content:center;flex-wrap:wrap;gap:3px 6px;}
+  .liveCalendar :global(.deskCalendarHeader strong){font-size:12px;line-height:1.4;}
+  .liveCalendar :global(.deskCalendarHeader small){font-size:11px;line-height:1.4;}
+  .liveCalendar :global(.deskCalendarWeekdays){font-size:10px;gap:1px;margin-bottom:4px;}
+  .liveCalendar :global(.deskCalendarGrid){gap:2px;}
+  .liveCalendar :global(.deskCalendarGrid)>span{height:clamp(21px,4.5vw,30px);font-size:11px;line-height:1.3;}
+  .stickyHotspot{position:relative;inset:auto;width:100%;min-width:0;min-height:120px;padding:13px 11px;border-radius:9px;background:var(--paper);}
+  .stickyHotspot strong{font-size:14px;line-height:1.5;margin:6px 0;overflow-wrap:anywhere;}
+  .stickyHotspot span{font-size:12px;line-height:1.6;-webkit-line-clamp:4;overflow-wrap:anywhere;}
+  .overlay{padding:12px;padding-bottom:max(12px,env(safe-area-inset-bottom));align-items:end;}
+  .panel{width:100%;max-height:calc(100dvh - 24px);padding:24px 16px;overscroll-behavior:contain;}
+  .closeButton{width:44px;height:44px;right:10px;top:10px;}
+  .panelHeader{gap:10px;padding-right:38px;}
+  .panelHeader>span{flex-shrink:0;width:44px;height:52px;}
+  .panelHeader h2{font-size:1.5rem;line-height:1.5;overflow-wrap:anywhere;}
+  .panelHeader small{font-size:.875rem;}
+  .practiceCards{grid-template-columns:minmax(0,1fr);}
+  .practiceCards p,.practiceCards button{font-size:.875rem;}
+  .noteEditor{min-height:180px;font-size:16px;}
 }
-
-@media (max-width:420px){
-  .referenceDesk{
-    grid-template-columns:repeat(6,minmax(0,1fr));
-    column-gap:6px;
-    row-gap:8px;
-    padding-left:8px;
-    padding-right:8px;
-  }
-  .referenceDesk>.lamp,.moneyPlant{height:128px}
-  .referenceDesk>.studentGlobe{width:96px!important;height:126px!important}
-  .mobileDeskBooks{height:94px;transform:scale(.92);transform-origin:bottom center}
-  .mobileOpenNotebook{height:92px}
-  .drinkArea,.cupHotspot{height:94px}
-  .drinkImageFrame{width:72px;height:86px}
-  .liveCalendar :global(.deskCalendarGrid)>span{height:20px;font-size:.64rem}
-  .stickyHotspot{padding:10px 8px}
-  .stickyHotspot strong{font-size:.82rem}
-  .stickyHotspot span{font-size:.7rem}
+@media(max-width:360px){
+  .referenceDesk{gap:10px 6px;}
+  .dynamicProfile{gap:3px;}.dynamicProfile strong{max-width:42px;font-size:12px;}
+  .dynamicProfile>span{width:26px;height:26px;}
+  .classPill{padding-inline:9px;}.classPill span{font-size:10px;}
+  .deskFooter{gap:8px;}.stickyHotspot{padding:10px 8px;}
+  .stickyHotspot strong{font-size:13px;}.stickyHotspot span{font-size:11px;}
 }
