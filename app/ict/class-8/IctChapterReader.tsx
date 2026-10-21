@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import {useEffect,useRef,useState,type CSSProperties} from "react";
-import {ArrowLeft,ArrowRight,Bookmark,BookmarkCheck,BookOpen,ChevronLeft,ChevronRight,FileText,HelpCircle,Image as ImageIcon,KeyRound,Lightbulb,ListChecks,Target} from "lucide-react";
+import {ArrowLeft,ArrowRight,BarChart3,Bookmark,BookmarkCheck,BookOpen,BriefcaseBusiness,CheckCircle2,ChevronLeft,ChevronRight,FileText,Flag,HeartPulse,HelpCircle,Image as ImageIcon,KeyRound,Landmark,Lightbulb,ListChecks,MessageCircleMore,Microscope,MonitorSmartphone,Radio,RotateCcw,Store,Target,Wifi} from "lucide-react";
 import {ictTextbookSource,type IctChapter,type IctLesson} from "../../data/class8Ict";
 import IctChapterVisual from "./IctChapterVisual";
 import styles from "./reader.module.css";
@@ -19,6 +19,118 @@ const sections=[
 ];
 
 type ChapterLink={number:number;title:string};
+
+type ChapterOneLabProps={lesson:IctLesson};
+
+const patriotismByLesson:Record<number,{title:string;text:string}>={
+  1:{title:"প্রযুক্তি যেন সবার কাজে লাগে",text:"দেশকে এগিয়ে নিতে প্রযুক্তির সুবিধা শুধু শহর বা সুবিধাপ্রাপ্ত মানুষের মধ্যে সীমাবদ্ধ না রেখে সবার কাছে সহজ, নিরাপদ ও ব্যবহারযোগ্য করে পৌঁছে দেওয়ার কথা ভাবো।"},
+  2:{title:"দক্ষতা দিয়ে দেশের কাজের সুযোগ বাড়াই",text:"নিজে দক্ষ হওয়া শুধু ব্যক্তিগত সাফল্য নয়—নতুন কাজ তৈরি, স্থানীয় সমস্যা সমাধান এবং বাংলাদেশের তরুণদের জন্য আরও সুযোগ তৈরির পথও হতে পারে।"},
+  3:{title:"দায়িত্বশীল যোগাযোগই শক্তিশালী সমাজ গড়ে",text:"ভুল তথ্য না ছড়ানো, সম্মানজনক ভাষা ব্যবহার করা এবং যাচাই করে তথ্য শেয়ার করা—ডিজিটাল নাগরিক হিসেবে দেশ ও সমাজের প্রতি দায়িত্বের অংশ।"},
+  4:{title:"স্থানীয় ব্যবসাকে প্রযুক্তিতে শক্তিশালী করি",text:"ICT ব্যবহার করে ছোট দোকান, কৃষিপণ্য, হস্তশিল্প বা স্থানীয় উদ্যোগকে আরও দক্ষ ও দৃশ্যমান করা গেলে দেশের অর্থনীতি ও কর্মসংস্থান দুটোই শক্তিশালী হয়।"},
+  5:{title:"সেবা হোক স্বচ্ছ, সহজ ও সবার জন্য",text:"ডিজিটাল সরকারি সেবা এমন হওয়া উচিত যাতে সময় ও খরচ কমে, তথ্য নিরাপদ থাকে এবং গ্রামের মানুষসহ প্রত্যেক নাগরিক সমানভাবে সেবা পেতে পারে।"},
+  6:{title:"প্রযুক্তি দিয়ে স্বাস্থ্যসেবা কাছে আনি",text:"দূরের মানুষও যেন মানসম্মত স্বাস্থ্যসেবার সঙ্গে যুক্ত হতে পারে—এমন নিরাপদ, মানবিক ও সহজ প্রযুক্তি তৈরি করা দেশের প্রতি দায়িত্বশীল উদ্ভাবনের একটি উদাহরণ।"},
+  7:{title:"দেশের সমস্যা তথ্য দিয়ে বুঝি",text:"গবেষণায় সঠিক তথ্য ব্যবহার করে শিক্ষা, পরিবেশ, কৃষি বা জনসেবার বাস্তব সমস্যা বুঝে সমাধান খোঁজা—জ্ঞানকে দেশের উন্নয়নে কাজে লাগানোর শক্তিশালী উপায়।"}
+};
+
+function ChapterOneDigitalLab({lesson}:ChapterOneLabProps){
+ const[ictOn,setIctOn]=useState(true);
+ const[selectedCareer,setSelectedCareer]=useState(0);
+ const[medium,setMedium]=useState<"radio"|"email"|"video">("video");
+ const[stock,setStock]=useState(8);
+ const[sales,setSales]=useState(0);
+ const[govStep,setGovStep]=useState(0);
+ const[healthStep,setHealthStep]=useState(0);
+ const[researchCount,setResearchCount]=useState(0);
+
+ const careers=[
+  {name:"ওয়েব ডেভেলপার",skill:"সমস্যা সমাধান + কোড",mode:"দূর থেকেও কাজ করা যায়"},
+  {name:"গ্রাফিক ডিজাইনার",skill:"সৃজনশীলতা + ডিজিটাল টুল",mode:"দেশি ও বৈশ্বিক ক্লায়েন্ট"},
+  {name:"ডিজিটাল মার্কেটার",skill:"যোগাযোগ + বিশ্লেষণ",mode:"স্থানীয় ব্যবসাকেও বড় বাজারে নিতে পারে"},
+  {name:"নেটওয়ার্ক টেকনিশিয়ান",skill:"যন্ত্র + নেটওয়ার্ক",mode:"স্কুল, অফিস ও প্রতিষ্ঠানে প্রয়োজন"}
+ ];
+ const dayItems=[
+  ["সকাল ৭টা","আবহাওয়া ও অ্যালার্ম","রেডিও/ঘড়ি দেখে আলাদা করে পরিকল্পনা"],
+  ["সকাল ৯টা","ডিজিটাল ক্লাস ও ফলাফল","স্কুলে গিয়ে নোটিশ বা ফল জানতে হয়"],
+  ["দুপুর ১টা","অনলাইন পেমেন্ট","ব্যাংক/কাউন্টারে গিয়ে কাজ করতে হয়"],
+  ["বিকেল ৪টা","ম্যাপ ও যাতায়াত","মানুষকে জিজ্ঞেস করে পথ খুঁজতে হয়"],
+  ["রাত ৮টা","ভিডিও কল ও অনলাইন পড়া","দূরের মানুষের সঙ্গে তাৎক্ষণিক যোগাযোগ কঠিন"]
+ ];
+ const govSteps=["আবেদন","তথ্য যাচাই","প্রক্রিয়াকরণ","অবস্থা দেখা","সেবা পাওয়া"];
+ const healthSteps=["রোগীর তথ্য","দূরবর্তী পরামর্শ","রিপোর্ট ভাগাভাগি","ডিজিটাল রেকর্ড","ফলো-আপ"];
+ const survey=[2,3,3,4,2,5,3,4,2,3];
+ const frequencies=[1,2,3,4,5].map(hour=>survey.filter(value=>value===hour).length);
+
+ return <section className={styles.digitalLab} aria-label="বইয়ের বাইরে ডিজিটালভাবে শেখো">
+  <header className={styles.digitalLabHeader}>
+   <div><span>বইয়ের সীমার বাইরে</span><h3>দেখো · বদলাও · নিজে পরীক্ষা করো</h3></div>
+   <MonitorSmartphone aria-hidden="true"/>
+  </header>
+
+  {lesson.number===1&&<div className={styles.labScene}>
+   <div className={styles.labToolbar}><div><strong>একদিন ICT ছাড়া?</strong><span>একই দিনের দুই অভিজ্ঞতা তুলনা করো।</span></div>
+    <button type="button" className={ictOn?styles.labToggleOn:""} onClick={()=>setIctOn(value=>!value)}><Wifi/>ICT {ictOn?"ON":"OFF"}</button>
+   </div>
+   <div className={styles.dayTimeline}>{dayItems.map(([time,on,off],index)=><article key={time} style={{"--delay":String(index*70)+"ms"} as CSSProperties}><b>{time}</b><span>{ictOn?on:off}</span><small>{ictOn?"দ্রুত · সংযুক্ত · তথ্যভিত্তিক":"বেশি সময় · বেশি যাতায়াত"}</small></article>)}</div>
+   <p className={styles.labInsight}><Lightbulb/>একটি সংজ্ঞা পড়ার আগে তুমি নিজেই দেখলে—ICT সময়, দূরত্ব ও তথ্য পাওয়ার পদ্ধতি কীভাবে বদলে দেয়।</p>
+  </div>}
+
+  {lesson.number===2&&<div className={styles.labScene}>
+   <div className={styles.labToolbar}><div><strong>Skill → Job Explorer</strong><span>একটি পেশা বেছে দেখো ICT কী ধরনের কাজ তৈরি করে।</span></div><BriefcaseBusiness/></div>
+   <div className={styles.careerMap}>{careers.map((career,index)=><button type="button" key={career.name} className={index===selectedCareer?styles.labChoiceActive:""} onClick={()=>setSelectedCareer(index)}><strong>{career.name}</strong><span>{career.skill}</span></button>)}</div>
+   <div className={styles.resultPanel}><b>{careers[selectedCareer].name}</b><span>{careers[selectedCareer].mode}</span><p>প্রযুক্তি কাজের সুযোগ তৈরি করে, কিন্তু দক্ষতা, যোগাযোগ ও দায়িত্বশীলতা ছাড়া শুধু ইন্টারনেট থাকলেই কর্মসংস্থান নিশ্চিত হয় না।</p></div>
+  </div>}
+
+  {lesson.number===3&&<div className={styles.labScene}>
+   <div className={styles.labToolbar}><div><strong>যোগাযোগ সিমুলেটর</strong><span>মাধ্যম বদলালে বার্তার গতি ও প্রতিক্রিয়া কীভাবে বদলায় দেখো।</span></div><MessageCircleMore/></div>
+   <div className={styles.mediumPicker}>
+    <button type="button" className={medium==="radio"?styles.labChoiceActive:""} onClick={()=>setMedium("radio")}><Radio/>রেডিও</button>
+    <button type="button" className={medium==="email"?styles.labChoiceActive:""} onClick={()=>setMedium("email")}><FileText/>ইমেইল</button>
+    <button type="button" className={medium==="video"?styles.labChoiceActive:""} onClick={()=>setMedium("video")}><MonitorSmartphone/>ভিডিও কল</button>
+   </div>
+   <div className={styles.messageFlow}><span>প্রেরক</span><i className={styles.messagePacket}>“কাল ক্লাস ১০টায়”</i><span>প্রাপক</span></div>
+   <div className={styles.communicationFacts}>
+    <span><b>ধরন</b>{medium==="radio"?"একমুখী":"দ্বিমুখী"}</span>
+    <span><b>প্রতিক্রিয়া</b>{medium==="video"?"তাৎক্ষণিক":medium==="email"?"পরে দেওয়া যায়":"সরাসরি নেই"}</span>
+    <span><b>ইন্টারনেট</b>{medium==="radio"?"সবসময় নয়":"প্রয়োজন"}</span>
+   </div>
+  </div>}
+
+  {lesson.number===4&&<div className={styles.labScene}>
+   <div className={styles.labToolbar}><div><strong>Mini Digital Shop</strong><span>একটি খাতা বিক্রি করে দেখো POS কীভাবে একই সঙ্গে হিসাব ও মজুদ বদলায়।</span></div><Store/></div>
+   <div className={styles.shopSimulator}>
+    <div className={styles.barcode}><i/><i/><i/><i/><i/><span>৳৫০</span></div>
+    <div><small>খাতা মজুদ</small><strong>{stock}</strong></div>
+    <div><small>আজকের বিক্রি</small><strong>৳{sales}</strong></div>
+    <button type="button" disabled={stock===0} onClick={()=>{setStock(value=>Math.max(0,value-1));setSales(value=>value+50)}}>স্ক্যান করে ১টি বিক্রি</button>
+    <button type="button" className={styles.resetButton} onClick={()=>{setStock(8);setSales(0)}}><RotateCcw/>রিসেট</button>
+   </div>
+   <p className={styles.labInsight}><CheckCircle2/>বইয়ে “মজুদ ব্যবস্থাপনা” পড়া যায়; এখানে বিক্রির সঙ্গে সঙ্গে মজুদ ও হিসাব বদলাতে দেখলে কারণ–ফল সম্পর্কটি পরিষ্কার হয়।</p>
+  </div>}
+
+  {lesson.number===5&&<div className={styles.labScene}>
+   <div className={styles.labToolbar}><div><strong>Digital Service Journey</strong><span>জন্মনিবন্ধনের মতো একটি সেবা কীভাবে ধাপে ধাপে এগোয় দেখো।</span></div><Landmark/></div>
+   <div className={styles.serviceJourney}>{govSteps.map((step,index)=><button type="button" key={step} className={index<=govStep?styles.serviceDone:""} onClick={()=>setGovStep(index)}><span>{index+1}</span><b>{step}</b></button>)}</div>
+   <div className={styles.compareStrip}><span><b>শুধু কাগজে</b>যাতায়াত · সারি · আবার অফিসে খোঁজ</span><ArrowRight/><span><b>ডিজিটাল সেবা</b>দূর থেকে আবেদন · অবস্থা দেখা · রেকর্ড খোঁজা সহজ</span></div>
+  </div>}
+
+  {lesson.number===6&&<div className={styles.labScene}>
+   <div className={styles.labToolbar}><div><strong>Telemedicine Flow</strong><span>এটি চিকিৎসা পরামর্শ নয়—শুধু ICT workflow বোঝার মডেল।</span></div><HeartPulse/></div>
+   <div className={styles.healthFlow}>{healthSteps.map((step,index)=><button type="button" key={step} className={index<=healthStep?styles.healthDone:""} onClick={()=>setHealthStep(index)}><span>{index+1}</span><b>{step}</b></button>)}</div>
+   <div className={styles.healthRecord}><b>ডিজিটাল স্বাস্থ্যরেকর্ড</b><span>রোগীর অনুমতিসাপেক্ষ তথ্য → নিরাপদ সংরক্ষণ → প্রয়োজনের সময় দ্রুত খোঁজা</span></div>
+  </div>}
+
+  {lesson.number===7&&<div className={styles.labScene}>
+   <div className={styles.labToolbar}><div><strong>Mini Research Lab</strong><span>১০ জন শিক্ষার্থীর দৈনিক ইন্টারনেট ব্যবহারের নমুনা ডেটা বিশ্লেষণ করো।</span></div><Microscope/></div>
+   <div className={styles.researchControls}><button type="button" onClick={()=>setResearchCount(value=>Math.min(survey.length,value+1))} disabled={researchCount===survey.length}>একটি উত্তর সংগ্রহ করি</button><span>{researchCount} / {survey.length} উত্তর</span><button type="button" className={styles.resetButton} onClick={()=>setResearchCount(0)}><RotateCcw/>রিসেট</button></div>
+   <div className={styles.researchChart} aria-label="ইন্টারনেট ব্যবহারের ঘণ্টা অনুযায়ী বার চার্ট">{frequencies.map((count,index)=>{const visible=survey.slice(0,researchCount).filter(value=>value===index+1).length;return <div key={index}><i style={{height:String(Math.max(6,visible*28))+"px"}}/><b>{index+1} ঘণ্টা</b><small>{visible} জন</small></div>})}</div>
+   {researchCount===survey.length&&<p className={styles.labInsight}><BarChart3/>সবচেয়ে বেশি শিক্ষার্থী ৩ ঘণ্টা ব্যবহার করেছে। ডেটা সংগ্রহ → সাজানো → বিশ্লেষণ → সিদ্ধান্ত—এটাই গবেষণায় ICT-এর একটি ছোট উদাহরণ।</p>}
+  </div>}
+
+  <aside className={styles.patriotism}>
+   <Flag aria-hidden="true"/><div><small>দেশের জন্য ভাবি</small><h3>{patriotismByLesson[lesson.number]?.title}</h3><p>{patriotismByLesson[lesson.number]?.text}</p></div>
+  </aside>
+ </section>;
+}
 export default function IctChapterReader({chapter,chapters}:{chapter:IctChapter;chapters:ChapterLink[]}){
  const[selected,setSelected]=useState(0);
  const[bookmarked,setBookmarked]=useState<number|null>(null);
@@ -130,6 +242,7 @@ export default function IctChapterReader({chapter,chapters}:{chapter:IctChapter;
      <section id="ict-concepts" className={styles.concepts}><h3><KeyRound/>মূল ধারণা</h3><dl>{active.terms.map(item=><div key={item.term}><dt>{item.term}</dt><dd>{item.meaning}</dd></div>)}</dl></section>
      <section id="ict-examples" className={styles.example}><h3><BookOpen/>উদাহরণে বুঝি</h3><p>{active.example}</p></section>
      <section id="ict-application" className={styles.application}><BookOpen aria-hidden="true"/><h3>বাস্তব জীবনে প্রয়োগ</h3><p>{active.activity}</p></section>
+     {chapter.number===1&&<ChapterOneDigitalLab key={active.number} lesson={active}/>}
 
      <footer className={styles.lessonFooter}>
       <a href={ictTextbookSource.pdfUrl} target="_blank" rel="noopener noreferrer"><BookOpen size={16}/>মূল NCTB পাঠ্যবই</a>
