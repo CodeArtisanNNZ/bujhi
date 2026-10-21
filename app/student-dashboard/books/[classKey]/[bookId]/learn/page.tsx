@@ -26,6 +26,7 @@ export default function LearnBookPage(){
   const classLabelBn:Record<StudentClassKey,string>={"6":"ষষ্ঠ শ্রেণি","7":"সপ্তম শ্রেণি","8":"অষ্টম শ্রেণি","9-10":"নবম থেকে দশম শ্রেণি"};
   const classLabel=classKey?(bookUsesEnglish?studentClassLabels[classKey]:classLabelBn[classKey]):"";
   const[ready,setReady]=useState(false);
+  const[ictChapter,setIctChapter]=useState<number|null>(null);
 
   useEffect(()=>{
     void (async()=>{
@@ -63,49 +64,76 @@ export default function LearnBookPage(){
     </section>
   </main>;
 
-  if(classKey==="8"&&book.id==="ict")return <main className={styles.page}>
-    <header className={styles.topbar}>
-      <Link className={styles.back} href="/student-dashboard/books/8/ict"><ArrowLeft/>তথ্য ও যোগাযোগ প্রযুক্তির বইয়ে ফিরি</Link>
-    </header>
-    <section className={styles.lessonPage}>
-      <div className={styles.lessonHero} style={{"--accent":book.accent} as React.CSSProperties}>
-        <p>অষ্টম শ্রেণি · তথ্য ও যোগাযোগ প্রযুক্তি · NCTB ২০২৬</p>
-        <h1>তথ্য ও যোগাযোগ প্রযুক্তি</h1>
-        <span>অধ্যায় বেছে নাও। প্রতিটি কার্ড থেকে এখন মূল NCTB বইটি খুলতে পারবে।</span>
-      </div>
-      <div className={styles.ictWorkspace} aria-label="অষ্টম শ্রেণির তথ্য ও যোগাযোগ প্রযুক্তির ৫টি অধ্যায়">
-        {[
-          {number:1,title:"তথ্য ও যোগাযোগ প্রযুক্তির গুরুত্ব",detail:"শিক্ষা, স্বাস্থ্য, ব্যবসা, কর্মসংস্থান ও দৈনন্দিন জীবনে ICT কীভাবে পরিবর্তন আনে তা বুঝো।"},
-          {number:2,title:"কম্পিউটার নেটওয়ার্ক",detail:"নেটওয়ার্ক কী, কেন দরকার, তথ্য ভাগাভাগি এবং সংযুক্ত কম্পিউটারের কাজ বোঝো।"},
-          {number:3,title:"তথ্য ও যোগাযোগ প্রযুক্তির নিরাপদ ও নৈতিক ব্যবহার",detail:"পাসওয়ার্ড, ভাইরাস, অনলাইন নিরাপত্তা, গোপনীয়তা ও দায়িত্বশীল ডিজিটাল আচরণ শিখো।"},
-          {number:4,title:"স্প্রেডশিটের ব্যবহার",detail:"সারি, কলাম, সেল, সূত্র ও হিসাবের মাধ্যমে তথ্য সাজানো এবং বিশ্লেষণ করা শিখো।"},
-          {number:5,title:"শিক্ষা ও দৈনন্দিন জীবনে ইন্টারনেটের ব্যবহার",detail:"তথ্য খোঁজা, ই-মেইল, অনলাইন শিক্ষা ও দৈনন্দিন ডিজিটাল সেবার ব্যবহার বোঝো।"}
-        ].map(chapter=>chapter.number===1?<Link
-          className={styles.ictCard}
-          key={chapter.number}
-          href="/ict/class-8/chapter-1"
-        >
-          <span className={styles.chapterBadge}>অধ্যায় {chapter.number.toLocaleString("bn-BD")}</span>
-          <BookOpen/>
-          <strong>{chapter.title}</strong>
-          <p>{chapter.detail}</p>
-          <small>৭টি পাঠে ভাগ করে পড়ো →</small>
-        </Link>:<a
-          className={styles.ictCard}
-          key={chapter.number}
-          href={book.pdfPath}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <span className={styles.chapterBadge}>অধ্যায় {chapter.number.toLocaleString("bn-BD")}</span>
-          <BookOpen/>
-          <strong>{chapter.title}</strong>
-          <p>{chapter.detail}</p>
-          <small>মূল পাঠ্যবই খুলুন ↗</small>
-        </a>)}
-      </div>
-    </section>
-  </main>;
+  if(classKey==="8"&&book.id==="ict"){
+    const ictLessons=[
+      {number:1,title:"তথ্য ও যোগাযোগ প্রযুক্তির গুরুত্ব",detail:"দৈনন্দিন জীবন, শিক্ষা ও কাজের জগতে ICT কেন গুরুত্বপূর্ণ—বাস্তব উদাহরণ দিয়ে বুঝি।"},
+      {number:2,title:"কর্মসৃজন ও কর্মপ্রাপ্তিতে তথ্য ও যোগাযোগ প্রযুক্তি",detail:"ICT কীভাবে নতুন কাজের সুযোগ তৈরি করে এবং কর্মক্ষেত্র বদলে দেয়।"},
+      {number:3,title:"যোগাযোগ",detail:"একমুখী ও দ্বিমুখী যোগাযোগ, অনলাইন যোগাযোগ এবং ওয়েব কনফারেন্সিং বুঝি।"},
+      {number:4,title:"ব্যবসায়ে তথ্য ও যোগাযোগ প্রযুক্তি",detail:"বিক্রয়, মজুদ, হিসাব ও বিপণনে ICT-এর ব্যবহার দেখি।"},
+      {number:5,title:"সরকারি কর্মকাণ্ডে তথ্য ও যোগাযোগ প্রযুক্তির প্রয়োগ",detail:"ই-গভর্ন্যান্স ও ডিজিটাল সরকারি সেবার সুবিধা বুঝি।"},
+      {number:6,title:"চিকিৎসা",detail:"টেলিমেডিসিন, রোগীর তথ্য ও স্বাস্থ্যসেবায় ICT-এর ভূমিকা বুঝি।"},
+      {number:7,title:"গবেষণা",detail:"তথ্য সংগ্রহ, বিশ্লেষণ, সংরক্ষণ ও গবেষণায় ICT কীভাবে সাহায্য করে।"}
+    ];
+
+    if(ictChapter===1)return <main className={styles.page}>
+      <header className={styles.topbar}>
+        <button type="button" className={styles.back} onClick={()=>setIctChapter(null)}><ArrowLeft/>ICT অধ্যায়গুলোতে ফিরি</button>
+      </header>
+      <section className={styles.lessonPage}>
+        <div className={styles.lessonHero} style={{"--accent":book.accent} as React.CSSProperties}>
+          <p>অষ্টম শ্রেণি · তথ্য ও যোগাযোগ প্রযুক্তি · অধ্যায় ১</p>
+          <h1>তথ্য ও যোগাযোগ প্রযুক্তির গুরুত্ব</h1>
+          <span>অধ্যায়টি ৭টি ছোট পাঠে ভাগ করা হয়েছে। একটি পাঠ বেছে ধাপে ধাপে পড়ো।</span>
+        </div>
+        <div className={styles.lessonWorkspace} aria-label="অধ্যায় ১-এর ৭টি পাঠ">
+          {ictLessons.map(lesson=><article className={styles.lessonCard} key={lesson.number}>
+            <BookOpen/>
+            <strong>পাঠ {lesson.number.toLocaleString("bn-BD")} · {lesson.title}</strong>
+            <p>{lesson.detail}</p>
+          </article>)}
+        </div>
+      </section>
+    </main>;
+
+    return <main className={styles.page}>
+      <header className={styles.topbar}>
+        <Link className={styles.back} href="/student-dashboard/books/8/ict"><ArrowLeft/>তথ্য ও যোগাযোগ প্রযুক্তির বইয়ে ফিরি</Link>
+      </header>
+      <section className={styles.lessonPage}>
+        <div className={styles.lessonHero} style={{"--accent":book.accent} as React.CSSProperties}>
+          <p>অষ্টম শ্রেণি · তথ্য ও যোগাযোগ প্রযুক্তি · NCTB ২০২৬</p>
+          <h1>তথ্য ও যোগাযোগ প্রযুক্তি</h1>
+          <span>অধ্যায় বেছে নাও। “পাঠ শিখি” অংশে PDF নয়—Bujhi lesson content খুলবে।</span>
+        </div>
+        <div className={styles.ictWorkspace} aria-label="অষ্টম শ্রেণির তথ্য ও যোগাযোগ প্রযুক্তির ৫টি অধ্যায়">
+          {[
+            {number:1,title:"তথ্য ও যোগাযোগ প্রযুক্তির গুরুত্ব",detail:"শিক্ষা, স্বাস্থ্য, ব্যবসা, কর্মসংস্থান ও দৈনন্দিন জীবনে ICT কীভাবে পরিবর্তন আনে তা বুঝো।"},
+            {number:2,title:"কম্পিউটার নেটওয়ার্ক",detail:"নেটওয়ার্ক কী, কেন দরকার, তথ্য ভাগাভাগি এবং সংযুক্ত কম্পিউটারের কাজ বোঝো।"},
+            {number:3,title:"তথ্য ও যোগাযোগ প্রযুক্তির নিরাপদ ও নৈতিক ব্যবহার",detail:"পাসওয়ার্ড, ভাইরাস, অনলাইন নিরাপত্তা, গোপনীয়তা ও দায়িত্বশীল ডিজিটাল আচরণ শিখো।"},
+            {number:4,title:"স্প্রেডশিটের ব্যবহার",detail:"সারি, কলাম, সেল, সূত্র ও হিসাবের মাধ্যমে তথ্য সাজানো এবং বিশ্লেষণ করা শিখো।"},
+            {number:5,title:"শিক্ষা ও দৈনন্দিন জীবনে ইন্টারনেটের ব্যবহার",detail:"তথ্য খোঁজা, ই-মেইল, অনলাইন শিক্ষা ও দৈনন্দিন ডিজিটাল সেবার ব্যবহার বোঝো।"}
+          ].map(chapter=>chapter.number===1?<button
+            type="button"
+            className={styles.ictCard}
+            key={chapter.number}
+            onClick={()=>setIctChapter(1)}
+          >
+            <span className={styles.chapterBadge}>অধ্যায় {chapter.number.toLocaleString("bn-BD")}</span>
+            <BookOpen/>
+            <strong>{chapter.title}</strong>
+            <p>{chapter.detail}</p>
+            <small>৭টি পাঠে ভাগ করে পড়ো →</small>
+          </button>:<article className={styles.ictCard} key={chapter.number}>
+            <span className={styles.chapterBadge}>অধ্যায় {chapter.number.toLocaleString("bn-BD")}</span>
+            <BookOpen/>
+            <strong>{chapter.title}</strong>
+            <p>{chapter.detail}</p>
+            <small>পাঠ তৈরি হচ্ছে</small>
+          </article>)}
+        </div>
+      </section>
+    </main>;
+  }
 
   if(classKey==="8"&&book.id==="science")return <main className={styles.page}>
     <header className={styles.topbar}><Link className={styles.back} href="/student-dashboard/books/8/science"><ArrowLeft/>বিজ্ঞানের বইয়ে ফিরি</Link></header>
