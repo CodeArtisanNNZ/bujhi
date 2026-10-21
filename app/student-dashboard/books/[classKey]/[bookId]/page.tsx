@@ -99,7 +99,7 @@ export default function StudentBookPage(){
             <span><strong>{checkingPdf?ui("PDF যাচাই হচ্ছে…","Checking PDF…"):ui("PDF খোলো","Open PDF")}</strong><span>{ui("সম্পূর্ণ NCTB পাঠ্যবই পড়ো।","Read the full NCTB textbook.")}</span></span>
           </button>
 
-          <Link className={`${styles.action} ${styles.actionPrimary}`} href={`/student-dashboard/books/${classKey}/${book.id}/learn`}>
+          <Link className={`${styles.action} ${styles.actionPrimary}`} href={classKey==="8"&&book.id==="ict"?"/ict/class-8":`/student-dashboard/books/${classKey}/${book.id}/learn`}>
             <GraduationCap/>
             <span><strong>{ui("পাঠ শিখি","Learn Lesson")}</strong><span>{ui("এই বইয়ের পাঠের জায়গা খোলো।","Open the lesson workspace for this book.")}</span></span>
           </Link>
