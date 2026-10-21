@@ -10,8 +10,6 @@ import styles from "../../../book.module.css";
 import {
   findNctbBook,studentClassKey,studentClassLabels,type StudentClassKey
 } from "../../../../../data/nctbBooks";
-import {class8BgsPlans} from "../../../../../data/class8BgsPlans";
-import IctChapterOverview from "../../../../../ict/class-8/IctChapterOverview";
 
 const validClasses:StudentClassKey[]=["6","7","8","9-10"];
 
@@ -37,57 +35,19 @@ export default function LearnBookPage(){
         if(data.profile?.role==="teacher"){router.replace("/teacher-dashboard");return}
         const ownClass=studentClassKey(data.profile?.class_level);
         if(classKey&&ownClass!==classKey){router.replace("/student-dashboard");return}
+        if(classKey==="8"){router.replace(`/learn/class-8/${bookId}`);return;}
         setReady(true);
       }catch{
         router.replace("/login?role=student");
       }
     })();
-  },[classKey,router]);
+  },[classKey,bookId,router]);
 
   if(!classKey||!book){
     return <main className={styles.page}><section className={styles.error}><h1>{ui("পাঠ পাওয়া যায়নি","Lesson not found")}</h1><Link href="/student-dashboard">{ui("আমার ডেস্কে ফিরি","Back to my desk")}</Link></section></main>;
   }
 
   if(!ready)return <main className={styles.page}><div className={styles.loading}>{ui("পাঠ খোলা হচ্ছে…","Opening lesson…")}</div></main>;
-
-  if(classKey==="8"&&book.id==="bangladesh-global-studies")return <main className={styles.page}>
-    <section className={styles.lessonWorkspace} aria-label="বাংলাদেশ ও বিশ্বপরিচয়ের ১৩টি অধ্যায়">
-      {class8BgsPlans.map(chapter=><Link
-        key={chapter.number}
-        className={styles.lessonCard}
-        href={chapter.number===1?"/bgs/class-8/chapter-1":`/bgs/class-8/chapter-${chapter.number}`}
-      >
-        <BookOpen/>
-        <strong>{chapter.number.toLocaleString("bn-BD")}. {chapter.title}</strong>
-        <p>{chapter.question}</p>
-      </Link>)}
-    </section>
-  </main>;
-
-  if(classKey==="8"&&book.id==="ict")return <IctChapterOverview/>;
-
-  if(classKey==="8"&&book.id==="science")return <main className={styles.page}>
-    <header className={styles.topbar}><Link className={styles.back} href="/student-dashboard/books/8/science"><ArrowLeft/>বিজ্ঞানের বইয়ে ফিরি</Link></header>
-    <section className={styles.lessonPage}><div className={styles.lessonHero} style={{"--accent":book.accent} as React.CSSProperties}><p>অষ্টম শ্রেণি · বিজ্ঞান · NCTB ২০২৬</p><h1>বিজ্ঞান</h1><span>তোমার মূল পাঠ্যবই থেকে একটি অধ্যায় খোলো।</span></div>
-    <div className={styles.lessonWorkspace}><Link className={styles.lessonCard} href="/science/class-8/chapter-1"><BookOpen/><strong>১. প্রাণিজগতের শ্রেণিবিন্যাস</strong><p>শ্রেণিবিন্যাস বৃক্ষ দেখো, প্রাণী শনাক্ত করো এবং বইয়ের পৃষ্ঠা ১ থেকে ১২ থেকে অনুশীলন করো।</p></Link><Link className={styles.lessonCard} href="/dashboard/science/chapter-2"><Play/><strong>২. জীবের বৃদ্ধি ও বংশগতি</strong><p>কোষ বিভাজন, মিয়োসিস-I ও II, ক্রোমোজোম, DNA, জিন এবং বংশগত তথ্যের ধারাবাহিক জুম, সবই অধ্যায় ২-এর ভিতরে।</p></Link></div>
-    <div className={styles.lessonWorkspace}><Link className={styles.lessonCard} href="/science/class-8/chapter-4?topic=seed"><Play/><strong>অধ্যায় ৪ · বীজ অঙ্কুরোদ্গম পরীক্ষাগার</strong><p>পানি, অক্সিজেন ও তাপমাত্রা বদলে ফল দেখো এবং বাস্তব বীজের সঙ্গে তুলনা করো।</p></Link></div>
-    <div className={styles.lessonWorkspace}>{[
-      {number:3,title:"ব্যাপন, অভিস্রবণ ও প্রস্বেদন",detail:"ব্যাপন, অভিস্রবণ ও প্রস্বেদন"},
-      {number:4,title:"উদ্ভিদের বংশ বৃদ্ধি",detail:"উদ্ভিদের বংশ বৃদ্ধি"},
-      {number:5,title:"সমন্বয় ও নিঃসরণ",detail:"সমন্বয় ও নিঃসরণ"},
-      {number:6,title:"পরমাণুর গঠন",detail:"পরমাণু ও ইলেকট্রন খোলক তৈরি করো"}
-    ].map(chapter=><Link className={styles.lessonCard} key={chapter.number} href={`/science/class-8/chapter-${chapter.number}`}><BookOpen/><strong>{chapter.number}. {chapter.title}</strong><p>{chapter.detail} · ইন্টারেক্টিভ পাঠ্যবই পাঠ</p></Link>)}</div>
-    <div className={styles.lessonWorkspace}>{[
-      {number:7,title:"পৃথিবী ও মহাকর্ষ",detail:"মহাকর্ষ ও ওজন অনুশীলন"},
-      {number:8,title:"রাসায়নিক বিক্রিয়া",detail:"সমীকরণ সমতা করো ও বিক্রিয়া পর্যবেক্ষণ করো"},
-      {number:9,title:"বর্তনী ও চলবিদ্যুৎ",detail:"বর্তনী ও ওহমের সূত্র"},
-      {number:10,title:"অম্ল, ক্ষারক ও লবণ",detail:"নির্দেশক ও নিরাপদ রসায়ন"},
-      {number:11,title:"আলো",detail:"প্রতিসরণ ও আলোকরশ্মির মডেল"},
-      {number:12,title:"মহাকাশ ও উপগ্রহ",detail:"কক্ষপথ ও উপগ্রহের ব্যবহার"},
-      {number:13,title:"খাদ্য ও পুষ্টি",detail:"খাদ্যগোষ্ঠী ও মনে রাখার কার্ড"},
-      {number:14,title:"পরিবেশ এবং বাস্তুতন্ত্র",detail:"খাদ্যশৃঙ্খল ও বাস্তুতন্ত্রের সম্পর্ক"}
-    ].map(chapter=><Link className={styles.lessonCard} key={chapter.number} href={`/science/class-8/chapter-${chapter.number}`}><BookOpen/><strong>{chapter.number}. {chapter.title}</strong><p>{chapter.detail} · খুঁজে দেখো → অনুসন্ধান করো → নিজে করো → মনে রাখো → যাচাই করো</p></Link>)}</div></section>
-  </main>;
 
   return <main className={styles.page}>
     <header className={styles.topbar}>
