@@ -154,3 +154,171 @@
 }
 
 .topbar button.back{border:0;background:transparent;padding:0;cursor:pointer;font-family:inherit}
+
+
+/* ===== ICT CHAPTER 1 TABBED LESSON VIEW ===== */
+.ictChapterHero{
+  position:relative;
+  overflow:hidden;
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:center;
+  gap:24px;
+  padding:34px 36px;
+  border:1px solid var(--line);
+  border-top:6px solid var(--red);
+  border-radius:22px;
+  background:linear-gradient(115deg,var(--paper),var(--surface));
+  box-shadow:0 14px 38px #49261412;
+}
+.ictChapterHero:after{
+  content:"";
+  position:absolute;
+  right:120px;
+  top:-100px;
+  width:280px;
+  height:280px;
+  border:1px solid color-mix(in srgb,var(--red) 13%,transparent);
+  border-radius:50%;
+}
+.ictChapterHero p{
+  margin:0 0 7px;
+  color:var(--red);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+}
+.ictChapterHero h1{
+  max-width:780px;
+  margin:0 0 10px;
+  font:700 clamp(27px,3.2vw,38px)/1.45 Georgia,"Bujhi Bangla",serif;
+  color:var(--ink);
+}
+.ictChapterHero>div>span{color:var(--muted);line-height:1.65}
+.ictChapterStamp{
+  position:relative;
+  z-index:2;
+  width:118px;
+  height:118px;
+  border-radius:50%;
+  background:var(--red);
+  color:#fff5e8;
+  display:grid;
+  place-items:center;
+  align-content:center;
+  box-shadow:0 12px 28px #6b120f33;
+}
+.ictChapterStamp small{font-size:9px;letter-spacing:.18em}
+.ictChapterStamp b{font:700 42px Georgia,"Bujhi Bangla",serif}
+
+.ictLessonNav{
+  display:flex;
+  gap:9px;
+  overflow-x:auto;
+  padding:18px 2px 14px;
+  scrollbar-width:thin;
+}
+.ictLessonNav button{
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-height:45px;
+  padding:0 16px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:var(--paper);
+  color:var(--muted);
+  font-family:inherit;
+  font-weight:800;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.ictLessonNav button svg{width:17px;height:17px}
+.ictLessonNav .ictLessonActive{
+  background:var(--red);
+  color:#fff7ea;
+  border-color:var(--red);
+  box-shadow:0 8px 20px #7a171427;
+}
+
+.ictLessonPanel{
+  margin-bottom:20px;
+  padding:30px;
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:var(--paper);
+  box-shadow:0 12px 32px #3a24100d;
+}
+.ictLessonHeading{margin-bottom:24px}
+.ictLessonHeading>span{
+  color:var(--red);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+}
+.ictLessonHeading h2{
+  margin:5px 0 7px;
+  font:700 clamp(30px,4vw,44px)/1.2 Georgia,"Bujhi Bangla",serif;
+  color:var(--ink);
+}
+.ictLessonHeading p{
+  margin:0;
+  max-width:840px;
+  color:var(--muted);
+  line-height:1.7;
+}
+.ictLessonBody{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:13px;
+}
+.ictLessonBody section{
+  position:relative;
+  min-height:190px;
+  padding:20px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:var(--paper);
+}
+.ictLessonBody section:before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:18px;
+  bottom:18px;
+  width:4px;
+  border-radius:4px;
+  background:var(--red);
+}
+.ictLessonBody small{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.ictLessonBody h3{
+  margin:7px 0 10px;
+  font:700 21px/1.35 Georgia,"Bujhi Bangla",serif;
+}
+.ictLessonBody p{
+  margin:0;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.65;
+}
+
+@media(max-width:760px){
+  .ictChapterHero{display:block;padding:25px 20px}
+  .ictChapterStamp{display:none}
+  .ictLessonNav button{font-size:11px;padding:0 12px}
+  .ictLessonPanel{padding:18px}
+  .ictLessonBody{grid-template-columns:1fr}
+  .ictLessonBody section{min-height:0}
+  .ictLessonHeading h2{font-size:30px}
+  .ictLessonHeading p,.ictLessonBody p{font-size:14px}
+}
