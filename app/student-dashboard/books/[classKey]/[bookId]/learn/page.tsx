@@ -87,22 +87,42 @@ export default function LearnBookPage(){
             <div>
               <p>অষ্টম শ্রেণি · তথ্য ও যোগাযোগ প্রযুক্তি · অধ্যায় ১</p>
               <h1>তথ্য ও যোগাযোগ প্রযুক্তির গুরুত্ব</h1>
-              <span>একটি পাঠ বেছে নাও। প্রতিটি পাঠ একই অধ্যায়ের ধারাবাহিক অংশ হিসেবে নিচে খুলবে।</span>
+              <span>একই পৃষ্ঠায় স্লাইডার টেনে পাঠ ১ থেকে ৭-এর মধ্যে যেকোনো পাঠে যাও।</span>
             </div>
             <div className={styles.ictChapterStamp}><small>CHAPTER</small><b>০১</b></div>
           </div>
 
-          <nav className={styles.ictLessonNav} aria-label="অধ্যায় ১-এর ৭টি পাঠ">
-            {ictLessons.map((lesson,index)=><button
-              type="button"
-              key={lesson.number}
-              className={index===ictLesson?styles.ictLessonActive:""}
-              onClick={()=>setIctLesson(index)}
-            >
-              <BookOpen/>
-              <span>{lesson.number.toLocaleString("bn-BD")}. {lesson.title}</span>
-            </button>)}
-          </nav>
+          <section className={styles.ictLessonSlider} aria-label="অধ্যায় ১-এর ৭টি পাঠ">
+            <div className={styles.ictSliderTopline}>
+              <span>পাঠ {activeLesson.number.toLocaleString("bn-BD")} / ৭</span>
+              <strong>{activeLesson.title}</strong>
+            </div>
+
+            <div className={styles.ictSliderTrackWrap}>
+              <input
+                className={styles.ictLessonRange}
+                type="range"
+                min={0}
+                max={ictLessons.length-1}
+                step={1}
+                value={ictLesson}
+                onChange={event=>setIctLesson(Number(event.target.value))}
+                aria-label="পাঠ বদলাতে স্লাইড করুন"
+                style={{"--ict-progress":`${(ictLesson/(ictLessons.length-1))*100}%`} as React.CSSProperties}
+              />
+              <div className={styles.ictSliderNodes} aria-hidden="true">
+                {ictLessons.map((lesson,index)=><span key={lesson.number} className={index<=ictLesson?styles.ictSliderNodeDone:""}>
+                  {lesson.number.toLocaleString("bn-BD")}
+                </span>)}
+              </div>
+            </div>
+
+            <div className={styles.ictSliderLabels}>
+              <span>শুরু</span>
+              <span>স্লাইড করে পাঠ বদলাও</span>
+              <span>পাঠ ৭</span>
+            </div>
+          </section>
 
           <article className={styles.ictLessonPanel}>
             <div className={styles.ictLessonHeading}>
