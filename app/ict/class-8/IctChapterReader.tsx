@@ -107,7 +107,7 @@ export default function IctChapterReader({chapter,chapters}:{chapter:IctChapter;
     </div>
     <button type="button" className={styles.arrowButton} onClick={()=>selectLesson(selected+1)} disabled={selected===chapter.lessons.length-1} aria-label="পরের পাঠ"><ChevronRight/></button>
    </nav>
-   <p className={styles.railHint}>নম্বর বেছে বা সক্রিয় বৃত্তটি টেনে পাঠ বদলাও <span>{bn(selected+1)} / {bn(chapter.lessons.length)} পাঠ-অংশ</span></p>
+   <p className={styles.railHint} aria-live="polite" aria-atomic="true">নম্বর বেছে বা সক্রিয় বৃত্তটি টেনে পাঠ বদলাও <span>{bn(selected+1)} / {bn(chapter.lessons.length)} পাঠ-অংশ</span></p>
 
    <section ref={panelRef} className={styles.workspace} aria-label={`পাঠ ${lessonLabel(active)}: ${active.title}`}>
     <article className={styles.lessonContent} key={active.number}>
