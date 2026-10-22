@@ -6,7 +6,7 @@ import {ArrowLeft,ArrowRight,BookOpen,Bookmark,BookmarkCheck,ChevronLeft,Chevron
 import type {StudyBook} from "../../data/class8StudyBooks";
 import {class8ContributorsForReading} from "../../data/class8Writers";
 import StudyVisual from "./StudyVisual";
-import AtithirSmritiStory from "./AtithirSmritiStory";
+import AtithirSmritiStory,{atithirSceneContents} from "./AtithirSmritiStory";
 import ScienceInteractiveLabs from "./ScienceInteractiveLabs";
 import styles from "./study.module.css";
 
@@ -27,7 +27,7 @@ export default function StudyBookReader({book,bookOptions,initialChapter}:{book:
  const g=entry.guide;
  const storageKey=`bujhi-class8-${book.id}-bookmark`;
  const label=entry.sourceNumber===0?"•":num(entry.sourceNumber??entry.number);
- const sections=[{id:"summary",label:ui("পাঠের সারাংশ","Overview"),Icon:FileText},{id:"concepts",label:ui("মূল ধারণা","Key ideas"),Icon:KeyRound},{id:"remember",label:ui("মনে রাখো","Remember"),Icon:Lightbulb},{id:"questions",label:ui("নিজেকে জিজ্ঞেস করো","Check yourself"),Icon:HelpCircle},{id:"application",label:ui("নিজে করি","Try it"),Icon:Target}];
+ const sections=isAtithirSmriti?atithirSceneContents.map(scene=>({id:scene.id,label:scene.title,Icon:FileText})):[{id:"summary",label:ui("পাঠের সারাংশ","Overview"),Icon:FileText},{id:"concepts",label:ui("মূল ধারণা","Key ideas"),Icon:KeyRound},{id:"remember",label:ui("মনে রাখো","Remember"),Icon:Lightbulb},{id:"questions",label:ui("নিজেকে জিজ্ঞেস করো","Check yourself"),Icon:HelpCircle},{id:"application",label:ui("নিজে করি","Try it"),Icon:Target}];
 
  useEffect(()=>{try{const value=localStorage.getItem(storageKey);const n=Number(value);if(value!==null&&book.entries.some(e=>e.number===n))setSaved(n);}catch{}},[storageKey,book.entries]);
  useEffect(()=>{const n=nodes.current[selected];const r=rail.current;if(n&&r)r.scrollTo({left:Math.max(0,n.offsetLeft-(r.clientWidth-n.offsetWidth)/2),behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});},[selected]);
@@ -43,14 +43,14 @@ export default function StudyBookReader({book,bookOptions,initialChapter}:{book:
  return <main className={styles.page} style={{"--book-accent":book.accent} as CSSProperties} lang={en?"en":"bn"} data-no-translate><div className={styles.container}>
   <header className={styles.topbar}><nav className={styles.breadcrumb} aria-label={ui("পাঠের অবস্থান","Breadcrumb")}><Link href="/learn/class-8"><ArrowLeft size={18}/><span>{ui("অষ্টম শ্রেণির বই","Class 8 books")}</span></Link><ChevronRight size={14}/><Link href={`/learn/class-8/${book.id}`}>{book.title}</Link></nav><button type="button" className={styles.bookmark} onClick={bookmark} aria-pressed={saved===entry.number}>{saved===entry.number?<BookmarkCheck size={19}/>:<Bookmark size={19}/>}<span>{saved===entry.number?ui("সংরক্ষিত","Saved"):ui("পরে পড়ব","Save")}</span></button></header>
   <section className={styles.hero}><div><p><span className={styles.subjectBadge}>{book.title}</span> · {ui("অষ্টম শ্রেণি","Class 8")}{entry.part&&` · ${entry.part}`}</p><h1>{entry.title}</h1><span className={styles.writerByline}>{entryWriters.length?entryWriters.map((writer,index)=>{const credit=writer.readings.find(reading=>reading.bookId===book.id&&reading.chapter===entry.number)?.credit;return <span key={writer.id}>{index>0&&" · "}{credit==="লেখা"?"লেখক":credit}: {credit==="লেখা"?<Link href={`/learn/class-8/writers#${writer.id}`} title="লেখক পরিচিতি পড়ি">{writer.name}</Link>:writer.name}</span>;}):entry.author||g.terms.map(t=>t[0]).join(" · ")}</span></div><div className={styles.chapterStamp}><small>{book.sectionLabel}</small><b>{label}</b></div></section>
-  <nav className={styles.lessonNavigator} aria-label={ui("পাঠ নির্বাচন","Choose a section")} onKeyDown={e=>{if(e.target instanceof HTMLInputElement)return;if(e.key==="ArrowRight"){e.preventDefault();select(selected+1);}if(e.key==="ArrowLeft"){e.preventDefault();select(selected-1);}}}>
+  {!isAtithirSmriti&&<><nav className={styles.lessonNavigator} aria-label={ui("পাঠ নির্বাচন","Choose a section")} onKeyDown={e=>{if(e.target instanceof HTMLInputElement)return;if(e.key==="ArrowRight"){e.preventDefault();select(selected+1);}if(e.key==="ArrowLeft"){e.preventDefault();select(selected-1);}}}>
    <button type="button" className={styles.arrowButton} disabled={selected===0} onClick={()=>select(selected-1)} aria-label={ui("আগের পাঠ","Previous section")}><ChevronLeft/></button>
    <div className={styles.railViewport} ref={rail}><div className={styles.railCanvas} style={{"--steps":book.entries.length,"--progress":`${progress}%`} as CSSProperties}>
     <input className={styles.lessonRange} type="range" min={0} max={book.entries.length-1} step={1} value={selected} onChange={e=>select(Number(e.target.value))} aria-label={ui("পাঠ বদলাতে স্লাইড করুন","Slide to change section")} aria-valuetext={entry.title}/>
     <ol className={styles.lessonNodes}>{book.entries.map((item,i)=><li key={item.number}><button type="button" ref={node=>{nodes.current[i]=node;}} className={`${styles.lessonNode} ${selected===i?styles.currentNode:""}`} onClick={()=>select(i)} aria-current={selected===i?"step":undefined} aria-label={item.title}><span className={styles.nodeNumber}>{item.sourceNumber===0?"•":num(item.sourceNumber??item.number)}</span><span className={styles.nodeTitle}>{item.title}</span></button></li>)}</ol>
    </div></div><button type="button" className={styles.arrowButton} disabled={selected===book.entries.length-1} onClick={()=>select(selected+1)} aria-label={ui("পরের পাঠ","Next section")}><ChevronRight/></button>
-  </nav><p className={styles.railHint} aria-live="polite">{ui("নম্বর বেছে বা সক্রিয় বৃত্তটি টেনে পাঠ বদলাও","Choose a number or drag the active circle")}<span>{num(selected+1)} / {num(book.entries.length)}</span></p>
-  <section className={styles.workspace} ref={panel}>
+  </nav><p className={styles.railHint} aria-live="polite">{ui("নম্বর বেছে বা সক্রিয় বৃত্তটি টেনে পাঠ বদলাও","Choose a number or drag the active circle")}<span>{num(selected+1)} / {num(book.entries.length)}</span></p></>}
+  <section className={`${styles.workspace} ${isAtithirSmriti?styles.storyWorkspace:""}`} ref={panel}>
    <article className={styles.lessonContent} key={entry.number}>
     {isAtithirSmriti?<AtithirSmritiStory/>:<section id="study-summary" className={styles.lessonIntro}><div><p className={styles.eyebrow}>{entry.part||book.sectionLabel} {label}<span> · {ui("বইয়ের পৃষ্ঠা","Textbook pages")} {num(entry.pages[0])}–{num(entry.pages[1])}</span></p><h2>{entry.title}</h2><p className={styles.summary}>{g.summary}</p></div><figure className={styles.lessonVisual}><StudyVisual bookId={book.id} chapter={entry.number}/><figcaption>{entry.title}</figcaption></figure></section>}
     {book.id==="science"&&<ScienceInteractiveLabs chapter={entry.number}/>}

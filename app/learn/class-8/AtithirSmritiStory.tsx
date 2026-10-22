@@ -1,20 +1,15 @@
 "use client";
 
 import {useEffect,useRef,useState,type CSSProperties} from "react";
-import {BookOpen,Heart,Lightbulb,PawPrint} from "lucide-react";
-import styles from "./study.module.css";
+import {BookOpen,Lightbulb,PawPrint} from "lucide-react";
+import styles from "./AtithirSmritiStory.module.css";
 
 
-const spritePositions=["0% 0%","100% 0%","0% 25%","100% 25%","0% 50%","100% 50%","0% 75%","100% 75%","0% 100%","100% 100%"];
-const spriteChunkUrls=Array.from({length:8},(_,index)=>"/learn/atithi-sprite/chunk-"+String(index+1).padStart(2,"0")+".txt");
-
-function StoryIllustration({scene,label,spriteUrl}:{scene:number;label:string;spriteUrl:string}){
-  return <div
-    className={styles.storyImage}
-    role="img"
-    aria-label={label}
-    style={{backgroundImage:spriteUrl?'url("'+spriteUrl+'")':undefined,backgroundPosition:spritePositions[scene]}}
-  />;
+function StoryIllustration({scene,label}:{scene:number;label:string}){
+  return <img className={styles.storyImage}
+    src={`/learn/atithir-smriti/scene-${String(scene+1).padStart(2,"0")}.webp`}
+    alt={label} width={960} height={720}
+    loading={scene===0?"eager":"lazy"} decoding="async"/>;
 }
 
 type StoryScene={
@@ -129,28 +124,27 @@ const quickPoints=[
   ["শেষ অনুভূতি","বিদায়ের সময় কুকুরটির প্রতি টান গল্পটিকে গভীর স্মৃতির রূপ দেয়।"]
 ];
 
+export const atithirSceneContents=scenes.map((scene,index)=>({id:`scene-${index+1}`,title:scene.title}));
+const sceneNotes=[
+ "অসুস্থ লেখকের দেওঘরবাস এবং চারপাশের প্রাণের প্রতি তাঁর মনোযোগ গল্পের পটভূমি তৈরি করে।",
+ "পথের মানুষের কষ্ট লেখককে ভাবায়। এই সহমর্মিতা পরে অতিথির প্রতি তাঁর আচরণেও দেখা যায়।",
+ "পথকুকুরটিকে ‘অতিথি’ নাম দেওয়া তাকে আপন করে নেওয়ার প্রকাশ।",
+ "দুজনের সম্পর্ক ধীরে ধীরে বিশ্বাস ও যত্নের মধ্য দিয়ে গড়ে ওঠে।",
+ "খাবার দেওয়ার নির্দেশ থাকলেও অতিথি উপবাস করে। লেখকের ধারণা ও বাস্তব অবস্থার পার্থক্যটি লক্ষ করো।",
+ "কুকুরটি শুধু খাবারের জন্য থাকে না; সে লেখকের পথের সঙ্গী হয়ে ওঠে।",
+ "অতিথির নীরব উপস্থিতি এবং ভেজা চোখ তার অভাব ও অভিমানের ভাষা।",
+ "বিদায়ের আয়োজন অতিথি বোঝে না; তার উৎসাহ বিচ্ছেদের বেদনা আরও গভীর করে।",
+ "স্টেশন পর্যন্ত ছুটে আসায় অতিথির বিশ্বস্ততা এবং লেখকের প্রতি টান প্রকাশ পায়।",
+ "মানুষ ও প্রাণীর সম্পর্ক, মমতা এবং বিচ্ছেদের স্মৃতিই গল্পের মূল অনুভূতি।"
+];
+
 export default function AtithirSmritiStory(){
   const root=useRef<HTMLElement>(null);
   const sceneRefs=useRef<(HTMLElement|null)[]>([]);
   const [seen,setSeen]=useState<Set<number>>(new Set([0]));
   const [progress,setProgress]=useState(0);
-  const [spriteUrl,setSpriteUrl]=useState("");
-
   useEffect(()=>{
-    let alive=true;
-    Promise.all(spriteChunkUrls.map(async url=>{
-      const response=await fetch(url,{cache:"force-cache"});
-      if(!response.ok)throw new Error("Illustration chunk failed: "+url);
-      return response.text();
-    })).then(parts=>{
-      if(alive)setSpriteUrl("data:image/webp;base64,"+parts.join(""));
-    }).catch(()=>{
-      if(alive)setSpriteUrl("");
-    });
-    return()=>{alive=false;};
-  },[]);
-
-  useEffect(()=>{
+    if(!("IntersectionObserver" in window))return;
     const observer=new IntersectionObserver(entries=>{
       setSeen(current=>{
         const next=new Set(current);
@@ -191,32 +185,32 @@ export default function AtithirSmritiStory(){
 
     <header className={styles.storyHeader}>
       <p>মূল গল্প · সাহিত্য-কণিকা · পাঠ্যবইয়ের পৃষ্ঠা ১–৩</p>
-      <h2>অতিথির স্মৃতি</h2>
-      <span>শরৎচন্দ্র চট্টোপাধ্যায়</span>
+      <h2>ছবির সঙ্গে মূল গল্প পড়ি</h2>
       <div className={styles.storyDeck}>ছবির সঙ্গে গল্পের ঘটনাগুলো এগিয়ে পড়ো। স্ক্রল করলে প্রতিটি নতুন দৃশ্য ধীরে ধীরে সামনে আসবে।</div>
     </header>
 
-    <aside className={styles.storyQuickPoints} aria-label="মনে রাখার মূল বিষয়">
-      <div className={styles.storyQuickTitle}><Lightbulb/><span>পড়ার আগে মনে রাখো</span></div>
+    <details className={styles.storyQuickPoints}>
+      <summary className={styles.storyQuickTitle}><Lightbulb aria-hidden="true"/><span>পড়ার আগে: পটভূমি ও মূল ভাব</span></summary>
       <div className={styles.storyQuickGrid}>{quickPoints.map(([title,text])=><div key={title}><b>{title}</b><p>{text}</p></div>)}</div>
-    </aside>
+    </details>
 
     <div className={styles.storyBody}>
       {scenes.map((scene,index)=><article
         key={scene.label}
+        id={`study-scene-${index+1}`}
         data-scene={index}
         ref={node=>{sceneRefs.current[index]=node;}}
         className={styles.storyScene+" "+(seen.has(index)?styles.storySceneVisible:"")}
       >
         <figure className={styles.storyFigure}>
-          <StoryIllustration scene={index} label={scene.caption} spriteUrl={spriteUrl}/>
+          <StoryIllustration scene={index} label={scene.caption}/>
           <figcaption><span>{scene.label}</span>{scene.caption}</figcaption>
         </figure>
 
         <div className={styles.storyCopy}>
-          <div className={styles.storySceneHeading}><span>{String(index+1).padStart(2,"0")}</span><h3>{scene.title}</h3></div>
+          <div className={styles.storySceneHeading}><span>{(index+1).toLocaleString("bn-BD")}</span><h3>{scene.title}</h3></div>
           {scene.paragraphs.map((paragraph,pIndex)=><p key={pIndex}>{paragraph}</p>)}
-          {scene.remember&&<aside className={styles.storyRemember}><Heart/><div><b>মনে রাখো</b><p>{scene.remember}</p></div></aside>}
+          <aside className={styles.storyRemember}><Lightbulb aria-hidden="true"/><div><b>মনে রাখো</b><p>{scene.remember||sceneNotes[index]}</p></div></aside>
         </div>
       </article>)}
     </div>

@@ -15,3 +15,7 @@ Additional institutional references checked for brief occupational descriptions:
 
 - [Banglapedia: Motaher Hossain Chowdhury](https://en.banglapedia.org/index.php/Chowdhury%2C_Motaher_Hossain)
 - [Bangla Academy publication catalogue](https://esales.banglaacademy.gov.bd/books/all): Shamsuzzaman Khan's folklore publications and Bipradash Barua's publications.
+
+## Author portraits
+
+All 31 original authors have local WebP portraits. `class8WriterPortraits.ts` records the source image page, creator credit, rights label, and any crop for each image. Sources include Wikimedia Commons, Banglapedia (Asiatic Society of Bangladesh), and Bipradash Barua’s publisher Adorn Publication. Lalon is labelled as Jyotirindranath Tagore’s drawing; Buddhadeb Basu is labelled as a portrait from an India Post stamp. Group photographs were cropped to the identified writer. No generated likenesses are used for author portraits.
