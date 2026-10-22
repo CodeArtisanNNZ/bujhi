@@ -199,12 +199,11 @@
 }
 .storyImage{
   width:100%;
-  aspect-ratio:4/5;
-  border-radius:18px;
-  background-image:url("/learn/atithir-smriti-sprite.webp");
-  background-size:200% 500%;
-  background-repeat:no-repeat;
-  background-color:#e9d7b8;
+  display:block;
+  height:auto;
+  aspect-ratio:800/520;
+  border-radius:16px;
+  background:#e9d7b8;
   box-shadow:0 22px 54px rgba(71,38,16,.16);
   transition:transform .9s cubic-bezier(.2,.75,.2,1),filter .35s ease;
 }
@@ -363,7 +362,7 @@
   background:#191512;
 }
 :global(html[data-theme="dark"]) .storyImage{
-  filter:brightness(.82) contrast(1.08) saturate(.92);
+  filter:brightness(.84) contrast(1.06) saturate(.9);
   box-shadow:0 22px 58px rgba(0,0,0,.42);
 }
 :global(html[data-theme="dark"]) .storyRemember{
