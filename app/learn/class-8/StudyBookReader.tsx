@@ -4,7 +4,7 @@ import Link from "next/link";
 import {useEffect,useRef,useState,type CSSProperties} from "react";
 import {ArrowLeft,ArrowRight,BookOpen,Bookmark,BookmarkCheck,ChevronLeft,ChevronRight,Target,Lightbulb,HelpCircle,KeyRound,ListChecks,FileText} from "lucide-react";
 import type {StudyBook} from "../../data/class8StudyBooks";
-import StudyVisual from "./StudyVisual";
+import StudyVisual from "./StudyVisual";\nimport AtithirSmritiStory from "./AtithirSmritiStory";
 import styles from "./study.module.css";
 
 export default function StudyBookReader({book,bookOptions,initialChapter}:{book:StudyBook;bookOptions:{id:string;title:string}[];initialChapter:number}){
@@ -18,7 +18,7 @@ export default function StudyBookReader({book,bookOptions,initialChapter}:{book:
  const en=book.id.startsWith("english");
  const ui=(bn:string,english:string)=>en?english:bn;
  const num=(n:number)=>n.toLocaleString(en?"en":"bn-BD",{useGrouping:false});
- const entry=book.entries[selected];
+ const entry=book.entries[selected];\n const isAtithirSmriti=book.id==="sahitya-kanika"&&entry.number===1;
  const g=entry.guide;
  const storageKey=`bujhi-class8-${book.id}-bookmark`;
  const label=entry.sourceNumber===0?"•":num(entry.sourceNumber??entry.number);
@@ -47,7 +47,7 @@ export default function StudyBookReader({book,bookOptions,initialChapter}:{book:
   </nav><p className={styles.railHint} aria-live="polite">{ui("নম্বর বেছে বা সক্রিয় বৃত্তটি টেনে পাঠ বদলাও","Choose a number or drag the active circle")}<span>{num(selected+1)} / {num(book.entries.length)}</span></p>
   <section className={styles.workspace} ref={panel}>
    <article className={styles.lessonContent} key={entry.number}>
-    <section id="study-summary" className={styles.lessonIntro}><div><p className={styles.eyebrow}>{entry.part||book.sectionLabel} {label}<span> · {ui("বইয়ের পৃষ্ঠা","Textbook pages")} {num(entry.pages[0])}–{num(entry.pages[1])}</span></p><h2>{entry.title}</h2><p className={styles.summary}>{g.summary}</p></div><figure className={styles.lessonVisual}><StudyVisual bookId={book.id} chapter={entry.number}/><figcaption>{entry.title}</figcaption></figure></section>
+    {isAtithirSmriti?<AtithirSmritiStory/>:<section id="study-summary" className={styles.lessonIntro}><div><p className={styles.eyebrow}>{entry.part||book.sectionLabel} {label}<span> · {ui("বইয়ের পৃষ্ঠা","Textbook pages")} {num(entry.pages[0])}–{num(entry.pages[1])}</span></p><h2>{entry.title}</h2><p className={styles.summary}>{g.summary}</p></div><figure className={styles.lessonVisual}><StudyVisual bookId={book.id} chapter={entry.number}/><figcaption>{entry.title}</figcaption></figure></section>}
     <div className={styles.learningGrid}>
      <section className={styles.learningCard}><h3><Target/>{ui("এই পাঠ কী শেখাবে","What you’ll learn")}</h3><ul>{g.outcomes.map(item=><li key={item}>{item}</li>)}</ul></section>
      <section id="study-remember" className={styles.learningCard}><h3><Lightbulb/>{ui("মনে রাখো","Remember")}</h3><p>{g.remember}</p></section>
@@ -64,6 +64,6 @@ export default function StudyBookReader({book,bookOptions,initialChapter}:{book:
    </aside>
   </section>
   <details className={styles.contents}><summary><ListChecks size={19}/>{ui("এই বইয়ের সব পাঠ","All sections in this book")}</summary><nav>{book.entries.map((item,i)=><Link key={item.number} href={`/learn/class-8/${book.id}/chapter-${i+1}`}>{item.sourceNumber===0?"•":num(item.sourceNumber??item.number)}. {item.title}</Link>)}</nav></details>
-  <p className={styles.sourceNote}>{ui("অধ্যায়ের নাম ও পৃষ্ঠা মূল পাঠ্যবই অনুসারে। সংক্ষিপ্ত শেখার নোট Bujhi-এর নিজস্ব; পূর্ণ পাঠ, ছবি ও অনুশীলনের জন্য মূল বই পড়ো।","Titles and page references follow the textbook. Bujhi’s original study notes support reading; use the source book for complete passages, illustrations and exercises.")}</p>
+  <p className={styles.sourceNote}>{isAtithirSmriti?"‘অতিথির স্মৃতি’ অংশে গল্পের মূল পাঠ্য সাহিত্য-কণিকা অনুসারে দেওয়া হয়েছে; দৃশ্যায়ন ও শিক্ষার্থী-সহায়ক হাইলাইট Bujhi-এর নিজস্ব।":ui("অধ্যায়ের নাম ও পৃষ্ঠা মূল পাঠ্যবই অনুসারে। সংক্ষিপ্ত শেখার নোট Bujhi-এর নিজস্ব; পূর্ণ পাঠ, ছবি ও অনুশীলনের জন্য মূল বই পড়ো।","Titles and page references follow the textbook. Bujhi’s original study notes support reading; use the source book for complete passages, illustrations and exercises.")}</p>
  </div></main>;
 }
