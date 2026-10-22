@@ -5,6 +5,7 @@ import {useParams,useRouter} from "next/navigation";
 import {useEffect,useMemo,useState} from "react";
 import {ArrowLeft,BookOpen,FileText,GraduationCap,Headphones} from "lucide-react";
 import styles from "../../book.module.css";
+import WritersLink from "../../../../learn/class-8/WritersLink";
 import {
   findNctbBook,studentClassKey,studentClassLabels,type StudentClassKey
 } from "../../../../data/nctbBooks";
@@ -110,6 +111,7 @@ export default function StudentBookPage(){
           </Link>
         </div>
 
+        {classKey==="8"&&<WritersLink/>}
         <div className={styles.status}>{pdfStatus}</div>
         <div className={styles.filePath}>
           {book.pdfPath.startsWith("https://")?ui("PDF উৎস","PDF source"):ui("PDF আপলোডের জায়গা","PDF upload slot")}

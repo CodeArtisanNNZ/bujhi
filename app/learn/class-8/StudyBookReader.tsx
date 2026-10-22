@@ -4,6 +4,7 @@ import Link from "next/link";
 import {useEffect,useRef,useState,type CSSProperties} from "react";
 import {ArrowLeft,ArrowRight,BookOpen,Bookmark,BookmarkCheck,ChevronLeft,ChevronRight,Target,Lightbulb,HelpCircle,KeyRound,ListChecks,FileText,Headphones} from "lucide-react";
 import type {StudyBook} from "../../data/class8StudyBooks";
+import {class8ContributorsForReading} from "../../data/class8Writers";
 import StudyVisual from "./StudyVisual";
 import AtithirSmritiStory from "./AtithirSmritiStory";
 import ScienceInteractiveLabs from "./ScienceInteractiveLabs";
@@ -22,6 +23,7 @@ export default function StudyBookReader({book,bookOptions,initialChapter}:{book:
  const num=(n:number)=>n.toLocaleString(en?"en":"bn-BD",{useGrouping:false});
  const entry=book.entries[selected];
  const isAtithirSmriti=book.id==="sahitya-kanika"&&entry.number===1;
+ const entryWriters=class8ContributorsForReading(book.id,entry.number);
  const g=entry.guide;
  const storageKey=`bujhi-class8-${book.id}-bookmark`;
  const label=entry.sourceNumber===0?"•":num(entry.sourceNumber??entry.number);
@@ -40,7 +42,7 @@ export default function StudyBookReader({book,bookOptions,initialChapter}:{book:
  const explore=book.id==="bangladesh-global-studies"?`/bgs/class-8/chapter-${entry.number}`:book.id==="science"?(entry.number===2?"/dashboard/science/chapter-2":`/science/class-8/chapter-${entry.number}`):null;
  return <main className={styles.page} style={{"--book-accent":book.accent} as CSSProperties} lang={en?"en":"bn"} data-no-translate><div className={styles.container}>
   <header className={styles.topbar}><nav className={styles.breadcrumb} aria-label={ui("পাঠের অবস্থান","Breadcrumb")}><Link href="/learn/class-8"><ArrowLeft size={18}/><span>{ui("অষ্টম শ্রেণির বই","Class 8 books")}</span></Link><ChevronRight size={14}/><Link href={`/learn/class-8/${book.id}`}>{book.title}</Link></nav><button type="button" className={styles.bookmark} onClick={bookmark} aria-pressed={saved===entry.number}>{saved===entry.number?<BookmarkCheck size={19}/>:<Bookmark size={19}/>}<span>{saved===entry.number?ui("সংরক্ষিত","Saved"):ui("পরে পড়ব","Save")}</span></button></header>
-  <section className={styles.hero}><div><p><span className={styles.subjectBadge}>{book.title}</span> · {ui("অষ্টম শ্রেণি","Class 8")}{entry.part&&` · ${entry.part}`}</p><h1>{entry.title}</h1><span>{entry.author?`${ui("লেখক","Author")}: ${entry.author}`:g.terms.map(t=>t[0]).join(" · ")}</span></div><div className={styles.chapterStamp}><small>{book.sectionLabel}</small><b>{label}</b></div></section>
+  <section className={styles.hero}><div><p><span className={styles.subjectBadge}>{book.title}</span> · {ui("অষ্টম শ্রেণি","Class 8")}{entry.part&&` · ${entry.part}`}</p><h1>{entry.title}</h1><span className={styles.writerByline}>{entryWriters.length?entryWriters.map((writer,index)=>{const credit=writer.readings.find(reading=>reading.bookId===book.id&&reading.chapter===entry.number)?.credit;return <span key={writer.id}>{index>0&&" · "}{credit==="লেখা"?"লেখক":credit}: {credit==="লেখা"?<Link href={`/learn/class-8/writers#${writer.id}`} title="লেখক পরিচিতি পড়ি">{writer.name}</Link>:writer.name}</span>;}):entry.author||g.terms.map(t=>t[0]).join(" · ")}</span></div><div className={styles.chapterStamp}><small>{book.sectionLabel}</small><b>{label}</b></div></section>
   <nav className={styles.lessonNavigator} aria-label={ui("পাঠ নির্বাচন","Choose a section")} onKeyDown={e=>{if(e.target instanceof HTMLInputElement)return;if(e.key==="ArrowRight"){e.preventDefault();select(selected+1);}if(e.key==="ArrowLeft"){e.preventDefault();select(selected-1);}}}>
    <button type="button" className={styles.arrowButton} disabled={selected===0} onClick={()=>select(selected-1)} aria-label={ui("আগের পাঠ","Previous section")}><ChevronLeft/></button>
    <div className={styles.railViewport} ref={rail}><div className={styles.railCanvas} style={{"--steps":book.entries.length,"--progress":`${progress}%`} as CSSProperties}>
