@@ -20,7 +20,8 @@ export default function StudyBookReader({book,bookOptions,initialChapter}:{book:
  const en=book.id.startsWith("english");
  const ui=(bn:string,english:string)=>en?english:bn;
  const num=(n:number)=>n.toLocaleString(en?"en":"bn-BD",{useGrouping:false});
- const entry=book.entries[selected];\n const isAtithirSmriti=book.id==="sahitya-kanika"&&entry.number===1;
+ const entry=book.entries[selected];
+ const isAtithirSmriti=book.id==="sahitya-kanika"&&entry.number===1;
  const g=entry.guide;
  const storageKey=`bujhi-class8-${book.id}-bookmark`;
  const label=entry.sourceNumber===0?"•":num(entry.sourceNumber??entry.number);
