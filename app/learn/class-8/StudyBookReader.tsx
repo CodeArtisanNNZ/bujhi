@@ -4,7 +4,9 @@ import Link from "next/link";
 import {useEffect,useRef,useState,type CSSProperties} from "react";
 import {ArrowLeft,ArrowRight,BookOpen,Bookmark,BookmarkCheck,ChevronLeft,ChevronRight,Target,Lightbulb,HelpCircle,KeyRound,ListChecks,FileText} from "lucide-react";
 import type {StudyBook} from "../../data/class8StudyBooks";
-import StudyVisual from "./StudyVisual";\nimport AtithirSmritiStory from "./AtithirSmritiStory";
+import StudyVisual from "./StudyVisual";
+import AtithirSmritiStory from "./AtithirSmritiStory";
+import ScienceInteractiveLabs from "./ScienceInteractiveLabs";
 import styles from "./study.module.css";
 
 export default function StudyBookReader({book,bookOptions,initialChapter}:{book:StudyBook;bookOptions:{id:string;title:string}[];initialChapter:number}){
@@ -48,6 +50,7 @@ export default function StudyBookReader({book,bookOptions,initialChapter}:{book:
   <section className={styles.workspace} ref={panel}>
    <article className={styles.lessonContent} key={entry.number}>
     {isAtithirSmriti?<AtithirSmritiStory/>:<section id="study-summary" className={styles.lessonIntro}><div><p className={styles.eyebrow}>{entry.part||book.sectionLabel} {label}<span> · {ui("বইয়ের পৃষ্ঠা","Textbook pages")} {num(entry.pages[0])}–{num(entry.pages[1])}</span></p><h2>{entry.title}</h2><p className={styles.summary}>{g.summary}</p></div><figure className={styles.lessonVisual}><StudyVisual bookId={book.id} chapter={entry.number}/><figcaption>{entry.title}</figcaption></figure></section>}
+    {book.id==="science"&&<ScienceInteractiveLabs chapter={entry.number}/>}
     <div className={styles.learningGrid}>
      <section className={styles.learningCard}><h3><Target/>{ui("এই পাঠ কী শেখাবে","What you’ll learn")}</h3><ul>{g.outcomes.map(item=><li key={item}>{item}</li>)}</ul></section>
      <section id="study-remember" className={styles.learningCard}><h3><Lightbulb/>{ui("মনে রাখো","Remember")}</h3><p>{g.remember}</p></section>
