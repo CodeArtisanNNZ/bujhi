@@ -194,19 +194,19 @@
 }
 .storySceneVisible{opacity:1;transform:none}
 .storyFigure{
-  width:min(460px,100%);
+  width:min(420px,100%);
   margin:0 auto 24px;
 }
 .storyImage{
   width:100%;
   display:block;
   height:auto;
-  aspect-ratio:4/5;
+  aspect-ratio:2/3;
   background-size:200% 500%;
   background-repeat:no-repeat;
   background-position:0 0;
   border-radius:16px;
-  background:#e9d7b8;
+  background-color:#e9d7b8;
   box-shadow:0 22px 54px rgba(71,38,16,.16);
   transition:transform .9s cubic-bezier(.2,.75,.2,1),filter .35s ease;
 }
