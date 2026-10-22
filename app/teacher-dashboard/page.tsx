@@ -275,6 +275,7 @@ export default function TeacherDashboard(){
               <div>{selectedBook.pdfPath.startsWith("https://drive.google.com/file/d/")||selectedClass===8&&selectedBook.id==="science"
                 ? <a href={selectedBook.pdfPath} target="_blank" rel="noopener noreferrer">সম্পূর্ণ পাঠ্যবই খোলো →</a>
                 : <span>PDF এখনো যুক্ত হয়নি</span>}</div>
+              {selectedClass===8&&<div><a href="https://digitalcontent.gov.bd/portal/audios" target="_blank" rel="noopener noreferrer">ফ্রি অডিও রিসোর্স →</a> · <a href="https://talkingbookbangla.com/" target="_blank" rel="noopener noreferrer">টকিং বুক লাইব্রেরি →</a></div>}
             </div>
             {selectedClass===8&&selectedBook.id==="bangladesh-global-studies"&&<div className={styles.choiceList}>
               <strong>১৩টি অধ্যায়ের পাঠ পরিকল্পনা</strong>

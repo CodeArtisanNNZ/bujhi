@@ -15,6 +15,6 @@ export default function IctChapterOverview(){
     <span className={styles.chapterNumber}>{bn(chapter.number)}</span><div><h2>{chapter.title}</h2><p>{chapter.intro}</p><small>{bn(chapter.lessons.length)}টি নামযুক্ত পাঠ-অংশ · বইয়ের পাঠ {bn(chapter.lessons[0].number)}–{bn(chapter.lessons[chapter.lessons.length-1].endNumber)} · পৃষ্ঠা {bn(chapter.pages[0])}–{bn(chapter.pages[1])}</small></div><ArrowRight size={20}/>
    </Link>)}
   </nav>
-  <p className={styles.sourceNote}><BookOpen size={14} aria-hidden="true"/> পাঠের নাম ও নম্বর: <a href={ictTextbookSource.pdfUrl} target="_blank" rel="noopener noreferrer">{ictTextbookSource.title}</a>। বইয়ের সম্মিলিত পাঠ ২৩–৪৩ ও ৪৭–৬৯ তাদের মূল শিরোনামেই রাখা হয়েছে।</p>
+  <p className={styles.sourceNote}><BookOpen size={14} aria-hidden="true"/> পাঠের নাম ও নম্বর: <a href={ictTextbookSource.pdfUrl} target="_blank" rel="noopener noreferrer">{ictTextbookSource.title}</a> · <a href="https://digitalcontent.gov.bd/portal/audios" target="_blank" rel="noopener noreferrer">ফ্রি অডিও</a> · <a href="https://talkingbookbangla.com/" target="_blank" rel="noopener noreferrer">টকিং বুক লাইব্রেরি</a>। বইয়ের সম্মিলিত পাঠ ২৩–৪৩ ও ৪৭–৬৯ তাদের মূল শিরোনামেই রাখা হয়েছে।</p>
  </div></main>;
 }
