@@ -194,7 +194,7 @@
 }
 .storySceneVisible{opacity:1;transform:none}
 .storyFigure{
-  width:min(540px,100%);
+  width:min(500px,100%);
   margin:0 auto 24px;
 }
 .storyImage{
@@ -377,7 +377,7 @@
   .storyProgress{top:62px;margin-left:-12px;margin-right:-12px}
   .storyQuickGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .storyBody{gap:52px}
-  .storyFigure{width:min(520px,100%)}
+  .storyFigure{width:min(480px,100%)}
 }
 @media(max-width:600px){
   .storyArticle{margin-top:0}
