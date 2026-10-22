@@ -5,97 +5,17 @@ import {BookOpen,Heart,Lightbulb,PawPrint} from "lucide-react";
 import styles from "./study.module.css";
 
 
-function StoryIllustration({scene,label}:{scene:number;label:string}){
-  const ink="#201812", red="#a3261f", ochre="#a97b3f", paper="#ead8b6";
-  return <svg className={styles.storyImage} viewBox="0 0 800 520" role="img" aria-label={label}>
-    <defs>
-      <pattern id={"grain-"+scene} width="22" height="22" patternUnits="userSpaceOnUse">
-        <path d="M0 6h22M3 14h15M9 20h11" stroke="#7e5d38" strokeWidth="1" opacity=".13"/>
-      </pattern>
-    </defs>
-    <rect width="800" height="520" fill={paper}/>
-    <rect width="800" height="520" fill={"url(#grain-"+scene+")"}/>
-    <circle cx="650" cy="105" r="58" fill={red} opacity=".9"/>
-    <path d="M0 450C160 400 290 455 430 423s230-10 370 20v77H0Z" fill={ochre} opacity=".72"/>
-    <g fill="none" stroke={ink} strokeWidth="11" strokeLinecap="round" strokeLinejoin="round">
-      {scene===0&&<>
-        <path d="M80 455V160M80 190c80-90 145-115 235-85M165 455V235M165 250c62-58 115-77 175-58"/>
-        <path d="M420 438V300h155v138M438 336h118M468 300v-38h60v38"/>
-        <path d="M540 145q18-26 36 0q18-26 36 0M605 205q16-22 32 0q16-22 32 0"/>
-      </>}
-      {scene===1&&<>
-        <path d="M90 430q80-110 180-40M180 350q0-85 58-105q58 20 58 105M238 265v-55"/>
-        <path d="M360 430q0-110 70-145q70 35 70 145M430 300v-58"/>
-        <path d="M520 430q0-78 55-105q55 27 55 105M575 338v-45"/>
-        <path d="M640 430q0-58 42-80q42 22 42 80"/>
-      </>}
-      {scene===2&&<>
-        <path d="M70 430q130-190 310-175q120 10 245 175"/>
-        <path d="M155 402q18-72 70-86l52 44-38 65h-84z"/>
-        <path d="M470 392q15-68 65-78l54 35-27 74h-92z"/>
-        <path d="M230 315l22-40M540 310l22-40"/>
-      </>}
-      {scene===3&&<>
-        <path d="M120 438V185h250v253M120 220h250M185 438V300h110v138"/>
-        <path d="M500 408q18-80 72-96l62 38-35 78h-99zM555 315l20-40"/>
-        <path d="M370 270h65v168"/>
-      </>}
-      {scene===4&&<>
-        <path d="M100 430V190h300v240M100 225h300M155 430V310h120v120"/>
-        <path d="M500 430q14-58 55-76l55 31-30 54h-80z"/>
-        <path d="M480 340q55-45 110-5"/>
-        <ellipse cx="620" cy="405" rx="70" ry="25"/>
-      </>}
-      {scene===5&&<>
-        <path d="M70 440q180-200 355-170q125 20 275 170"/>
-        <path d="M205 395q17-65 65-78l54 36-34 70h-85zM260 318l20-38"/>
-        <path d="M410 395q18-72 70-88l60 39-35 77h-95zM470 310l22-42"/>
-      </>}
-      {scene===6&&<>
-        <path d="M100 440V165h300v275M100 210h300M210 440V300h95v140"/>
-        <path d="M470 398q15-64 62-77l54 35-31 67h-85zM525 320l20-39"/>
-        <path d="M405 315h78"/>
-        <path d="M330 245q35-40 70 0"/>
-      </>}
-      {scene===7&&<>
-        <path d="M110 438V190h270v248M110 225h270M170 438V315h110v123"/>
-        <path d="M455 418l42-120h105l38 120M470 348h150"/>
-        <path d="M500 300v-55h72v55"/>
-        <path d="M645 418q12-48 48-60l42 25-23 48h-67z"/>
-      </>}
-      {scene===8&&<>
-        <path d="M80 430h640M125 430V255h420v175M125 295h420"/>
-        <path d="M190 255v-70M240 255v-70M290 255v-70M340 255v-70M390 255v-70M440 255v-70"/>
-        <path d="M560 390q14-57 56-70l48 31-28 60h-76zM610 320l18-36"/>
-        <path d="M90 155h620"/>
-      </>}
-      {scene===9&&<>
-        <path d="M90 440V190h300v250M90 225h300"/>
-        <path d="M480 395q16-68 65-83l55 36-32 72h-88zM535 312l20-40"/>
-        <path d="M390 330h80"/>
-        <path d="M610 175q18-26 36 0q18-26 36 0"/>
-      </>}
-    </g>
-    <g fill={ink}>
-      <rect x="55" y="450" width="690" height="14" rx="7"/>
-      {scene===0&&<><circle cx="80" cy="155" r="28"/><circle cx="165" cy="230" r="23"/></>}
-      {scene===1&&<><circle cx="238" cy="205" r="27"/><circle cx="430" cy="240" r="25"/><circle cx="575" cy="290" r="22"/><circle cx="682" cy="347" r="18"/></>}
-      {scene===2&&<><circle cx="252" cy="270" r="22"/><circle cx="560" cy="270" r="20"/></>}
-      {scene===3&&<circle cx="575" cy="275" r="20"/>}
-      {scene===4&&<circle cx="555" cy="335" r="18"/>}
-      {scene===5&&<><circle cx="280" cy="275" r="20"/><circle cx="492" cy="265" r="22"/></>}
-      {scene===6&&<circle cx="545" cy="278" r="18"/>}
-      {scene===7&&<circle cx="690" cy="358" r="16"/>}
-      {scene===8&&<circle cx="630" cy="280" r="16"/>}
-      {scene===9&&<circle cx="555" cy="270" r="18"/>}
-    </g>
-    <g fill={red}>
-      <rect x="72" y="64" width="150" height="10" rx="5"/>
-      <rect x="72" y="84" width="95" height="8" rx="4" opacity=".7"/>
-    </g>
-  </svg>;
-}
+const spritePositions=["0% 0%","100% 0%","0% 25%","100% 25%","0% 50%","100% 50%","0% 75%","100% 75%","0% 100%","100% 100%"];
+const spriteChunkUrls=Array.from({length:8},(_,index)=>"/learn/atithi-sprite/chunk-"+String(index+1).padStart(2,"0")+".txt");
 
+function StoryIllustration({scene,label,spriteUrl}:{scene:number;label:string;spriteUrl:string}){
+  return <div
+    className={styles.storyImage}
+    role="img"
+    aria-label={label}
+    style={{backgroundImage:spriteUrl?'url("'+spriteUrl+'")':undefined,backgroundPosition:spritePositions[scene]}}
+  />;
+}
 
 type StoryScene={
   label:string;
@@ -214,6 +134,21 @@ export default function AtithirSmritiStory(){
   const sceneRefs=useRef<(HTMLElement|null)[]>([]);
   const [seen,setSeen]=useState<Set<number>>(new Set([0]));
   const [progress,setProgress]=useState(0);
+  const [spriteUrl,setSpriteUrl]=useState("");
+
+  useEffect(()=>{
+    let alive=true;
+    Promise.all(spriteChunkUrls.map(async url=>{
+      const response=await fetch(url,{cache:"force-cache"});
+      if(!response.ok)throw new Error("Illustration chunk failed: "+url);
+      return response.text();
+    })).then(parts=>{
+      if(alive)setSpriteUrl("data:image/webp;base64,"+parts.join(""));
+    }).catch(()=>{
+      if(alive)setSpriteUrl("");
+    });
+    return()=>{alive=false;};
+  },[]);
 
   useEffect(()=>{
     const observer=new IntersectionObserver(entries=>{
@@ -274,7 +209,7 @@ export default function AtithirSmritiStory(){
         className={styles.storyScene+" "+(seen.has(index)?styles.storySceneVisible:"")}
       >
         <figure className={styles.storyFigure}>
-          <StoryIllustration scene={index} label={scene.caption}/>
+          <StoryIllustration scene={index} label={scene.caption} spriteUrl={spriteUrl}/>
           <figcaption><span>{scene.label}</span>{scene.caption}</figcaption>
         </figure>
 

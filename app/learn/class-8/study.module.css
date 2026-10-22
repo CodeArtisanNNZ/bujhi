@@ -194,14 +194,17 @@
 }
 .storySceneVisible{opacity:1;transform:none}
 .storyFigure{
-  width:min(500px,100%);
+  width:min(460px,100%);
   margin:0 auto 24px;
 }
 .storyImage{
   width:100%;
   display:block;
   height:auto;
-  aspect-ratio:800/520;
+  aspect-ratio:4/5;
+  background-size:200% 500%;
+  background-repeat:no-repeat;
+  background-position:0 0;
   border-radius:16px;
   background:#e9d7b8;
   box-shadow:0 22px 54px rgba(71,38,16,.16);
@@ -376,7 +379,7 @@
   .storyProgress{top:62px;margin-left:-12px;margin-right:-12px}
   .storyQuickGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .storyBody{gap:52px}
-  .storyFigure{width:min(480px,100%)}
+  .storyFigure{width:min(440px,100%)}
 }
 @media(max-width:600px){
   .storyArticle{margin-top:0}
