@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import {useEffect,useRef,useState,type CSSProperties} from "react";
-import {ArrowLeft,ArrowRight,BookOpen,Bookmark,BookmarkCheck,ChevronLeft,ChevronRight,Target,Lightbulb,HelpCircle,KeyRound,ListChecks,FileText} from "lucide-react";
+import {ArrowLeft,ArrowRight,BookOpen,Bookmark,BookmarkCheck,ChevronLeft,ChevronRight,Target,Lightbulb,HelpCircle,KeyRound,ListChecks,FileText,Headphones} from "lucide-react";
 import type {StudyBook} from "../../data/class8StudyBooks";
 import StudyVisual from "./StudyVisual";
 import AtithirSmritiStory from "./AtithirSmritiStory";
@@ -59,7 +59,7 @@ export default function StudyBookReader({book,bookOptions,initialChapter}:{book:
     </div>
     <section id="study-concepts" className={styles.concepts}><h3><KeyRound/>{ui("মূল ধারণা","Key ideas")}</h3><dl>{g.terms.map(([term,meaning])=><div key={term}><dt>{term}</dt><dd>{meaning}</dd></div>)}</dl></section>
     <section id="study-application" className={styles.example}><h3><Target/>{ui("নিজে করি","Try it")}</h3><p>{g.activity}</p>{explore&&<Link className={styles.exploreLink} href={explore}>{ui("ইন্টারেক্টিভ পাঠে আরও শিখি","Explore the interactive lesson")} <ArrowRight size={17}/></Link>}</section>
-    <footer className={styles.lessonFooter}><a href={book.pdfPath} target="_blank" rel="noopener noreferrer"><BookOpen size={16}/>{ui("মূল NCTB পাঠ্যবই","NCTB textbook")}</a><div><button type="button" disabled={selected===0} onClick={()=>select(selected-1,true)}><ChevronLeft size={17}/>{ui("আগের পাঠ","Previous")}</button><button type="button" disabled={selected===book.entries.length-1} onClick={()=>select(selected+1,true)}>{ui("পরের পাঠ","Next")}<ChevronRight size={17}/></button></div></footer>
+    <footer className={styles.lessonFooter}><div className={styles.lessonSources}><a href={book.pdfPath} target="_blank" rel="noopener noreferrer"><BookOpen size={16}/>{ui("মূল NCTB পাঠ্যবই","NCTB textbook")}</a><a href="https://digitalcontent.gov.bd/portal/audios" target="_blank" rel="noopener noreferrer"><Headphones size={16}/>{ui("ফ্রি অডিও","Free audio")}</a><a href="https://talkingbookbangla.com/" target="_blank" rel="noopener noreferrer"><Headphones size={16}/>{ui("টকিং বুক","Talking book")}</a></div><div><button type="button" disabled={selected===0} onClick={()=>select(selected-1,true)}><ChevronLeft size={17}/>{ui("আগের পাঠ","Previous")}</button><button type="button" disabled={selected===book.entries.length-1} onClick={()=>select(selected+1,true)}>{ui("পরের পাঠ","Next")}<ChevronRight size={17}/></button></div></footer>
    </article>
    <aside className={styles.chapterAside}><h2><BookOpen size={21}/>{ui("এই পাঠে","In this section")}</h2><nav aria-label={ui("পাঠের অংশগুলো","Section navigation")}>{sections.map(({id,label,Icon})=><a key={id} href={`#study-${id}`} className={activeSection===id?styles.activeSection:""} onClick={()=>setActiveSection(id)}><Icon size={18}/>{label}</a>)}</nav>
     <button type="button" className={styles.pickerToggle} aria-expanded={pickerOpen} aria-controls="study-pickers" onClick={()=>setPickerOpen(!pickerOpen)}>{ui("অধ্যায় ও বই বদলাই","Choose chapter or book")}</button>

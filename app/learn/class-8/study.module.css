@@ -463,3 +463,10 @@
   .storyPatriotism{padding:22px 16px;border-radius:14px}
   .storyPatriotism p{font-size:15px}
 }
+
+.sourceLinks{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:18px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--paper)}
+.sourceLinks a,.lessonSources a{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:7px 10px;border:1px solid var(--line);border-radius:9px;color:var(--muted);font-size:12px;text-decoration:none;background:var(--paper)}
+.sourceLinks a:hover,.lessonSources a:hover{border-color:var(--red);color:var(--red)}
+.lessonSources{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.lessonFooter>.lessonSources{display:flex}
+@media(max-width:700px){.sourceLinks{align-items:stretch}.sourceLinks a,.lessonSources a{flex:1 1 140px;justify-content:center}.lessonFooter>.lessonSources{width:100%}}

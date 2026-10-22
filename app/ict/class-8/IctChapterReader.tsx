@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import {useEffect,useRef,useState,type CSSProperties} from "react";
-import {ArrowLeft,ArrowRight,BarChart3,Bookmark,BookmarkCheck,BookOpen,BriefcaseBusiness,CheckCircle2,ChevronLeft,ChevronRight,FileText,Flag,HeartPulse,HelpCircle,Image as ImageIcon,KeyRound,Landmark,Lightbulb,ListChecks,MessageCircleMore,Microscope,MonitorSmartphone,Radio,RotateCcw,Store,Target,Wifi} from "lucide-react";
+import {ArrowLeft,ArrowRight,BarChart3,Bookmark,BookmarkCheck,BookOpen,BriefcaseBusiness,CheckCircle2,ChevronLeft,ChevronRight,FileText,Flag,HeartPulse,HelpCircle,Image as ImageIcon,KeyRound,Landmark,Lightbulb,ListChecks,MessageCircleMore,Microscope,MonitorSmartphone,Radio,RotateCcw,Store,Target,Wifi,Headphones} from "lucide-react";
 import {ictTextbookSource,type IctChapter,type IctLesson} from "../../data/class8Ict";
 import IctChapterVisual from "./IctChapterVisual";
 import styles from "./reader.module.css";
@@ -337,7 +337,7 @@ export default function IctChapterReader({chapter,chapters}:{chapter:IctChapter;
      {chapter.number===1&&<ChapterOneDigitalLab key={active.number} lesson={active}/>}
 
      <footer className={styles.lessonFooter}>
-      <a href={ictTextbookSource.pdfUrl} target="_blank" rel="noopener noreferrer"><BookOpen size={16}/>মূল NCTB পাঠ্যবই</a>
+      <div className={styles.lessonSources}><a href={ictTextbookSource.pdfUrl} target="_blank" rel="noopener noreferrer"><BookOpen size={16}/>মূল NCTB পাঠ্যবই</a><a href="https://digitalcontent.gov.bd/portal/audios" target="_blank" rel="noopener noreferrer"><Headphones size={16}/>ফ্রি অডিও</a><a href="https://talkingbookbangla.com/" target="_blank" rel="noopener noreferrer"><Headphones size={16}/>টকিং বুক</a></div>
       <div><button type="button" onClick={()=>selectLesson(selected-1,true)} disabled={selected===0}><ChevronLeft size={18}/>আগের পাঠ</button>
        <button type="button" onClick={()=>selectLesson(selected+1,true)} disabled={selected===chapter.lessons.length-1}>পরের পাঠ<ChevronRight size={18}/></button></div>
      </footer>

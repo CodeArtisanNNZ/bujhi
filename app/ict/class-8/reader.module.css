@@ -832,3 +832,9 @@
   .interactionGuideTip{font-size:11px}
 }
 
+
+.lessonSources{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.lessonSources a{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:7px 10px;border:1px solid var(--line);border-radius:9px;color:var(--muted);font-size:12px;text-decoration:none;background:var(--paper)}
+.lessonSources a:hover{border-color:var(--red);color:var(--red)}
+.lessonFooter>.lessonSources{display:flex}
+@media(max-width:700px){.lessonFooter>.lessonSources{width:100%}.lessonSources a{flex:1 1 130px;justify-content:center}}

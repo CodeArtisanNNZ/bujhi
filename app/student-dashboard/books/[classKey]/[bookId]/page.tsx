@@ -3,7 +3,7 @@
 import Link from "next/link";
 import {useParams,useRouter} from "next/navigation";
 import {useEffect,useMemo,useState} from "react";
-import {ArrowLeft,BookOpen,FileText,GraduationCap} from "lucide-react";
+import {ArrowLeft,BookOpen,FileText,GraduationCap,Headphones} from "lucide-react";
 import styles from "../../book.module.css";
 import {
   findNctbBook,studentClassKey,studentClassLabels,type StudentClassKey
@@ -98,6 +98,11 @@ export default function StudentBookPage(){
             <FileText/>
             <span><strong>{checkingPdf?ui("PDF যাচাই হচ্ছে…","Checking PDF…"):ui("PDF খোলো","Open PDF")}</strong><span>{ui("সম্পূর্ণ NCTB পাঠ্যবই পড়ো।","Read the full NCTB textbook.")}</span></span>
           </button>
+
+          {classKey==="8"&&<a className={styles.action} href="https://digitalcontent.gov.bd/portal/audios" target="_blank" rel="noopener noreferrer">
+            <Headphones/>
+            <span><strong>{ui("ফ্রি অডিও","Free Audio")}</strong><span>{ui("সরকারি অডিও লাইব্রেরিতে এই বই/বিষয়ের অডিও খুঁজে শোনো।","Find available audio for this book or subject in the government audio library.")}</span></span>
+          </a>}
 
           <Link className={`${styles.action} ${styles.actionPrimary}`} href={`/student-dashboard/books/${classKey}/${book.id}/learn`}>
             <GraduationCap/>
