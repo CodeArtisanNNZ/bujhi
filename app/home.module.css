@@ -137,12 +137,10 @@
   bottom: calc(var(--scene-height) * .065);
   width: var(--mascot-width);
   pointer-events: none;
-  filter: drop-shadow(0 12px 10px #4b000052);
   transform-origin: bottom center;
   transition: filter .7s ease, transform .25s ease;
 }
 .heroMascot img {display:block; width:100%; height:auto; object-fit:contain;}
-.stage[data-lamp-on="false"] .heroMascot {filter: brightness(.72) saturate(.82) drop-shadow(0 12px 10px #1e000070);}
 .stage[data-lamp-on="false"] .lamp img {filter: brightness(.5) saturate(.75);}
 .stage[data-lamp-on="false"] .unlitBulb {opacity: 1;}
 .stage[data-lamp-on="false"] .lamp::after {opacity: 0;}
