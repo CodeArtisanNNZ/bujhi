@@ -134,6 +134,6 @@ export default function ResearchPage(){
    <Link href="/about">Read the Bujhi story <ArrowRight/></Link>
   </section>
 
-  <footer className="site-footer"><Link className="brand" href="/"><img src="/optimized/bujhi-icon-96.webp" width="38" height="38" alt=""/>Bujhi</Link><p>Built for understanding.</p><span>© 2026 Bujhi</span></footer>
+  <footer className="site-footer"><Link className="brand" href="/"><img src="/optimized/bujhi-icon-96.webp" width="38" height="38" alt=""/>Bujhi</Link><p>Built for understanding.</p><nav className="site-socials" aria-label="Bujhi social media"><a href="https://www.facebook.com/profile.php?id=61595613561444" target="_blank" rel="noopener noreferrer">Facebook</a><a href="https://www.instagram.com/projectbujhi/" target="_blank" rel="noopener noreferrer">Instagram</a></nav><span>© 2026 Bujhi</span></footer>
  </main>
 }
