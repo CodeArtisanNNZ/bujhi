@@ -130,7 +130,7 @@
 .lamp img {display: block; width: 100%; height: 100%; object-fit: contain; object-position: left bottom; transition: filter .7s ease;}
 .unlitBulb {position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0; transition: opacity .7s ease;}
 .heroMascot {
-  --mascot-width: clamp(180px, calc(var(--scene-height) * .41), 300px);
+  --mascot-width: clamp(135px, calc(var(--scene-height) * .3075), 225px);
   position: absolute;
   z-index: 4;
   left: calc(max(26vw, calc((100vw - 1600px) / 2 + 410px)) - var(--mascot-width) * .78);
@@ -254,7 +254,7 @@
   .copy :global(.eyebrow) {font-size: 12px;}
   .stage .preview {grid-column: 1; grid-row: 2; width: 100%; max-width: 640px;}
   .lamp {top: auto; width: 34vw; height: auto; bottom: 64px; left: -5vw;}
-  .heroMascot {left: 8vw; bottom: 54px; width: clamp(145px, 20vw, 205px);}
+  .heroMascot {left: 8vw; bottom: 54px; width: clamp(110px, 15vw, 155px);}
   .lamp img {height: auto;}
 }
 @media (max-width: 650px) {
@@ -266,7 +266,7 @@
   .extras {margin-top: 16px;}
   .discovery {font-size: 13px;}
   .lamp {top: auto; right: auto; bottom: 24px; left: -6px; width: 144px; z-index: 1;}
-  .heroMascot {left: 106px; right: auto; bottom: 32px; width: 126px;}
+  .heroMascot {left: 106px; right: auto; bottom: 32px; width: 100px;}
   .stage .preview {aspect-ratio: auto;}
   .stage .preview :global(.notebook) {display: block; height: auto; min-height: 0; padding: 32px 14px 22px 34px; border-radius: 7px;}
   .stage .preview :global(.notebook h2) {font-size: clamp(1.4rem, 6.3vw, 2rem); margin: 22px 0 18px;}
