@@ -32,7 +32,9 @@ export default function StudyBookReader({book,bookOptions,initialChapter}:{book:
  useEffect(()=>{try{const value=localStorage.getItem(storageKey);const n=Number(value);if(value!==null&&book.entries.some(e=>e.number===n))setSaved(n);}catch{}},[storageKey,book.entries]);
  useEffect(()=>{const n=nodes.current[selected];const r=rail.current;if(n&&r)r.scrollTo({left:Math.max(0,n.offsetLeft-(r.clientWidth-n.offsetWidth)/2),behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});},[selected]);
  function select(index:number,scroll=false){
-  const next=Math.max(0,Math.min(book.entries.length-1,index));setSelected(next);setActiveSection("summary");setPickerOpen(false);
+  const next=Math.max(0,Math.min(book.entries.length-1,index));
+  if(book.id==="mathematics"&&next===0){window.location.assign("/learn/class-8/mathematics/chapter-1");return;}
+  setSelected(next);setActiveSection("summary");setPickerOpen(false);
   window.history.replaceState(null,"",`/learn/class-8/${book.id}/chapter-${next+1}`);
   document.title=`${book.entries[next].title} · ${book.title} · Bujhi`;
   if(scroll)panel.current?.scrollIntoView({block:"start",behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
