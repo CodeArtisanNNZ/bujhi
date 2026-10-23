@@ -3,7 +3,6 @@ import ResponsiveImage from "./components/ResponsiveImage";
 import SolarSystemPreview from "./components/SolarSystemPreview";
 import CellZoomPreview from "./components/CellZoomPreview";
 import BangladeshMapPreview from "./components/BangladeshMapPreview";
-import BujhiMascotWelcome from "./components/BujhiMascotWelcome";
 import Link from "next/link";
 import {useEffect,useState} from "react";
 import {ArrowRight,BookOpen,Brain,FlaskConical,Pause,Play,Power,X} from "lucide-react";
@@ -50,6 +49,7 @@ export default function Home(){
    <div className={styles.ambientShade} aria-hidden="true"/>
    <div className={styles.copy}><p className="eyebrow">Built for the Bangladeshi curriculum</p><h1>Learn it<br/>your way.</h1><div className={styles.actions}><Link href="/register?role=student">Join as a Student <ArrowRight/></Link><Link href="/register?role=teacher">Join as a Teacher <ArrowRight/></Link></div><div className={styles.extras}><button className={styles.discovery} onClick={openRandomQuiz}>I found something<span aria-hidden="true"/></button><button type="button" className={styles.lampSwitch} role="switch" aria-checked={lampOn} aria-label={thoughtLang==="bn"?"ডেস্কের আলো":"Desk light"} onClick={()=>setLampOn(on=>!on)} data-no-translate><Power aria-hidden="true"/><span>{thoughtLang==="bn"?(lampOn?"আলো চালু":"আলো বন্ধ"):(lampOn?"Light on":"Light off")}</span><i aria-hidden="true"/></button></div></div>
    <div className={styles.lamp}><button type="button" className={styles.lampButton} aria-label={thoughtLang==="bn"?(lampOn?"ডেস্ক ল্যাম্প বন্ধ করুন":"ডেস্ক ল্যাম্প চালু করুন"):(lampOn?"Turn desk lamp off":"Turn desk lamp on")} onClick={()=>setLampOn(on=>!on)}><img src="/homepage-lamp-reference.webp" width="820" height="1230" alt="" fetchPriority="high" decoding="async"/><svg className={styles.unlitBulb} viewBox="0 0 820 1230" aria-hidden="true"><defs><radialGradient id="home-unlit-shade" cx="45%" cy="40%" r="65%"><stop stopColor="#625345"/><stop offset=".5" stopColor="#3e3127"/><stop offset="1" stopColor="#201a16"/></radialGradient></defs><ellipse cx="632" cy="362" rx="185" ry="43" transform="rotate(-29 632 362)" fill="url(#home-unlit-shade)"/></svg></button></div>
+   <div className={styles.heroMascot} aria-hidden="true"><ResponsiveImage src="/mascot/bujhi-640.webp" srcSet="/mascot/bujhi-320.webp 320w, /mascot/bujhi-640.webp 640w" sizes="(max-width: 650px) 92px, 180px" width={640} height={640} alt=""/></div>
    <div className={`notebook-wrap ${styles.preview}`}><div className="paper back-one"/><div className="paper back-two"/><article className="notebook"><span className={styles.paperclip} aria-hidden="true"/><span className={styles.binderclip} aria-hidden="true"><i/><b/><em/></span><div className="rings" aria-hidden="true">{Array.from({length:8}).map((_,i)=><i key={i}/>)}</div><h2>A peek inside Bujhi?</h2>
     {homeDemo==="map"
      ?<div className="lesson home-map-lesson"><BangladeshMapPreview compact/></div>
@@ -63,7 +63,6 @@ export default function Home(){
    </article></div>
   </section>
   <section className="touch-strip"><button onClick={openRandomThought} title="Open one of 1,000 learning facts"><BookOpen/><span>Open a thought</span></button><button onClick={openRandomQuiz}><Brain/><span>Try a hidden quiz</span></button><button onClick={openRandomThought} title="Find one of 1,000 tiny facts"><span>Find a tiny fact</span></button><button onClick={()=>{location.href="/login?role=student"}}><FlaskConical/><span>Open your learning desk</span></button></section>
-  <BujhiMascotWelcome bangla={thoughtLang==="bn"}/>
   <section className="promise" data-no-translate>
    <p className="eyebrow">{thoughtLang==="bn"?"পাঠ্যবইয়ের বাইরেও শেখা":"Learning beyond the textbook"}</p>
    <h2>{thoughtLang==="bn"?"এমন পাঠ, যা বইয়ের বাইরেও যায়।":"Lessons that go beyond the book."}</h2>
