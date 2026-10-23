@@ -12,15 +12,25 @@ import styles from "./home.module.css";
 
 
 // Deployment refresh: Bangladesh map rotation
+let visitorCountRequested=false;
 export default function Home(){
  const[lampOn,setLampOn]=useState(true);
- const[running,setRunning]=useState(true);const[homeDemo,setHomeDemo]=useState<"solar"|"cell"|"map"|null>(null);const[toast,setToast]=useState("");const[quiz,setQuiz]=useState(false);const[quizIndex,setQuizIndex]=useState(0);const[answer,setAnswer]=useState<number|null>(null);const[lastThoughtIndex,setLastThoughtIndex]=useState(-1);const[thoughtLang,setThoughtLang]=useState<"en"|"bn">("en");
+ const[running,setRunning]=useState(true);const[homeDemo,setHomeDemo]=useState<"solar"|"cell"|"map"|null>(null);const[toast,setToast]=useState("");const[quiz,setQuiz]=useState(false);const[quizIndex,setQuizIndex]=useState(0);const[answer,setAnswer]=useState<number|null>(null);const[lastThoughtIndex,setLastThoughtIndex]=useState(-1);const[thoughtLang,setThoughtLang]=useState<"en"|"bn">("en");const[visitorStats,setVisitorStats]=useState<{opens:number;uniqueBrowsers:number}|null>(null);const[visitorUnavailable,setVisitorUnavailable]=useState(false);
  function note(text:string){setToast(text);window.setTimeout(()=>setToast(""),4200)}
  useEffect(()=>{
   const sync=()=>setThoughtLang(document.documentElement.lang==="bn"?"bn":"en");
   sync();
   window.addEventListener("bujhi-language-changed",sync);
   return()=>window.removeEventListener("bujhi-language-changed",sync);
+ },[]);
+ useEffect(()=>{
+  if(visitorCountRequested)return;
+  visitorCountRequested=true;
+  let cancelled=false;
+  fetch("/api/visitors",{method:"POST",credentials:"same-origin",cache:"no-store"})
+   .then(async response=>{if(!response.ok)throw new Error("Visitor counter unavailable");const data=await response.json();if(!Number.isSafeInteger(data.opens)||!Number.isSafeInteger(data.uniqueBrowsers))throw new Error("Invalid visitor counter");if(!cancelled)setVisitorStats({opens:data.opens,uniqueBrowsers:data.uniqueBrowsers});})
+   .catch(()=>{if(!cancelled)setVisitorUnavailable(true)});
+  return()=>{cancelled=true};
  },[]);
  useEffect(()=>{
   const raw=Number(localStorage.getItem("bujhi-home-preview-count")||"0");
@@ -62,7 +72,7 @@ export default function Home(){
    </div>
    <Link href="/about">{thoughtLang==="bn"?"কেন বুঝি?":"Why Bujhi? exists"} <ArrowRight/></Link>
   </section>
-  <footer className="site-footer"><Link className="brand" href="/"><ResponsiveImage sizes="38px" src="/optimized/bujhi-icon-96.webp" alt=""/>Bujhi</Link><p>Built around the way students actually learn.</p><span>© 2026 Bujhi?</span></footer>
+  <footer className="site-footer"><Link className="brand" href="/"><ResponsiveImage sizes="38px" src="/optimized/bujhi-icon-96.webp" alt=""/>Bujhi</Link><p>Built around the way students actually learn.</p><div className={styles.footerMeta}><span className={styles.visitorStats} role="status" aria-live="polite" title={thoughtLang==="bn"?"গণনা শুরু হওয়ার পর থেকে পেজ খোলা ও একই ব্রাউজারের আনুমানিক ইউনিক সংখ্যা।":"Counts start from this counter launch. Unique means a browser keeping the same first-party cookie."}>{visitorStats?(thoughtLang==="bn"?`পেজ খোলা: ${visitorStats.opens.toLocaleString("bn-BD")} · ইউনিক ব্রাউজার: ${visitorStats.uniqueBrowsers.toLocaleString("bn-BD")}`:`Page opens: ${visitorStats.opens.toLocaleString()} · Unique browsers: ${visitorStats.uniqueBrowsers.toLocaleString()}`):(visitorUnavailable?(thoughtLang==="bn"?"ভিজিটর পরিসংখ্যান পাওয়া যাচ্ছে না":"Visitor stats unavailable"):(thoughtLang==="bn"?"ভিজিটর পরিসংখ্যান দেখা হচ্ছে…":"Checking visitor statistics…"))}</span><span>© 2026 Bujhi?</span></div></footer>
   {quiz&&<div className="modal" onMouseDown={e=>{if(e.target===e.currentTarget){setQuiz(false);setAnswer(null)}}}><section data-no-translate><button className="close" onClick={()=>{setQuiz(false);setAnswer(null)}}><X/></button><div className="quiz-meta"><p className="eyebrow">{thoughtLang==="bn"?"গোপন ডেস্ক কুইজ":"Hidden desk quiz"}</p><span>{thoughtLang==="bn"?currentQuiz.categoryBn:currentQuiz.categoryEn} · {String(quizIndex+1).padStart(4,"0")} / 1000</span></div><h2>{thoughtLang==="bn"?currentQuiz.questionBn:currentQuiz.questionEn}</h2>{(thoughtLang==="bn"?currentQuiz.optionsBn:currentQuiz.optionsEn).map((item,i)=><button disabled={answer!==null} className={`quiz-option ${answer!==null?(i===currentQuiz.correct?"correct":answer===i?"wrong":""):""}`} key={`${quizIndex}-${i}`} onClick={()=>setAnswer(i)}>{item}</button>)}{answer!==null&&<div className={`result ${answer===currentQuiz.correct?"result-correct":"result-wrong"}`}><strong>{answer===currentQuiz.correct?(thoughtLang==="bn"?"ঠিক!":"Correct!"):(thoughtLang==="bn"?"আরেকটু ভাবি।":"Not quite.")}</strong><p>{thoughtLang==="bn"?currentQuiz.explanationBn:currentQuiz.explanationEn}</p></div>}<button className="quiz-next" onClick={openRandomQuiz}>{thoughtLang==="bn"?"আরেকটি কুইজ":"Another quiz"} <ArrowRight/></button></section></div>}
   {toast&&<div className="toast">{toast}</div>}
  </main>
