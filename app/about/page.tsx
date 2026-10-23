@@ -78,5 +78,5 @@ export default function About(){
    </div>
   </section>
  <section className="building"><p className="eyebrow">What we are trying to do</p><h2>One curriculum. More ways to understand and explain it.</h2><div><article><BookOpen/><h3>For students</h3><p>Read, watch, explore and practise the same topic until one approach finally makes sense.</p></article><article><Lightbulb/><h3>For teachers</h3><p>Find alternative explanations, classroom activities and practical ways to make difficult ideas visible.</p></article></div><Link href="/">Explore the homepage <ArrowRight/></Link></section>
- <footer className="site-footer"><Link className="brand" href="/"><ResponsiveImage sizes="38px" src="/optimized/bujhi-icon-96.webp" alt=""/>Bujhi</Link><p>Built for understanding.</p><span>© 2026 Bujhi</span></footer>
+ <footer className="site-footer"><Link className="brand" href="/"><ResponsiveImage sizes="38px" src="/optimized/bujhi-icon-96.webp" alt=""/>Bujhi</Link><p>Built for understanding.</p><nav className="site-socials" aria-label="Bujhi social media"><a href="https://www.facebook.com/profile.php?id=61595613561444" target="_blank" rel="noopener noreferrer">Facebook</a><a href="https://www.instagram.com/projectbujhi/" target="_blank" rel="noopener noreferrer">Instagram</a></nav><span>© 2026 Bujhi</span></footer>
  </main>}
