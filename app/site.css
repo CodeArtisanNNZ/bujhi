@@ -428,3 +428,38 @@ html[lang="bn"] #bujhi-content :is(.about-hero,.classroom-intro) h1{font-size:cl
     min-height:500px;
   }
 }
+
+
+/* Bujhi official social links */
+.site-socials{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.site-socials a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:34px;
+  padding:7px 12px;
+  border:1px solid #e8dad166;
+  border-radius:999px;
+  color:#f2e6dd;
+  font-size:.78rem;
+  font-weight:700;
+  letter-spacing:.01em;
+  transition:background .18s ease,border-color .18s ease,color .18s ease,transform .18s ease;
+}
+.site-socials a:hover,
+.site-socials a:focus-visible{
+  background:#fff7f0;
+  border-color:#fff7f0;
+  color:#8f252b;
+  transform:translateY(-1px);
+  outline:none;
+}
+@media(max-width:760px){
+  .site-socials{width:100%}
+  .site-socials a{min-height:40px;padding:8px 14px}
+}
