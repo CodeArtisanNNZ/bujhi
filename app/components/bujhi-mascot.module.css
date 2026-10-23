@@ -1,0 +1,96 @@
+.welcome {
+  scroll-margin-top: 20px;
+  display: grid;
+  grid-template-columns: minmax(230px, 320px) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(28px, 5vw, 76px);
+  width: min(1120px, calc(100% - 64px));
+  margin: 66px auto 0;
+  padding: 30px clamp(28px, 4vw, 54px) 30px 30px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--paper);
+  color: var(--ink);
+}
+.portrait {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #e8dfd7;
+  border-radius: 14px;
+  padding: 14px;
+  background: #fff;
+  transform: rotate(-2deg);
+  box-shadow: 5px 6px 0 var(--surface);
+}
+.portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+.introduction {min-width: 0; padding: 12px 0;}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 16px;
+  color: var(--red);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .07em;
+}
+.eyebrow > span {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #ba841e;
+}
+.introduction h2 {
+  margin: 0 0 16px;
+  color: var(--ink);
+  font: 600 clamp(2.2rem, 4.6vw, 3.8rem)/1.2 "Fraunces", "Bujhi Bangla", serif;
+  letter-spacing: -.035em;
+  overflow-wrap: anywhere;
+}
+.welcome[lang="bn"] .introduction h2 {font-family: "Bujhi Bangla", sans-serif; line-height: 1.5; letter-spacing: normal;}
+.invitation {margin: 0; color: var(--muted); font-size: clamp(.95rem, 1.5vw, 1.1rem); line-height: 1.8;}
+.links {display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; margin-top: 28px;}
+.links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 46px;
+  border-radius: 8px;
+  font-size: .83rem;
+  font-weight: 700;
+  line-height: 1.6;
+  text-decoration: none;
+}
+.links a:first-child {padding: 11px 17px; background: var(--accent-solid); color: #fffaf4;}
+.links a:last-child {padding: 9px 0; color: var(--red);}
+.links a:hover {text-decoration: underline; text-underline-offset: 4px;}
+.links a:focus-visible {outline: 3px solid var(--red); outline-offset: 5px;}
+.links svg {flex-shrink: 0;}
+@media (max-width: 850px) {
+  .welcome {grid-template-columns: minmax(180px, 240px) minmax(0, 1fr); gap: 30px; padding: 26px;}
+  .links {gap: 5px 18px; margin-top: 20px;}
+}
+@media (max-width: 650px) {
+  .welcome {grid-template-columns: minmax(0, 1fr); width: calc(100% - 32px); gap: 22px; margin-top: 38px; padding: 26px 20px; border-radius: 15px;}
+  .portrait {width: min(230px, 100%); justify-self: center; padding: 11px;}
+  .introduction {padding: 0; text-align: center;}
+  .eyebrow {justify-content: center; font-size: .66rem; letter-spacing: .04em; margin-bottom: 10px;}
+  .introduction h2 {font-size: 2.55rem; margin-bottom: 10px;}
+  .invitation {font-size: .95rem;}
+  .links {justify-content: center; gap: 7px 18px; margin-top: 20px;}
+  .links a {font-size: .79rem;}
+}
+@media (max-width: 360px) {
+  .welcome {padding: 24px 17px;}
+  .portrait {width: 205px;}
+  .introduction h2 {font-size: 2.2rem;}
+  .links {flex-direction: column; gap: 5px;}
+}

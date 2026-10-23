@@ -3,6 +3,7 @@ import ResponsiveImage from "./components/ResponsiveImage";
 import SolarSystemPreview from "./components/SolarSystemPreview";
 import CellZoomPreview from "./components/CellZoomPreview";
 import BangladeshMapPreview from "./components/BangladeshMapPreview";
+import BujhiMascotWelcome from "./components/BujhiMascotWelcome";
 import Link from "next/link";
 import {useEffect,useState} from "react";
 import {ArrowRight,BookOpen,Brain,FlaskConical,Pause,Play,Power,X} from "lucide-react";
@@ -62,6 +63,7 @@ export default function Home(){
    </article></div>
   </section>
   <section className="touch-strip"><button onClick={openRandomThought} title="Open one of 1,000 learning facts"><BookOpen/><span>Open a thought</span></button><button onClick={openRandomQuiz}><Brain/><span>Try a hidden quiz</span></button><button onClick={openRandomThought} title="Find one of 1,000 tiny facts"><span>Find a tiny fact</span></button><button onClick={()=>{location.href="/login?role=student"}}><FlaskConical/><span>Open your learning desk</span></button></section>
+  <BujhiMascotWelcome bangla={thoughtLang==="bn"}/>
   <section className="promise" data-no-translate>
    <p className="eyebrow">{thoughtLang==="bn"?"পাঠ্যবইয়ের বাইরেও শেখা":"Learning beyond the textbook"}</p>
    <h2>{thoughtLang==="bn"?"এমন পাঠ, যা বইয়ের বাইরেও যায়।":"Lessons that go beyond the book."}</h2>
