@@ -5,6 +5,7 @@ import {usePathname} from "next/navigation";
 import {createContext,useContext,useEffect,useRef,useState} from "react";
 import {Menu,X,Sun,Moon} from "lucide-react";
 import LanguageToggle from "./LanguageToggle";
+import BujhiPeek from "./BujhiPeek";
 
 type Theme="light"|"dark";
 type Role="student"|"teacher";
@@ -120,5 +121,6 @@ export default function SiteShell({children}:{children:React.ReactNode}){
       </div>
     </header>
     <div id="bujhi-content" tabIndex={-1}>{children}</div>
+    <BujhiPeek/>
   </ThemeContext.Provider>;
 }

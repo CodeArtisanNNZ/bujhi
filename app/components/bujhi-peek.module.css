@@ -1,0 +1,60 @@
+.peek {
+  position: fixed;
+  z-index: 60;
+  left: 0;
+  width: clamp(70px, 8vw, 110px);
+  aspect-ratio: 300 / 780;
+  overflow: hidden;
+  transform: translateY(-50%);
+  pointer-events: none;
+  user-select: none;
+  contain: layout paint;
+}
+.peek > svg {display: block; width: 100%; height: auto;}
+.lift,.tilt,.gaze,.blink,.leftHand,.rightHand,.leftFade,.rightFade {
+  animation-duration: var(--peek-duration);
+  animation-timing-function: cubic-bezier(.4,0,.6,1);
+  animation-fill-mode: both;
+}
+.lift {animation-name: lift;}
+.tilt {animation-name: tilt; transform-origin: 480px 388px;}
+.gaze {animation-name: gaze;}
+.blink {animation-name: blink;}
+.leftHand {animation-name: left-hand;}
+.rightHand {animation-name: right-hand;}
+.leftFade {animation-name: left-fade;}
+.rightFade {animation-name: right-fade;}
+
+@keyframes lift {
+  0%,13.5%,92%,100% {transform: translateY(380px);}
+  23% {transform: translateY(-8px);}
+  27.5%,77% {transform: translateY(0);}
+  80.5% {transform: translateY(-3px);}
+}
+@keyframes tilt {
+  0%,31%,73%,100% {transform: rotate(0);}
+  38.5%,45.5% {transform: rotate(-2.4deg);}
+  55%,66.5% {transform: rotate(2.2deg);}
+}
+@keyframes gaze {
+  0%,31%,72%,100% {transform: translateX(0);}
+  37%,45.5% {transform: translateX(-24px);}
+  54%,66% {transform: translateX(24px);}
+}
+@keyframes blink {
+  0%,58.5%,64%,100% {transform: scaleY(1);}
+  60.5%,62% {transform: scaleY(.045);}
+}
+@keyframes left-hand {
+  0%,7%,97.5%,100% {transform: translateY(110px);}
+  13.5% {transform: translateY(-3px);}
+  17%,87.5% {transform: translateY(0);}
+}
+@keyframes right-hand {
+  0%,9%,99%,100% {transform: translateY(110px);}
+  15.5% {transform: translateY(-3px);}
+  19%,89% {transform: translateY(0);}
+}
+@keyframes left-fade {0%,7.5%,96.5%,100% {opacity:0;} 10%,91% {opacity:1;}}
+@keyframes right-fade {0%,9.5%,98.5%,100% {opacity:0;} 12%,93% {opacity:1;}}
+@media (prefers-reduced-motion: reduce) {.peek {display:none;}}

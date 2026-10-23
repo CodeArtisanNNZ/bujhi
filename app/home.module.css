@@ -130,14 +130,14 @@
 .lamp img {display: block; width: 100%; height: 100%; object-fit: contain; object-position: left bottom; transition: filter .7s ease;}
 .unlitBulb {position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0; transition: opacity .7s ease;}
 .heroMascot {
+  --mascot-width: clamp(180px, calc(var(--scene-height) * .41), 300px);
   position: absolute;
-  z-index: 3;
-  left: clamp(150px, 16vw, 270px);
-  bottom: calc(var(--scene-height) * .055);
-  width: clamp(118px, calc(var(--scene-height) * .225), 190px);
+  z-index: 4;
+  left: calc(max(26vw, calc((100vw - 1600px) / 2 + 410px)) - var(--mascot-width) * .78);
+  bottom: calc(var(--scene-height) * .065);
+  width: var(--mascot-width);
   pointer-events: none;
   filter: drop-shadow(0 12px 10px #4b000052);
-  transform: rotate(-1.5deg);
   transform-origin: bottom center;
   transition: filter .7s ease, transform .25s ease;
 }
@@ -254,19 +254,19 @@
   .copy :global(.eyebrow) {font-size: 12px;}
   .stage .preview {grid-column: 1; grid-row: 2; width: 100%; max-width: 640px;}
   .lamp {top: auto; width: 34vw; height: auto; bottom: 64px; left: -5vw;}
-  .heroMascot {left: clamp(115px, 18vw, 200px); bottom: 54px; width: clamp(105px, 15vw, 150px);}
+  .heroMascot {left: 8vw; bottom: 54px; width: clamp(145px, 20vw, 205px);}
   .lamp img {height: auto;}
 }
 @media (max-width: 650px) {
-  .stage {gap: 54px; padding: 38px 18px 60px;}
+  .stage {gap: 54px; padding: 38px 18px 204px;}
   .copy h1 {max-width: calc(100% - 44px); margin-bottom: 26px; font-size: clamp(2.7rem, 13.4vw, 4.1rem); line-height: 1;}
   .copy :global(.eyebrow) {max-width: calc(100% - 70px); font-size: 10px; margin-bottom: 18px;}
   .actions {display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px;}
   .actions a {font-size: 14px; min-height: 48px; padding: 12px 16px;}
   .extras {margin-top: 16px;}
   .discovery {font-size: 13px;}
-  .lamp {top: 64px; right: -24px; bottom: auto; left: auto; width: clamp(100px, 28vw, 160px); z-index: 1;}
-  .heroMascot {left: 12px; right: auto; bottom: 10px; width: 82px; transform: rotate(-2deg);}
+  .lamp {top: auto; right: auto; bottom: 24px; left: -6px; width: 144px; z-index: 1;}
+  .heroMascot {left: 106px; right: auto; bottom: 32px; width: 126px;}
   .stage .preview {aspect-ratio: auto;}
   .stage .preview :global(.notebook) {display: block; height: auto; min-height: 0; padding: 32px 14px 22px 34px; border-radius: 7px;}
   .stage .preview :global(.notebook h2) {font-size: clamp(1.4rem, 6.3vw, 2rem); margin: 22px 0 18px;}
