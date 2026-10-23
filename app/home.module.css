@@ -136,12 +136,60 @@
   left: calc(max(26vw, calc((100vw - 1600px) / 2 + 410px)) - var(--mascot-width) * .78);
   bottom: calc(var(--scene-height) * .065);
   width: var(--mascot-width);
-  pointer-events: none;
+  pointer-events: auto;
   filter: drop-shadow(0 12px 10px #4b000052);
   transform-origin: bottom center;
   transition: filter .7s ease, transform .25s ease;
 }
-.heroMascot img {display:block; width:100%; height:auto; object-fit:contain;}
+.mascotButton {
+  display:block;
+  width:100%;
+  margin:0;
+  padding:0;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  border-radius:32% 32% 18% 18%;
+  -webkit-tap-highlight-color:transparent;
+  transition:transform .18s ease;
+}
+.mascotButton:hover {transform:translateY(-3px) rotate(-1deg);}
+.mascotButton:active {transform:translateY(0) scale(.98);}
+.mascotButton:focus-visible {outline:3px solid #ffe4a3; outline-offset:6px;}
+.heroMascot img {display:block; width:100%; height:auto; object-fit:contain; pointer-events:none;}
+.mascotBubble {
+  position:absolute;
+  z-index:8;
+  left:76%;
+  bottom:78%;
+  width:max-content;
+  max-width:min(245px, 30vw);
+  padding:12px 15px;
+  border:1px solid #ead8c6;
+  border-radius:16px 16px 16px 5px;
+  background:#fffaf2;
+  color:#702018;
+  box-shadow:0 14px 30px #4b00002e;
+  font:600 clamp(12px,.9vw,14px)/1.45 "DM Sans","Bujhi Bangla",sans-serif;
+  letter-spacing:-.01em;
+  animation:mascotBubbleIn .2s ease-out;
+}
+.mascotBubble::after {
+  content:"";
+  position:absolute;
+  left:12px;
+  bottom:-9px;
+  width:16px;
+  height:16px;
+  border-right:1px solid #ead8c6;
+  border-bottom:1px solid #ead8c6;
+  background:#fffaf2;
+  transform:rotate(45deg);
+}
+@keyframes mascotBubbleIn {
+  from {opacity:0; transform:translateY(7px) scale(.97);}
+  to {opacity:1; transform:translateY(0) scale(1);}
+}
 .stage[data-lamp-on="false"] .heroMascot {filter: brightness(.72) saturate(.82) drop-shadow(0 12px 10px #1e000070);}
 .stage[data-lamp-on="false"] .lamp img {filter: brightness(.5) saturate(.75);}
 .stage[data-lamp-on="false"] .unlitBulb {opacity: 1;}
@@ -267,6 +315,8 @@
   .discovery {font-size: 13px;}
   .lamp {top: auto; right: auto; bottom: 24px; left: -6px; width: 144px; z-index: 1;}
   .heroMascot {left: 106px; right: auto; bottom: 32px; width: 100px;}
+  .mascotBubble {left:-28px; bottom:96%; max-width:190px; width:190px; padding:10px 12px; font-size:12px;}
+  .mascotBubble::after {left:70px;}
   .stage .preview {aspect-ratio: auto;}
   .stage .preview :global(.notebook) {display: block; height: auto; min-height: 0; padding: 32px 14px 22px 34px; border-radius: 7px;}
   .stage .preview :global(.notebook h2) {font-size: clamp(1.4rem, 6.3vw, 2rem); margin: 22px 0 18px;}
@@ -288,7 +338,7 @@
   .stage .preview :global(.home-map-lesson .bd-map-intro p),.stage .preview :global(.home-map-lesson .bd-fact-card p) {font-size: 13px; line-height: 1.65;}
   :global(html[lang="bn"] #bujhi-content) .copy h1 {font-size: clamp(2rem, 8.7vw, 3rem);}
 }
-@media (prefers-reduced-motion: reduce) {.actions a,.stage::after,.ambientShade,.lamp::after,.lamp img,.unlitBulb,.stage .preview,.lampSwitch,.lampSwitch i,.lampSwitch i::after {transition: none;}}
+@media (prefers-reduced-motion: reduce) {.actions a,.stage::after,.ambientShade,.lamp::after,.lamp img,.unlitBulb,.stage .preview,.lampSwitch,.lampSwitch i,.lampSwitch i::after,.mascotButton {transition: none;}.mascotBubble{animation:none;}}
 
 
 .footerMeta{display:flex;flex-direction:column;align-items:flex-end;gap:5px;min-width:0}
