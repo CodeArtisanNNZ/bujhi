@@ -12,6 +12,7 @@ const teamMembers:TeamMember[]=[
  {name:"Sidratul Muntaha",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/sidratul-muntaha.webp"},
  {name:"Nowrin Tanhiad",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/nowrin-tanhiad.jpg"},
  {name:"Azwad Akhlak",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/azwad-akhlak.jpg"},
+ {name:"Creative Artist",role:"Creative Artist · Bujhi",bio:"Name and profile details coming soon.",image:"/team/creative-artist.webp"},
  {name:"Syed Mohammad Samiul Haque",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/syed-mohammad-samiul-haque.jpg"},
  {name:"Syed Muhtasim Abrar Sahosh",role:"Bujhi team",bio:"Team profile details and photo will be added here.",image:"/team/syed-muhtasim-abrar-sahosh.jpg"},
 ];
