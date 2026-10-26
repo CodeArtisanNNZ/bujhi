@@ -133,7 +133,7 @@
   --mascot-width: clamp(135px, calc(var(--scene-height) * .3075), 225px);
   position: absolute;
   z-index: 4;
-  left: calc(max(26vw, calc((100vw - 1600px) / 2 + 410px)) - var(--mascot-width) * .78);
+  left: calc(max(26vw, calc((100vw - 1600px) / 2 + 410px)) - var(--mascot-width) * .617);
   bottom: calc(var(--scene-height) * .065);
   width: var(--mascot-width);
   pointer-events: none;

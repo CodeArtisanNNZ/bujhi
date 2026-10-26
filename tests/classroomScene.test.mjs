@@ -4,7 +4,11 @@ import {readFileSync} from "node:fs";
 import ts from "typescript";
 const source=readFileSync(new URL("../app/register/classroomScene.ts",import.meta.url),"utf8");
 const js=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2020}}).outputText;
-const {CLASSROOM_SEATS:seats,classroomCamera,hitClassroomSeat}=await import("data:text/javascript;base64,"+Buffer.from(js).toString("base64"));
+const artSource=readFileSync(new URL("../app/register/classroomArt.ts",import.meta.url),"utf8");
+const artJs=ts.transpileModule(artSource,{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2020}}).outputText;
+const artUrl="data:text/javascript;base64,"+Buffer.from(artJs).toString("base64");
+const runnable=js.replace('from "./classroomArt"','from "'+artUrl+'"');
+const {CLASSROOM_SEATS:seats,classroomCamera,hitClassroomSeat}=await import("data:text/javascript;base64,"+Buffer.from(runnable).toString("base64"));
 
 test("all twelve signup seats have distinct world positions and bilingual row labels",()=>{
   assert.deepEqual(seats.map(s=>s.id),Array.from({length:12},(_,i)=>i+1));

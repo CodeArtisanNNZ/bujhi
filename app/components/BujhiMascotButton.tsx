@@ -19,12 +19,12 @@ export default function BujhiMascotButton({bangla}:{bangla:boolean}){
   },[open]);
   return <div ref={wrapper} className={styles.wrapper} data-no-translate>
     {open&&<div id="bujhi-greeting" className={styles.bubble}>
-      <p role="status">{bangla?"হাই, আমি বুঝি, তোমার পড়ার বন্ধু।":"Hi, I’m Bujhi, your study friend."}</p>
+      <p role="status">{bangla?"হাই, আমি বুঝি, তোমার পড়ার সঙ্গী।":"Hi, I’m Bujhi, your study buddy."}</p>
       <button type="button" className={styles.close} onClick={close} aria-label={bangla?"বুঝির বার্তা বন্ধ করো":"Close Bujhi’s message"}><X size={15}/></button>
     </div>}
     <button ref={button} type="button" className={styles.mascot} onClick={()=>setOpen(value=>!value)}
       aria-label={bangla?"বুঝিকে হ্যালো বলো":"Say hello to Bujhi"} aria-expanded={open} aria-controls="bujhi-greeting">
-      <ResponsiveImage src="/mascot/bujhi-cutout-640.webp" srcSet="/mascot/bujhi-cutout-320.webp 320w, /mascot/bujhi-cutout-640.webp 640w"
+      <ResponsiveImage src="/mascot/bujhi-pointer-640.webp" srcSet="/mascot/bujhi-pointer-320.webp 320w, /mascot/bujhi-pointer-640.webp 640w"
         sizes="(max-width: 650px) 100px, (max-width: 1150px) 15vw, 225px" width={640} height={780} alt="" loading="eager"/>
     </button>
   </div>;

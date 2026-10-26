@@ -1,3 +1,4 @@
+import {paintTexture,type ClassroomArt} from "./classroomArt";
 export type Point3=[number,number,number];
 export type ClassroomSeat={id:number;position:Point3;en:string;bn:string;style:number};
 const columns=[-3.7,-2.55,-1.4,1.4,2.55,3.7];
@@ -34,10 +35,12 @@ export function hitClassroomSeat(angle:number,width:number,height:number,x:numbe
   return hits[0]?.id??null;
 }
 
-type SceneOptions={angle:number;dark:boolean;selected:number|null;hovered:number|null;bangla:boolean;time:number};
+type SceneOptions={angle:number;dark:boolean;selected:number|null;hovered:number|null;bangla:boolean;time:number;art?:ClassroomArt};
 export function paintClassroom(ctx:CanvasRenderingContext2D,width:number,height:number,options:SceneOptions){
   const {project,eye}=classroomCamera(options.angle,width,height);
   const items:{depth:number;draw:()=>void}[]=[];
+  const groundItems:{depth:number;draw:()=>void}[]=[];
+  const art=options.art;
   const wood=options.dark?["#a47548","#704b31","#503726"]:["#c3945e","#a67543","#80532e"];
   const wall=options.dark?"#4b4033":"#ecddbf",floor=options.dark?"#5a4736":"#dfc7a3",line=options.dark?"#291f19":"#866747";
   const polygon=(points:Point3[],fill:string,stroke?:string,bias=0)=>{
@@ -52,14 +55,29 @@ export function paintClassroom(ctx:CanvasRenderingContext2D,width:number,height:
       ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.strokeStyle=color;ctx.lineWidth=strokeWidth;ctx.stroke();
     }});
   };
+  const texture=(points:Point3[],image:HTMLImageElement|HTMLCanvasElement,alpha=1,divisions=5)=>{
+    const corners=points.map(project);
+    items.push({depth:corners.reduce((sum,p)=>sum+p.depth,0)/4-.018,draw:()=>{
+      ctx.save();ctx.globalAlpha=alpha;
+      paintTexture(ctx,image,(u,v)=>{
+        const top=points[0].map((n,i)=>n+(points[1][i]-n)*u),bottom=points[3].map((n,i)=>n+(points[2][i]-n)*u);
+        return project(top.map((n,i)=>n+(bottom[i]-n)*v) as Point3);
+      },divisions);ctx.restore();
+    }});
+  };
   const box=(x:number,y:number,z:number,w:number,h:number,d:number,colors=wood)=>{
     const a=x-w/2,b=x+w/2,c=z-d/2,e=z+d/2,t=y+h;
     polygon([[a,t,c],[b,t,c],[b,t,e],[a,t,e]],colors[0],line);
     polygon(eye[2]>z?[[a,y,e],[b,y,e],[b,t,e],[a,t,e]]:[[b,y,c],[a,y,c],[a,t,c],[b,t,c]],colors[1],line);
     polygon(eye[0]>x?[[b,y,e],[b,y,c],[b,t,c],[b,t,e]]:[[a,y,c],[a,y,e],[a,t,e],[a,t,c]],colors[2],line);
+    if(art&&colors===wood&&w>1){
+      texture([[a,t,c],[b,t,c],[b,t,e],[a,t,e]],art.wood,.2,1);
+      texture(eye[2]>z?[[a,t,e],[b,t,e],[b,y,e],[a,y,e]]:[[b,t,c],[a,t,c],[a,y,c],[b,y,c]],art.wood,.15,1);
+    }
   };
   const disc=(x:number,y:number,z:number,rx:number,rz:number,fill:string)=>{
     polygon(Array.from({length:32},(_,i)=>{const a=i*Math.PI/16;return[x+Math.cos(a)*rx,y,z+Math.sin(a)*rz] as Point3;}),fill);
+    if(y<.1)groundItems.push(items.pop()!);
   };
   const sprite=(point:Point3,draw:(scale:number)=>void,bias=0)=>{
     const p=project(point);items.push({depth:p.depth+bias,draw:()=>{ctx.save();ctx.translate(p.x,p.y);draw(p.scale);ctx.restore();}});
@@ -73,6 +91,7 @@ export function paintClassroom(ctx:CanvasRenderingContext2D,width:number,height:
   for(let x=-5;x<=5;x++)line3([x,.012,-4.6],[x,.012,4.6],options.dark?"#725a4344":"#b8976d55",.65);
   for(let z=-4;z<=4;z++)line3([-5.2,.012,z],[5.2,.012,z],options.dark?"#725a4344":"#b8976d55",.65);
   for(let z=-3.6;z<3;z+=2.2)polygon([[-5.1,.025,z],[-1.9,.025,z+.65],[-.8,.025,z+1.3],[-5.1,.025,z+.55]],options.dark?"#f0cb6920":"#fff6d27a");
+  const floorItems=items.splice(0);
 
   function endWall(z:number){
     const front=z<0;if(!(front?eye[2]>z:eye[2]<z))return;
@@ -98,12 +117,11 @@ export function paintClassroom(ctx:CanvasRenderingContext2D,width:number,height:
     polygon([[x,0,-4.6],[x,0,4.6],[x,4.25,4.6],[x,4.25,-4.6]],wall);
     polygon([[X,0,-4.6],[X,0,4.6],[X,1.05,4.6],[X,1.05,-4.6]],options.dark?"#6e3730":"#a95441");
     for(const z of [-2.9,0,2.9]){
-      polygon([[X,1.45,z-1.06],[X,1.45,z+1.06],[X,3.85,z+1.06],[X,3.85,z-1.06]],wood[1],line);
-      polygon([[X+inset,1.56,z-.96],[X+inset,1.56,z+.96],[X+inset,3.74,z+.96],[X+inset,3.74,z-.96]],options.dark?"#657565":"#c4d1a3");
-      for(let n=0;n<4;n++){const yy=1.9+n*.45,zz=z-.7+(n%2)*.8;polygon([[X+inset*2,yy,zz-.35],[X+inset*2,yy+.45,zz],[X+inset*2,yy+.08,zz+.42]],n%2?"#75945d":"#92ac73");}
-      line3([X+inset*3,1.5,z],[X+inset*3,3.8,z],wood[2],3);
-      line3([X+inset*3,2.65,z-1],[X+inset*3,2.65,z+1],wood[2],3);
-      line3([X+inset*3,1.45,z-1.1],[X+inset*3,1.45,z+1.1],wood[0],4);
+      if(art){
+        const image=art.windowFrames[Math.floor(options.time/280)%art.windowFrames.length],xImage=X+inset*3;
+        const near=z+1.06,far=z-1.06;
+        texture([[xImage,3.85,left?near:far],[xImage,3.85,left?far:near],[xImage,1.45,left?far:near],[xImage,1.45,left?near:far]],image,options.dark?.82:1);
+      }
     }
   }
   sideWall(-5.2);sideWall(5.2);
@@ -150,32 +168,21 @@ export function paintClassroom(ctx:CanvasRenderingContext2D,width:number,height:
   CLASSROOM_SEATS.forEach(seat=>{
     const [x,,z]=seat.position,front=Math.cos(options.angle)<-.15;
     if(seat.id===options.selected||seat.id===options.hovered){disc(x,.05,z,.57,.45,seat.id===options.selected?"#b83e374d":"#f7dfa15c");disc(x,.055,z,.4,.3,"#f8e4b962");}
-    sprite([x,1.12,z],scale=>{
-      ctx.scale(scale,scale);ctx.lineJoin="round";ctx.lineWidth=.022;ctx.strokeStyle="#533726";
-      const hijab=seat.style===1||seat.style===3,girl=seat.style!==0,skin=["#ba845a","#c9946a","#b67c51","#d3a477"][seat.id%4];
-      ctx.fillStyle=girl?"#943d35":"#f6edda";
-      ctx.beginPath();ctx.moveTo(-.25,-.26);ctx.quadraticCurveTo(-.41,-.13,-.41,.3);ctx.lineTo(.4,.3);ctx.quadraticCurveTo(.4,-.1,.23,-.26);ctx.closePath();ctx.fill();ctx.stroke();
-      if(girl){ctx.fillStyle="#f4ead7";ctx.beginPath();ctx.moveTo(-.2,-.26);ctx.lineTo(-.04,.26);ctx.lineTo(.06,.26);ctx.lineTo(-.08,-.3);ctx.fill();}
-      ctx.fillStyle=hijab?(seat.style===3?"#efe7d4":"#92382f"):"#30271f";ctx.beginPath();ctx.ellipse(0,-.6,.285,.32,0,0,Math.PI*2);ctx.fill();
-      if(hijab){ctx.beginPath();ctx.moveTo(-.25,-.62);ctx.lineTo(-.36,-.13);ctx.quadraticCurveTo(0,.03,.36,-.13);ctx.lineTo(.25,-.62);ctx.fill();}
-      if(front){
-        ctx.fillStyle=skin;ctx.beginPath();ctx.ellipse(0,-.58,.205,.253,0,0,Math.PI*2);ctx.fill();
-        if(!hijab){ctx.fillStyle="#30271f";ctx.beginPath();ctx.moveTo(-.25,-.58);ctx.bezierCurveTo(-.33,-1.05,.35,-.98,.25,-.59);ctx.lineTo(.13,-.79);ctx.lineTo(-.08,-.74);ctx.fill();}
-        ctx.fillStyle=skin;ctx.beginPath();ctx.ellipse(0,.18,.43,.06,0,0,Math.PI*2);ctx.fill();
-      }else if(!hijab&&girl){
-        ctx.strokeStyle="#30271f";ctx.lineWidth=.09;for(const sign of [-1,1]){ctx.beginPath();ctx.moveTo(sign*.16,-.43);ctx.quadraticCurveTo(sign*.23,-.2,sign*.15,.07);ctx.stroke();}
-      }
-      if(!front&&!girl){ctx.fillStyle=skin;ctx.fillRect(-.07,-.32,.14,.1);}
+    if(!art)return;
+    const variant=seat.style===0?0:seat.style===2?1:2,image=art.pupils[variant+(front?0:3)];
+    sprite([x,front?1.02:.67,z],scale=>{
+      const h=scale*(front?1.13:1.39),w=h*image.width/image.height;
+      ctx.rotate(Math.sin(options.time*.00065+seat.id)*.003);
+      if(options.dark)ctx.globalAlpha=.94;
+      ctx.drawImage(image,-w/2,-h,w,h);
     });
   });
-  if(Math.cos(options.angle)>-.2)sprite([-.85,1.4,-3.3],scale=>{
-    ctx.scale(scale,scale);ctx.fillStyle="#f1dfb5";ctx.strokeStyle="#764c36";ctx.lineWidth=.025;
-    ctx.beginPath();ctx.moveTo(-.2,-.65);ctx.lineTo(.21,-.65);ctx.lineTo(.4,1.15);ctx.lineTo(-.4,1.15);ctx.closePath();ctx.fill();ctx.stroke();
-    ctx.strokeStyle="#913b31";ctx.lineWidth=.14;ctx.beginPath();ctx.moveTo(.19,-.62);ctx.lineTo(-.29,.75);ctx.stroke();
-    ctx.fillStyle="#b78259";ctx.beginPath();ctx.ellipse(0,-.96,.22,.29,0,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle="#30241c";ctx.beginPath();ctx.ellipse(-.15,-1.14,.15,.17,-.2,0,Math.PI*2);ctx.fill();
-    ctx.strokeStyle="#b78259";ctx.lineWidth=.12;ctx.beginPath();ctx.moveTo(.2,-.56);ctx.lineTo(.48,-.23);ctx.lineTo(.7,-.5);ctx.stroke();
-    ctx.fillStyle="#68503a";ctx.save();ctx.rotate(.15);ctx.fillRect(-.25,-.15,.4,.48);ctx.restore();
+  if(art&&Math.cos(options.angle)>-.2)sprite([-1.05,.04,-3.15],scale=>{
+    const image=art.teacherFrames[Math.floor(options.time/210)%art.teacherFrames.length];
+    const h=scale*3.04,w=h*image.width/image.height;
+    ctx.rotate(Math.sin(options.time*.0008)*.004);
+    if(options.dark)ctx.globalAlpha=.94;
+    ctx.drawImage(image,-w/2,-h,w,h);
   });
   line3([0,4.25,0],[0,3.78,0],wood[2],2);
   for(let i=0;i<3;i++){
@@ -183,6 +190,8 @@ export function paintClassroom(ctx:CanvasRenderingContext2D,width:number,height:
     polygon([point(.13,-.3),point(1.05,-.12),point(1.05,.12),point(.13,.3)],options.dark?"#a99b7d":"#e0d0ad","#84765d");
   }
   disc(0,3.77,0,.17,.17,"#7e6a4c");
-  ctx.clearRect(0,0,width,height);items.sort((a,b)=>b.depth-a.depth).forEach(item=>item.draw());
+  ctx.clearRect(0,0,width,height);
+  floorItems.forEach(item=>item.draw());groundItems.forEach(item=>item.draw());
+  items.sort((a,b)=>b.depth-a.depth).forEach(item=>item.draw());
   return CLASSROOM_SEATS.map(seat=>({id:seat.id,...project([seat.position[0],2.16,seat.position[2]])}));
 }
