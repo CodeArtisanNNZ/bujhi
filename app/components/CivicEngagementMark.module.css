@@ -1,0 +1,23 @@
+/* Frame the supplied artwork without its large outer blank margins. */
+.mark {
+  display: block;
+  position: relative;
+  flex: 0 0 auto;
+  width: 78px;
+  aspect-ratio: 1200 / 820;
+  overflow: hidden;
+  background: #fffaf4;
+}
+.mark img {
+  position: absolute;
+  display: block;
+  width: 127.833333%;
+  max-width: none;
+  height: auto;
+  left: -21.666667%;
+  top: -52.439024%;
+  border-radius: 0;
+}
+@media (max-width: 650px) {
+  .mark { width: 64px; }
+}

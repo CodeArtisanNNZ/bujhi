@@ -463,3 +463,13 @@ html[lang="bn"] #bujhi-content :is(.about-hero,.classroom-intro) h1{font-size:cl
   .site-socials{width:100%}
   .site-socials a{min-height:40px;padding:8px 14px}
 }
+
+/* Keep the two marks together in the navigation and homepage footer. */
+.bujhi-brand-lockup{display:flex;align-items:center;gap:14px;flex-shrink:0}
+@media(min-width:1101px) and (max-width:1280px){.bujhi-nav-inner{gap:12px;padding-inline:16px}.bujhi-links{gap:4px}.bujhi-links a{font-size:12px;padding-inline:5px}}
+@media(max-width:650px){.bujhi-brand-lockup{gap:8px}}
+@media(max-width:420px){
+  :root{--nav-height:112px}
+  .bujhi-nav-inner{flex-wrap:wrap;justify-content:center;gap:3px}
+  .bujhi-nav-actions{width:100%;margin-left:0;justify-content:center}
+}
