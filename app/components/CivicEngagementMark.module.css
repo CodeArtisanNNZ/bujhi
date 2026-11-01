@@ -1,8 +1,7 @@
-/* Use Bujhi's own typefaces and theme tokens for the partner mark. */
+/* Bujhi typography and colors for the Civic Engagement Cell text lockup. */
 .mark {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
   min-width: 0;
   min-height: 38px;
   flex: 0 0 auto;
@@ -10,30 +9,6 @@
   border-inline-start: 1px solid var(--line);
   white-space: nowrap;
   vertical-align: middle;
-}
-
-.artwork {
-  position: relative;
-  display: block;
-  flex: 0 0 28px;
-  width: 28px;
-  aspect-ratio: 1200 / 820;
-  overflow: hidden;
-  border-radius: 3px;
-  background: var(--paper);
-}
-
-.artwork img {
-  position: absolute;
-  display: block;
-  width: 127.833333%;
-  max-width: none;
-  height: auto;
-  left: -21.666667%;
-  top: -52.439024%;
-  border-radius: 0;
-  /* Keep the supplied mark, but tone down its original colors to Bujhi's burgundy. */
-  filter: grayscale(1) sepia(1) saturate(4) hue-rotate(316deg) contrast(1.1);
 }
 
 .wordmark {
@@ -58,7 +33,7 @@
   text-transform: uppercase;
 }
 
-/* The homepage footer is a charcoal surface, so use cream and soft rose for contrast. */
+/* On the dark footer, keep both lines legible. */
 :global(.site-footer) .mark {
   border-inline-start-color: #806862;
 }
@@ -68,17 +43,11 @@
 :global(.site-footer) .mark .subtitle {
   color: #edb7a8;
 }
-:global(.site-footer) .artwork {
-  background: #fffaf4;
-}
 
 @media (max-width: 650px) {
   .mark {
     min-height: 30px;
     padding-inline-start: 8px;
-  }
-  .artwork {
-    display: none;
   }
   .mark .name {
     font-size: 14px;
