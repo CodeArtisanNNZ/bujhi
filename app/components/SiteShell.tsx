@@ -6,6 +6,7 @@ import {createContext,useContext,useEffect,useRef,useState} from "react";
 import {Menu,X,Sun,Moon} from "lucide-react";
 import LanguageToggle from "./LanguageToggle";
 import BujhiPeek from "./BujhiPeek";
+import CivicEngagementMark from "./CivicEngagementMark";
 
 type Theme="light"|"dark";
 type Role="student"|"teacher";
@@ -109,7 +110,7 @@ export default function SiteShell({children}:{children:React.ReactNode}){
     <a className="skip-link" href="#bujhi-content">{bn?"মূল বিষয়বস্তুতে যাও":"Skip to content"}</a>
     <header ref={header} className="bujhi-nav" data-no-translate>
       <div className="bujhi-nav-inner">
-        <Link className="bujhi-brand" href="/" aria-label="Bujhi home"><img src="/optimized/bujhi-icon-96.webp" width="36" height="36" alt=""/>Bujhi</Link>
+        <div className="bujhi-brand-lockup"><Link className="bujhi-brand" href="/" aria-label="Bujhi home"><img src="/optimized/bujhi-icon-96.webp" width="36" height="36" alt=""/>Bujhi</Link><CivicEngagementMark/></div>
         <nav id="bujhi-navigation" aria-label={bn?"প্রধান নেভিগেশন":"Main navigation"} className={open?"bujhi-links is-open":"bujhi-links"}>
           {links.map(link=><Link key={link.href} href={link.href} onClick={()=>setOpen(false)} aria-current={path===link.href||(path==="/signup"&&link.href==="/register")?"page":undefined}>{link.label}</Link>)}
         </nav>
