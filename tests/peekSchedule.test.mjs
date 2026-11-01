@@ -27,8 +27,8 @@ function setup(random=.5){
   return {schedule,advance,events,timers,block:()=>{canShow=false;},unblock:()=>{canShow=true;}};
 }
 
-test("first and repeat peeks wait a random 2–3 minutes, stay for six seconds, then fully hide",()=>{
-  for(const [random,wait] of [[0,120000],[.5,150000],[.999999,179999]]){
+test("first and repeat peeks wait a random 5–10 minutes, stay for six seconds, then fully hide",()=>{
+  for(const [random,wait] of [[0,300000],[.5,450000],[.999999,600000]]){
     const t=setup(random);t.schedule.resume();
     t.advance(wait-1);assert.deepEqual(t.events,[]);
     t.advance(1);assert.deepEqual(t.events,[["show",wait]]);
@@ -42,15 +42,15 @@ test("first and repeat peeks wait a random 2–3 minutes, stay for six seconds, 
 test("a hidden tab preserves its countdown and never accumulates missed peeks",()=>{
   const t=setup();t.schedule.resume();t.advance(60000);t.schedule.pause();
   t.advance(900000);assert.deepEqual(t.events,[]);assert.equal(t.timers.size,0);
-  t.schedule.resume();t.advance(89999);assert.deepEqual(t.events,[]);
+  t.schedule.resume();t.advance(389999);assert.deepEqual(t.events,[]);
   t.advance(1);assert.equal(t.events[0][0],"show");
   t.schedule.pause();assert.equal(t.events.at(-1)[0],"hide");
-  t.advance(900000);t.schedule.resume();t.advance(149999);assert.equal(t.events.length,2);
+  t.advance(900000);t.schedule.resume();t.advance(449999);assert.equal(t.events.length,2);
   t.advance(1);assert.equal(t.events.at(-1)[0],"show");
 });
 
 test("a focused form or open overlay defers the visit; cleanup cancels every pending callback",()=>{
-  const t=setup(0);t.schedule.resume();t.block();t.advance(150000);assert.deepEqual(t.events,[]);
+  const t=setup(0);t.schedule.resume();t.block();t.advance(300000);assert.deepEqual(t.events,[]);
   t.unblock();t.advance(10000);assert.equal(t.events.at(-1)[0],"show");
   t.schedule.dispose();assert.equal(t.timers.size,0);assert.equal(t.events.at(-1)[0],"hide");
   t.schedule.resume();t.advance(1000000);assert.equal(t.events.length,2);

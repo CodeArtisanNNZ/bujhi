@@ -1,5 +1,5 @@
-export const PEEK_MIN_WAIT=120_000;
-export const PEEK_MAX_WAIT=180_000;
+export const PEEK_MIN_WAIT=300_000;
+export const PEEK_MAX_WAIT=600_000;
 export const PEEK_DURATION=6_000;
 
 type PeekClock={
@@ -20,7 +20,7 @@ export function createPeekSchedule(show:()=>void,hide:()=>void,clock:PeekClock){
   let showing=false;
   let disposed=false;
 
-  function nextWait(){return PEEK_MIN_WAIT+Math.floor(clock.random()*(PEEK_MAX_WAIT-PEEK_MIN_WAIT));}
+  function nextWait(){return PEEK_MIN_WAIT+Math.floor(clock.random()*(PEEK_MAX_WAIT-PEEK_MIN_WAIT+1));}
   function clear(){if(timer!==undefined){clock.clearTimer(timer);timer=undefined;}}
   function arm(delay:number,callback:()=>void){
     clear();

@@ -2,6 +2,7 @@
 
 import {useEffect,useState,type CSSProperties} from "react";
 import {createPeekSchedule,PEEK_DURATION} from "./peekSchedule";
+import {nextPeekSide,peekEdgeOffset,type PeekSide} from "./peekSides";
 import styles from "./bujhi-peek.module.css";
 
 function Eye(){
@@ -23,16 +24,26 @@ function Paw({x,side}:{x:number;side:"left"|"right"}){
   </g>;
 }
 
+type PeekVisit={side:PeekSide;offset:number};
+
 export default function BujhiPeek(){
-  const [visit,setVisit]=useState<{top:number}|null>(null);
+  const [visit,setVisit]=useState<PeekVisit|null>(null);
 
   useEffect(()=>{
     const motion=window.matchMedia("(prefers-reduced-motion: reduce)");
+    let previousSide:PeekSide|null=null;
     const schedule=createPeekSchedule(
-      ()=>setVisit({top:38+Math.random()*28}),
+      ()=>{
+        const side=nextPeekSide(previousSide,Math.random);
+        previousSide=side;
+        setVisit({
+          side,
+          offset:peekEdgeOffset(side,window.innerWidth,window.innerHeight,Math.random)
+        });
+      },
       ()=>setVisit(null),
       {
-        now:()=>performance.now(),random:()=>Math.random(),
+        now:()=>performance.now(),random:Math.random,
         setTimer:(callback,delay)=>window.setTimeout(callback,delay),
         clearTimer:timer=>window.clearTimeout(timer),
         canShow:()=>!document.querySelector('dialog[open],[aria-modal="true"],.modal,.bujhi-menu[aria-expanded="true"]')
@@ -51,7 +62,12 @@ export default function BujhiPeek(){
   },[]);
 
   if(!visit)return null;
-  return <div className={styles.peek} style={{top:`${visit.top}%`,"--peek-duration":`${PEEK_DURATION}ms`} as CSSProperties} aria-hidden="true" data-no-translate data-bujhi-peek>
+  const vertical=visit.side==="left"||visit.side==="right";
+  const style={
+    ...(vertical?{top:`${visit.offset}px`}:{left:`${visit.offset}px`}),
+    "--peek-duration":`${PEEK_DURATION}ms`
+  } as CSSProperties;
+  return <div className={`${styles.peek} ${styles[visit.side]}`} style={style} aria-hidden="true" data-no-translate data-bujhi-peek data-side={visit.side}>
     <svg viewBox="0 0 300 780" width="300" height="780" focusable="false">
       <defs>
         <clipPath id="bujhi-peek-edge"><rect width="960" height="388"/></clipPath>

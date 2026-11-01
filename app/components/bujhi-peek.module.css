@@ -1,16 +1,37 @@
 .peek {
   position: fixed;
-  z-index: 60;
-  left: 0;
+  z-index: 105;
   width: clamp(70px, 8vw, 110px);
   aspect-ratio: 300 / 780;
   overflow: hidden;
-  transform: translateY(-50%);
   pointer-events: none;
   user-select: none;
   contain: layout paint;
 }
 .peek > svg {display: block; width: 100%; height: auto;}
+
+/* Side peeks face inward; reverse the whole silhouette on the right edge. */
+.left {left: 0; transform: translateY(-50%);}
+.right {right: 0; transform: translateY(-50%) scaleX(-1);}
+
+/* Rotating the same artwork lets Bujhi peek downward or upward as well.
+   These frames use the SVG's rotated bounds, so no page overflow is created. */
+.top,.bottom {
+  width: clamp(180px, 24vw, 290px);
+  aspect-ratio: 780 / 300;
+  transform: translateX(-50%);
+}
+.top {top: 0;}
+.bottom {bottom: 0;}
+.top > svg,.bottom > svg {
+  position: absolute;
+  width: 38.461538%;
+  height: auto;
+  transform-origin: top left;
+}
+.top > svg {left: 100%; top: 0; transform: rotate(90deg);}
+.bottom > svg {left: 0; top: 100%; transform: rotate(-90deg);}
+
 .lift,.tilt,.gaze,.blink,.leftHand,.rightHand,.leftFade,.rightFade {
   animation-duration: var(--peek-duration);
   animation-timing-function: cubic-bezier(.4,0,.6,1);
