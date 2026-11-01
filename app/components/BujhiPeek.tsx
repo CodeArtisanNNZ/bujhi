@@ -63,10 +63,11 @@ export default function BujhiPeek(){
 
   if(!visit)return null;
   const vertical=visit.side==="left"||visit.side==="right";
-  const style={
-    ...(vertical?{top:`${visit.offset}px`}:{left:`${visit.offset}px`}),
-    "--peek-duration":`${PEEK_DURATION}ms`
-  } as CSSProperties;
+  const style: CSSProperties & {"--peek-duration": string} = {
+    top: vertical ? `${visit.offset}px` : undefined,
+    left: vertical ? undefined : `${visit.offset}px`,
+    "--peek-duration": `${PEEK_DURATION}ms`
+  };
   const edgeClass = visit.side==="left" ? styles.left : visit.side==="right" ? styles.right : visit.side==="top" ? styles.top : styles.bottom;
   return <div className={`${styles.peek} ${edgeClass}`} style={style} aria-hidden="true" data-no-translate data-bujhi-peek data-side={visit.side}>
     <svg viewBox="0 0 300 780" width="300" height="780" focusable="false">
