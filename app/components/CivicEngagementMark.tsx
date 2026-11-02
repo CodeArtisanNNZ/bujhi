@@ -12,6 +12,7 @@ export default function CivicEngagementMark() {
         <defs>
           <filter id={filterId} colorInterpolationFilters="sRGB">
             <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  -0.36142 -1.21584 -0.12274 0 1.5"/>
+            <feMorphology operator="erode" radius="3"/>
           </filter>
           <mask id={maskId} maskUnits="userSpaceOnUse" x="250" y="425" width="1200" height="820" style={{maskType:"alpha"}}>
             <image href="/civic-engagement-cell.jpg" width="1534" height="1536" filter={`url(#${filterId})`}/>
