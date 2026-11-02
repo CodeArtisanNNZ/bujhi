@@ -57,8 +57,8 @@ export default function ResearchPage(){
    </div>
 
    <div className={styles.teacherPhotos}>
-    <figure><img src="/research/listening-to-teachers-1200.webp" srcSet="/research/listening-to-teachers-480.webp 480w, /research/listening-to-teachers-1200.webp 1200w" sizes="(max-width:650px) 90vw, 45vw" width="1200" height="900" alt="A Bujhi team member listening during a teacher interview, with research notes on the table" loading="lazy" decoding="async"/><figcaption>Listening to teachers · September 2026</figcaption></figure>
-    <figure><img src="/research/teacher-discussion-1200.webp" srcSet="/research/teacher-discussion-480.webp 480w, /research/teacher-discussion-1200.webp 1200w" sizes="(max-width:650px) 90vw, 45vw" width="1200" height="900" alt="A Bujhi team member talking with a teacher in a school room" loading="lazy" decoding="async"/><figcaption>Conversations at school · October 2026</figcaption></figure>
+    <figure><img src="/research/teacher-interview-blue-1-1200.webp" srcSet="/research/teacher-interview-blue-1-480.webp 480w, /research/teacher-interview-blue-1-1200.webp 1200w" sizes="(max-width:650px) 90vw, 45vw" width="1200" height="900" alt="A Bujhi team member listening during a teacher interview, with research notes on the table" loading="lazy" decoding="async"/><figcaption>Listening to teachers · 30 September 2026</figcaption></figure>
+    <figure><img src="/research/teacher-interview-blue-2-1200.webp" srcSet="/research/teacher-interview-blue-2-480.webp 480w, /research/teacher-interview-blue-2-1200.webp 1200w" sizes="(max-width:650px) 90vw, 45vw" width="1200" height="900" alt="A Bujhi team member talking with a teacher in a school room" loading="lazy" decoding="async"/><figcaption>Teacher conversations · 30 September 2026</figcaption></figure>
    </div>
 
    <div className="teacher-voices-grid">
@@ -96,7 +96,7 @@ export default function ResearchPage(){
 
    <div className={`research-gallery-grid ${styles.gallery}`}>
     {[
-      {src:"teacher-interview",label:"Teacher interview",note:"Listening and documenting classroom experiences · September 2026",alt:"A teacher and a Bujhi team member in conversation across a desk"},
+      {src:"teacher-interview-blue-1",label:"Teacher interview",note:"Listening and documenting classroom experiences · 30 September 2026",alt:"A teacher and a Bujhi team member in conversation across a desk"},
       {src:"school-environment",label:"School environment",note:"Looking beyond the lesson to its setting · October 2026",alt:"A school courtyard and surrounding classroom buildings"},
       {src:"school-conversations",label:"School conversations",note:"Discussion around the table · October 2026",alt:"Bujhi team members speaking with school staff at a desk"},
       {src:"classroom-observation",label:"Inside the classroom",note:"Learning from a room full of learners · October 2026",alt:"Students seated in a classroom during a Bujhi field visit"},
