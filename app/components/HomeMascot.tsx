@@ -4,7 +4,7 @@ import BujhiMascotButton from "./BujhiMascotButton";
 import styles from "../home.module.css";
 
 // Normalized silhouette landmarks in the pointer artwork, including its outline.
-const HEAD_EDGE=.617,POINTER_EDGE=.869;
+const HEAD_EDGE=.617,POINTER_EDGE=.898;
 export default function HomeMascot({bangla}:{bangla:boolean}){
   const wrapper=useRef<HTMLDivElement>(null);
   useLayoutEffect(()=>{
