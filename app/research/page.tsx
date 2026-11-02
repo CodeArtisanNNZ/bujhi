@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import {ArrowRight,BookOpen,Camera,Image as ImageIcon,Lightbulb,MessageSquareQuote,Search,School} from "lucide-react";
+import styles from "./photos.module.css";
+import {ArrowRight,BookOpen,Camera,Lightbulb,MessageSquareQuote,Search,School} from "lucide-react";
 
 const researchSteps=[
   {number:"01",title:"Listen first",copy:"We begin with the people already inside the learning environment: teachers and students."},
@@ -55,6 +56,11 @@ export default function ResearchPage(){
     <MessageSquareQuote aria-hidden="true"/>
    </div>
 
+   <div className={styles.teacherPhotos}>
+    <figure><img src="/research/listening-to-teachers-1200.webp" srcSet="/research/listening-to-teachers-480.webp 480w, /research/listening-to-teachers-1200.webp 1200w" sizes="(max-width:650px) 90vw, 45vw" width="1200" height="900" alt="A Bujhi team member listening during a teacher interview, with research notes on the table" loading="lazy" decoding="async"/><figcaption>Listening to teachers · September 2026</figcaption></figure>
+    <figure><img src="/research/teacher-discussion-1200.webp" srcSet="/research/teacher-discussion-480.webp 480w, /research/teacher-discussion-1200.webp 1200w" sizes="(max-width:650px) 90vw, 45vw" width="1200" height="900" alt="A Bujhi team member talking with a teacher in a school room" loading="lazy" decoding="async"/><figcaption>Conversations at school · October 2026</figcaption></figure>
+   </div>
+
    <div className="teacher-voices-grid">
     {voiceSlots.map((item,index)=><article key={item.subject}>
       <div className="teacher-voice-top">
@@ -83,32 +89,27 @@ export default function ResearchPage(){
     <div>
      <p className="eyebrow">Photo Gallery</p>
      <h2>Research is not only notes. It is the places, people and moments that shape Bujhi.</h2>
-     <p>Field visits, teacher conversations, classroom observations and the work behind each research decision will live here.</p>
+     <p>Moments from Bujhi’s fieldwork: teacher conversations, school visits and classroom activities.</p>
     </div>
     <Camera aria-hidden="true"/>
    </div>
 
-   <div className="research-gallery-grid">
+   <div className={`research-gallery-grid ${styles.gallery}`}>
     {[
-      {label:"Teacher interview",note:"Conversation and classroom insight",size:"wide"},
-      {label:"School visit",note:"Learning from the environment",size:"tall"},
-      {label:"Field notes",note:"What we noticed and wrote down",size:"small"},
-      {label:"Classroom observation",note:"Seeing how students respond",size:"small"},
-      {label:"Research team",note:"The people documenting the process",size:"wide"},
-      {label:"Behind the lesson",note:"Turning findings into a Bujhi feature",size:"small"}
-    ].map((item,index)=><article className={`research-gallery-card ${item.size}`} key={item.label}>
-      <div className="research-gallery-placeholder">
-       <ImageIcon aria-hidden="true"/>
-       <span>Photo {String(index+1).padStart(2,"0")}</span>
-      </div>
-      <div className="research-gallery-caption">
-       <strong>{item.label}</strong>
-       <span>{item.note}</span>
-      </div>
+      {src:"teacher-interview",label:"Teacher interview",note:"Listening and documenting classroom experiences · September 2026",alt:"A teacher and a Bujhi team member in conversation across a desk"},
+      {src:"school-environment",label:"School environment",note:"Looking beyond the lesson to its setting · October 2026",alt:"A school courtyard and surrounding classroom buildings"},
+      {src:"school-conversations",label:"School conversations",note:"Discussion around the table · October 2026",alt:"Bujhi team members speaking with school staff at a desk"},
+      {src:"classroom-observation",label:"Inside the classroom",note:"Learning from a room full of learners · October 2026",alt:"Students seated in a classroom during a Bujhi field visit"},
+      {src:"fieldwork-team",label:"The team on the road",note:"Travelling together for fieldwork · October 2026",alt:"Bujhi team members travelling together on a bus"},
+      {src:"student-participation",label:"Student participation",note:"Making room for students to take part · October 2026",alt:"A student standing and participating during a classroom discussion"}
+    ].map(item=><article className={`research-gallery-card ${styles.card}`} key={item.src}>
+      <a className={styles.photoLink} href={`/research/${item.src}-1200.webp`} target="_blank" rel="noopener noreferrer" aria-label={`View full photo: ${item.label}`}>
+       <img src={`/research/${item.src}-1200.webp`} srcSet={`/research/${item.src}-480.webp 480w, /research/${item.src}-1200.webp 1200w`} sizes="(max-width:650px) 90vw, (max-width:900px) 45vw, 30vw" width="1200" height="900" alt={item.alt} loading="lazy" decoding="async"/>
+       <div className="research-gallery-caption"><strong>{item.label}</strong><span>{item.note}</span></div>
+      </a>
     </article>)}
    </div>
-
-   <p className="research-gallery-note">Real Bujhi research photos will replace these frames as the fieldwork archive grows.</p>
+   <p className="research-gallery-note">From the Bujhi team’s fieldwork archive. Select a photo to view it in full.</p>
   </section>
 
   <section className="research-evidence">
