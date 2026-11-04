@@ -111,7 +111,7 @@ export default function StudentBookPage(){
           </Link>
         </div>
 
-        {classKey==="8"&&<WritersLink/>}
+        {classKey==="8"&&<WritersLink bookId={book.id}/>}
         <div className={styles.status}>{pdfStatus}</div>
         <div className={styles.filePath}>
           {book.pdfPath.startsWith("https://")?ui("PDF উৎস","PDF source"):ui("PDF আপলোডের জায়গা","PDF upload slot")}
