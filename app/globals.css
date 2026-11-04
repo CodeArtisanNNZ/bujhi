@@ -1087,7 +1087,7 @@ html[lang="bn"] select{
   order:1;
   position:relative;
   width:min(520px,100%);
-  height:430px;
+  height:360px;
   margin-left:18px;
   touch-action:pan-y;
 }
@@ -1135,19 +1135,19 @@ html[lang="bn"] select{
   left:12px;
   top:30px;
   z-index:var(--team-z);
-  width:250px;
-  height:330px;
+  width:200px;
+  height:264px;
   padding:0;
   overflow:hidden;
   border:1px solid rgba(238,220,211,.16);
-  border-radius:28px;
+  border-radius:22px;
   background:#30231f;
   box-shadow:
     0 24px 46px rgba(26,13,9,.26),
     0 12px 32px rgba(139,0,0,.10);
   transform:
-    translateX(calc(var(--team-offset) * 62px))
-    translateY(calc(var(--team-offset) * 24px))
+    translateX(calc(var(--team-offset) * 50px))
+    translateY(calc(var(--team-offset) * 20px))
     scale(calc(1 - var(--team-offset) * .045));
   transform-origin:center;
   transition:transform .48s cubic-bezier(.2,.8,.2,1),opacity .32s ease,filter .35s ease,box-shadow .35s ease;
@@ -1288,13 +1288,13 @@ html[lang="bn"] select{
     padding:85px 20px 95px;
   }
   .team-stage-copy{order:1;max-width:650px}
-  .team-card-stack{order:2;height:390px;margin:0 auto;width:min(430px,100%)}
+  .team-card-stack{order:2;height:330px;margin:0 auto;width:min(430px,100%)}
   .team-profile-card{
-    width:220px;
-    height:292px;
+    width:180px;
+    height:240px;
     left:4px;
     transform:
-      translateX(calc(var(--team-offset) * 48px))
+      translateX(calc(var(--team-offset) * 34px))
       translateY(calc(var(--team-offset) * 20px))
       scale(calc(1 - var(--team-offset) * .04));
   }
@@ -1303,14 +1303,14 @@ html[lang="bn"] select{
   .team-showcase{padding-left:16px;padding-right:16px}
   .team-copy-transition h2{font-size:2.5rem}
   .team-copy-transition>p{font-size:.92rem}
-  .team-card-stack{height:345px;width:100%;max-width:350px}
+  .team-card-stack{height:295px;width:100%;max-width:350px}
   .team-profile-card{
-    width:190px;
-    height:255px;
+    width:160px;
+    height:214px;
     border-radius:22px;
     transform:
-      translateX(calc(var(--team-offset) * 40px))
-      translateY(calc(var(--team-offset) * 18px))
+      translateX(calc(var(--team-offset) * 34px))
+      translateY(calc(var(--team-offset) * 15px))
       scale(calc(1 - var(--team-offset) * .042));
   }
   .team-card-overlay{left:14px;right:14px;bottom:13px}
