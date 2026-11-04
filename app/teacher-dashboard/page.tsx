@@ -1,5 +1,6 @@
 "use client";
 import ResponsiveImage from "../components/ResponsiveImage";
+import CupSteam from "../components/CupSteam";
 import DeskCalendar from "../components/DeskCalendar";
 
 // Production teacher desk route
@@ -218,7 +219,7 @@ export default function TeacherDashboard(){
       <aside className={styles.drinkArea}>
         <button type="button" className={styles.cupHotspot} onClick={()=>setDrinkOpen(v=>!v)} aria-expanded={drinkOpen}>
           <span key={drink} className={styles.drinkImageFrame}>
-            {(drink==="tea"||drink==="coffee")&&<span className={styles.steam}><i/><i/><i/></span>}
+            {(drink==="tea"||drink==="coffee")&&<CupSteam drink={drink}/>}
             <ResponsiveImage className={styles.drinkImage} sizes="180px" src={activeDrink.image} alt="" draggable={false}/>
           </span>
           <span className={styles.drinkLabel}>{activeDrink.label} · বদলাও</span>

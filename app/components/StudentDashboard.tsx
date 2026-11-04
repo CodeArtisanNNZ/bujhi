@@ -1,5 +1,6 @@
 "use client";
 import ResponsiveImage from "./ResponsiveImage";
+import CupSteam from "./CupSteam";
 import DeskCalendar from "./DeskCalendar";
 import RotatingDeskGlobe from "./RotatingDeskGlobe";
 
@@ -196,7 +197,7 @@ export default function StudentDashboard(){
         <aside className={styles.drinkArea}>
           <button type="button" className={styles.cupHotspot} onClick={()=>setDrinkOpen(value=>!value)} aria-expanded={drinkOpen} aria-label={`Change desk drink: ${activeDrink.label}`}>
             <span key={drink} className={styles.drinkImageFrame} aria-hidden="true">
-              {(drink==="tea"||drink==="coffee")&&<span className={styles.steam}><i/><i/><i/></span>}
+              {(drink==="tea"||drink==="coffee")&&<CupSteam drink={drink}/>}
               <ResponsiveImage className={styles.drinkImage} sizes="180px" src={activeDrink.image} alt="" draggable={false}/>
             </span>
             <span className={styles.drinkLabel}>{activeDrink.label} · Change</span>
