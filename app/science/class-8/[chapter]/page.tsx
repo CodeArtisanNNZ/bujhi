@@ -1,4 +1,5 @@
 "use client";
+import {useLanguage} from "../../../components/useLanguage";
 
 import Link from "next/link";
 import {useParams} from "next/navigation";
@@ -23,7 +24,7 @@ function clamp(n:number,min:number,max:number){return Math.min(max,Math.max(min,
 
 export default function ScienceLesson(){
  const params=useParams();const slug=String(params.chapter||"");const chapter=chapters[slug as keyof typeof chapters];
- const lang:Lang="bn";const[role,setRole]=useState<"student"|"teacher"|null>(null);
+ const lang:Lang=useLanguage();const[role,setRole]=useState<"student"|"teacher"|null>(null);
  const[topic,setTopic]=useState(0),[prediction,setPrediction]=useState<string|null>(null),[observed,setObserved]=useState(false),[explanation,setExplanation]=useState("");
  const[temperature,setTemperature]=useState(24),[concentration,setConcentration]=useState(7),[elapsed,setElapsed]=useState(0),[running,setRunning]=useState(false);
  const[flow,setFlow]=useState(0),[flowerPart,setFlowerPart]=useState(0),[lightSide,setLightSide]=useState<"left"|"right">("left");

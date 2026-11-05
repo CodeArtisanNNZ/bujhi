@@ -1,4 +1,6 @@
 "use client";
+import {useLanguage} from "../../../../../components/useLanguage";
+import BookTitle from "../../../../../components/BookTitle";
 
 // deploy retry: class 8 ICT chapter cards
 
@@ -20,7 +22,7 @@ export default function LearnBookPage(){
   const bookId=Array.isArray(params.bookId)?params.bookId[0]:String(params.bookId||"");
   const classKey=validClasses.includes(classKeyRaw as StudentClassKey)?classKeyRaw as StudentClassKey:null;
   const book=useMemo(()=>classKey?findNctbBook(classKey,bookId):undefined,[classKey,bookId]);
-  const bookUsesEnglish=Boolean(book&&/^[A-Za-z]/.test(book.title));
+  const bookUsesEnglish=useLanguage()==="en";
   const ui=(bn:string,en:string)=>bookUsesEnglish?en:bn;
   const classLabelBn:Record<StudentClassKey,string>={"6":"ষষ্ঠ শ্রেণি","7":"সপ্তম শ্রেণি","8":"অষ্টম শ্রেণি","9-10":"নবম থেকে দশম শ্রেণি"};
   const classLabel=classKey?(bookUsesEnglish?studentClassLabels[classKey]:classLabelBn[classKey]):"";
@@ -57,7 +59,7 @@ export default function LearnBookPage(){
     <section className={styles.lessonPage}>
       <div className={styles.lessonHero} style={{"--accent":book.accent} as React.CSSProperties}>
         <p>{classLabel} · {ui("পাঠ শিখি","Learn Lesson")}</p>
-        <h1>{book.title}</h1>
+        <h1><BookTitle book={book}/></h1>
         <span>{book.englishTitle}</span>
       </div>
 

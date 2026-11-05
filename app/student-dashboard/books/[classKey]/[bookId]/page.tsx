@@ -1,4 +1,6 @@
 "use client";
+import {useLanguage} from "../../../../components/useLanguage";
+import BookTitle from "../../../../components/BookTitle";
 
 import Link from "next/link";
 import {useParams,useRouter} from "next/navigation";
@@ -19,7 +21,7 @@ export default function StudentBookPage(){
   const bookId=Array.isArray(params.bookId)?params.bookId[0]:String(params.bookId||"");
   const classKey=validClasses.includes(classKeyRaw as StudentClassKey)?classKeyRaw as StudentClassKey:null;
   const book=useMemo(()=>classKey?findNctbBook(classKey,bookId):undefined,[classKey,bookId]);
-  const bookUsesEnglish=Boolean(book&&/^[A-Za-z]/.test(book.title));
+  const bookUsesEnglish=useLanguage()==="en";
   const ui=(bn:string,en:string)=>bookUsesEnglish?en:bn;
   const classLabelBn:Record<StudentClassKey,string>={"6":"ষষ্ঠ শ্রেণি","7":"সপ্তম শ্রেণি","8":"অষ্টম শ্রেণি","9-10":"নবম থেকে দশম শ্রেণি"};
   const classLabel=classKey?(bookUsesEnglish?studentClassLabels[classKey]:classLabelBn[classKey]):"";
@@ -84,13 +86,13 @@ export default function StudentBookPage(){
       <article className={styles.bookCover} style={{"--accent":book.accent} as React.CSSProperties}>
         <div className={styles.glyph}>{book.glyph}</div>
         <small>{classLabel} · {ui("NCTB পাঠ্যবই","NCTB textbook")}</small>
-        <h1>{book.title}</h1>
+        <h1><BookTitle book={book}/></h1>
         <p>{book.englishTitle}</p>
       </article>
 
       <article className={styles.notebook}>
         <p className={styles.eyebrow}>{ui("আমার পাঠ্যবই","My textbook")}</p>
-        <h2>{book.title}</h2>
+        <h2><BookTitle book={book}/></h2>
         <p className={styles.english}>{book.englishTitle}</p>
         <p className={styles.note}>{ui("এই বইটি কীভাবে ব্যবহার করবে বেছে নাও। PDF বোতাম মূল আপলোড করা পাঠ্যবই খুলবে, আর ‘পাঠ শিখি’ বুঝি?-এর এই বইয়ের পাঠের জায়গা খুলবে।","Choose how you want to use this book. The PDF button checks for the actual uploaded textbook file. Learn Lesson opens the Bujhi? lesson space for this exact book.")}</p>
 

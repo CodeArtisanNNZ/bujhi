@@ -1,12 +1,16 @@
+"use client";
+import {useLanguage} from "../../components/useLanguage";
+import {bookLanguage,fixedBookLanguage,localizeBook} from "../../i18n";
 import Link from "next/link";
 import type {CSSProperties} from "react";
 import {ArrowLeft,ArrowRight,BookOpen,Headphones} from "lucide-react";
 import type {StudyBook} from "../../data/class8StudyBooks";
 import styles from "./study.module.css";
 import WritersLink from "./WritersLink";
-export default function StudyBookOverview({book}:{book:StudyBook}){
- const en=book.id.startsWith("english");const n=(v:number)=>v.toLocaleString(en?"en":"bn-BD",{useGrouping:false});
- return <main className={styles.page} style={{"--book-accent":book.accent} as CSSProperties} lang={en?"en":"bn"} data-no-translate><div className={styles.container}>
+export default function StudyBookOverview({book:sourceBook}:{book:StudyBook}){
+ const language=bookLanguage(sourceBook.id,useLanguage());const book=localizeBook(sourceBook,language);
+ const en=language==="en";const n=(v:number)=>v.toLocaleString(en?"en":"bn-BD",{useGrouping:false});
+ return <main className={styles.page} style={{"--book-accent":book.accent} as CSSProperties} lang={en?"en":"bn"} data-no-translate={fixedBookLanguage(book.id)?true:undefined}><div className={styles.container}>
   <header className={styles.topbar}><nav className={styles.breadcrumb}><Link href="/learn/class-8"><ArrowLeft size={18}/>{en?"All Class 8 books":"অষ্টম শ্রেণির সব বই"}</Link></nav></header>
   <section className={styles.hero}><div><p><span className={styles.subjectBadge}>{en?"Class 8":"অষ্টম শ্রেণি"}</span> · NCTB ২০২৬</p><h1>{book.title}</h1><span>{en?"Choose a unit to read, practise and save your place.":"মূল বইয়ের নাম ও ক্রমে সাজানো পাঠ। একটি পাঠ বেছে পড়ে, অনুশীলন করে নিজের জায়গা সংরক্ষণ করো।"}</span></div><div className={styles.chapterStamp}><small>{en?"SECTIONS":"পাঠ-অংশ"}</small><b>{n(book.entries.length)}</b></div></section>
   <WritersLink bookId={book.id}/>

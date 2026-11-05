@@ -267,7 +267,7 @@ export default function IctChapterReader({chapter,chapters}:{chapter:IctChapter;
  const previousChapter=chapters.find(item=>item.number===chapter.number-1);
  const nextChapter=chapters.find(item=>item.number===chapter.number+1);
 
- return <main className={styles.page} lang="bn" data-no-translate>
+ return <main className={styles.page}>
   <div className={styles.container}>
    <header className={styles.topbar}>
     <nav className={styles.breadcrumb} aria-label="পাঠের অবস্থান">

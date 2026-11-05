@@ -4,7 +4,7 @@ import {class8IctChapters,ictTextbookSource} from "../../data/class8Ict";
 import styles from "./reader.module.css";
 const bn=(n:number)=>n.toLocaleString("bn-BD",{useGrouping:false});
 export default function IctChapterOverview(){
- return <main className={styles.page} lang="bn" data-no-translate><div className={styles.container}>
+ return <main className={styles.page}><div className={styles.container}>
   <header className={styles.topbar}><nav className={styles.breadcrumb} aria-label="বইয়ে ফিরি"><Link href="/student-dashboard/books/8/ict"><ArrowLeft size={19}/>তথ্য ও যোগাযোগ প্রযুক্তির বইয়ে ফিরি</Link></nav></header>
   <section className={styles.hero}>
    <div><p>অষ্টম শ্রেণি · তথ্য ও যোগাযোগ প্রযুক্তি · NCTB ২০২৬</p><h1>একটি অধ্যায় বেছে পড়ি</h1><span>বইয়ের আসল নাম ও ক্রমে সাজানো পাঠ। প্রতিটি অধ্যায়ে নম্বর বেছে বা পয়েন্টার টেনে একই পৃষ্ঠায় পাঠ বদলাতে পারবে।</span></div>
