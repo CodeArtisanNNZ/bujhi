@@ -1,4 +1,7 @@
 "use client";
+import BookTitle from "./BookTitle";
+import {useLanguage} from "./useLanguage";
+import {bookTitle} from "../i18n";
 import ResponsiveImage from "./ResponsiveImage";
 import CupSteam from "./CupSteam";
 import DeskCalendar from "./DeskCalendar";
@@ -27,6 +30,7 @@ const drinkOptions:{id:Drink;label:string;image:string}[]=[
 ];
 
 export default function StudentDashboard(){
+  const language=useLanguage();
   const router=useRouter();
   const sceneRef=useRef<HTMLElement|null>(null);
   const[profile,setProfile]=useState<Profile>({class_level:"8"});
@@ -127,7 +131,7 @@ export default function StudentDashboard(){
       </div>
 
       <div className={styles.dynamicProfile}>
-        <span><UsersRound/></span><strong>{firstName}</strong>
+        <span><UsersRound/></span><strong data-user-content={profile.full_name?true:undefined}>{firstName}</strong>
         <button type="button" onClick={logout} aria-label="Log out"><LogOut/></button>
       </div>
 
@@ -144,11 +148,11 @@ export default function StudentDashboard(){
           style={{backgroundColor:book.accent}}
           onClick={()=>openBook(book)}
           onMouseEnter={()=>setSelectedBookId(book.id)}
-          aria-label={`Open ${book.title}`}
+          aria-label={`Open $<BookTitle book={book}/>`}
           title={book.englishTitle}
         >
           <span className={styles.bookGlyph}>{book.glyph}</span>
-          <span className={styles.bookTitle}>{book.title}</span>
+          <span className={styles.bookTitle}><BookTitle book={book}/></span>
           <small>NCTB</small>
         </button>)}
       </div>
@@ -156,7 +160,7 @@ export default function StudentDashboard(){
       <div className={styles.studyNotebook}>
         <div className={styles.notebookBinding} aria-hidden="true"/>
         <p>{studentClassLabels[classKey]} · My study desk</p>
-        <h1>{selectedBook.title}</h1>
+        <h1><BookTitle book={selectedBook}/></h1>
         <span>{selectedBook.englishTitle} · Open the book page to read the PDF or learn the lesson.</span>
         <button type="button" onClick={()=>openBook(selectedBook)}><Play size={16}/> Open this book</button>
         <small>Every book has its own PDF + Learn Lesson page.</small>
@@ -213,7 +217,7 @@ export default function StudentDashboard(){
       <div className={styles.deskFooter}>
         <DeskCalendar className={styles.liveCalendar}/>
         <button type="button" className={styles.stickyHotspot} onClick={()=>setPanel("notes")} aria-label="Open sticky note">
-          <StickyNote size={19}/><strong>A thought to keep</strong><span>{note||"Write something you want to remember…"}</span>
+          <StickyNote size={19}/><strong>A thought to keep</strong><span data-user-content={note?true:undefined}>{note||"Write something you want to remember…"}</span>
         </button>
       </div>
     </section>
@@ -227,7 +231,7 @@ export default function StudentDashboard(){
           <div className={styles.noteMeta}><span>{note.length}/500</span><strong>Saved automatically</strong></div>
         </>}
         {panel==="practice"&&<>
-          <div className={styles.panelHeader}><span style={{background:selectedBook.accent}}>{selectedBook.glyph}</span><div><p>Practice</p><h2>{selectedBook.title}</h2><small>{studentClassLabels[classKey]}</small></div></div>
+          <div className={styles.panelHeader}><span style={{background:selectedBook.accent}}>{selectedBook.glyph}</span><div><p>Practice</p><h2><BookTitle book={selectedBook}/></h2><small>{studentClassLabels[classKey]}</small></div></div>
           <div className={styles.practiceCards}>
             <article><strong>Quick check</strong><p>Short questions will connect to this textbook's lesson content.</p><button disabled>Coming with lessons</button></article>
             <article><strong>Practice set</strong><p>Topic-wise exercises will appear after lesson content is added.</p><button disabled>Coming with lessons</button></article>

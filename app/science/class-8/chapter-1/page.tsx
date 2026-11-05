@@ -1,4 +1,5 @@
 "use client";
+import {useLanguage} from "../../../components/useLanguage";
 
 import Link from "next/link";
 import {useEffect,useMemo,useState} from "react";
@@ -11,7 +12,7 @@ const mysteries=["amphibia","arthropoda","aves","annelida","mollusca","reptilia"
 const choices=["amphibia","reptilia","aves","mammalia","annelida","arthropoda","mollusca","echinodermata"];
 
 export default function AnimalExplorer(){
- const lang:Lang="bn";
+ const lang:Lang=useLanguage();
  const[role,setRole]=useState<"teacher"|"student"|null>(null);
  const[mode,setMode]=useState<Mode>("explore");
  const[branch,setBranch]=useState<"invertebrate"|"vertebrate"|null>(null);
