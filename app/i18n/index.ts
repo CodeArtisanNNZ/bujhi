@@ -23,6 +23,8 @@ export function translate(text:string,language:Language):string{
   value=value.replace(/[০-৯]/g,c=>String(c.charCodeAt(0)-0x09e6)).replace(/\bClass ([\d&–-]+) new\b/g,"Class $1");
   const exactDigits=direct(value);if(exactDigits)return leading+exactDigits+trailing;
   value=value.replace(/^(\d+)টি (পাঠ্যবই|বই|পাঠ-অংশ|অধ্যায়|নামযুক্ত পাঠ-অংশ)$/,(_,n,kind)=>`${n} ${kind==="বই"?"books":kind==="পাঠ্যবই"?"textbooks":kind==="অধ্যায়"?"chapters":"sections"}`)
+   .replace(/^টি পাঠ-অংশ$/," sections")
+   .replace(/^টি বই$/," books")
    .replace(/^শ্রেণি ([\d–&-]+)(?: new)?$/,"Class $1")
    .replace(/^অধ্যা[য়য়] (\d+)$/,"Chapter $1")
    .replace(/^পাঠ (\d+)$/,"Lesson $1")

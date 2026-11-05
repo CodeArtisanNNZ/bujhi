@@ -94,4 +94,5 @@ export const extraPairs:readonly (readonly [string,string])[]=[
 ["Research record","গবেষণার নথি"],["This page will grow with the project.","প্রকল্পের সঙ্গে এই পাতাও সমৃদ্ধ হবে।"],
 ["Teacher interviews are only one part of the research. Classroom observations, student feedback, lesson testing and field visits can be added here as Bujhi develops.","শিক্ষকদের সাক্ষাৎকার গবেষণার একটি অংশ। বুঝির অগ্রগতির সঙ্গে শ্রেণিকক্ষের পর্যবেক্ষণ, শিক্ষার্থীদের মতামত, পাঠ পরীক্ষা ও মাঠপর্যায়ের কাজ এখানে যোগ হবে।"],
 ["Read the Bujhi story","বুঝির গল্প পড়ি"],
+["Start learning","পড়া শুরু করি"],
 ];
