@@ -7,22 +7,23 @@ import {ArrowLeft,BookOpen,FileText,GraduationCap,Headphones} from "lucide-react
 import styles from "../../book.module.css";
 import WritersLink from "../../../../learn/class-8/WritersLink";
 import {
-  findNctbBook,studentClassKey,studentClassLabels,type StudentClassKey
+  findNctbBook,studentClassKey,type StudentClassKey
 } from "../../../../data/nctbBooks";
+
+import {localizedBookTitle,localizedClassName,useBujhiLanguage} from "../../../../lib/i18n";
 
 const validClasses:StudentClassKey[]=["6","7","8","9-10"];
 
 export default function StudentBookPage(){
   const params=useParams();
   const router=useRouter();
+  const language=useBujhiLanguage();
   const classKeyRaw=Array.isArray(params.classKey)?params.classKey[0]:String(params.classKey||"");
   const bookId=Array.isArray(params.bookId)?params.bookId[0]:String(params.bookId||"");
   const classKey=validClasses.includes(classKeyRaw as StudentClassKey)?classKeyRaw as StudentClassKey:null;
   const book=useMemo(()=>classKey?findNctbBook(classKey,bookId):undefined,[classKey,bookId]);
-  const bookUsesEnglish=Boolean(book&&/^[A-Za-z]/.test(book.title));
-  const ui=(bn:string,en:string)=>bookUsesEnglish?en:bn;
-  const classLabelBn:Record<StudentClassKey,string>={"6":"ষষ্ঠ শ্রেণি","7":"সপ্তম শ্রেণি","8":"অষ্টম শ্রেণি","9-10":"নবম থেকে দশম শ্রেণি"};
-  const classLabel=classKey?(bookUsesEnglish?studentClassLabels[classKey]:classLabelBn[classKey]):"";
+  const ui=(bn:string,en:string)=>language==="bn"?bn:en;
+  const classLabel=classKey?localizedClassName(classKey,language):"";
   const[ready,setReady]=useState(false);
   const[pdfStatus,setPdfStatus]=useState("");
   const[checkingPdf,setCheckingPdf]=useState(false);
@@ -70,12 +71,12 @@ export default function StudentBookPage(){
   }
 
   if(!classKey||!book){
-    return <main className={styles.page}><section className={styles.error}><h1>বই পাওয়া যায়নি</h1><p>এই শ্রেণির তাকে বইটি নেই।</p><Link href="/student-dashboard">আমার ডেস্কে ফিরি</Link></section></main>;
+    return <main className={styles.page} data-no-translate><section className={styles.error}><h1>{ui("বই পাওয়া যায়নি","Book not found")}</h1><p>{ui("এই শ্রেণির তাকে বইটি নেই।","This book is not on the class shelf.")}</p><Link href="/student-dashboard">{ui("আমার ডেস্কে ফিরি","Back to my desk")}</Link></section></main>;
   }
 
-  if(!ready)return <main className={styles.page}><div className={styles.loading}>{ui("বই খোলা হচ্ছে…","Opening your book…")}</div></main>;
+  if(!ready)return <main className={styles.page} data-no-translate><div className={styles.loading}>{ui("বই খোলা হচ্ছে…","Opening your book…")}</div></main>;
 
-  return <main className={styles.page}>
+  return <main className={styles.page} data-no-translate>
     <header className={styles.topbar}>
       <Link className={styles.back} href="/student-dashboard"><ArrowLeft/>{ui(`${classLabel} ডেস্কে ফিরি`,`Back to ${classLabel} desk`)}</Link>
     </header>
@@ -84,13 +85,13 @@ export default function StudentBookPage(){
       <article className={styles.bookCover} style={{"--accent":book.accent} as React.CSSProperties}>
         <div className={styles.glyph}>{book.glyph}</div>
         <small>{classLabel} · {ui("NCTB পাঠ্যবই","NCTB textbook")}</small>
-        <h1>{book.title}</h1>
+        <h1>{localizedBookTitle(book,language)}</h1>
         <p>{book.englishTitle}</p>
       </article>
 
       <article className={styles.notebook}>
         <p className={styles.eyebrow}>{ui("আমার পাঠ্যবই","My textbook")}</p>
-        <h2>{book.title}</h2>
+        <h2>{localizedBookTitle(book,language)}</h2>
         <p className={styles.english}>{book.englishTitle}</p>
         <p className={styles.note}>{ui("এই বইটি কীভাবে ব্যবহার করবে বেছে নাও। PDF বোতাম মূল আপলোড করা পাঠ্যবই খুলবে, আর ‘পাঠ শিখি’ বুঝি?-এর এই বইয়ের পাঠের জায়গা খুলবে।","Choose how you want to use this book. The PDF button checks for the actual uploaded textbook file. Learn Lesson opens the Bujhi? lesson space for this exact book.")}</p>
 
