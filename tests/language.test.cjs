@@ -44,3 +44,9 @@ test('localization never changes book identifiers, routes, sources or category v
   const localized=localizeBook(book,lang);for(const key of ['id','pdfPath','accent','category','englishTitle'])assert.equal(localized[key],book[key]);
  }
 });
+
+test("split text nodes and canonical Bangla question spelling translate",()=>{
+ assert.equal(translate("টি পাঠ-অংশ", "en"), " sections");
+ assert.equal(translate("পড়া শুরু করি", "en"), "Start learning");
+ assert.equal(translate("এই পাঠে “সাদৃশ্য ও বৈসাদৃশ্য” বলতে কী বোঝায়?".normalize("NFC"), "en"), "What does “Similarities and differences” mean in this lesson?");
+});

@@ -11,7 +11,7 @@ export function bookTitle(book:Pick<NctbBook,"id"|"title"|"englishTitle">,langua
 const pairs=[...generatedPairs,...extraPairs,...chapterPairs,...guidePairs];
 for(const books of Object.values(studentBookCatalog))for(const book of books)if(!fixedBookLanguage(book.id))pairs.push([book.englishTitle,book.title]);
 const en=new Map<string,string>(),bn=new Map<string,string>();
-export const normalize=(text:string)=>text.trim().replace(/\s+/g," ").normalize("NFC");
+export const normalize=(text:string)=>text.trim().replace(/\s+/g," ").normalize("NFC").replace(/\u09af\u09bc/g,"\u09df").replace(/\u09a1\u09bc/g,"\u09dc").replace(/\u09a2\u09bc/g,"\u09dd");
 for(const [english,bangla] of pairs){en.set(normalize(bangla),english);bn.set(normalize(english).toLowerCase(),bangla);}
 export function translate(text:string,language:Language):string{
  const leading=text.match(/^\s*/)?.[0]||"",trailing=text.match(/\s*$/)?.[0]||"";
