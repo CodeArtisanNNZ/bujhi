@@ -11,8 +11,9 @@ import {
 } from "lucide-react";
 import styles from "../dashboard/dashboard.module.css";
 import {
-  studentBookCatalog,studentClassKey,studentClassLabels,type NctbBook
+  studentBookCatalog,studentClassKey,type NctbBook
 } from "../data/nctbBooks";
+import {localizedBookTitle,localizedClassName,useBujhiLanguage} from "../lib/i18n";
 
 type Profile={full_name?:string;role?:string;class_level?:string};
 type Drink="boba"|"tea"|"coffee"|"water"|"lemonade";
@@ -28,6 +29,13 @@ const drinkOptions:{id:Drink;label:string;image:string}[]=[
 
 export default function StudentDashboard(){
   const router=useRouter();
+  const language=useBujhiLanguage();
+  const t=(en:string,bn:string)=>language==="bn"?bn:en;
+  const title=(book:NctbBook)=>localizedBookTitle(book,language);
+  const drinkName=(drink:Drink)=>({
+    boba:t("Boba tea","বাবল টি"),tea:t("Tea","চা"),
+    coffee:t("Coffee","কফি"),water:t("Water","পানি"),lemonade:t("Lemonade","লেবুর শরবত")
+  })[drink];
   const sceneRef=useRef<HTMLElement|null>(null);
   const[profile,setProfile]=useState<Profile>({class_level:"8"});
   const[profileReady,setProfileReady]=useState(false);
@@ -72,6 +80,7 @@ export default function StudentDashboard(){
 
   const classKey=studentClassKey(profile.class_level);
   const books=studentBookCatalog[classKey];
+  const className=localizedClassName(classKey,language);
   const selectedBook=useMemo<NctbBook>(()=>books.find(book=>book.id===selectedBookId)||books[0],[books,selectedBookId]);
   const firstName=profile.full_name?.trim().split(" ")[0]||"Student";
   const activeDrink=drinkOptions.find(item=>item.id===drink)||drinkOptions[1];
@@ -114,29 +123,29 @@ export default function StudentDashboard(){
   }
 
   if(!profileReady){
-    return <main className={styles.page}><div className={styles.studentLoading}>Opening your study desk…</div></main>;
+    return <main className={styles.page}><div className={styles.studentLoading}>{t("Opening your study desk…","তোমার পড়ার ডেস্ক খোলা হচ্ছে…")}</div></main>;
   }
 
-  return <main className={`${styles.page} ${deskLightOn?"":styles.pageDim}`}>
-    <section ref={sceneRef} className={styles.referenceDesk} aria-label={`Bujhi ${studentClassLabels[classKey]} study desk`}>
+  return <main className={`${styles.page} ${deskLightOn?"":styles.pageDim}`} lang={language} data-no-translate>
+    <section ref={sceneRef} className={styles.referenceDesk} aria-label={t(`Bujhi ${className} study desk`,`বুঝি ${className} পড়ার ডেস্ক`)}>
       <div className={styles.dynamicClass}>
         <div className={styles.classPill}>
-          <strong>{studentClassLabels[classKey]}</strong>
-          <span>NCTB 2026 · {books.length} books</span>
+          <strong>{className}</strong>
+          <span>NCTB 2026 · {books.length} {t("books","টি বই")}</span>
         </div>
       </div>
 
       <div className={styles.dynamicProfile}>
         <span><UsersRound/></span><strong>{firstName}</strong>
-        <button type="button" onClick={logout} aria-label="Log out"><LogOut/></button>
+        <button type="button" onClick={logout} aria-label={t("Log out","লগ আউট")}><LogOut/></button>
       </div>
 
       <div className={styles.shelfMeta}>
-        <strong>{studentClassLabels[classKey]} bookshelf</strong>
-        <span>Scroll the shelf · choose any NCTB textbook</span>
+        <strong>{className} {t("bookshelf","বইয়ের তাক")}</strong>
+        <span>{t("Scroll the shelf · choose any NCTB textbook","তাকটি সরিয়ে যেকোনো NCTB পাঠ্যবই বেছে নাও")}</span>
       </div>
 
-      <div className={styles.bookHotspots} aria-label={`${studentClassLabels[classKey]} NCTB textbooks`}>
+      <div className={styles.bookHotspots} aria-label={t(`${className} NCTB textbooks`,`${className} NCTB পাঠ্যবই`)}>
         {books.map(book=><button
           type="button"
           key={book.id}
@@ -144,28 +153,28 @@ export default function StudentDashboard(){
           style={{backgroundColor:book.accent}}
           onClick={()=>openBook(book)}
           onMouseEnter={()=>setSelectedBookId(book.id)}
-          aria-label={`Open ${book.title}`}
-          title={book.englishTitle}
+          aria-label={t(`Open ${title(book)}`,`${title(book)} খোলো`)}
+          title={title(book)}
         >
           <span className={styles.bookGlyph}>{book.glyph}</span>
-          <span className={styles.bookTitle}>{book.title}</span>
+          <span className={styles.bookTitle}>{title(book)}</span>
           <small>NCTB</small>
         </button>)}
       </div>
 
       <div className={styles.studyNotebook}>
         <div className={styles.notebookBinding} aria-hidden="true"/>
-        <p>{studentClassLabels[classKey]} · My study desk</p>
-        <h1>{selectedBook.title}</h1>
-        <span>{selectedBook.englishTitle} · Open the book page to read the PDF or learn the lesson.</span>
-        <button type="button" onClick={()=>openBook(selectedBook)}><Play size={16}/> Open this book</button>
-        <small>Every book has its own PDF + Learn Lesson page.</small>
+        <p>{className} · {t("My study desk","আমার পড়ার ডেস্ক")}</p>
+        <h1>{title(selectedBook)}</h1>
+        <span>{t("Open the book page to read the PDF or learn the lesson.","PDF পড়তে বা পাঠ শিখতে বইয়ের পাতা খোলো।")}</span>
+        <button type="button" onClick={()=>openBook(selectedBook)}><Play size={16}/> {t("Open this book","এই বই খোলো")}</button>
+        <small>{t("Every book has its own PDF + Learn Lesson page.","প্রতিটি বইয়ের নিজস্ব PDF ও পাঠ শেখার পাতা আছে।")}</small>
       </div>
 
-      <nav className={styles.actionHotspots} aria-label="Study tools">
-        <button type="button" onClick={()=>openBook(selectedBook)}><FileText size={18}/>Selected book</button>
-        <button type="button" onClick={()=>setPanel("practice")}><PenLine size={18}/>Practice</button>
-        <button type="button" onClick={()=>setPanel("notes")}><StickyNote size={18}/>My notes</button>
+      <nav className={styles.actionHotspots} aria-label={t("Study tools","পড়ার সরঞ্জাম")}>
+        <button type="button" onClick={()=>openBook(selectedBook)}><FileText size={18}/>{t("Selected book","নির্বাচিত বই")}</button>
+        <button type="button" onClick={()=>setPanel("practice")}><PenLine size={18}/>{t("Practice","অনুশীলন")}</button>
+        <button type="button" onClick={()=>setPanel("notes")}><StickyNote size={18}/>{t("My notes","আমার নোট")}</button>
       </nav>
 
       <div className={styles.deskSurface} aria-hidden="true"/>
@@ -179,59 +188,59 @@ export default function StudentDashboard(){
           className={`${styles.roomLightSwitch} ${deskLightOn?styles.lightOn:styles.lightOff}`}
           onClick={toggleDeskLamp}
           aria-pressed={deskLightOn}
-          aria-label={deskLightOn?"Dim the desk":"Brighten the desk"}
+          aria-label={deskLightOn?t("Dim the desk","ডেস্কের আলো কমাও"):t("Brighten the desk","ডেস্কের আলো বাড়াও")}
         >
           <span className={styles.roomLightTrack} aria-hidden="true">
-            <span className={`${styles.roomLightState} ${styles.roomLightOff}`}>OFF</span>
-            <span className={`${styles.roomLightState} ${styles.roomLightOn}`}>ON</span>
+            <span className={`${styles.roomLightState} ${styles.roomLightOff}`}>{t("OFF","বন্ধ")}</span>
+            <span className={`${styles.roomLightState} ${styles.roomLightOn}`}>{t("ON","চালু")}</span>
             <span className={styles.roomLightThumb}><i/></span>
           </span>
         </button>
 
-        <div className={styles.moneyPlant} role="img" aria-label="Money plant">
+        <div className={styles.moneyPlant} role="img" aria-label={t("Money plant","মানিপ্ল্যান্ট")}>
           <ResponsiveImage sizes="360px" src="/29e8b631-9c79-4996-b225-405227aa1153.png" alt="" draggable={false} loading="eager"/>
         </div>
 
         <RotatingDeskGlobe className={styles.studentGlobe} showFact={false}/>
 
         <aside className={styles.drinkArea}>
-          <button type="button" className={styles.cupHotspot} onClick={()=>setDrinkOpen(value=>!value)} aria-expanded={drinkOpen} aria-label={`Change desk drink: ${activeDrink.label}`}>
+          <button type="button" className={styles.cupHotspot} onClick={()=>setDrinkOpen(value=>!value)} aria-expanded={drinkOpen} aria-label={t(`Change desk drink: ${drinkName(activeDrink.id)}`,`ডেস্কের পানীয় বদলাও: ${drinkName(activeDrink.id)}`)}>
             <span key={drink} className={styles.drinkImageFrame} aria-hidden="true">
               {(drink==="tea"||drink==="coffee")&&<CupSteam drink={drink}/>}
               <ResponsiveImage className={styles.drinkImage} sizes="180px" src={activeDrink.image} alt="" draggable={false}/>
             </span>
-            <span className={styles.drinkLabel}>{activeDrink.label} · Change</span>
+            <span className={styles.drinkLabel}>{drinkName(activeDrink.id)} · {t("Change","বদলাও")}</span>
           </button>
           {drinkOpen&&<div className={styles.drinkMenu}>
-            <div className={styles.drinkMenuTitle}>Choose a drink</div>
+            <div className={styles.drinkMenuTitle}>{t("Choose a drink","পানীয় বেছে নাও")}</div>
             {drinkOptions.map(item=><button type="button" key={item.id} className={drink===item.id?styles.drinkActive:""} onClick={()=>chooseDrink(item.id)} aria-pressed={drink===item.id}>
-              <span className={styles.drinkThumb} aria-hidden="true"><ResponsiveImage sizes="80px" src={item.image} alt="" draggable={false}/></span><span>{item.label}</span>
+              <span className={styles.drinkThumb} aria-hidden="true"><ResponsiveImage sizes="80px" src={item.image} alt="" draggable={false}/></span><span>{drinkName(item.id)}</span>
             </button>)}
           </div>}
         </aside>
       </div>
       <div className={styles.deskFooter}>
         <DeskCalendar className={styles.liveCalendar}/>
-        <button type="button" className={styles.stickyHotspot} onClick={()=>setPanel("notes")} aria-label="Open sticky note">
-          <StickyNote size={19}/><strong>A thought to keep</strong><span>{note||"Write something you want to remember…"}</span>
+        <button type="button" className={styles.stickyHotspot} onClick={()=>setPanel("notes")} aria-label={t("Open sticky note","স্টিকি নোট খোলো")}>
+          <StickyNote size={19}/><strong>{t("A thought to keep","মনে রাখার একটি কথা")}</strong><span>{note||t("Write something you want to remember…","মনে রাখতে চাও এমন কিছু লেখো…")}</span>
         </button>
       </div>
     </section>
 
     {panel&&<div className={styles.overlay} onMouseDown={event=>{if(event.currentTarget===event.target)setPanel(null)}}>
       <section className={styles.panel}>
-        <button type="button" className={styles.closeButton} onClick={()=>setPanel(null)} aria-label="Close"><X/></button>
+        <button type="button" className={styles.closeButton} onClick={()=>setPanel(null)} aria-label={t("Close","বন্ধ করো")}><X/></button>
         {panel==="notes"&&<>
-          <div className={styles.panelHeader}><span className={styles.noteHeaderIcon}><StickyNote/></span><div><p>Personal notes</p><h2>My sticky note</h2><small>Saved automatically on this device for now.</small></div></div>
-          <textarea className={styles.noteEditor} value={note} onChange={event=>saveNote(event.target.value)} placeholder="Write something you want to remember..." maxLength={500}/>
-          <div className={styles.noteMeta}><span>{note.length}/500</span><strong>Saved automatically</strong></div>
+          <div className={styles.panelHeader}><span className={styles.noteHeaderIcon}><StickyNote/></span><div><p>{t("Personal notes","ব্যক্তিগত নোট")}</p><h2>{t("My sticky note","আমার স্টিকি নোট")}</h2><small>{t("Saved automatically on this device for now.","এখন এই ডিভাইসে স্বয়ংক্রিয়ভাবে সংরক্ষিত হচ্ছে।")}</small></div></div>
+          <textarea className={styles.noteEditor} value={note} onChange={event=>saveNote(event.target.value)} placeholder={t("Write something you want to remember...","মনে রাখতে চাও এমন কিছু লেখো…")} maxLength={500}/>
+          <div className={styles.noteMeta}><span>{note.length}/500</span><strong>{t("Saved automatically","স্বয়ংক্রিয়ভাবে সংরক্ষিত")}</strong></div>
         </>}
         {panel==="practice"&&<>
-          <div className={styles.panelHeader}><span style={{background:selectedBook.accent}}>{selectedBook.glyph}</span><div><p>Practice</p><h2>{selectedBook.title}</h2><small>{studentClassLabels[classKey]}</small></div></div>
+          <div className={styles.panelHeader}><span style={{background:selectedBook.accent}}>{selectedBook.glyph}</span><div><p>{t("Practice","অনুশীলন")}</p><h2>{title(selectedBook)}</h2><small>{className}</small></div></div>
           <div className={styles.practiceCards}>
-            <article><strong>Quick check</strong><p>Short questions will connect to this textbook's lesson content.</p><button disabled>Coming with lessons</button></article>
-            <article><strong>Practice set</strong><p>Topic-wise exercises will appear after lesson content is added.</p><button disabled>Coming with lessons</button></article>
-            <article><strong>Try again</strong><p>Revision will use the student's progress in this book.</p><button disabled>Coming with progress data</button></article>
+            <article><strong>{t("Quick check","দ্রুত যাচাই")}</strong><p>{t("Short questions will connect to this textbook's lesson content.","ছোট প্রশ্নগুলো এই বইয়ের পাঠের সঙ্গে যুক্ত থাকবে।")}</p><button disabled>{t("Coming with lessons","পাঠের সঙ্গে আসছে")}</button></article>
+            <article><strong>{t("Practice set","অনুশীলন সেট")}</strong><p>{t("Topic-wise exercises will appear after lesson content is added.","পাঠের বিষয়বস্তু যুক্ত হলে বিষয়ভিত্তিক অনুশীলন দেখা যাবে।")}</p><button disabled>{t("Coming with lessons","পাঠের সঙ্গে আসছে")}</button></article>
+            <article><strong>{t("Try again","আবার চেষ্টা করো")}</strong><p>{t("Revision will use the student's progress in this book.","পুনরাবৃত্তি এই বইয়ে শিক্ষার্থীর অগ্রগতির ওপর ভিত্তি করবে।")}</p><button disabled>{t("Coming with progress data","অগ্রগতির তথ্যের সঙ্গে আসছে")}</button></article>
           </div>
         </>}
       </section>
